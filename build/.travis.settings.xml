@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <servers>
+    <server>
+      <id>bintray</id>
+      <username>${env.BINTRAY_USER}</username>
+      <password>${env.BINTRAY_APIKEY}</password>
+    </server>
+    <!--  This entry can be removed for projects built on public travis (travis-ci.com) -->
+    <server>
+      <id>na-artifactory</id>
+      <username>${env.ARTIFACTORY_USER}</username>
+      <password>${env.ARTIFACTORY_APIKEY}</password>
+    </server>
+  </servers>
+</settings>

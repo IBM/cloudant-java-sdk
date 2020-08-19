@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <!-- Update this section to reflect the correct values for your SDK project -->
+    <parent>
+        <artifactId>cloudant-parent</artifactId>
+        <groupId>com.ibm.cloud</groupId>
+        <version>0.0.14</version>
+        <relativePath>../..</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cloudant-coverage-reports</artifactId>
+
+    <name>Cloudant Coverage Reports</name>
+
+    <dependencies>
+        <!--
+            There should be a dependency for EACH module in the project.
+            Add new "dependency" entries here as needed when you add modules to your parent pom.xml.
+            This will ensure that an aggregate code coverage report contains information for all of your modules.
+            Note: the "artifactId" values below should reflect the "artifactId" value specified in each module's
+            pom.xml file (i.e. not the module's directory name).
+        -->
+        <dependency>
+            <artifactId>cloudant-common</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Copy and update this section for each service added to the project. -->
+        <dependency>
+            <artifactId>cloudant</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- No need to deploy this artifact since it contains only coverage info -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.carrotgarden.maven</groupId>
+                <artifactId>bintray-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
