@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <suppress checks="UnusedImports"
+              files="Cloudant.java" />
+    <suppress checks="Header"
+              files="com/ibm/cloud/cloudant/v1/.*" />
+    <suppress checks="OperatorWrap"
+              files="modules/examples/src/main/java/.*" />
+    <suppress checks="HideUtilityClassConstructor"
+              files="modules/examples/src/main/java/.*" />
+</suppressions>

@@ -1,0 +1,482 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cloudant-parent</artifactId>
+
+    <name>IBM Cloudant Java SDK</name>
+
+    <description>Java Client Library to access IBM Cloudant</description>
+
+    <url>https://github.com/IBM/cloudant-java-sdk</url>
+
+    <groupId>com.ibm.cloud</groupId>
+    <version>0.0.3</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <sdk-core-version>9.0.1</sdk-core-version>
+
+        <git-repository-name>cloudant-java-sdk</git-repository-name>
+
+        <testng-version>7.1.0</testng-version>
+        <okhttp3-version>3.14.9</okhttp3-version>
+        <surefire-version>3.0.0-M3</surefire-version>
+        <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
+        <bintray-plugin-version>1.5.20191113165555</bintray-plugin-version>
+        <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
+        <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
+        <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
+        <maven-javadoc-plugin-version>3.1.1</maven-javadoc-plugin-version>
+        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
+        <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
+        <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
+        <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
+        <maven-failsafe-plugin-version>3.0.0-M4</maven-failsafe-plugin-version>
+        <maven-buildnumber-plugin-version>1.4</maven-buildnumber-plugin-version>
+        <powermock-version>2.0.5</powermock-version>
+        <mockito-version>3.2.4</mockito-version>
+        <slf4j-version>1.7.28</slf4j-version>
+
+        <!-- Deployment-related properties -->
+        <bintray.org>ibm-cloud-sdks</bintray.org>
+        <bintray.repo>cloudant-java-sdk</bintray.repo>
+        <bintray.package.url>https://github.com/IBM/cloudant-java-sdk</bintray.package.url>
+
+        <!-- Set UTF-8 encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <!-- This module should always be listed first -->
+        <module>modules/common</module>
+
+        <!-- >>> List each service's module here -->
+        <module>modules/cloudant</module>
+
+        <module>modules/examples</module>
+
+        <!-- This module should always be listed last -->
+        <module>modules/coverage-reports</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>IBM Cloud</name>
+    </organization>
+
+    <scm>
+        <connection>scm:git:https://github.com/IBM/cloudant-java-sdk</connection>
+        <developerConnection>scm:git:https://github.com/IBM/cloudant-java-sdk</developerConnection>
+        <url>https://github.com/IBM/cloudant-java-sdk/tree/master</url>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/IBM/cloudant-java-sdk/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>Travis-CI</system>
+        <url>https://travis.ibm.com/cloudant/cloudant-java-sdk/</url>
+    </ciManagement>
+
+    <profiles>
+        <profile>
+            <id>bintray</id>
+            <build>
+                <plugins>
+                    <!-- Disable default maven-deploy-plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <!-- Enable alternate bintray-maven-plugin -->
+                    <plugin>
+                        <groupId>com.carrotgarden.maven</groupId>
+                        <artifactId>bintray-maven-plugin</artifactId>
+                        <configuration>
+                            <skip>false</skip>
+
+                            <!-- Bintray oranization name. -->
+                            <subject>${bintray.org}</subject>
+
+                            <!-- Bintray target repository. -->
+                            <repository>${bintray.repo}</repository>
+
+                            <!-- Bintray credentials in settings.xml. -->
+                            <serverId>bintray</serverId>
+
+                            <!-- We'll use the maven coordinates for the bintray package name -->
+                            <bintrayPackage>${project.groupId}:${project.artifactId}</bintrayPackage>
+
+                            <!-- Use the project's github url when creating each module's package in the bintray repo -->
+                            <packageVcsUrl>${bintray.package.url}</packageVcsUrl>
+
+                            <performDestroy>false</performDestroy>
+                            <performCleanup>false</performCleanup>
+                            <performDeploy>true</performDeploy>
+                            <performEnsure>true</performEnsure>
+                            <retryFailedDeploymentCount>2</retryFailedDeploymentCount>
+                        </configuration>
+                        <executions>
+                            <!-- Activate "bintray:deploy" during "deploy" -->
+                            <execution>
+                                <?m2e ignore?>
+                                <id>bintray-deploy</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>artifactory</id>
+            <distributionManagement>
+                <repository>
+                    <id>na-artifactory</id>
+                    <url>https://na.artifactory.swg-devops.com:443/artifactory/cloudant-sdks-maven-local/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>java9plus</id>
+            <activation>
+                <jdk>[9,)</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin-version}</version>
+                        <configuration>
+                            <!-- Temporary workaround for https://issues.apache.org/jira/projects/MJAVADOC/issues/MJAVADOC-595 -->
+                            <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- This is the Java core dependency -->
+            <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>sdk-core</artifactId>
+                <version>${sdk-core-version}</version>
+            </dependency>
+
+            <!-- Each module (except "common") should depend on this artifact -->
+            <dependency>
+                <artifactId>cloudant.sdk.common</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>cloudant.sdk.common</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <classifier>tests</classifier>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- TestNG is used to run unit/integration tests -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp3-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>${okhttp3-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito2</artifactId>
+                <version>${powermock-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-testng</artifactId>
+                <version>${powermock-version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.carrotgarden.maven</groupId>
+                    <artifactId>bintray-maven-plugin</artifactId>
+                    <version>${bintray-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin-version}</version>
+                    <configuration>
+                        <quiet>true</quiet>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin-version}</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>verify-style</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <failsOnError>true</failsOnError>
+                        <configLocation>checkstyle.xml</configLocation>
+                        <consoleOutput>true</consoleOutput>
+                        <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+                        <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skipITs>${skipITs}</skipITs>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>${maven-buildnumber-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                        <shortRevisionLength>8</shortRevisionLength>
+                        <timestampFormat>{0,date,yyyyMMdd-HHmmss}</timestampFormat>
+                        <attach>true</attach>
+                        <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
+                        <doCheck>false</doCheck>
+                        <doUpdate>false</doUpdate>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin-version}</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Build-Time>${maven.build.timestamp}</Build-Time>
+                            </manifestEntries>
+                            <manifestSections>
+                                <manifestSection>
+                                    <name>Implementation</name>
+                                    <manifestEntries>
+                                        <Implementation-Title>${project.name}</Implementation-Title>
+                                        <Implementation-Vendor>IBM Corporation</Implementation-Vendor>
+                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                        <Implementation-SCM-Revision>${buildNumber}</Implementation-SCM-Revision>
+                                        <Implementation-SCM-Branch>${scmBranch}</Implementation-SCM-Branch>
+                                    </manifestEntries>
+                                </manifestSection>
+                            </manifestSections>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <!-- Note deploy plugin configuration via profile -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <show>public</show>
+                    <source>1.8</source>
+                    <doctitle>${project.name}, version ${project.version}</doctitle>
+                    <footer>IBM Corporation</footer>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>aggregate</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin-version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-reports-plugin-version}</version>
+                <reportSets>
+                    <reportSet></reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <developers>
+        <developer>
+            <name>IBM Cloudant</name>
+            <email>support@cloudant.com</email>
+            <url>https://www.ibm.com/cloud/cloudant</url>
+        </developer>
+    </developers>
+
+</project>

@@ -1,0 +1,49 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>cloudant-parent</artifactId>
+        <groupId>com.ibm.cloud</groupId>
+        <version>0.0.3</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
+    <artifactId>cloudant-examples</artifactId>
+    <packaging>jar</packaging>
+    <name>Cloudant Code Examples</name>
+
+    <dependencies>
+        <!--
+	        There should be a dependency for each module whose request example class
+	        exists in this "examples" module.
+	        Add new "dependency" entries here as needed when you add a request examples class
+	        for a new service.
+	        Note: the "artifactId" values below should reflect the "artifactId" value specified
+	        in each module's pom.xml file (i.e. not the module's directory name).
+        -->
+        <dependency>
+            <groupId>com.ibm.cloud</groupId>
+            <artifactId>cloudant</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>${slf4j-version}</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>IBM Cloudant</name>
+            <email>support@cloudant.com</email>
+            <url>https://www.ibm.com/cloud/cloudant</url>
+        </developer>
+    </developers>
+</project>

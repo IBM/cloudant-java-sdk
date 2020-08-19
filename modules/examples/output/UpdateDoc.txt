@@ -1,0 +1,7 @@
+You have updated the document:
+{
+  "_id": "example",
+  "_rev": "2-6cc06e9484d776322f7e697c03fb23f7",
+  "address": "19 Front Street, Darlington, DL5 1TY",
+  "name": "Bob Smith"
+}
