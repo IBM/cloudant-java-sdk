@@ -84,7 +84,7 @@
 
     <ciManagement>
         <system>Travis-CI</system>
-        <url>https://travis.ibm.com/cloudant/cloudant-java-sdk/</url>
+        <url>https://travis-ci.com/IBM/cloudant-java-sdk/</url>
     </ciManagement>
 
     <profiles>
