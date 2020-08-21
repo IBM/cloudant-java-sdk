@@ -132,6 +132,8 @@ void applyCustomizations() {
     sh 'git add -A'
     // Then bump everything else and commit (note we need to allow dirty because of the updated poms)
     originalDoVersionBump(isDevRelease, newVersion, true)
+    // Set an env var with the new version
+    env.NEW_SDK_VERSION = newVersion
   }
 }
 
@@ -148,6 +150,7 @@ void publishStaging() {
 void publishPublic() {
   withCredentials([usernamePassword(credentialsId: 'bintray', passwordVariable: 'BINTRAY_APIKEY', usernameVariable: 'BINTRAY_USER')]) {
     publishMaven('-P bintray')
+    sh "./build/bintraySync.sh $BINTRAY_USER $BINTRAY_APIKEY ibm-cloud-sdks cloudant-java-sdk $NEW_SDK_VERSION"
   }
 }
 
