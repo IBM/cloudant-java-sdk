@@ -14,7 +14,6 @@
 package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.ApiKeysResult;
-import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -36,8 +35,8 @@ public class ApiKeysResultTest {
   @Test
   public void testApiKeysResult() throws Throwable {
     ApiKeysResult apiKeysResultModel = new ApiKeysResult();
+    assertNull(apiKeysResultModel.isOk());
     assertNull(apiKeysResultModel.getKey());
-    assertNull(apiKeysResultModel.getOk());
     assertNull(apiKeysResultModel.getPassword());
   }
 }

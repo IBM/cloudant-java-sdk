@@ -44,16 +44,6 @@ public class ReplicationDocumentTest {
 
   @Test
   public void testReplicationDocument() throws Throwable {
-    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
-      .apiKey("testString")
-      .build();
-    assertEquals(replicationDatabaseAuthIamModel.apiKey(), "testString");
-
-    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
-      .iam(replicationDatabaseAuthIamModel)
-      .build();
-    assertEquals(replicationDatabaseAuthModel.iam(), replicationDatabaseAuthIamModel);
-
     Attachment attachmentModel = new Attachment.Builder()
       .contentType("testString")
       .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
@@ -75,6 +65,13 @@ public class ReplicationDocumentTest {
     assertEquals(attachmentModel.revpos(), Long.valueOf("1"));
     assertEquals(attachmentModel.stub(), Boolean.valueOf(true));
 
+    Revisions revisionsModel = new Revisions.Builder()
+      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .start(Long.valueOf("1"))
+      .build();
+    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(revisionsModel.start(), Long.valueOf("1"));
+
     DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
       .rev("testString")
       .status("available")
@@ -91,21 +88,24 @@ public class ReplicationDocumentTest {
     assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(true));
     assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("1"));
 
+    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
+      .apiKey("testString")
+      .build();
+    assertEquals(replicationDatabaseAuthIamModel.apiKey(), "testString");
+
+    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+      .iam(replicationDatabaseAuthIamModel)
+      .build();
+    assertEquals(replicationDatabaseAuthModel.iam(), replicationDatabaseAuthIamModel);
+
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
-      .headers(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
+      .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .url("testString")
       .build();
     assertEquals(replicationDatabaseModel.auth(), replicationDatabaseAuthModel);
-    assertEquals(replicationDatabaseModel.headers(), new java.util.HashMap<String,String>(){{put("foo", "testString"); }});
+    assertEquals(replicationDatabaseModel.headers(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(replicationDatabaseModel.url(), "testString");
-
-    Revisions revisionsModel = new Revisions.Builder()
-      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .start(Long.valueOf("1"))
-      .build();
-    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(revisionsModel.start(), Long.valueOf("1"));
 
     UserContext userContextModel = new UserContext.Builder()
       .db("testString")
@@ -117,7 +117,7 @@ public class ReplicationDocumentTest {
     assertEquals(userContextModel.roles(), new java.util.ArrayList<String>(java.util.Arrays.asList("_reader")));
 
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-      .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
       .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .deleted(true)
       .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -135,9 +135,9 @@ public class ReplicationDocumentTest {
       .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .filter("testString")
       .httpConnections(Long.valueOf("1"))
-      .queryParams(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
+      .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .retriesPerRequest(Long.valueOf("0"))
-      .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .sinceSeq("testString")
       .socketOptions("testString")
       .source(replicationDatabaseModel)
@@ -150,7 +150,7 @@ public class ReplicationDocumentTest {
       .workerProcesses(Long.valueOf("1"))
       .add("foo", "testString")
       .build();
-    assertEquals(replicationDocumentModel.getAttachments(), new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }});
+    assertEquals(replicationDocumentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
     assertEquals(replicationDocumentModel.getConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(replicationDocumentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getDeletedConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
@@ -168,9 +168,9 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.getDocIds(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(replicationDocumentModel.getFilter(), "testString");
     assertEquals(replicationDocumentModel.getHttpConnections(), Long.valueOf("1"));
-    assertEquals(replicationDocumentModel.getQueryParams(), new java.util.HashMap<String,String>(){{put("foo", "testString"); }});
+    assertEquals(replicationDocumentModel.getQueryParams(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(replicationDocumentModel.getRetriesPerRequest(), Long.valueOf("0"));
-    assertEquals(replicationDocumentModel.getSelector(), new java.util.HashMap<String,Object>(){{put("foo", "testString"); }});
+    assertEquals(replicationDocumentModel.getSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(replicationDocumentModel.getSinceSeq(), "testString");
     assertEquals(replicationDocumentModel.getSocketOptions(), "testString");
     assertEquals(replicationDocumentModel.getSource(), replicationDatabaseModel);

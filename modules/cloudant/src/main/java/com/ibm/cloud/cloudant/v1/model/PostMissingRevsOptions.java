@@ -23,18 +23,18 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class PostMissingRevsOptions extends GenericModel {
 
   protected String db;
-  protected Map<String, List<String>> missingRevs;
+  protected Map<String, List<String>> documentRevisions;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String db;
-    private Map<String, List<String>> missingRevs;
+    private Map<String, List<String>> documentRevisions;
 
     private Builder(PostMissingRevsOptions postMissingRevsOptions) {
       this.db = postMissingRevsOptions.db;
-      this.missingRevs = postMissingRevsOptions.missingRevs;
+      this.documentRevisions = postMissingRevsOptions.documentRevisions;
     }
 
     /**
@@ -73,13 +73,13 @@ public class PostMissingRevsOptions extends GenericModel {
     }
 
     /**
-     * Set the missingRevs.
+     * Set the documentRevisions.
      *
-     * @param missingRevs the missingRevs
+     * @param documentRevisions the documentRevisions
      * @return the PostMissingRevsOptions builder
      */
-    public Builder missingRevs(Map<String, List<String>> missingRevs) {
-      this.missingRevs = missingRevs;
+    public Builder documentRevisions(Map<String, List<String>> documentRevisions) {
+      this.documentRevisions = documentRevisions;
       return this;
     }
   }
@@ -88,7 +88,7 @@ public class PostMissingRevsOptions extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
     db = builder.db;
-    missingRevs = builder.missingRevs;
+    documentRevisions = builder.documentRevisions;
   }
 
   /**
@@ -112,14 +112,14 @@ public class PostMissingRevsOptions extends GenericModel {
   }
 
   /**
-   * Gets the missingRevs.
+   * Gets the documentRevisions.
    *
    * HTTP request body for postMissingRevs and postRevsDiff.
    *
-   * @return the missingRevs
+   * @return the documentRevisions
    */
-  public Map<String, List<String>> missingRevs() {
-    return missingRevs;
+  public Map<String, List<String>> documentRevisions() {
+    return documentRevisions;
   }
 }
 

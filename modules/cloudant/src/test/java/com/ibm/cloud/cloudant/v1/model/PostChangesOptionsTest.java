@@ -39,7 +39,8 @@ public class PostChangesOptionsTest {
     PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
       .db("testString")
       .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+      .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .lastEventId("testString")
       .attEncodingInfo(true)
       .attachments(true)
@@ -58,7 +59,8 @@ public class PostChangesOptionsTest {
       .build();
     assertEquals(postChangesOptionsModel.db(), "testString");
     assertEquals(postChangesOptionsModel.docIds(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(postChangesOptionsModel.selector(), new java.util.HashMap<String,Object>(){{put("foo", "testString"); }});
+    assertEquals(postChangesOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postChangesOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postChangesOptionsModel.lastEventId(), "testString");
     assertEquals(postChangesOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
     assertEquals(postChangesOptionsModel.attachments(), Boolean.valueOf(true));

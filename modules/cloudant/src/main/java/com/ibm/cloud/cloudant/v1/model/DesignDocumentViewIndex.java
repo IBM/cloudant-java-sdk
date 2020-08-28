@@ -18,7 +18,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * View index information.
  */
-public class DesignDocumentInformationViewIndex extends GenericModel {
+public class DesignDocumentViewIndex extends GenericModel {
 
   @SerializedName("compact_running")
   protected Boolean compactRunning;

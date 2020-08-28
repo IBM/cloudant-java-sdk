@@ -63,13 +63,6 @@ public class PostBulkDocsOptionsTest {
     assertEquals(attachmentModel.revpos(), Long.valueOf("1"));
     assertEquals(attachmentModel.stub(), Boolean.valueOf(true));
 
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-      .rev("testString")
-      .status("available")
-      .build();
-    assertEquals(documentRevisionStatusModel.rev(), "testString");
-    assertEquals(documentRevisionStatusModel.status(), "available");
-
     Revisions revisionsModel = new Revisions.Builder()
       .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .start(Long.valueOf("1"))
@@ -77,8 +70,15 @@ public class PostBulkDocsOptionsTest {
     assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(revisionsModel.start(), Long.valueOf("1"));
 
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+      .rev("testString")
+      .status("available")
+      .build();
+    assertEquals(documentRevisionStatusModel.rev(), "testString");
+    assertEquals(documentRevisionStatusModel.status(), "available");
+
     Document documentModel = new Document.Builder()
-      .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
       .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .deleted(true)
       .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -89,7 +89,7 @@ public class PostBulkDocsOptionsTest {
       .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
       .add("foo", "testString")
       .build();
-    assertEquals(documentModel.getAttachments(), new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }});
+    assertEquals(documentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
     assertEquals(documentModel.getConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(documentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(documentModel.getDeletedConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

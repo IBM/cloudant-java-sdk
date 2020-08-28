@@ -14,7 +14,7 @@
 package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
-import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformationViewIndex;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -27,22 +27,22 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DesignDocumentInformationViewIndex model.
+ * Unit test class for the DesignDocumentViewIndex model.
  */
-public class DesignDocumentInformationViewIndexTest {
+public class DesignDocumentViewIndexTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDesignDocumentInformationViewIndex() throws Throwable {
-    DesignDocumentInformationViewIndex designDocumentInformationViewIndexModel = new DesignDocumentInformationViewIndex();
-    assertNull(designDocumentInformationViewIndexModel.isCompactRunning());
-    assertNull(designDocumentInformationViewIndexModel.getLanguage());
-    assertNull(designDocumentInformationViewIndexModel.getSignature());
-    assertNull(designDocumentInformationViewIndexModel.getSizes());
-    assertNull(designDocumentInformationViewIndexModel.getUpdateSeq());
-    assertNull(designDocumentInformationViewIndexModel.isUpdaterRunning());
-    assertNull(designDocumentInformationViewIndexModel.getWaitingClients());
-    assertNull(designDocumentInformationViewIndexModel.isWaitingCommit());
+  public void testDesignDocumentViewIndex() throws Throwable {
+    DesignDocumentViewIndex designDocumentViewIndexModel = new DesignDocumentViewIndex();
+    assertNull(designDocumentViewIndexModel.isCompactRunning());
+    assertNull(designDocumentViewIndexModel.getLanguage());
+    assertNull(designDocumentViewIndexModel.getSignature());
+    assertNull(designDocumentViewIndexModel.getSizes());
+    assertNull(designDocumentViewIndexModel.getUpdateSeq());
+    assertNull(designDocumentViewIndexModel.isUpdaterRunning());
+    assertNull(designDocumentViewIndexModel.getWaitingClients());
+    assertNull(designDocumentViewIndexModel.isWaitingCommit());
   }
 }

@@ -44,9 +44,9 @@ public class PostFindOptionsTest {
       .executionStats(true)
       .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .limit(Long.valueOf("0"))
-      .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .skip(Long.valueOf("0"))
-      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
       .stable(true)
       .update("false")
       .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -58,9 +58,9 @@ public class PostFindOptionsTest {
     assertEquals(postFindOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postFindOptionsModel.limit(), Long.valueOf("0"));
-    assertEquals(postFindOptionsModel.selector(), new java.util.HashMap<String,Object>(){{put("foo", "testString"); }});
+    assertEquals(postFindOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postFindOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})));
+    assertEquals(postFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
     assertEquals(postFindOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.update(), "false");
     assertEquals(postFindOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

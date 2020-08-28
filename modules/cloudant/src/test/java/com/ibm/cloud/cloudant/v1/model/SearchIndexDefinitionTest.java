@@ -48,11 +48,11 @@ public class SearchIndexDefinitionTest {
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
       .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .fields(new java.util.HashMap<String,Analyzer>(){{put("foo", analyzerModel); }})
+      .fields(new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } })
       .build();
     assertEquals(analyzerConfigurationModel.name(), "classic");
     assertEquals(analyzerConfigurationModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(analyzerConfigurationModel.fields(), new java.util.HashMap<String,Analyzer>(){{put("foo", analyzerModel); }});
+    assertEquals(analyzerConfigurationModel.fields(), new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } });
 
     SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
       .analyzer(analyzerConfigurationModel)

@@ -19,9 +19,20 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ApiKeysResult extends GenericModel {
 
+  protected Boolean ok;
   protected String key;
-  protected Ok ok;
   protected String password;
+
+  /**
+   * Gets the ok.
+   *
+   * ok.
+   *
+   * @return the ok
+   */
+  public Boolean isOk() {
+    return ok;
+  }
 
   /**
    * Gets the key.
@@ -32,17 +43,6 @@ public class ApiKeysResult extends GenericModel {
    */
   public String getKey() {
     return key;
-  }
-
-  /**
-   * Gets the ok.
-   *
-   * Schema for an OK result.
-   *
-   * @return the ok
-   */
-  public Ok getOk() {
-    return ok;
   }
 
   /**

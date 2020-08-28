@@ -22,7 +22,7 @@ public class DesignDocumentInformation extends GenericModel {
 
   protected String name;
   @SerializedName("view_index")
-  protected DesignDocumentInformationViewIndex viewIndex;
+  protected DesignDocumentViewIndex viewIndex;
 
   /**
    * Gets the name.
@@ -42,7 +42,7 @@ public class DesignDocumentInformation extends GenericModel {
    *
    * @return the viewIndex
    */
-  public DesignDocumentInformationViewIndex getViewIndex() {
+  public DesignDocumentViewIndex getViewIndex() {
     return viewIndex;
   }
 }

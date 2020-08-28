@@ -45,9 +45,9 @@ public class PostPartitionFindOptionsTest {
       .executionStats(true)
       .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .limit(Long.valueOf("0"))
-      .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .skip(Long.valueOf("0"))
-      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
       .stable(true)
       .update("false")
       .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -59,9 +59,9 @@ public class PostPartitionFindOptionsTest {
     assertEquals(postPartitionFindOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postPartitionFindOptionsModel.limit(), Long.valueOf("0"));
-    assertEquals(postPartitionFindOptionsModel.selector(), new java.util.HashMap<String,Object>(){{put("foo", "testString"); }});
+    assertEquals(postPartitionFindOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postPartitionFindOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postPartitionFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})));
+    assertEquals(postPartitionFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
     assertEquals(postPartitionFindOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.update(), "false");
     assertEquals(postPartitionFindOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

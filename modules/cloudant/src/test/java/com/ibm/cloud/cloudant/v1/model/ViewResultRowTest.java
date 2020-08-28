@@ -13,12 +13,18 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
+import com.ibm.cloud.cloudant.v1.model.Attachment;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
+import com.ibm.cloud.cloudant.v1.model.Revisions;
 import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,6 +44,7 @@ public class ViewResultRowTest {
     assertNull(viewResultRowModel.getCausedBy());
     assertNull(viewResultRowModel.getError());
     assertNull(viewResultRowModel.getReason());
+    assertNull(viewResultRowModel.getDoc());
     assertNull(viewResultRowModel.getId());
     assertNull(viewResultRowModel.getKey());
     assertNull(viewResultRowModel.getValue());

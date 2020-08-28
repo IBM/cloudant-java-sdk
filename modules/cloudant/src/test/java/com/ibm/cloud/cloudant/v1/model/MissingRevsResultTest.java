@@ -35,6 +35,6 @@ public class MissingRevsResultTest {
   @Test
   public void testMissingRevsResult() throws Throwable {
     MissingRevsResult missingRevsResultModel = new MissingRevsResult();
-    assertNull(missingRevsResultModel.getMissedRevs());
+    assertNull(missingRevsResultModel.getMissingRevs());
   }
 }

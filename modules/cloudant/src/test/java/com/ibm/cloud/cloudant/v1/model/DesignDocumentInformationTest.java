@@ -15,7 +15,7 @@ package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformation;
-import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformationViewIndex;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;

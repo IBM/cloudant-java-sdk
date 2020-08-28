@@ -44,9 +44,9 @@ public class PostExplainOptionsTest {
       .executionStats(true)
       .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .limit(Long.valueOf("0"))
-      .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .skip(Long.valueOf("0"))
-      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
       .stable(true)
       .update("false")
       .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -58,9 +58,9 @@ public class PostExplainOptionsTest {
     assertEquals(postExplainOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postExplainOptionsModel.limit(), Long.valueOf("0"));
-    assertEquals(postExplainOptionsModel.selector(), new java.util.HashMap<String,Object>(){{put("foo", "testString"); }});
+    assertEquals(postExplainOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postExplainOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postExplainOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})));
+    assertEquals(postExplainOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
     assertEquals(postExplainOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.update(), "false");
     assertEquals(postExplainOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
