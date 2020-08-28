@@ -36,10 +36,10 @@ public class PostRevsDiffOptionsTest {
   public void testPostRevsDiffOptions() throws Throwable {
     PostRevsDiffOptions postRevsDiffOptionsModel = new PostRevsDiffOptions.Builder()
       .db("testString")
-      .revsDiffRequest(new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); }})
+      .documentRevisions(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); } })
       .build();
     assertEquals(postRevsDiffOptionsModel.db(), "testString");
-    assertEquals(postRevsDiffOptionsModel.revsDiffRequest(), new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); }});
+    assertEquals(postRevsDiffOptionsModel.documentRevisions(), new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); } });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

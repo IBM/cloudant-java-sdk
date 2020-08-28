@@ -48,13 +48,13 @@ public class PutSecurityOptionsTest {
       .db("testString")
       .admins(securityObjectModel)
       .members(securityObjectModel)
-      .cloudant(new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); }})
+      .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
       .couchdbAuthOnly(true)
       .build();
     assertEquals(putSecurityOptionsModel.db(), "testString");
     assertEquals(putSecurityOptionsModel.admins(), securityObjectModel);
     assertEquals(putSecurityOptionsModel.members(), securityObjectModel);
-    assertEquals(putSecurityOptionsModel.cloudant(), new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); }});
+    assertEquals(putSecurityOptionsModel.cloudant(), new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } });
     assertEquals(putSecurityOptionsModel.couchdbAuthOnly(), Boolean.valueOf(true));
   }
 

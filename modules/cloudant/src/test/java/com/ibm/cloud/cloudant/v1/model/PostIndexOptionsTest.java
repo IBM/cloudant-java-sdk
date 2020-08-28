@@ -47,6 +47,13 @@ public class PostIndexOptionsTest {
     assertEquals(analyzerModel.name(), "classic");
     assertEquals(analyzerModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
 
+    IndexTextOperatorDefaultField indexTextOperatorDefaultFieldModel = new IndexTextOperatorDefaultField.Builder()
+      .analyzer(analyzerModel)
+      .enabled(true)
+      .build();
+    assertEquals(indexTextOperatorDefaultFieldModel.analyzer(), analyzerModel);
+    assertEquals(indexTextOperatorDefaultFieldModel.enabled(), Boolean.valueOf(true));
+
     IndexField indexFieldModel = new IndexField.Builder()
       .name("testString")
       .type("boolean")
@@ -55,13 +62,6 @@ public class PostIndexOptionsTest {
     assertEquals(indexFieldModel.getName(), "testString");
     assertEquals(indexFieldModel.getType(), "boolean");
     assertEquals(indexFieldModel.get("foo"), "asc");
-
-    IndexTextOperatorDefaultField indexTextOperatorDefaultFieldModel = new IndexTextOperatorDefaultField.Builder()
-      .analyzer(analyzerModel)
-      .enabled(true)
-      .build();
-    assertEquals(indexTextOperatorDefaultFieldModel.analyzer(), analyzerModel);
-    assertEquals(indexTextOperatorDefaultFieldModel.enabled(), Boolean.valueOf(true));
 
     IndexDefinition indexDefinitionModel = new IndexDefinition.Builder()
       .defaultAnalyzer(analyzerModel)
@@ -80,7 +80,7 @@ public class PostIndexOptionsTest {
       .def(indexDefinitionModel)
       .index(indexDefinitionModel)
       .name("testString")
-      .partialFilterSelector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+      .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .partitioned(true)
       .type("json")
       .build();
@@ -89,7 +89,7 @@ public class PostIndexOptionsTest {
     assertEquals(postIndexOptionsModel.def(), indexDefinitionModel);
     assertEquals(postIndexOptionsModel.index(), indexDefinitionModel);
     assertEquals(postIndexOptionsModel.name(), "testString");
-    assertEquals(postIndexOptionsModel.partialFilterSelector(), new java.util.HashMap<String,Object>(){{put("foo", "testString"); }});
+    assertEquals(postIndexOptionsModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postIndexOptionsModel.partitioned(), Boolean.valueOf(true));
     assertEquals(postIndexOptionsModel.type(), "json");
   }

@@ -393,8 +393,8 @@ public class PostPartitionFindOptions extends GenericModel {
   /**
    * Gets the fields.
    *
-   * JSON array that uses the field syntax as described in the following information. Use this parameter to specify
-   * which fields of a document must be returned. If it is omitted, the entire document is returned.
+   * JSON array that uses the field syntax. Use this parameter to specify which fields of a document must be returned.
+   * If it is omitted, the entire document is returned.
    *
    * @return the fields
    */

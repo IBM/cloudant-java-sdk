@@ -46,22 +46,6 @@ public class PutDesignDocumentOptionsTest {
 
   @Test
   public void testPutDesignDocumentOptions() throws Throwable {
-    Analyzer analyzerModel = new Analyzer.Builder()
-      .name("classic")
-      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .build();
-    assertEquals(analyzerModel.name(), "classic");
-    assertEquals(analyzerModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-
-    AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
-      .name("classic")
-      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .fields(new java.util.HashMap<String,Analyzer>(){{put("foo", analyzerModel); }})
-      .build();
-    assertEquals(analyzerConfigurationModel.name(), "classic");
-    assertEquals(analyzerConfigurationModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(analyzerConfigurationModel.fields(), new java.util.HashMap<String,Analyzer>(){{put("foo", analyzerModel); }});
-
     Attachment attachmentModel = new Attachment.Builder()
       .contentType("testString")
       .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
@@ -83,6 +67,43 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(attachmentModel.revpos(), Long.valueOf("1"));
     assertEquals(attachmentModel.stub(), Boolean.valueOf(true));
 
+    Revisions revisionsModel = new Revisions.Builder()
+      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .start(Long.valueOf("1"))
+      .build();
+    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(revisionsModel.start(), Long.valueOf("1"));
+
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+      .rev("testString")
+      .status("available")
+      .build();
+    assertEquals(documentRevisionStatusModel.rev(), "testString");
+    assertEquals(documentRevisionStatusModel.status(), "available");
+
+    Analyzer analyzerModel = new Analyzer.Builder()
+      .name("classic")
+      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .build();
+    assertEquals(analyzerModel.name(), "classic");
+    assertEquals(analyzerModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+
+    AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
+      .name("classic")
+      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .fields(new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } })
+      .build();
+    assertEquals(analyzerConfigurationModel.name(), "classic");
+    assertEquals(analyzerConfigurationModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(analyzerConfigurationModel.fields(), new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } });
+
+    SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
+      .analyzer(analyzerConfigurationModel)
+      .index("testString")
+      .build();
+    assertEquals(searchIndexDefinitionModel.analyzer(), analyzerConfigurationModel);
+    assertEquals(searchIndexDefinitionModel.index(), "testString");
+
     DesignDocumentOptions designDocumentOptionsModel = new DesignDocumentOptions.Builder()
       .partitioned(true)
       .build();
@@ -95,34 +116,13 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentViewsMapReduceModel.map(), "testString");
     assertEquals(designDocumentViewsMapReduceModel.reduce(), "testString");
 
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-      .rev("testString")
-      .status("available")
-      .build();
-    assertEquals(documentRevisionStatusModel.rev(), "testString");
-    assertEquals(documentRevisionStatusModel.status(), "available");
-
     GeoIndexDefinition geoIndexDefinitionModel = new GeoIndexDefinition.Builder()
       .index("testString")
       .build();
     assertEquals(geoIndexDefinitionModel.index(), "testString");
 
-    Revisions revisionsModel = new Revisions.Builder()
-      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .start(Long.valueOf("1"))
-      .build();
-    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(revisionsModel.start(), Long.valueOf("1"));
-
-    SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
-      .analyzer(analyzerConfigurationModel)
-      .index("testString")
-      .build();
-    assertEquals(searchIndexDefinitionModel.analyzer(), analyzerConfigurationModel);
-    assertEquals(searchIndexDefinitionModel.index(), "testString");
-
     DesignDocument designDocumentModel = new DesignDocument.Builder()
-      .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
       .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .deleted(true)
       .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -132,17 +132,17 @@ public class PutDesignDocumentOptionsTest {
       .revisions(revisionsModel)
       .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
       .autoupdate(true)
-      .filters(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
-      .indexes(new java.util.HashMap<String,SearchIndexDefinition>(){{put("foo", searchIndexDefinitionModel); }})
+      .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
       .language("testString")
       .options(designDocumentOptionsModel)
-      .updates(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
-      .validateDocUpdate(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
-      .views(new java.util.HashMap<String,DesignDocumentViewsMapReduce>(){{put("foo", designDocumentViewsMapReduceModel); }})
-      .stIndexes(new java.util.HashMap<String,GeoIndexDefinition>(){{put("foo", geoIndexDefinitionModel); }})
+      .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .validateDocUpdate(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
+      .stIndexes(new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } })
       .add("foo", "testString")
       .build();
-    assertEquals(designDocumentModel.getAttachments(), new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }});
+    assertEquals(designDocumentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
     assertEquals(designDocumentModel.getConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(designDocumentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(designDocumentModel.getDeletedConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
@@ -152,14 +152,14 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentModel.getRevisions(), revisionsModel);
     assertEquals(designDocumentModel.getRevsInfo(), new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)));
     assertEquals(designDocumentModel.isAutoupdate(), Boolean.valueOf(true));
-    assertEquals(designDocumentModel.getFilters(), new java.util.HashMap<String,String>(){{put("foo", "testString"); }});
-    assertEquals(designDocumentModel.getIndexes(), new java.util.HashMap<String,SearchIndexDefinition>(){{put("foo", searchIndexDefinitionModel); }});
+    assertEquals(designDocumentModel.getFilters(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(designDocumentModel.getIndexes(), new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } });
     assertEquals(designDocumentModel.getLanguage(), "testString");
     assertEquals(designDocumentModel.getOptions(), designDocumentOptionsModel);
-    assertEquals(designDocumentModel.getUpdates(), new java.util.HashMap<String,String>(){{put("foo", "testString"); }});
-    assertEquals(designDocumentModel.getValidateDocUpdate(), new java.util.HashMap<String,String>(){{put("foo", "testString"); }});
-    assertEquals(designDocumentModel.getViews(), new java.util.HashMap<String,DesignDocumentViewsMapReduce>(){{put("foo", designDocumentViewsMapReduceModel); }});
-    assertEquals(designDocumentModel.getStIndexes(), new java.util.HashMap<String,GeoIndexDefinition>(){{put("foo", geoIndexDefinitionModel); }});
+    assertEquals(designDocumentModel.getUpdates(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(designDocumentModel.getValidateDocUpdate(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(designDocumentModel.getViews(), new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } });
+    assertEquals(designDocumentModel.getStIndexes(), new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } });
     assertEquals(designDocumentModel.get("foo"), "testString");
 
     PutDesignDocumentOptions putDesignDocumentOptionsModel = new PutDesignDocumentOptions.Builder()

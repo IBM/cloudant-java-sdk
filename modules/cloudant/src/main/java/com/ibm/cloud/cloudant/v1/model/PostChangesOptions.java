@@ -39,6 +39,7 @@ public class PostChangesOptions extends GenericModel {
 
   protected String db;
   protected List<String> docIds;
+  protected List<String> fields;
   protected Map<String, Object> selector;
   protected String lastEventId;
   protected Boolean attEncodingInfo;
@@ -62,6 +63,7 @@ public class PostChangesOptions extends GenericModel {
   public static class Builder {
     private String db;
     private List<String> docIds;
+    private List<String> fields;
     private Map<String, Object> selector;
     private String lastEventId;
     private Boolean attEncodingInfo;
@@ -82,6 +84,7 @@ public class PostChangesOptions extends GenericModel {
     private Builder(PostChangesOptions postChangesOptions) {
       this.db = postChangesOptions.db;
       this.docIds = postChangesOptions.docIds;
+      this.fields = postChangesOptions.fields;
       this.selector = postChangesOptions.selector;
       this.lastEventId = postChangesOptions.lastEventId;
       this.attEncodingInfo = postChangesOptions.attEncodingInfo;
@@ -141,6 +144,22 @@ public class PostChangesOptions extends GenericModel {
     }
 
     /**
+     * Adds an fields to fields.
+     *
+     * @param fields the new fields
+     * @return the PostChangesOptions builder
+     */
+    public Builder addFields(String fields) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(fields,
+        "fields cannot be null");
+      if (this.fields == null) {
+        this.fields = new ArrayList<String>();
+      }
+      this.fields.add(fields);
+      return this;
+    }
+
+    /**
      * Set the db.
      *
      * @param db the db
@@ -160,6 +179,18 @@ public class PostChangesOptions extends GenericModel {
      */
     public Builder docIds(List<String> docIds) {
       this.docIds = docIds;
+      return this;
+    }
+
+    /**
+     * Set the fields.
+     * Existing fields will be replaced.
+     *
+     * @param fields the fields
+     * @return the PostChangesOptions builder
+     */
+    public Builder fields(List<String> fields) {
+      this.fields = fields;
       return this;
     }
 
@@ -345,6 +376,7 @@ public class PostChangesOptions extends GenericModel {
       "db cannot be empty");
     db = builder.db;
     docIds = builder.docIds;
+    fields = builder.fields;
     selector = builder.selector;
     lastEventId = builder.lastEventId;
     attEncodingInfo = builder.attEncodingInfo;
@@ -392,6 +424,18 @@ public class PostChangesOptions extends GenericModel {
    */
   public List<String> docIds() {
     return docIds;
+  }
+
+  /**
+   * Gets the fields.
+   *
+   * JSON array that uses the field syntax. Use this parameter to specify which fields of a document must be returned.
+   * If it is omitted, the entire document is returned.
+   *
+   * @return the fields
+   */
+  public List<String> fields() {
+    return fields;
   }
 
   /**

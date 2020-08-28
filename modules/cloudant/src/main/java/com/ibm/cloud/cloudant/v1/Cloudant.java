@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.10.3-18e3fe12-20200803-172650
+ * IBM OpenAPI SDK Code Generator Version: 3.12.0-64fe8d3f-20200820-144050
  */
 
 package com.ibm.cloud.cloudant.v1;
@@ -118,7 +118,7 @@ import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PutAttachmentOptions;
-import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityOptions;
+import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCorsConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDesignDocumentOptions;
@@ -580,6 +580,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (postChangesOptions.docIds() != null) {
       contentJson.add("doc_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.docIds()));
     }
+    if (postChangesOptions.fields() != null) {
+      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.fields()));
+    }
     if (postChangesOptions.selector() != null) {
       contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.selector()));
     }
@@ -657,6 +660,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     final JsonObject contentJson = new JsonObject();
     if (postChangesOptions.docIds() != null) {
       contentJson.add("doc_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.docIds()));
+    }
+    if (postChangesOptions.fields() != null) {
+      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.fields()));
     }
     if (postChangesOptions.selector() != null) {
       contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.selector()));
@@ -3940,23 +3946,32 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Modify only Cloudant related permissions to database. Be careful: by removing an API key from the list, you remove
    * the API key from the list of users that have access to the database.
    *
-   * @param putCloudantSecurityOptions the {@link PutCloudantSecurityOptions} containing the options for the call
+   * @param putCloudantSecurityConfigurationOptions the {@link PutCloudantSecurityConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Ok}
    */
-  public ServiceCall<Ok> putCloudantSecurity(PutCloudantSecurityOptions putCloudantSecurityOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(putCloudantSecurityOptions,
-      "putCloudantSecurityOptions cannot be null");
+  public ServiceCall<Ok> putCloudantSecurityConfiguration(PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(putCloudantSecurityConfigurationOptions,
+      "putCloudantSecurityConfigurationOptions cannot be null");
     String[] pathSegments = { "_api/v2/db", "_security" };
-    String[] pathParameters = { putCloudantSecurityOptions.db() };
+    String[] pathParameters = { putCloudantSecurityConfigurationOptions.db() };
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "putCloudantSecurity");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "putCloudantSecurityConfiguration");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    if (putCloudantSecurityOptions.cloudant() != null) {
-      contentJson.add("cloudant", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putCloudantSecurityOptions.cloudant()));
+    if (putCloudantSecurityConfigurationOptions.admins() != null) {
+      contentJson.add("admins", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putCloudantSecurityConfigurationOptions.admins()));
+    }
+    if (putCloudantSecurityConfigurationOptions.members() != null) {
+      contentJson.add("members", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putCloudantSecurityConfigurationOptions.members()));
+    }
+    if (putCloudantSecurityConfigurationOptions.cloudant() != null) {
+      contentJson.add("cloudant", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putCloudantSecurityConfigurationOptions.cloudant()));
+    }
+    if (putCloudantSecurityConfigurationOptions.couchdbAuthOnly() != null) {
+      contentJson.addProperty("couchdb_auth_only", putCloudantSecurityConfigurationOptions.couchdbAuthOnly());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Ok> responseConverter =
@@ -4446,8 +4461,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (postMissingRevsOptions.missingRevs() != null) {
-      builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(postMissingRevsOptions.missingRevs()), "application/json");
+    if (postMissingRevsOptions.documentRevisions() != null) {
+      builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(postMissingRevsOptions.documentRevisions()), "application/json");
     }
     ResponseConverter<MissingRevsResult> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MissingRevsResult>() { }.getType());
@@ -4475,8 +4490,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (postRevsDiffOptions.revsDiffRequest() != null) {
-      builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(postRevsDiffOptions.revsDiffRequest()), "application/json");
+    if (postRevsDiffOptions.documentRevisions() != null) {
+      builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(postRevsDiffOptions.documentRevisions()), "application/json");
     }
     ResponseConverter<Map<String, RevsDiff>> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Map<String, RevsDiff>>() { }.getType());

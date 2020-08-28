@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.Security;
+import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.SecurityObject;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 
@@ -29,14 +29,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the Security model.
+ * Unit test class for the PutCloudantSecurityConfigurationOptions model.
  */
-public class SecurityTest {
+public class PutCloudantSecurityConfigurationOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testSecurity() throws Throwable {
+  public void testPutCloudantSecurityConfigurationOptions() throws Throwable {
     SecurityObject securityObjectModel = new SecurityObject.Builder()
       .names(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -44,23 +44,23 @@ public class SecurityTest {
     assertEquals(securityObjectModel.names(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(securityObjectModel.roles(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
 
-    Security securityModel = new Security.Builder()
+    PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
+      .db("testString")
       .admins(securityObjectModel)
       .members(securityObjectModel)
       .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
       .couchdbAuthOnly(true)
       .build();
-    assertEquals(securityModel.admins(), securityObjectModel);
-    assertEquals(securityModel.members(), securityObjectModel);
-    assertEquals(securityModel.cloudant(), new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } });
-    assertEquals(securityModel.couchdbAuthOnly(), Boolean.valueOf(true));
-
-    String json = TestUtilities.serialize(securityModel);
-
-    Security securityModelNew = TestUtilities.deserialize(json, Security.class);
-    assertTrue(securityModelNew instanceof Security);
-    assertEquals(securityModelNew.admins().toString(), securityObjectModel.toString());
-    assertEquals(securityModelNew.members().toString(), securityObjectModel.toString());
-    assertEquals(securityModelNew.couchdbAuthOnly(), Boolean.valueOf(true));
+    assertEquals(putCloudantSecurityConfigurationOptionsModel.db(), "testString");
+    assertEquals(putCloudantSecurityConfigurationOptionsModel.admins(), securityObjectModel);
+    assertEquals(putCloudantSecurityConfigurationOptionsModel.members(), securityObjectModel);
+    assertEquals(putCloudantSecurityConfigurationOptionsModel.cloudant(), new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } });
+    assertEquals(putCloudantSecurityConfigurationOptionsModel.couchdbAuthOnly(), Boolean.valueOf(true));
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPutCloudantSecurityConfigurationOptionsError() throws Throwable {
+    new PutCloudantSecurityConfigurationOptions.Builder().build();
+  }
+
 }

@@ -13,6 +13,10 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
+import com.ibm.cloud.cloudant.v1.model.Attachment;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
+import com.ibm.cloud.cloudant.v1.model.Revisions;
 import com.ibm.cloud.cloudant.v1.model.ViewQueriesResult;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
 import com.ibm.cloud.cloudant.v1.model.ViewResultRow;

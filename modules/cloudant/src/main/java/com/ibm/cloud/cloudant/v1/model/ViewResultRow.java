@@ -24,6 +24,7 @@ public class ViewResultRow extends GenericModel {
   protected String causedBy;
   protected String error;
   protected String reason;
+  protected Document doc;
   protected String id;
   protected Object key;
   protected Object value;
@@ -59,6 +60,17 @@ public class ViewResultRow extends GenericModel {
    */
   public String getReason() {
     return reason;
+  }
+
+  /**
+   * Gets the doc.
+   *
+   * Schema for a document.
+   *
+   * @return the doc
+   */
+  public Document getDoc() {
+    return doc;
   }
 
   /**

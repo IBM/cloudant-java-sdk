@@ -47,8 +47,8 @@ import com.ibm.cloud.cloudant.v1.model.DeleteLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DeleteReplicationDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DesignDocument;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformation;
-import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformationViewIndex;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRowValue;
@@ -149,7 +149,7 @@ import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PutAttachmentOptions;
-import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityOptions;
+import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCorsConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDesignDocumentOptions;
@@ -229,7 +229,7 @@ import static org.testng.Assert.*;
  * Unit test class for the Cloudant service.
  */
 @PrepareForTest({ EnvironmentUtils.class })
-@PowerMockIgnore("javax.net.ssl.*")
+@PowerMockIgnore({"javax.net.ssl.*", "org.mockito.*"})
 public class CloudantTest extends PowerMockTestCase {
 
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
@@ -269,7 +269,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetServerInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"couchdb\": \"couchdb\", \"features\": [\"features\"], \"vendor\": {\"name\": \"name\", \"variant\": \"variant\", \"version\": \"version\"}, \"version\": \"version\"}";
-    String getServerInformationPath = "/";
+    String getServerInformationPath = java.net.URLEncoder.encode("/", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -305,7 +305,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetMembershipInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"all_nodes\": [\"allNodes\"], \"cluster_nodes\": [\"clusterNodes\"]}";
-    String getMembershipInformationPath = "/_membership";
+    String getMembershipInformationPath = java.net.URLEncoder.encode("/_membership", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -341,7 +341,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetUuidsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"uuids\": [\"uuids\"]}";
-    String getUuidsPath = "/_uuids";
+    String getUuidsPath = java.net.URLEncoder.encode("/_uuids", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -380,7 +380,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testHeadDatabaseWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
-    String headDatabasePath = "/testString";
+    String headDatabasePath = java.net.URLEncoder.encode("/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setResponseCode(200)
@@ -430,7 +430,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetAllDbsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "[\"operationResponse\"]";
-    String getAllDbsPath = "/_all_dbs";
+    String getAllDbsPath = java.net.URLEncoder.encode("/_all_dbs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -477,7 +477,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostDbsInfoWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "[{\"info\": {\"cluster\": {\"n\": 1, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}, \"key\": \"key\"}]";
-    String postDbsInfoPath = "/_dbs_info";
+    String postDbsInfoPath = java.net.URLEncoder.encode("/_dbs_info", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -515,7 +515,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteDatabaseWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String deleteDatabasePath = "/testString";
+    String deleteDatabasePath = java.net.URLEncoder.encode("/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -565,7 +565,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDatabaseInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"cluster\": {\"n\": 1, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}";
-    String getDatabaseInformationPath = "/testString";
+    String getDatabaseInformationPath = java.net.URLEncoder.encode("/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -615,7 +615,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutDatabaseWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String putDatabasePath = "/testString";
+    String putDatabasePath = java.net.URLEncoder.encode("/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -669,7 +669,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostChangesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"pending\": 7, \"results\": [{\"changes\": [{\"rev\": \"rev\"}], \"deleted\": false, \"id\": \"id\", \"seq\": \"seq\"}]}";
-    String postChangesPath = "/testString/_changes";
+    String postChangesPath = java.net.URLEncoder.encode("/testString/_changes", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -682,7 +682,8 @@ public class CloudantTest extends PowerMockTestCase {
     PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
     .db("testString")
     .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .lastEventId("testString")
     .attEncodingInfo(true)
     .attachments(true)
@@ -750,7 +751,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostChangesAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postChangesAsStreamPath = "/testString/_changes";
+    String postChangesAsStreamPath = java.net.URLEncoder.encode("/testString/_changes", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -763,7 +764,8 @@ public class CloudantTest extends PowerMockTestCase {
     PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
     .db("testString")
     .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .lastEventId("testString")
     .attEncodingInfo(true)
     .attachments(true)
@@ -836,7 +838,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testHeadDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
-    String headDocumentPath = "/testString/testString";
+    String headDocumentPath = java.net.URLEncoder.encode("/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setResponseCode(200)
@@ -892,7 +894,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String postDocumentPath = "/testString";
+    String postDocumentPath = java.net.URLEncoder.encode("/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -914,21 +916,21 @@ public class CloudantTest extends PowerMockTestCase {
     .stub(true)
     .build();
 
-    // Construct an instance of the DocumentRevisionStatus model
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-    .rev("testString")
-    .status("available")
-    .build();
-
     // Construct an instance of the Revisions model
     Revisions revisionsModel = new Revisions.Builder()
     .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .start(Long.valueOf("1"))
     .build();
 
+    // Construct an instance of the DocumentRevisionStatus model
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+    .rev("testString")
+    .status("available")
+    .build();
+
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-    .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -944,7 +946,6 @@ public class CloudantTest extends PowerMockTestCase {
     PostDocumentOptions postDocumentOptionsModel = new PostDocumentOptions.Builder()
     .db("testString")
     .document(documentModel)
-    .body(TestUtilities.createMockStream("This is a mock file."))
     .contentType("application/json")
     .batch("ok")
     .build();
@@ -986,7 +987,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostAllDocsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
-    String postAllDocsPath = "/testString/_all_docs";
+    String postAllDocsPath = java.net.URLEncoder.encode("/testString/_all_docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -1049,7 +1050,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostAllDocsAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postAllDocsAsStreamPath = "/testString/_all_docs";
+    String postAllDocsAsStreamPath = java.net.URLEncoder.encode("/testString/_all_docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -1117,11 +1118,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostAllDocsQueriesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}]}";
-    String postAllDocsQueriesPath = "/testString/_all_docs/queries";
+    String postAllDocsQueriesPath = java.net.URLEncoder.encode("/testString/_all_docs/queries", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -1185,11 +1186,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostAllDocsQueriesAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postAllDocsQueriesAsStreamPath = "/testString/_all_docs/queries";
+    String postAllDocsQueriesAsStreamPath = java.net.URLEncoder.encode("/testString/_all_docs/queries", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -1258,7 +1259,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostBulkDocsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "[{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}]";
-    String postBulkDocsPath = "/testString/_bulk_docs";
+    String postBulkDocsPath = java.net.URLEncoder.encode("/testString/_bulk_docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -1280,21 +1281,21 @@ public class CloudantTest extends PowerMockTestCase {
     .stub(true)
     .build();
 
-    // Construct an instance of the DocumentRevisionStatus model
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-    .rev("testString")
-    .status("available")
-    .build();
-
     // Construct an instance of the Revisions model
     Revisions revisionsModel = new Revisions.Builder()
     .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .start(Long.valueOf("1"))
     .build();
 
+    // Construct an instance of the DocumentRevisionStatus model
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+    .rev("testString")
+    .status("available")
+    .build();
+
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-    .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -1316,7 +1317,6 @@ public class CloudantTest extends PowerMockTestCase {
     PostBulkDocsOptions postBulkDocsOptionsModel = new PostBulkDocsOptions.Builder()
     .db("testString")
     .bulkDocs(bulkDocsModel)
-    .body(TestUtilities.createMockStream("This is a mock file."))
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1355,7 +1355,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostBulkGetWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"results\": [{\"docs\": [{\"error\": {\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}, \"ok\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}}], \"id\": \"id\"}]}";
-    String postBulkGetPath = "/testString/_bulk_get";
+    String postBulkGetPath = java.net.URLEncoder.encode("/testString/_bulk_get", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -1422,7 +1422,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostBulkGetAsMixedWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "This is a mock binary response.";
-    String postBulkGetAsMixedPath = "/testString/_bulk_get";
+    String postBulkGetAsMixedPath = java.net.URLEncoder.encode("/testString/_bulk_get", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "multipart/mixed")
@@ -1489,7 +1489,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostBulkGetAsRelatedWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "This is a mock binary response.";
-    String postBulkGetAsRelatedPath = "/testString/_bulk_get";
+    String postBulkGetAsRelatedPath = java.net.URLEncoder.encode("/testString/_bulk_get", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "multipart/related")
@@ -1556,7 +1556,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostBulkGetAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postBulkGetAsStreamPath = "/testString/_bulk_get";
+    String postBulkGetAsStreamPath = java.net.URLEncoder.encode("/testString/_bulk_get", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -1628,11 +1628,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String deleteDocumentPath = "/testString/testString";
+    String deleteDocumentPath = java.net.URLEncoder.encode("/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -1684,7 +1684,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}";
-    String getDocumentPath = "/testString/testString";
+    String getDocumentPath = java.net.URLEncoder.encode("/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -1760,7 +1760,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDocumentAsMixedWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "This is a mock binary response.";
-    String getDocumentAsMixedPath = "/testString/testString";
+    String getDocumentAsMixedPath = java.net.URLEncoder.encode("/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "multipart/mixed")
@@ -1836,7 +1836,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDocumentAsRelatedWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "This is a mock binary response.";
-    String getDocumentAsRelatedPath = "/testString/testString";
+    String getDocumentAsRelatedPath = java.net.URLEncoder.encode("/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "multipart/related")
@@ -1912,7 +1912,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDocumentAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String getDocumentAsStreamPath = "/testString/testString";
+    String getDocumentAsStreamPath = java.net.URLEncoder.encode("/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -1993,7 +1993,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String putDocumentPath = "/testString/testString";
+    String putDocumentPath = java.net.URLEncoder.encode("/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2015,21 +2015,21 @@ public class CloudantTest extends PowerMockTestCase {
     .stub(true)
     .build();
 
-    // Construct an instance of the DocumentRevisionStatus model
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-    .rev("testString")
-    .status("available")
-    .build();
-
     // Construct an instance of the Revisions model
     Revisions revisionsModel = new Revisions.Builder()
     .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .start(Long.valueOf("1"))
     .build();
 
+    // Construct an instance of the DocumentRevisionStatus model
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+    .rev("testString")
+    .status("available")
+    .build();
+
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-    .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -2046,7 +2046,6 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .docId("testString")
     .document(documentModel)
-    .body(TestUtilities.createMockStream("This is a mock file."))
     .contentType("application/json")
     .ifMatch("testString")
     .batch("ok")
@@ -2093,7 +2092,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testHeadDesignDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
-    String headDesignDocumentPath = "/testString/_design/testString";
+    String headDesignDocumentPath = java.net.URLEncoder.encode("/testString/_design/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setResponseCode(200)
@@ -2145,11 +2144,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteDesignDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String deleteDesignDocumentPath = "/testString/_design/testString";
+    String deleteDesignDocumentPath = java.net.URLEncoder.encode("/testString/_design/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -2201,7 +2200,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDesignDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"language\", \"options\": {\"partitioned\": false}, \"updates\": {\"mapKey\": \"inner\"}, \"validate_doc_update\": {\"mapKey\": \"inner\"}, \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
-    String getDesignDocumentPath = "/testString/_design/testString";
+    String getDesignDocumentPath = java.net.URLEncoder.encode("/testString/_design/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2277,7 +2276,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutDesignDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String putDesignDocumentPath = "/testString/_design/testString";
+    String putDesignDocumentPath = java.net.URLEncoder.encode("/testString/_design/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2285,19 +2284,6 @@ public class CloudantTest extends PowerMockTestCase {
     .setBody(mockResponseBody));
 
     constructClientService();
-
-    // Construct an instance of the Analyzer model
-    Analyzer analyzerModel = new Analyzer.Builder()
-    .name("classic")
-    .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .build();
-
-    // Construct an instance of the AnalyzerConfiguration model
-    AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
-    .name("classic")
-    .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .fields(new java.util.HashMap<String,Analyzer>(){{put("foo", analyzerModel); }})
-    .build();
 
     // Construct an instance of the Attachment model
     Attachment attachmentModel = new Attachment.Builder()
@@ -2312,6 +2298,37 @@ public class CloudantTest extends PowerMockTestCase {
     .stub(true)
     .build();
 
+    // Construct an instance of the Revisions model
+    Revisions revisionsModel = new Revisions.Builder()
+    .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .start(Long.valueOf("1"))
+    .build();
+
+    // Construct an instance of the DocumentRevisionStatus model
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+    .rev("testString")
+    .status("available")
+    .build();
+
+    // Construct an instance of the Analyzer model
+    Analyzer analyzerModel = new Analyzer.Builder()
+    .name("classic")
+    .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .build();
+
+    // Construct an instance of the AnalyzerConfiguration model
+    AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
+    .name("classic")
+    .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .fields(new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } })
+    .build();
+
+    // Construct an instance of the SearchIndexDefinition model
+    SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
+    .analyzer(analyzerConfigurationModel)
+    .index("testString")
+    .build();
+
     // Construct an instance of the DesignDocumentOptions model
     DesignDocumentOptions designDocumentOptionsModel = new DesignDocumentOptions.Builder()
     .partitioned(true)
@@ -2323,32 +2340,14 @@ public class CloudantTest extends PowerMockTestCase {
     .reduce("testString")
     .build();
 
-    // Construct an instance of the DocumentRevisionStatus model
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-    .rev("testString")
-    .status("available")
-    .build();
-
     // Construct an instance of the GeoIndexDefinition model
     GeoIndexDefinition geoIndexDefinitionModel = new GeoIndexDefinition.Builder()
     .index("testString")
     .build();
 
-    // Construct an instance of the Revisions model
-    Revisions revisionsModel = new Revisions.Builder()
-    .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .start(Long.valueOf("1"))
-    .build();
-
-    // Construct an instance of the SearchIndexDefinition model
-    SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
-    .analyzer(analyzerConfigurationModel)
-    .index("testString")
-    .build();
-
     // Construct an instance of the DesignDocument model
     DesignDocument designDocumentModel = new DesignDocument.Builder()
-    .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -2358,14 +2357,14 @@ public class CloudantTest extends PowerMockTestCase {
     .revisions(revisionsModel)
     .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
     .autoupdate(true)
-    .filters(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
-    .indexes(new java.util.HashMap<String,SearchIndexDefinition>(){{put("foo", searchIndexDefinitionModel); }})
+    .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+    .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
     .language("testString")
     .options(designDocumentOptionsModel)
-    .updates(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
-    .validateDocUpdate(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
-    .views(new java.util.HashMap<String,DesignDocumentViewsMapReduce>(){{put("foo", designDocumentViewsMapReduceModel); }})
-    .stIndexes(new java.util.HashMap<String,GeoIndexDefinition>(){{put("foo", geoIndexDefinitionModel); }})
+    .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+    .validateDocUpdate(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+    .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
+    .stIndexes(new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } })
     .add("foo", "testString")
     .build();
 
@@ -2419,7 +2418,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDesignDocumentInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"updater_running\": true, \"waiting_clients\": 0, \"waiting_commit\": false}}";
-    String getDesignDocumentInformationPath = "/testString/_design/testString/_info";
+    String getDesignDocumentInformationPath = java.net.URLEncoder.encode("/testString/_design/testString/_info", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2470,7 +2469,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostDesignDocsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
-    String postDesignDocsPath = "/testString/_design_docs";
+    String postDesignDocsPath = java.net.URLEncoder.encode("/testString/_design_docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2534,11 +2533,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostDesignDocsQueriesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}]}";
-    String postDesignDocsQueriesPath = "/testString/_design_docs/queries";
+    String postDesignDocsQueriesPath = java.net.URLEncoder.encode("/testString/_design_docs/queries", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -2602,8 +2601,8 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostViewWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
-    String postViewPath = "/testString/_design/testString/_view/testString";
+    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
+    String postViewPath = java.net.URLEncoder.encode("/testString/_design/testString/_view/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2675,7 +2674,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostViewAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postViewAsStreamPath = "/testString/_design/testString/_view/testString";
+    String postViewAsStreamPath = java.net.URLEncoder.encode("/testString/_design/testString/_view/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2751,12 +2750,12 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostViewQueriesWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}]}";
-    String postViewQueriesPath = "/testString/_design/testString/_view/testString/queries";
+    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}]}";
+    String postViewQueriesPath = java.net.URLEncoder.encode("/testString/_design/testString/_view/testString/queries", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -2829,11 +2828,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostViewQueriesAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postViewQueriesAsStreamPath = "/testString/_design/testString/_view/testString/queries";
+    String postViewQueriesAsStreamPath = java.net.URLEncoder.encode("/testString/_design/testString/_view/testString/queries", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -2911,7 +2910,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetPartitionInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"db_name\": \"dbName\", \"doc_count\": 0, \"doc_del_count\": 0, \"partition\": \"partition\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 0}, \"sizes\": {\"active\": 0, \"external\": 0}}";
-    String getPartitionInformationPath = "/testString/_partition/testString";
+    String getPartitionInformationPath = java.net.URLEncoder.encode("/testString/_partition/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -2962,7 +2961,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostPartitionAllDocsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
-    String postPartitionAllDocsPath = "/testString/_partition/testString/_all_docs";
+    String postPartitionAllDocsPath = java.net.URLEncoder.encode("/testString/_partition/testString/_all_docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3026,7 +3025,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostPartitionAllDocsAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postPartitionAllDocsAsStreamPath = "/testString/_partition/testString/_all_docs";
+    String postPartitionAllDocsAsStreamPath = java.net.URLEncoder.encode("/testString/_partition/testString/_all_docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3095,7 +3094,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostPartitionSearchWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}], \"groups\": [{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}]}]}";
-    String postPartitionSearchPath = "/testString/_partition/testString/_design/testString/_search/testString";
+    String postPartitionSearchPath = java.net.URLEncoder.encode("/testString/_partition/testString/_design/testString/_search/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3160,7 +3159,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostPartitionSearchAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postPartitionSearchAsStreamPath = "/testString/_partition/testString/_design/testString/_search/testString";
+    String postPartitionSearchAsStreamPath = java.net.URLEncoder.encode("/testString/_partition/testString/_design/testString/_search/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3229,8 +3228,8 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostPartitionViewWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
-    String postPartitionViewPath = "/testString/_partition/testString/_design/testString/_view/testString";
+    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
+    String postPartitionViewPath = java.net.URLEncoder.encode("/testString/_partition/testString/_design/testString/_view/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3303,7 +3302,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostPartitionViewAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postPartitionViewAsStreamPath = "/testString/_partition/testString/_design/testString/_view/testString";
+    String postPartitionViewAsStreamPath = java.net.URLEncoder.encode("/testString/_partition/testString/_design/testString/_view/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3381,7 +3380,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostPartitionFindWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"bookmark\": \"bookmark\", \"docs\": [{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}], \"execution_stats\": {\"execution_time_ms\": 15, \"results_returned\": 0, \"total_docs_examined\": 0, \"total_keys_examined\": 0, \"total_quorum_docs_examined\": 0}, \"warning\": \"warning\"}";
-    String postPartitionFindPath = "/testString/_partition/testString/_find";
+    String postPartitionFindPath = java.net.URLEncoder.encode("/testString/_partition/testString/_find", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3399,9 +3398,9 @@ public class CloudantTest extends PowerMockTestCase {
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
-    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
     .update("false")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3443,7 +3442,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostPartitionFindAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postPartitionFindAsStreamPath = "/testString/_partition/testString/_find";
+    String postPartitionFindAsStreamPath = java.net.URLEncoder.encode("/testString/_partition/testString/_find", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3461,9 +3460,9 @@ public class CloudantTest extends PowerMockTestCase {
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
-    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
     .update("false")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3510,7 +3509,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostExplainWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"mapKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"mapKey\": \"anyValue\"}, \"skip\": 0}";
-    String postExplainPath = "/testString/_explain";
+    String postExplainPath = java.net.URLEncoder.encode("/testString/_explain", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3527,9 +3526,9 @@ public class CloudantTest extends PowerMockTestCase {
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
-    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
     .update("false")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3572,7 +3571,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostFindWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"bookmark\": \"bookmark\", \"docs\": [{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}], \"execution_stats\": {\"execution_time_ms\": 15, \"results_returned\": 0, \"total_docs_examined\": 0, \"total_keys_examined\": 0, \"total_quorum_docs_examined\": 0}, \"warning\": \"warning\"}";
-    String postFindPath = "/testString/_find";
+    String postFindPath = java.net.URLEncoder.encode("/testString/_find", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3589,9 +3588,9 @@ public class CloudantTest extends PowerMockTestCase {
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
-    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
     .update("false")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3634,7 +3633,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostFindAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postFindAsStreamPath = "/testString/_find";
+    String postFindAsStreamPath = java.net.URLEncoder.encode("/testString/_find", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3651,9 +3650,9 @@ public class CloudantTest extends PowerMockTestCase {
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
-    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String,String>(){{put("foo", "asc"); }})))
+    .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
     .update("false")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3701,7 +3700,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetIndexesInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false}, \"name\": \"name\", \"type\": \"json\"}]}";
-    String getIndexesInformationPath = "/testString/_index";
+    String getIndexesInformationPath = java.net.URLEncoder.encode("/testString/_index", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3751,7 +3750,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostIndexWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"name\": \"name\", \"result\": \"created\"}";
-    String postIndexPath = "/testString/_index";
+    String postIndexPath = java.net.URLEncoder.encode("/testString/_index", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3766,17 +3765,17 @@ public class CloudantTest extends PowerMockTestCase {
     .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .build();
 
+    // Construct an instance of the IndexTextOperatorDefaultField model
+    IndexTextOperatorDefaultField indexTextOperatorDefaultFieldModel = new IndexTextOperatorDefaultField.Builder()
+    .analyzer(analyzerModel)
+    .enabled(true)
+    .build();
+
     // Construct an instance of the IndexField model
     IndexField indexFieldModel = new IndexField.Builder()
     .name("testString")
     .type("boolean")
     .add("foo", "asc")
-    .build();
-
-    // Construct an instance of the IndexTextOperatorDefaultField model
-    IndexTextOperatorDefaultField indexTextOperatorDefaultFieldModel = new IndexTextOperatorDefaultField.Builder()
-    .analyzer(analyzerModel)
-    .enabled(true)
     .build();
 
     // Construct an instance of the IndexDefinition model
@@ -3794,7 +3793,7 @@ public class CloudantTest extends PowerMockTestCase {
     .def(indexDefinitionModel)
     .index(indexDefinitionModel)
     .name("testString")
-    .partialFilterSelector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .partitioned(true)
     .type("json")
     .build();
@@ -3835,7 +3834,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteIndexWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String deleteIndexPath = "/testString/_index/_design/testString/json/testString";
+    String deleteIndexPath = java.net.URLEncoder.encode("/testString/_index/_design/testString/json/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3888,7 +3887,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostSearchAnalyzeWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"tokens\": [\"tokens\"]}";
-    String postSearchAnalyzePath = "/_search_analyze";
+    String postSearchAnalyzePath = java.net.URLEncoder.encode("/_search_analyze", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3927,7 +3926,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostSearchWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}], \"groups\": [{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}]}]}";
-    String postSearchPath = "/testString/_design/testString/_search/testString";
+    String postSearchPath = java.net.URLEncoder.encode("/testString/_design/testString/_search/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -3958,7 +3957,7 @@ public class CloudantTest extends PowerMockTestCase {
     .groupField("testString")
     .groupLimit(Long.valueOf("1"))
     .groupSort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .ranges(new java.util.HashMap<String,Map<String, Map<String, String>>>(){{put("foo", new java.util.HashMap<String,Map<String, String>>(){{put("foo", new java.util.HashMap<String,String>(){{put("foo", "testString"); }}); }}); }})
+    .ranges(new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } })
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3997,7 +3996,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostSearchAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postSearchAsStreamPath = "/testString/_design/testString/_search/testString";
+    String postSearchAsStreamPath = java.net.URLEncoder.encode("/testString/_design/testString/_search/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4028,7 +4027,7 @@ public class CloudantTest extends PowerMockTestCase {
     .groupField("testString")
     .groupLimit(Long.valueOf("1"))
     .groupSort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .ranges(new java.util.HashMap<String,Map<String, Map<String, String>>>(){{put("foo", new java.util.HashMap<String,Map<String, String>>(){{put("foo", new java.util.HashMap<String,String>(){{put("foo", "testString"); }}); }}); }})
+    .ranges(new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } })
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -4072,7 +4071,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetSearchInfoWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"committed_seq\": 12, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 10}}";
-    String getSearchInfoPath = "/testString/_design/testString/_search_info/testString";
+    String getSearchInfoPath = java.net.URLEncoder.encode("/testString/_design/testString/_search_info/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4124,7 +4123,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetGeoWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"bookmark\": \"bookmark\", \"features\": [{\"_id\": \"id\", \"_rev\": \"rev\", \"bbox\": [4], \"geometry\": {\"type\": \"Point\", \"coordinates\": [\"anyValue\"]}, \"properties\": {\"mapKey\": \"anyValue\"}, \"type\": \"Feature\"}], \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [\"anyValue\"]}, \"id\": \"id\", \"rev\": \"rev\"}], \"type\": \"FeatureCollection\"}";
-    String getGeoPath = "/testString/_design/testString/_geo/testString";
+    String getGeoPath = java.net.URLEncoder.encode("/testString/_design/testString/_geo/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4206,7 +4205,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetGeoAsStreamWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String getGeoAsStreamPath = "/testString/_design/testString/_geo/testString";
+    String getGeoAsStreamPath = java.net.URLEncoder.encode("/testString/_design/testString/_geo/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4293,11 +4292,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostGeoCleanupWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String postGeoCleanupPath = "/testString/_geo_cleanup";
+    String postGeoCleanupPath = java.net.URLEncoder.encode("/testString/_geo_cleanup", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
+    .setResponseCode(202)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -4343,7 +4342,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetGeoIndexInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"geo_index\": {\"data_size\": 0, \"disk_size\": 0, \"doc_count\": 0}}";
-    String getGeoIndexInformationPath = "/testString/_design/testString/_geo_info/testString";
+    String getGeoIndexInformationPath = java.net.URLEncoder.encode("/testString/_design/testString/_geo_info/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4395,7 +4394,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDbUpdatesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"results\": [{\"account\": \"account\", \"dbname\": \"dbname\", \"seq\": \"seq\", \"type\": \"created\"}]}";
-    String getDbUpdatesPath = "/_db_updates";
+    String getDbUpdatesPath = java.net.URLEncoder.encode("/_db_updates", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4440,7 +4439,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testHeadReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
-    String headReplicationDocumentPath = "/_replicator/testString";
+    String headReplicationDocumentPath = java.net.URLEncoder.encode("/_replicator/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setResponseCode(200)
@@ -4491,7 +4490,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testHeadSchedulerJobWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
-    String headSchedulerJobPath = "/_scheduler/jobs/testString";
+    String headSchedulerJobPath = java.net.URLEncoder.encode("/_scheduler/jobs/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setResponseCode(200)
@@ -4541,7 +4540,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostReplicateWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"history\": [{\"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"end_last_seq\": \"endLastSeq\", \"end_time\": \"endTime\", \"missing_checked\": 0, \"missing_found\": 0, \"recorded_seq\": \"recordedSeq\", \"session_id\": \"sessionId\", \"start_last_seq\": \"startLastSeq\", \"start_time\": \"startTime\"}], \"ok\": true, \"replication_id_version\": 0, \"session_id\": \"sessionId\", \"source_last_seq\": \"sourceLastSeq\"}";
-    String postReplicatePath = "/_replicate";
+    String postReplicatePath = java.net.URLEncoder.encode("/_replicate", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4549,16 +4548,6 @@ public class CloudantTest extends PowerMockTestCase {
     .setBody(mockResponseBody));
 
     constructClientService();
-
-    // Construct an instance of the ReplicationDatabaseAuthIam model
-    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
-    .apiKey("testString")
-    .build();
-
-    // Construct an instance of the ReplicationDatabaseAuth model
-    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
-    .iam(replicationDatabaseAuthIamModel)
-    .build();
 
     // Construct an instance of the Attachment model
     Attachment attachmentModel = new Attachment.Builder()
@@ -4571,6 +4560,12 @@ public class CloudantTest extends PowerMockTestCase {
     .length(Long.valueOf("0"))
     .revpos(Long.valueOf("1"))
     .stub(true)
+    .build();
+
+    // Construct an instance of the Revisions model
+    Revisions revisionsModel = new Revisions.Builder()
+    .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .start(Long.valueOf("1"))
     .build();
 
     // Construct an instance of the DocumentRevisionStatus model
@@ -4586,17 +4581,21 @@ public class CloudantTest extends PowerMockTestCase {
     .q(Long.valueOf("1"))
     .build();
 
+    // Construct an instance of the ReplicationDatabaseAuthIam model
+    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
+    .apiKey("testString")
+    .build();
+
+    // Construct an instance of the ReplicationDatabaseAuth model
+    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+    .iam(replicationDatabaseAuthIamModel)
+    .build();
+
     // Construct an instance of the ReplicationDatabase model
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
     .auth(replicationDatabaseAuthModel)
-    .headers(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
+    .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
     .url("testString")
-    .build();
-
-    // Construct an instance of the Revisions model
-    Revisions revisionsModel = new Revisions.Builder()
-    .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .start(Long.valueOf("1"))
     .build();
 
     // Construct an instance of the UserContext model
@@ -4608,7 +4607,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the ReplicationDocument model
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-    .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -4626,9 +4625,9 @@ public class CloudantTest extends PowerMockTestCase {
     .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .filter("testString")
     .httpConnections(Long.valueOf("1"))
-    .queryParams(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
+    .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
     .retriesPerRequest(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .sinceSeq("testString")
     .socketOptions("testString")
     .source(replicationDatabaseModel)
@@ -4671,7 +4670,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String deleteReplicationDocumentPath = "/_replicator/testString";
+    String deleteReplicationDocumentPath = java.net.URLEncoder.encode("/_replicator/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4726,7 +4725,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": true, \"create_target\": true, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"worker_batch_size\": 1, \"worker_processes\": 1}";
-    String getReplicationDocumentPath = "/_replicator/testString";
+    String getReplicationDocumentPath = java.net.URLEncoder.encode("/_replicator/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4801,7 +4800,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String putReplicationDocumentPath = "/_replicator/testString";
+    String putReplicationDocumentPath = java.net.URLEncoder.encode("/_replicator/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4809,16 +4808,6 @@ public class CloudantTest extends PowerMockTestCase {
     .setBody(mockResponseBody));
 
     constructClientService();
-
-    // Construct an instance of the ReplicationDatabaseAuthIam model
-    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
-    .apiKey("testString")
-    .build();
-
-    // Construct an instance of the ReplicationDatabaseAuth model
-    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
-    .iam(replicationDatabaseAuthIamModel)
-    .build();
 
     // Construct an instance of the Attachment model
     Attachment attachmentModel = new Attachment.Builder()
@@ -4831,6 +4820,12 @@ public class CloudantTest extends PowerMockTestCase {
     .length(Long.valueOf("0"))
     .revpos(Long.valueOf("1"))
     .stub(true)
+    .build();
+
+    // Construct an instance of the Revisions model
+    Revisions revisionsModel = new Revisions.Builder()
+    .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .start(Long.valueOf("1"))
     .build();
 
     // Construct an instance of the DocumentRevisionStatus model
@@ -4846,17 +4841,21 @@ public class CloudantTest extends PowerMockTestCase {
     .q(Long.valueOf("1"))
     .build();
 
+    // Construct an instance of the ReplicationDatabaseAuthIam model
+    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
+    .apiKey("testString")
+    .build();
+
+    // Construct an instance of the ReplicationDatabaseAuth model
+    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+    .iam(replicationDatabaseAuthIamModel)
+    .build();
+
     // Construct an instance of the ReplicationDatabase model
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
     .auth(replicationDatabaseAuthModel)
-    .headers(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
+    .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
     .url("testString")
-    .build();
-
-    // Construct an instance of the Revisions model
-    Revisions revisionsModel = new Revisions.Builder()
-    .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .start(Long.valueOf("1"))
     .build();
 
     // Construct an instance of the UserContext model
@@ -4868,7 +4867,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the ReplicationDocument model
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-    .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -4886,9 +4885,9 @@ public class CloudantTest extends PowerMockTestCase {
     .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .filter("testString")
     .httpConnections(Long.valueOf("1"))
-    .queryParams(new java.util.HashMap<String,String>(){{put("foo", "testString"); }})
+    .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
     .retriesPerRequest(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String,Object>(){{put("foo", "testString"); }})
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .sinceSeq("testString")
     .socketOptions("testString")
     .source(replicationDatabaseModel)
@@ -4951,7 +4950,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetSchedulerDocsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"docs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"error_count\": 0, \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"last_updated\": \"2019-01-01T12:00:00\", \"node\": \"node\", \"source\": \"source\", \"source_proxy\": \"sourceProxy\", \"start_time\": \"2019-01-01T12:00:00\", \"state\": \"initializing\", \"target\": \"target\", \"target_proxy\": \"targetProxy\"}]}";
-    String getSchedulerDocsPath = "/_scheduler/docs";
+    String getSchedulerDocsPath = java.net.URLEncoder.encode("/_scheduler/docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -4994,7 +4993,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetSchedulerDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"error_count\": 0, \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"last_updated\": \"2019-01-01T12:00:00\", \"node\": \"node\", \"source\": \"source\", \"source_proxy\": \"sourceProxy\", \"start_time\": \"2019-01-01T12:00:00\", \"state\": \"initializing\", \"target\": \"target\", \"target_proxy\": \"targetProxy\"}";
-    String getSchedulerDocumentPath = "/_scheduler/docs/_replicator/testString";
+    String getSchedulerDocumentPath = java.net.URLEncoder.encode("/_scheduler/docs/_replicator/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5044,7 +5043,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetSchedulerJobsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"jobs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00\", \"target\": \"target\", \"user\": \"user\"}]}";
-    String getSchedulerJobsPath = "/_scheduler/jobs";
+    String getSchedulerJobsPath = java.net.URLEncoder.encode("/_scheduler/jobs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5085,7 +5084,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetSchedulerJobWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00\", \"target\": \"target\", \"user\": \"user\"}";
-    String getSchedulerJobPath = "/_scheduler/jobs/testString";
+    String getSchedulerJobPath = java.net.URLEncoder.encode("/_scheduler/jobs/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5135,7 +5134,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetSessionInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true, \"info\": {\"authenticated\": \"authenticated\", \"authentication_db\": \"authenticationDb\", \"authentication_handlers\": [\"authenticationHandlers\"]}, \"userCtx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}}";
-    String getSessionInformationPath = "/_session";
+    String getSessionInformationPath = java.net.URLEncoder.encode("/_session", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5171,7 +5170,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteIamSessionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String deleteIamSessionPath = "/_iam_session";
+    String deleteIamSessionPath = java.net.URLEncoder.encode("/_iam_session", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5207,7 +5206,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetIamSessionInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"ok\": true, \"scope\": \"scope\", \"type\": \"type\"}";
-    String getIamSessionInformationPath = "/_iam_session";
+    String getIamSessionInformationPath = java.net.URLEncoder.encode("/_iam_session", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5243,7 +5242,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostIamSessionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String postIamSessionPath = "/_iam_session";
+    String postIamSessionPath = java.net.URLEncoder.encode("/_iam_session", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5281,7 +5280,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetSecurityWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"admins\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}, \"members\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}, \"cloudant\": {\"mapKey\": [\"_reader\"]}, \"couchdb_auth_only\": false}";
-    String getSecurityPath = "/testString/_security";
+    String getSecurityPath = java.net.URLEncoder.encode("/testString/_security", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5331,7 +5330,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutSecurityWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String putSecurityPath = "/testString/_security";
+    String putSecurityPath = java.net.URLEncoder.encode("/testString/_security", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5351,7 +5350,7 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .admins(securityObjectModel)
     .members(securityObjectModel)
-    .cloudant(new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); }})
+    .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
     .couchdbAuthOnly(true)
     .build();
 
@@ -5390,8 +5389,8 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostApiKeysWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"key\": \"key\", \"ok\": {\"ok\": true}, \"password\": \"password\"}";
-    String postApiKeysPath = "/_api/v2/api_keys";
+    String mockResponseBody = "{\"ok\": true, \"key\": \"key\", \"password\": \"password\"}";
+    String postApiKeysPath = java.net.URLEncoder.encode("/_api/v2/api_keys", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5424,10 +5423,10 @@ public class CloudantTest extends PowerMockTestCase {
   }
 
   @Test
-  public void testPutCloudantSecurityWOptions() throws Throwable {
+  public void testPutCloudantSecurityConfigurationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String putCloudantSecurityPath = "/_api/v2/db/testString/_security";
+    String putCloudantSecurityConfigurationPath = java.net.URLEncoder.encode("/_api/v2/db/testString/_security", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5436,14 +5435,23 @@ public class CloudantTest extends PowerMockTestCase {
 
     constructClientService();
 
-    // Construct an instance of the PutCloudantSecurityOptions model
-    PutCloudantSecurityOptions putCloudantSecurityOptionsModel = new PutCloudantSecurityOptions.Builder()
+    // Construct an instance of the SecurityObject model
+    SecurityObject securityObjectModel = new SecurityObject.Builder()
+    .names(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .build();
+
+    // Construct an instance of the PutCloudantSecurityConfigurationOptions model
+    PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
     .db("testString")
-    .cloudant(new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); }})
+    .admins(securityObjectModel)
+    .members(securityObjectModel)
+    .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
+    .couchdbAuthOnly(true)
     .build();
 
     // Invoke operation with valid options model (positive test)
-    Response<Ok> response = cloudantService.putCloudantSecurity(putCloudantSecurityOptionsModel).execute();
+    Response<Ok> response = cloudantService.putCloudantSecurityConfiguration(putCloudantSecurityConfigurationOptionsModel).execute();
     assertNotNull(response);
     Ok responseObj = response.getResult();
     assertNotNull(responseObj);
@@ -5459,26 +5467,26 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, putCloudantSecurityPath);
+    assertEquals(parsedPath, putCloudantSecurityConfigurationPath);
   }
 
-  // Test the putCloudantSecurity operation with null options model parameter
+  // Test the putCloudantSecurityConfiguration operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPutCloudantSecurityNoOptions() throws Throwable {
+  public void testPutCloudantSecurityConfigurationNoOptions() throws Throwable {
     // construct the service
     constructClientService();
 
     server.enqueue(new MockResponse());
 
     // Invoke operation with null options model (negative test)
-    cloudantService.putCloudantSecurity(null).execute();
+    cloudantService.putCloudantSecurityConfiguration(null).execute();
   }
 
   @Test
   public void testGetCorsInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"allow_credentials\": true, \"enable_cors\": true, \"origins\": [\"origins\"]}";
-    String getCorsInformationPath = "/_api/v2/user/config/cors";
+    String getCorsInformationPath = java.net.URLEncoder.encode("/_api/v2/user/config/cors", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5514,7 +5522,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutCorsConfigurationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"ok\": true}";
-    String putCorsConfigurationPath = "/_api/v2/user/config/cors";
+    String putCorsConfigurationPath = java.net.URLEncoder.encode("/_api/v2/user/config/cors", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5554,7 +5562,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testHeadAttachmentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
-    String headAttachmentPath = "/testString/testString/testString";
+    String headAttachmentPath = java.net.URLEncoder.encode("/testString/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setResponseCode(200)
@@ -5610,7 +5618,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteAttachmentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String deleteAttachmentPath = "/testString/testString/testString";
+    String deleteAttachmentPath = java.net.URLEncoder.encode("/testString/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5667,7 +5675,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetAttachmentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "This is a mock binary response.";
-    String getAttachmentPath = "/testString/testString/testString";
+    String getAttachmentPath = java.net.URLEncoder.encode("/testString/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "*/*")
@@ -5725,7 +5733,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutAttachmentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String putAttachmentPath = "/testString/testString/testString";
+    String putAttachmentPath = java.net.URLEncoder.encode("/testString/testString/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5783,11 +5791,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testDeleteLocalDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String deleteLocalDocumentPath = "/testString/_local/testString";
+    String deleteLocalDocumentPath = java.net.URLEncoder.encode("/testString/_local/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -5836,7 +5844,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetLocalDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}";
-    String getLocalDocumentPath = "/testString/_local/testString";
+    String getLocalDocumentPath = java.net.URLEncoder.encode("/testString/_local/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5897,7 +5905,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPutLocalDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
-    String putLocalDocumentPath = "/testString/_local/testString";
+    String putLocalDocumentPath = java.net.URLEncoder.encode("/testString/_local/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -5919,21 +5927,21 @@ public class CloudantTest extends PowerMockTestCase {
     .stub(true)
     .build();
 
-    // Construct an instance of the DocumentRevisionStatus model
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-    .rev("testString")
-    .status("available")
-    .build();
-
     // Construct an instance of the Revisions model
     Revisions revisionsModel = new Revisions.Builder()
     .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .start(Long.valueOf("1"))
     .build();
 
+    // Construct an instance of the DocumentRevisionStatus model
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+    .rev("testString")
+    .status("available")
+    .build();
+
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-    .attachments(new java.util.HashMap<String,Attachment>(){{put("foo", attachmentModel); }})
+    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -5950,7 +5958,6 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .docId("testString")
     .document(documentModel)
-    .body(TestUtilities.createMockStream("This is a mock file."))
     .contentType("application/json")
     .batch("ok")
     .build();
@@ -5992,7 +5999,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostLocalDocsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
-    String postLocalDocsPath = "/testString/_local_docs";
+    String postLocalDocsPath = java.net.URLEncoder.encode("/testString/_local_docs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -6056,11 +6063,11 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostLocalDocsQueriesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}]}";
-    String postLocalDocsQueriesPath = "/testString/_local_docs/queries";
+    String postLocalDocsQueriesPath = java.net.URLEncoder.encode("/testString/_local_docs/queries", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
+    .setResponseCode(200)
     .setBody(mockResponseBody));
 
     constructClientService();
@@ -6125,7 +6132,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostEnsureFullCommitWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"instance_start_time\": \"instanceStartTime\", \"ok\": true}";
-    String postEnsureFullCommitPath = "/testString/_ensure_full_commit";
+    String postEnsureFullCommitPath = java.net.URLEncoder.encode("/testString/_ensure_full_commit", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -6174,8 +6181,8 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostMissingRevsWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"missed_revs\": {\"mapKey\": [\"inner\"]}}";
-    String postMissingRevsPath = "/testString/_missing_revs";
+    String mockResponseBody = "{\"missing_revs\": {\"mapKey\": [\"inner\"]}}";
+    String postMissingRevsPath = java.net.URLEncoder.encode("/testString/_missing_revs", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -6187,7 +6194,7 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostMissingRevsOptions model
     PostMissingRevsOptions postMissingRevsOptionsModel = new PostMissingRevsOptions.Builder()
     .db("testString")
-    .missingRevs(new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); }})
+    .documentRevisions(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); } })
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -6226,7 +6233,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testPostRevsDiffWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"mapKey\": {\"missing\": [\"missing\"], \"possible_ancestors\": [\"possibleAncestors\"]}}";
-    String postRevsDiffPath = "/testString/_revs_diff";
+    String postRevsDiffPath = java.net.URLEncoder.encode("/testString/_revs_diff", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -6238,7 +6245,7 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostRevsDiffOptions model
     PostRevsDiffOptions postRevsDiffOptionsModel = new PostRevsDiffOptions.Builder()
     .db("testString")
-    .revsDiffRequest(new java.util.HashMap<String,List<String>>(){{put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); }})
+    .documentRevisions(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); } })
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -6277,7 +6284,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetShardsInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"shards\": {\"mapKey\": [\"inner\"]}}";
-    String getShardsInformationPath = "/testString/_shards";
+    String getShardsInformationPath = java.net.URLEncoder.encode("/testString/_shards", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -6327,7 +6334,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetDocumentShardsInfoWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"nodes\": [\"nodes\"], \"range\": \"range\"}";
-    String getDocumentShardsInfoPath = "/testString/_shards/testString";
+    String getDocumentShardsInfoPath = java.net.URLEncoder.encode("/testString/_shards/testString", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -6378,7 +6385,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetActiveTasksWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "[{\"changes_done\": 0, \"database\": \"database\", \"pid\": \"pid\", \"progress\": 0, \"started_on\": 0, \"status\": \"status\", \"task\": \"task\", \"total_changes\": 0, \"type\": \"type\", \"updated_on\": 0}]";
-    String getActiveTasksPath = "/_active_tasks";
+    String getActiveTasksPath = java.net.URLEncoder.encode("/_active_tasks", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")
@@ -6414,7 +6421,7 @@ public class CloudantTest extends PowerMockTestCase {
   public void testGetUpInformationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"status\": \"maintenance_mode\"}";
-    String getUpInformationPath = "/_up";
+    String getUpInformationPath = java.net.URLEncoder.encode("/_up", "UTF-8").replace("%2F", "/");
 
     server.enqueue(new MockResponse()
     .setHeader("Content-type", "application/json")

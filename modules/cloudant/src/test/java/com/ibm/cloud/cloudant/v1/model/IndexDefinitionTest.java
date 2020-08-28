@@ -46,6 +46,13 @@ public class IndexDefinitionTest {
     assertEquals(analyzerModel.name(), "classic");
     assertEquals(analyzerModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
 
+    IndexTextOperatorDefaultField indexTextOperatorDefaultFieldModel = new IndexTextOperatorDefaultField.Builder()
+      .analyzer(analyzerModel)
+      .enabled(true)
+      .build();
+    assertEquals(indexTextOperatorDefaultFieldModel.analyzer(), analyzerModel);
+    assertEquals(indexTextOperatorDefaultFieldModel.enabled(), Boolean.valueOf(true));
+
     IndexField indexFieldModel = new IndexField.Builder()
       .name("testString")
       .type("boolean")
@@ -54,13 +61,6 @@ public class IndexDefinitionTest {
     assertEquals(indexFieldModel.getName(), "testString");
     assertEquals(indexFieldModel.getType(), "boolean");
     assertEquals(indexFieldModel.get("foo"), "asc");
-
-    IndexTextOperatorDefaultField indexTextOperatorDefaultFieldModel = new IndexTextOperatorDefaultField.Builder()
-      .analyzer(analyzerModel)
-      .enabled(true)
-      .build();
-    assertEquals(indexTextOperatorDefaultFieldModel.analyzer(), analyzerModel);
-    assertEquals(indexTextOperatorDefaultFieldModel.enabled(), Boolean.valueOf(true));
 
     IndexDefinition indexDefinitionModel = new IndexDefinition.Builder()
       .defaultAnalyzer(analyzerModel)

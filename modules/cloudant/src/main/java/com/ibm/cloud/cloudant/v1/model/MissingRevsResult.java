@@ -19,22 +19,22 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for mapping document IDs to lists of missed revisions.
+ * Schema for mapping document IDs to lists of missing revisions.
  */
 public class MissingRevsResult extends GenericModel {
 
-  @SerializedName("missed_revs")
-  protected Map<String, List<String>> missedRevs;
+  @SerializedName("missing_revs")
+  protected Map<String, List<String>> missingRevs;
 
   /**
-   * Gets the missedRevs.
+   * Gets the missingRevs.
    *
    * Schema for mapping document IDs to lists of revisions.
    *
-   * @return the missedRevs
+   * @return the missingRevs
    */
-  public Map<String, List<String>> getMissedRevs() {
-    return missedRevs;
+  public Map<String, List<String>> getMissingRevs() {
+    return missingRevs;
   }
 }
 

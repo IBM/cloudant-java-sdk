@@ -23,18 +23,18 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class PostRevsDiffOptions extends GenericModel {
 
   protected String db;
-  protected Map<String, List<String>> revsDiffRequest;
+  protected Map<String, List<String>> documentRevisions;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String db;
-    private Map<String, List<String>> revsDiffRequest;
+    private Map<String, List<String>> documentRevisions;
 
     private Builder(PostRevsDiffOptions postRevsDiffOptions) {
       this.db = postRevsDiffOptions.db;
-      this.revsDiffRequest = postRevsDiffOptions.revsDiffRequest;
+      this.documentRevisions = postRevsDiffOptions.documentRevisions;
     }
 
     /**
@@ -73,13 +73,13 @@ public class PostRevsDiffOptions extends GenericModel {
     }
 
     /**
-     * Set the revsDiffRequest.
+     * Set the documentRevisions.
      *
-     * @param revsDiffRequest the revsDiffRequest
+     * @param documentRevisions the documentRevisions
      * @return the PostRevsDiffOptions builder
      */
-    public Builder revsDiffRequest(Map<String, List<String>> revsDiffRequest) {
-      this.revsDiffRequest = revsDiffRequest;
+    public Builder documentRevisions(Map<String, List<String>> documentRevisions) {
+      this.documentRevisions = documentRevisions;
       return this;
     }
   }
@@ -88,7 +88,7 @@ public class PostRevsDiffOptions extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
     db = builder.db;
-    revsDiffRequest = builder.revsDiffRequest;
+    documentRevisions = builder.documentRevisions;
   }
 
   /**
@@ -112,14 +112,14 @@ public class PostRevsDiffOptions extends GenericModel {
   }
 
   /**
-   * Gets the revsDiffRequest.
+   * Gets the documentRevisions.
    *
    * HTTP request body for postMissingRevs and postRevsDiff.
    *
-   * @return the revsDiffRequest
+   * @return the documentRevisions
    */
-  public Map<String, List<String>> revsDiffRequest() {
-    return revsDiffRequest;
+  public Map<String, List<String>> documentRevisions() {
+    return documentRevisions;
   }
 }
 

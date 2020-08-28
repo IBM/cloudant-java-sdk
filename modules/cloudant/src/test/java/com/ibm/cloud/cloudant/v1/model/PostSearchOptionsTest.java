@@ -58,7 +58,7 @@ public class PostSearchOptionsTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .ranges(new java.util.HashMap<String,Map<String, Map<String, String>>>(){{put("foo", new java.util.HashMap<String,Map<String, String>>(){{put("foo", new java.util.HashMap<String,String>(){{put("foo", "testString"); }}); }}); }})
+      .ranges(new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } })
       .build();
     assertEquals(postSearchOptionsModel.db(), "testString");
     assertEquals(postSearchOptionsModel.ddoc(), "testString");
@@ -80,7 +80,7 @@ public class PostSearchOptionsTest {
     assertEquals(postSearchOptionsModel.groupField(), "testString");
     assertEquals(postSearchOptionsModel.groupLimit(), Long.valueOf("1"));
     assertEquals(postSearchOptionsModel.groupSort(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(postSearchOptionsModel.ranges(), new java.util.HashMap<String,Map<String, Map<String, String>>>(){{put("foo", new java.util.HashMap<String,Map<String, String>>(){{put("foo", new java.util.HashMap<String,String>(){{put("foo", "testString"); }}); }}); }});
+    assertEquals(postSearchOptionsModel.ranges(), new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } });
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
