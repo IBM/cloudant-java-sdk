@@ -44,7 +44,7 @@ public class SdkCommonTest {
     @Test
     public void testAnalyticsHeaders() {
         Map<String, String> headers = SdkCommon.getSdkHeaders("service1", "v1", "operation1");
-        String userAgent = headers.get("X-IBMCloud-SDK-Analytics");
-        assertEquals(userAgent, "service_name=service1;service_version=v1;operation_id=operation1");
+        String analyticsHeader = headers.get("X-IBMCloud-SDK-Analytics");
+        assertEquals(analyticsHeader, "service_name=service1;service_version=v1;operation_id=operation1");
     }
 }
