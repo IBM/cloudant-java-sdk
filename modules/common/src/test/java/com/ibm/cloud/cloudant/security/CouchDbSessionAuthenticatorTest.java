@@ -23,20 +23,20 @@ import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertThrows;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 public class CouchDbSessionAuthenticatorTest {
 
@@ -266,10 +266,8 @@ public class CouchDbSessionAuthenticatorTest {
     void setHeaders() {
         CouchDbSessionAuthenticator a =
                 Mockito.spy(testAuthenticator);
-        TestCloudantService testCloudantService = new TestCloudantService("test", testAuthenticator);
-        Mockito.doReturn(new CouchDbSessionAuthenticator.CouchDbSessionToken(System.currentTimeMillis() + 5000))
-                .when(a)
-                .requestToken();
+        TestCloudantService testCloudantService = new TestCloudantService("test", a);
+        testCloudantService.setDefaultHeaders(customHeaders);
 
         // Verify the setter was called
         Mockito.verify(a).setHeaders(customHeaders);
@@ -375,17 +373,13 @@ public class CouchDbSessionAuthenticatorTest {
             testCloudantService.setServiceUrl("http://" + server.getHostName() + ":" + server.getPort());
 
             try {
-                Map<String, Object> info = testCloudantService.getSessionInformation().execute().getResult();
-                fail("A RuntimeException should be thrown.");
-            } catch (RuntimeException e) {
-                Throwable t = e.getCause();
-                assertTrue(t instanceof ServiceResponseException, "The cause should be a " +
-                        "ServiceResponseException.");
-                ServiceResponseException cause = (ServiceResponseException) t;
-                assertEquals(401, cause.getStatusCode(), "The status code should be 401.");
-                assertEquals("unauthorized", cause.getMessage(), "The error should be " +
+                testCloudantService.getSessionInformation().execute().getResult();
+                fail("A ServiceResponseException should be thrown.");
+            } catch (ServiceResponseException e) {
+                assertEquals(401, e.getStatusCode(), "The status code should be 401.");
+                assertEquals("unauthorized", e.getMessage(), "The error should be " +
                         "unauthorized.");
-                assertEquals("Name or password is incorrect.", cause.getDebuggingInfo().get(
+                assertEquals("Name or password is incorrect.", e.getDebuggingInfo().get(
                         "reason"), "The reason should be as expected.");
             }
         } finally {
@@ -412,14 +406,10 @@ public class CouchDbSessionAuthenticatorTest {
             TestCloudantService testCloudantService = new TestCloudantService("test", testAuthenticator);
             testCloudantService.setServiceUrl("http://" + server.getHostName() + ":" + server.getPort());
             try {
-                Map<String, Object> info = testCloudantService.getSessionInformation().execute().getResult();
-                fail("A RuntimeException should be thrown.");
-            } catch (RuntimeException e) {
-                Throwable t = e.getCause();
-                assertTrue(t instanceof ServiceResponseException, "The cause should be a " +
-                        "ServiceResponseException.");
-                ServiceResponseException cause = (ServiceResponseException) t;
-                assertEquals(200, cause.getStatusCode(), "The status code should be 200.");
+                testCloudantService.getSessionInformation().execute().getResult();
+                fail("A ServiceResponseException should be thrown.");
+            } catch (ServiceResponseException e) {
+                assertEquals(200, e.getStatusCode(), "The status code should be 200.");
             }
         } finally {
             server.shutdown();

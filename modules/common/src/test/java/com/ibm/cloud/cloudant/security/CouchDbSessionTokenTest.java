@@ -13,15 +13,15 @@
 
 package com.ibm.cloud.cloudant.security;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator;
 import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator.CouchDbSessionToken;
+import org.testng.annotations.Test;
 
-import org.junit.jupiter.api.Test;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
+
 
 public class CouchDbSessionTokenTest {
 

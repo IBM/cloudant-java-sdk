@@ -13,18 +13,19 @@
 
 package com.ibm.cloud.cloudant.internal;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.ibm.cloud.cloudant.internal.DelegatingAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator;
+import org.testng.annotations.Test;
 
-import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 class DelegatingAuthenticatorFactoryTest {
 

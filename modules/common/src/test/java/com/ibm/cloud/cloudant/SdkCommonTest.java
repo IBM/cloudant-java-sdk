@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.cloudant;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
@@ -38,5 +39,12 @@ public class SdkCommonTest {
         System.out.println("User-Agent: " + userAgent);
         String expectedUserAgentRegex = String.format("%s/%s .*", SdkCommon.getProjectName(), SdkCommon.getVersion());
         assertTrue(userAgent.matches(expectedUserAgentRegex));
+    }
+
+    @Test
+    public void testAnalyticsHeaders() {
+        Map<String, String> headers = SdkCommon.getSdkHeaders("service1", "v1", "operation1");
+        String userAgent = headers.get("X-IBMCloud-SDK-Analytics");
+        assertEquals(userAgent, "service_name=service1;service_version=v1;operation_id=operation1");
     }
 }
