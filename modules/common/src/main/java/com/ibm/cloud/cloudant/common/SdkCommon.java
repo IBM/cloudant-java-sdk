@@ -62,7 +62,7 @@ public class SdkCommon {
             buildProps.load(is);
             version = buildProps.getProperty("version", "unknown");
             projectName = buildProps.getProperty("title", "unknown");
-       } catch (IOException e) {
+        } catch (IOException e) {
             LOG.log(Level.WARNING, String.format("Could not load %s.properties", parentArtifactId), e);
             version = "unknown";
             projectName = "unknown";
@@ -119,6 +119,13 @@ public class SdkCommon {
      */
     public static Map<String, String> getSdkHeaders(String serviceName, String serviceVersion, String operationId) {
         Map<String, String> headers = new HashMap<>();
+        String sdkAnalyticsHeaderValue = String.format(
+                "service_name=%s;service_version=%s;operation_id=%s",
+                serviceName,
+                serviceVersion,
+                operationId
+        );
+        headers.put("X-IBMCloud-SDK-Analytics", sdkAnalyticsHeaderValue);
         headers.put(HttpHeaders.USER_AGENT, getUserAgent());
         return headers;
     }
