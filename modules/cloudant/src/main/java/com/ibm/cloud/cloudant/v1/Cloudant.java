@@ -737,8 +737,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (postDocumentOptions.batch() != null) {
       builder.query("batch", String.valueOf(postDocumentOptions.batch()));
     }
-    String contentType = postDocumentOptions.contentType() == null ? "application/json" : postDocumentOptions.contentType();
-    builder.bodyContent(contentType, postDocumentOptions.document(),
+    builder.bodyContent(postDocumentOptions.contentType(), postDocumentOptions.document(),
       null, postDocumentOptions.body());
     ResponseConverter<DocumentResult> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentResult>() { }.getType());
@@ -1463,8 +1462,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (putDocumentOptions.rev() != null) {
       builder.query("rev", String.valueOf(putDocumentOptions.rev()));
     }
-    String contentType = putDocumentOptions.contentType() == null ? "application/json" : putDocumentOptions.contentType();
-    builder.bodyContent(contentType, putDocumentOptions.document(),
+    builder.bodyContent(putDocumentOptions.contentType(), putDocumentOptions.document(),
       null, putDocumentOptions.body());
     ResponseConverter<DocumentResult> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentResult>() { }.getType());
