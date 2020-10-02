@@ -65,12 +65,12 @@ public class PostDesignDocsQueriesOptionsTest {
 
     PostDesignDocsQueriesOptions postDesignDocsQueriesOptionsModel = new PostDesignDocsQueriesOptions.Builder()
       .db("testString")
-      .accept("application/json")
       .queries(new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)))
+      .accept("application/json")
       .build();
     assertEquals(postDesignDocsQueriesOptionsModel.db(), "testString");
-    assertEquals(postDesignDocsQueriesOptionsModel.accept(), "application/json");
     assertEquals(postDesignDocsQueriesOptionsModel.queries(), new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)));
+    assertEquals(postDesignDocsQueriesOptionsModel.accept(), "application/json");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

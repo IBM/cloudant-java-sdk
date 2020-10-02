@@ -43,15 +43,15 @@ public class PutCloudantSecurityConfigurationOptionsTest {
 
     PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
       .db("testString")
+      .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
       .admins(securityObjectModel)
       .members(securityObjectModel)
-      .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
       .couchdbAuthOnly(true)
       .build();
     assertEquals(putCloudantSecurityConfigurationOptionsModel.db(), "testString");
+    assertEquals(putCloudantSecurityConfigurationOptionsModel.cloudant(), new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } });
     assertEquals(putCloudantSecurityConfigurationOptionsModel.admins(), securityObjectModel);
     assertEquals(putCloudantSecurityConfigurationOptionsModel.members(), securityObjectModel);
-    assertEquals(putCloudantSecurityConfigurationOptionsModel.cloudant(), new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } });
     assertEquals(putCloudantSecurityConfigurationOptionsModel.couchdbAuthOnly(), Boolean.valueOf(true));
   }
 

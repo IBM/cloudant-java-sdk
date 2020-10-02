@@ -34,12 +34,18 @@ public class PutCorsConfigurationOptionsTest {
   @Test
   public void testPutCorsConfigurationOptions() throws Throwable {
     PutCorsConfigurationOptions putCorsConfigurationOptionsModel = new PutCorsConfigurationOptions.Builder()
+      .origins(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .allowCredentials(true)
       .enableCors(true)
-      .origins(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .build();
+    assertEquals(putCorsConfigurationOptionsModel.origins(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(putCorsConfigurationOptionsModel.allowCredentials(), Boolean.valueOf(true));
     assertEquals(putCorsConfigurationOptionsModel.enableCors(), Boolean.valueOf(true));
-    assertEquals(putCorsConfigurationOptionsModel.origins(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPutCorsConfigurationOptionsError() throws Throwable {
+    new PutCorsConfigurationOptions.Builder().build();
+  }
+
 }

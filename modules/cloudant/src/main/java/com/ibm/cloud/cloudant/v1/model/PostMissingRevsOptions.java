@@ -47,9 +47,11 @@ public class PostMissingRevsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param db the db
+     * @param documentRevisions the documentRevisions
      */
-    public Builder(String db) {
+    public Builder(String db, Map<String, List<String>> documentRevisions) {
       this.db = db;
+      this.documentRevisions = documentRevisions;
     }
 
     /**
@@ -87,6 +89,8 @@ public class PostMissingRevsOptions extends GenericModel {
   protected PostMissingRevsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.documentRevisions,
+      "documentRevisions cannot be null");
     db = builder.db;
     documentRevisions = builder.documentRevisions;
   }

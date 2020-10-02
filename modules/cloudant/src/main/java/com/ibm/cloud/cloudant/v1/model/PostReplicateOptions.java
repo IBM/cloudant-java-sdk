@@ -38,6 +38,15 @@ public class PostReplicateOptions extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param replicationDocument the replicationDocument
+     */
+    public Builder(ReplicationDocument replicationDocument) {
+      this.replicationDocument = replicationDocument;
+    }
+
+    /**
      * Builds a PostReplicateOptions.
      *
      * @return the new PostReplicateOptions instance
@@ -59,6 +68,8 @@ public class PostReplicateOptions extends GenericModel {
   }
 
   protected PostReplicateOptions(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.replicationDocument,
+      "replicationDocument cannot be null");
     replicationDocument = builder.replicationDocument;
   }
 

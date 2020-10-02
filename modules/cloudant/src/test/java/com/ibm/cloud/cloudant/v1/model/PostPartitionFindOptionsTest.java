@@ -37,12 +37,12 @@ public class PostPartitionFindOptionsTest {
     PostPartitionFindOptions postPartitionFindOptionsModel = new PostPartitionFindOptions.Builder()
       .db("testString")
       .partitionKey("testString")
+      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .limit(Long.valueOf("0"))
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .skip(Long.valueOf("0"))
       .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
       .stable(true)
@@ -51,12 +51,12 @@ public class PostPartitionFindOptionsTest {
       .build();
     assertEquals(postPartitionFindOptionsModel.db(), "testString");
     assertEquals(postPartitionFindOptionsModel.partitionKey(), "testString");
+    assertEquals(postPartitionFindOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postPartitionFindOptionsModel.bookmark(), "testString");
     assertEquals(postPartitionFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postPartitionFindOptionsModel.limit(), Long.valueOf("0"));
-    assertEquals(postPartitionFindOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postPartitionFindOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postPartitionFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
     assertEquals(postPartitionFindOptionsModel.stable(), Boolean.valueOf(true));

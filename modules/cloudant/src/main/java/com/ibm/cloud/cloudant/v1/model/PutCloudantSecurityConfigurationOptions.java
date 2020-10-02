@@ -23,9 +23,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class PutCloudantSecurityConfigurationOptions extends GenericModel {
 
   protected String db;
+  protected Map<String, List<String>> cloudant;
   protected SecurityObject admins;
   protected SecurityObject members;
-  protected Map<String, List<String>> cloudant;
   protected Boolean couchdbAuthOnly;
 
   /**
@@ -33,16 +33,16 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
    */
   public static class Builder {
     private String db;
+    private Map<String, List<String>> cloudant;
     private SecurityObject admins;
     private SecurityObject members;
-    private Map<String, List<String>> cloudant;
     private Boolean couchdbAuthOnly;
 
     private Builder(PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptions) {
       this.db = putCloudantSecurityConfigurationOptions.db;
+      this.cloudant = putCloudantSecurityConfigurationOptions.cloudant;
       this.admins = putCloudantSecurityConfigurationOptions.admins;
       this.members = putCloudantSecurityConfigurationOptions.members;
-      this.cloudant = putCloudantSecurityConfigurationOptions.cloudant;
       this.couchdbAuthOnly = putCloudantSecurityConfigurationOptions.couchdbAuthOnly;
     }
 
@@ -56,9 +56,11 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param db the db
+     * @param cloudant the cloudant
      */
-    public Builder(String db) {
+    public Builder(String db, Map<String, List<String>> cloudant) {
       this.db = db;
+      this.cloudant = cloudant;
     }
 
     /**
@@ -78,6 +80,17 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
      */
     public Builder db(String db) {
       this.db = db;
+      return this;
+    }
+
+    /**
+     * Set the cloudant.
+     *
+     * @param cloudant the cloudant
+     * @return the PutCloudantSecurityConfigurationOptions builder
+     */
+    public Builder cloudant(Map<String, List<String>> cloudant) {
+      this.cloudant = cloudant;
       return this;
     }
 
@@ -104,17 +117,6 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the cloudant.
-     *
-     * @param cloudant the cloudant
-     * @return the PutCloudantSecurityConfigurationOptions builder
-     */
-    public Builder cloudant(Map<String, List<String>> cloudant) {
-      this.cloudant = cloudant;
-      return this;
-    }
-
-    /**
      * Set the couchdbAuthOnly.
      *
      * @param couchdbAuthOnly the couchdbAuthOnly
@@ -129,10 +131,12 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
   protected PutCloudantSecurityConfigurationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.cloudant,
+      "cloudant cannot be null");
     db = builder.db;
+    cloudant = builder.cloudant;
     admins = builder.admins;
     members = builder.members;
-    cloudant = builder.cloudant;
     couchdbAuthOnly = builder.couchdbAuthOnly;
   }
 
@@ -157,6 +161,17 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
   }
 
   /**
+   * Gets the cloudant.
+   *
+   * Database permissions for Cloudant users and/or API keys.
+   *
+   * @return the cloudant
+   */
+  public Map<String, List<String>> cloudant() {
+    return cloudant;
+  }
+
+  /**
    * Gets the admins.
    *
    * Schema for names and roles to map to a database permission.
@@ -176,17 +191,6 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
    */
   public SecurityObject members() {
     return members;
-  }
-
-  /**
-   * Gets the cloudant.
-   *
-   * Database permissions for Cloudant users and/or API keys.
-   *
-   * @return the cloudant
-   */
-  public Map<String, List<String>> cloudant() {
-    return cloudant;
   }
 
   /**

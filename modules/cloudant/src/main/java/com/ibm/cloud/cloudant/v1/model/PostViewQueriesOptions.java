@@ -55,11 +55,13 @@ public class PostViewQueriesOptions extends GenericModel {
      * @param db the db
      * @param ddoc the ddoc
      * @param view the view
+     * @param queries the queries
      */
-    public Builder(String db, String ddoc, String view) {
+    public Builder(String db, String ddoc, String view, List<ViewQuery> queries) {
       this.db = db;
       this.ddoc = ddoc;
       this.view = view;
+      this.queries = queries;
     }
 
     /**
@@ -140,6 +142,8 @@ public class PostViewQueriesOptions extends GenericModel {
       "ddoc cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.view,
       "view cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.queries,
+      "queries cannot be null");
     db = builder.db;
     ddoc = builder.ddoc;
     view = builder.view;

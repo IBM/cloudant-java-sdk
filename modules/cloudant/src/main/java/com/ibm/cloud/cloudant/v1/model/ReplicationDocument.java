@@ -172,6 +172,17 @@ public class ReplicationDocument extends DynamicModel<Object> {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param source the source
+     * @param target the target
+     */
+    public Builder(ReplicationDatabase source, ReplicationDatabase target) {
+      this.source = source;
+      this.target = target;
+    }
+
+    /**
      * Builds a ReplicationDocument.
      *
      * @return the new ReplicationDocument instance
@@ -608,6 +619,10 @@ public class ReplicationDocument extends DynamicModel<Object> {
 
   protected ReplicationDocument(Builder builder) {
     super(new TypeToken<Object>() { });
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.source,
+      "source cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.target,
+      "target cannot be null");
     attachments = builder.attachments;
     conflicts = builder.conflicts;
     deleted = builder.deleted;

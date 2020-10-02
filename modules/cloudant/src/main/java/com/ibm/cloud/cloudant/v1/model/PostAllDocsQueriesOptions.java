@@ -47,9 +47,11 @@ public class PostAllDocsQueriesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param db the db
+     * @param queries the queries
      */
-    public Builder(String db) {
+    public Builder(String db, List<AllDocsQuery> queries) {
       this.db = db;
+      this.queries = queries;
     }
 
     /**
@@ -104,6 +106,8 @@ public class PostAllDocsQueriesOptions extends GenericModel {
   protected PostAllDocsQueriesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.queries,
+      "queries cannot be null");
     db = builder.db;
     queries = builder.queries;
   }

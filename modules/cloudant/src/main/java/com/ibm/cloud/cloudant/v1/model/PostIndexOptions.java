@@ -34,9 +34,9 @@ public class PostIndexOptions extends GenericModel {
   }
 
   protected String db;
+  protected IndexDefinition index;
   protected String ddoc;
   protected IndexDefinition def;
-  protected IndexDefinition index;
   protected String name;
   protected Map<String, Object> partialFilterSelector;
   protected Boolean partitioned;
@@ -47,9 +47,9 @@ public class PostIndexOptions extends GenericModel {
    */
   public static class Builder {
     private String db;
+    private IndexDefinition index;
     private String ddoc;
     private IndexDefinition def;
-    private IndexDefinition index;
     private String name;
     private Map<String, Object> partialFilterSelector;
     private Boolean partitioned;
@@ -57,9 +57,9 @@ public class PostIndexOptions extends GenericModel {
 
     private Builder(PostIndexOptions postIndexOptions) {
       this.db = postIndexOptions.db;
+      this.index = postIndexOptions.index;
       this.ddoc = postIndexOptions.ddoc;
       this.def = postIndexOptions.def;
-      this.index = postIndexOptions.index;
       this.name = postIndexOptions.name;
       this.partialFilterSelector = postIndexOptions.partialFilterSelector;
       this.partitioned = postIndexOptions.partitioned;
@@ -76,9 +76,11 @@ public class PostIndexOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param db the db
+     * @param index the index
      */
-    public Builder(String db) {
+    public Builder(String db, IndexDefinition index) {
       this.db = db;
+      this.index = index;
     }
 
     /**
@@ -102,6 +104,17 @@ public class PostIndexOptions extends GenericModel {
     }
 
     /**
+     * Set the index.
+     *
+     * @param index the index
+     * @return the PostIndexOptions builder
+     */
+    public Builder index(IndexDefinition index) {
+      this.index = index;
+      return this;
+    }
+
+    /**
      * Set the ddoc.
      *
      * @param ddoc the ddoc
@@ -120,17 +133,6 @@ public class PostIndexOptions extends GenericModel {
      */
     public Builder def(IndexDefinition def) {
       this.def = def;
-      return this;
-    }
-
-    /**
-     * Set the index.
-     *
-     * @param index the index
-     * @return the PostIndexOptions builder
-     */
-    public Builder index(IndexDefinition index) {
-      this.index = index;
       return this;
     }
 
@@ -182,10 +184,12 @@ public class PostIndexOptions extends GenericModel {
   protected PostIndexOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.index,
+      "index cannot be null");
     db = builder.db;
+    index = builder.index;
     ddoc = builder.ddoc;
     def = builder.def;
-    index = builder.index;
     name = builder.name;
     partialFilterSelector = builder.partialFilterSelector;
     partitioned = builder.partitioned;
@@ -213,6 +217,20 @@ public class PostIndexOptions extends GenericModel {
   }
 
   /**
+   * Gets the index.
+   *
+   * Schema for a `json` or `text` query index definition. Indexes of type `text` have additional configuration
+   * properties that do not apply to `json` indexes, these are:
+   * * `default_analyzer` - the default text analyzer to use * `default_field` - whether to index the text in all
+   * document fields and what analyzer to use for that purpose.
+   *
+   * @return the index
+   */
+  public IndexDefinition index() {
+    return index;
+  }
+
+  /**
    * Gets the ddoc.
    *
    * Name of the design document in which the index will be created.
@@ -235,20 +253,6 @@ public class PostIndexOptions extends GenericModel {
    */
   public IndexDefinition def() {
     return def;
-  }
-
-  /**
-   * Gets the index.
-   *
-   * Schema for a `json` or `text` query index definition. Indexes of type `text` have additional configuration
-   * properties that do not apply to `json` indexes, these are:
-   * * `default_analyzer` - the default text analyzer to use * `default_field` - whether to index the text in all
-   * document fields and what analyzer to use for that purpose.
-   *
-   * @return the index
-   */
-  public IndexDefinition index() {
-    return index;
   }
 
   /**

@@ -40,6 +40,15 @@ public class ReplicationDatabaseAuthIam extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param apiKey the apiKey
+     */
+    public Builder(String apiKey) {
+      this.apiKey = apiKey;
+    }
+
+    /**
      * Builds a ReplicationDatabaseAuthIam.
      *
      * @return the new ReplicationDatabaseAuthIam instance
@@ -61,6 +70,8 @@ public class ReplicationDatabaseAuthIam extends GenericModel {
   }
 
   protected ReplicationDatabaseAuthIam(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.apiKey,
+      "apiKey cannot be null");
     apiKey = builder.apiKey;
   }
 

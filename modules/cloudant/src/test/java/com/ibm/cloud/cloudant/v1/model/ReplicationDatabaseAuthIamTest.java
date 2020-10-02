@@ -42,4 +42,10 @@ public class ReplicationDatabaseAuthIamTest {
     assertTrue(replicationDatabaseAuthIamModelNew instanceof ReplicationDatabaseAuthIam);
     assertEquals(replicationDatabaseAuthIamModelNew.apiKey(), "testString");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testReplicationDatabaseAuthIamError() throws Throwable {
+    new ReplicationDatabaseAuthIam.Builder().build();
+  }
+
 }

@@ -210,4 +210,10 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModelNew.getWorkerProcesses(), Long.valueOf("1"));
     assertEquals(replicationDocumentModelNew.get("foo"), "testString");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testReplicationDocumentError() throws Throwable {
+    new ReplicationDocument.Builder().build();
+  }
+
 }
