@@ -37,12 +37,12 @@ public class PostPartitionFindOptions extends GenericModel {
 
   protected String db;
   protected String partitionKey;
+  protected Map<String, Object> selector;
   protected String bookmark;
   protected Boolean conflicts;
   protected Boolean executionStats;
   protected List<String> fields;
   protected Long limit;
-  protected Map<String, Object> selector;
   protected Long skip;
   protected List<Map<String, String>> sort;
   protected Boolean stable;
@@ -55,12 +55,12 @@ public class PostPartitionFindOptions extends GenericModel {
   public static class Builder {
     private String db;
     private String partitionKey;
+    private Map<String, Object> selector;
     private String bookmark;
     private Boolean conflicts;
     private Boolean executionStats;
     private List<String> fields;
     private Long limit;
-    private Map<String, Object> selector;
     private Long skip;
     private List<Map<String, String>> sort;
     private Boolean stable;
@@ -70,12 +70,12 @@ public class PostPartitionFindOptions extends GenericModel {
     private Builder(PostPartitionFindOptions postPartitionFindOptions) {
       this.db = postPartitionFindOptions.db;
       this.partitionKey = postPartitionFindOptions.partitionKey;
+      this.selector = postPartitionFindOptions.selector;
       this.bookmark = postPartitionFindOptions.bookmark;
       this.conflicts = postPartitionFindOptions.conflicts;
       this.executionStats = postPartitionFindOptions.executionStats;
       this.fields = postPartitionFindOptions.fields;
       this.limit = postPartitionFindOptions.limit;
-      this.selector = postPartitionFindOptions.selector;
       this.skip = postPartitionFindOptions.skip;
       this.sort = postPartitionFindOptions.sort;
       this.stable = postPartitionFindOptions.stable;
@@ -94,10 +94,12 @@ public class PostPartitionFindOptions extends GenericModel {
      *
      * @param db the db
      * @param partitionKey the partitionKey
+     * @param selector the selector
      */
-    public Builder(String db, String partitionKey) {
+    public Builder(String db, String partitionKey, Map<String, Object> selector) {
       this.db = db;
       this.partitionKey = partitionKey;
+      this.selector = selector;
     }
 
     /**
@@ -180,6 +182,17 @@ public class PostPartitionFindOptions extends GenericModel {
     }
 
     /**
+     * Set the selector.
+     *
+     * @param selector the selector
+     * @return the PostPartitionFindOptions builder
+     */
+    public Builder selector(Map<String, Object> selector) {
+      this.selector = selector;
+      return this;
+    }
+
+    /**
      * Set the bookmark.
      *
      * @param bookmark the bookmark
@@ -232,17 +245,6 @@ public class PostPartitionFindOptions extends GenericModel {
      */
     public Builder limit(long limit) {
       this.limit = limit;
-      return this;
-    }
-
-    /**
-     * Set the selector.
-     *
-     * @param selector the selector
-     * @return the PostPartitionFindOptions builder
-     */
-    public Builder selector(Map<String, Object> selector) {
-      this.selector = selector;
       return this;
     }
 
@@ -309,14 +311,16 @@ public class PostPartitionFindOptions extends GenericModel {
       "db cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.partitionKey,
       "partitionKey cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.selector,
+      "selector cannot be null");
     db = builder.db;
     partitionKey = builder.partitionKey;
+    selector = builder.selector;
     bookmark = builder.bookmark;
     conflicts = builder.conflicts;
     executionStats = builder.executionStats;
     fields = builder.fields;
     limit = builder.limit;
-    selector = builder.selector;
     skip = builder.skip;
     sort = builder.sort;
     stable = builder.stable;
@@ -353,6 +357,39 @@ public class PostPartitionFindOptions extends GenericModel {
    */
   public String partitionKey() {
     return partitionKey;
+  }
+
+  /**
+   * Gets the selector.
+   *
+   * JSON object describing criteria used to select documents. The selector specifies fields in the document, and
+   * provides an expression to evaluate with the field content or other data.
+   *
+   * The selector object must:
+   *   * Be structured as valid JSON.
+   *   * Contain a valid query expression.
+   *
+   * Using a selector is significantly more efficient than using a JavaScript filter function, and is the recommended
+   * option if filtering on document attributes only.
+   *
+   * Elementary selector syntax requires you to specify one or more fields, and the corresponding values required for
+   * those fields. You can create more complex selector expressions by combining operators.
+   *
+   * Operators are identified by the use of a dollar sign `$` prefix in the name field.
+   *
+   * There are two core types of operators in the selector syntax:
+   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. In addition
+   * to the common boolean operators (`$and`, `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
+   * `$elemMatch`, and `$allMatch`. A combination operator takes a single argument. The argument is either another
+   * selector, or an array of selectors.
+   * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
+   * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
+   * argument.
+   *
+   * @return the selector
+   */
+  public Map<String, Object> selector() {
+    return selector;
   }
 
   /**
@@ -411,39 +448,6 @@ public class PostPartitionFindOptions extends GenericModel {
    */
   public Long limit() {
     return limit;
-  }
-
-  /**
-   * Gets the selector.
-   *
-   * JSON object describing criteria used to select documents. The selector specifies fields in the document, and
-   * provides an expression to evaluate with the field content or other data.
-   *
-   * The selector object must:
-   *   * Be structured as valid JSON.
-   *   * Contain a valid query expression.
-   *
-   * Using a selector is significantly more efficient than using a JavaScript filter function, and is the recommended
-   * option if filtering on document attributes only.
-   *
-   * Elementary selector syntax requires you to specify one or more fields, and the corresponding values required for
-   * those fields. You can create more complex selector expressions by combining operators.
-   *
-   * Operators are identified by the use of a dollar sign `$` prefix in the name field.
-   *
-   * There are two core types of operators in the selector syntax:
-   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. In addition
-   * to the common boolean operators (`$and`, `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-   * `$elemMatch`, and `$allMatch`. A combination operator takes a single argument. The argument is either another
-   * selector, or an array of selectors.
-   * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
-   * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
-   * argument.
-   *
-   * @return the selector
-   */
-  public Map<String, Object> selector() {
-    return selector;
   }
 
   /**

@@ -65,9 +65,11 @@ public class PutReplicationDocumentOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param docId the docId
+     * @param replicationDocument the replicationDocument
      */
-    public Builder(String docId) {
+    public Builder(String docId, ReplicationDocument replicationDocument) {
       this.docId = docId;
+      this.replicationDocument = replicationDocument;
     }
 
     /**
@@ -149,6 +151,8 @@ public class PutReplicationDocumentOptions extends GenericModel {
   protected PutReplicationDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.docId,
       "docId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.replicationDocument,
+      "replicationDocument cannot be null");
     docId = builder.docId;
     replicationDocument = builder.replicationDocument;
     ifMatch = builder.ifMatch;

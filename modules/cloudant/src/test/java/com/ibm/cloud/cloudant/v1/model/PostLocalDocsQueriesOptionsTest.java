@@ -65,12 +65,12 @@ public class PostLocalDocsQueriesOptionsTest {
 
     PostLocalDocsQueriesOptions postLocalDocsQueriesOptionsModel = new PostLocalDocsQueriesOptions.Builder()
       .db("testString")
-      .accept("application/json")
       .queries(new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)))
+      .accept("application/json")
       .build();
     assertEquals(postLocalDocsQueriesOptionsModel.db(), "testString");
-    assertEquals(postLocalDocsQueriesOptionsModel.accept(), "application/json");
     assertEquals(postLocalDocsQueriesOptionsModel.queries(), new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)));
+    assertEquals(postLocalDocsQueriesOptionsModel.accept(), "application/json");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

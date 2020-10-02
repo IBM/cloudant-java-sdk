@@ -41,7 +41,6 @@ import com.ibm.cloud.cloudant.v1.model.DeleteAttachmentOptions;
 import com.ibm.cloud.cloudant.v1.model.DeleteDatabaseOptions;
 import com.ibm.cloud.cloudant.v1.model.DeleteDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DeleteDocumentOptions;
-import com.ibm.cloud.cloudant.v1.model.DeleteIamSessionOptions;
 import com.ibm.cloud.cloudant.v1.model.DeleteIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.DeleteLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DeleteReplicationDocumentOptions;
@@ -56,7 +55,6 @@ import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.DocumentResult;
 import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
 import com.ibm.cloud.cloudant.v1.model.DocumentShardInfo;
-import com.ibm.cloud.cloudant.v1.model.EnsureFullCommitInformation;
 import com.ibm.cloud.cloudant.v1.model.ExecutionStats;
 import com.ibm.cloud.cloudant.v1.model.ExplainResult;
 import com.ibm.cloud.cloudant.v1.model.ExplainResultRange;
@@ -82,7 +80,6 @@ import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentShardsInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.GetGeoIndexInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetGeoOptions;
-import com.ibm.cloud.cloudant.v1.model.GetIamSessionInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetIndexesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetMembershipInformationOptions;
@@ -105,7 +102,6 @@ import com.ibm.cloud.cloudant.v1.model.HeadDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadReplicationDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadSchedulerJobOptions;
-import com.ibm.cloud.cloudant.v1.model.IamSessionInformation;
 import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.IndexField;
 import com.ibm.cloud.cloudant.v1.model.IndexInformation;
@@ -129,11 +125,9 @@ import com.ibm.cloud.cloudant.v1.model.PostDbsInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
-import com.ibm.cloud.cloudant.v1.model.PostEnsureFullCommitOptions;
 import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostGeoCleanupOptions;
-import com.ibm.cloud.cloudant.v1.model.PostIamSessionOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostLocalDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostLocalDocsQueriesOptions;
@@ -503,6 +497,18 @@ public class CloudantTest extends PowerMockTestCase {
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postDbsInfoPath);
+  }
+
+  // Test the postDbsInfo operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostDbsInfoNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.postDbsInfo(null).execute();
   }
 
   @Test
@@ -2475,7 +2481,6 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostDesignDocsOptions model
     PostDesignDocsOptions postDesignDocsOptionsModel = new PostDesignDocsOptions.Builder()
     .db("testString")
-    .accept("application/json")
     .attEncodingInfo(true)
     .attachments(true)
     .conflicts(true)
@@ -2489,6 +2494,7 @@ public class CloudantTest extends PowerMockTestCase {
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .startkey("testString")
+    .accept("application/json")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2556,8 +2562,8 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostDesignDocsQueriesOptions model
     PostDesignDocsQueriesOptions postDesignDocsQueriesOptionsModel = new PostDesignDocsQueriesOptions.Builder()
     .db("testString")
-    .accept("application/json")
     .queries(new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)))
+    .accept("application/json")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3103,6 +3109,7 @@ public class CloudantTest extends PowerMockTestCase {
     .partitionKey("testString")
     .ddoc("testString")
     .index("testString")
+    .query("testString")
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
@@ -3112,7 +3119,6 @@ public class CloudantTest extends PowerMockTestCase {
     .includeDocs(true)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
-    .query("testString")
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .stale("ok")
     .build();
@@ -3168,6 +3174,7 @@ public class CloudantTest extends PowerMockTestCase {
     .partitionKey("testString")
     .ddoc("testString")
     .index("testString")
+    .query("testString")
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
@@ -3177,7 +3184,6 @@ public class CloudantTest extends PowerMockTestCase {
     .includeDocs(true)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
-    .query("testString")
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .stale("ok")
     .build();
@@ -3387,12 +3393,12 @@ public class CloudantTest extends PowerMockTestCase {
     PostPartitionFindOptions postPartitionFindOptionsModel = new PostPartitionFindOptions.Builder()
     .db("testString")
     .partitionKey("testString")
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .bookmark("testString")
     .conflicts(true)
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
@@ -3449,12 +3455,12 @@ public class CloudantTest extends PowerMockTestCase {
     PostPartitionFindOptions postPartitionFindOptionsModel = new PostPartitionFindOptions.Builder()
     .db("testString")
     .partitionKey("testString")
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .bookmark("testString")
     .conflicts(true)
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
@@ -3515,12 +3521,12 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostExplainOptions model
     PostExplainOptions postExplainOptionsModel = new PostExplainOptions.Builder()
     .db("testString")
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .bookmark("testString")
     .conflicts(true)
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
@@ -3577,12 +3583,12 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostFindOptions model
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
     .db("testString")
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .bookmark("testString")
     .conflicts(true)
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
@@ -3639,12 +3645,12 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostFindOptions model
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
     .db("testString")
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .bookmark("testString")
     .conflicts(true)
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
@@ -3783,9 +3789,9 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostIndexOptions model
     PostIndexOptions postIndexOptionsModel = new PostIndexOptions.Builder()
     .db("testString")
+    .index(indexDefinitionModel)
     .ddoc("testString")
     .def(indexDefinitionModel)
-    .index(indexDefinitionModel)
     .name("testString")
     .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .partitioned(true)
@@ -3916,6 +3922,18 @@ public class CloudantTest extends PowerMockTestCase {
     assertEquals(parsedPath, postSearchAnalyzePath);
   }
 
+  // Test the postSearchAnalyze operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostSearchAnalyzeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.postSearchAnalyze(null).execute();
+  }
+
   @Test
   public void testPostSearchWOptions() throws Throwable {
     // Schedule some responses.
@@ -3934,6 +3952,7 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .ddoc("testString")
     .index("testString")
+    .query("testString")
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
@@ -3943,7 +3962,6 @@ public class CloudantTest extends PowerMockTestCase {
     .includeDocs(true)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
-    .query("testString")
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .stale("ok")
     .counts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -4004,6 +4022,7 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .ddoc("testString")
     .index("testString")
+    .query("testString")
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
@@ -4013,7 +4032,6 @@ public class CloudantTest extends PowerMockTestCase {
     .includeDocs(true)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
-    .query("testString")
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .stale("ok")
     .counts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -4660,6 +4678,18 @@ public class CloudantTest extends PowerMockTestCase {
     assertEquals(parsedPath, postReplicatePath);
   }
 
+  // Test the postReplicate operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostReplicateNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.postReplicate(null).execute();
+  }
+
   @Test
   public void testDeleteReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
@@ -5161,116 +5191,6 @@ public class CloudantTest extends PowerMockTestCase {
   }
 
   @Test
-  public void testDeleteIamSessionWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"ok\": true}";
-    String deleteIamSessionPath = "/_iam_session";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the DeleteIamSessionOptions model
-    DeleteIamSessionOptions deleteIamSessionOptionsModel = new DeleteIamSessionOptions();
-
-    // Invoke operation with valid options model (positive test)
-    Response<Ok> response = cloudantService.deleteIamSession(deleteIamSessionOptionsModel).execute();
-    assertNotNull(response);
-    Ok responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "DELETE");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, deleteIamSessionPath);
-  }
-
-  @Test
-  public void testGetIamSessionInformationWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"id\": \"id\", \"ok\": true, \"scope\": \"scope\", \"type\": \"type\"}";
-    String getIamSessionInformationPath = "/_iam_session";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the GetIamSessionInformationOptions model
-    GetIamSessionInformationOptions getIamSessionInformationOptionsModel = new GetIamSessionInformationOptions();
-
-    // Invoke operation with valid options model (positive test)
-    Response<IamSessionInformation> response = cloudantService.getIamSessionInformation(getIamSessionInformationOptionsModel).execute();
-    assertNotNull(response);
-    IamSessionInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getIamSessionInformationPath);
-  }
-
-  @Test
-  public void testPostIamSessionWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"ok\": true}";
-    String postIamSessionPath = "/_iam_session";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the PostIamSessionOptions model
-    PostIamSessionOptions postIamSessionOptionsModel = new PostIamSessionOptions.Builder()
-    .accessToken("testString")
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<Ok> response = cloudantService.postIamSession(postIamSessionOptionsModel).execute();
-    assertNotNull(response);
-    Ok responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postIamSessionPath);
-  }
-
-  @Test
   public void testGetSecurityWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"admins\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}, \"members\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}, \"cloudant\": {\"mapKey\": [\"_reader\"]}, \"couchdb_auth_only\": false}";
@@ -5438,9 +5358,9 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PutCloudantSecurityConfigurationOptions model
     PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
     .db("testString")
+    .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
     .admins(securityObjectModel)
     .members(securityObjectModel)
-    .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
     .couchdbAuthOnly(true)
     .build();
 
@@ -5527,9 +5447,9 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the PutCorsConfigurationOptions model
     PutCorsConfigurationOptions putCorsConfigurationOptionsModel = new PutCorsConfigurationOptions.Builder()
+    .origins(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .allowCredentials(true)
     .enableCors(true)
-    .origins(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -5550,6 +5470,18 @@ public class CloudantTest extends PowerMockTestCase {
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putCorsConfigurationPath);
+  }
+
+  // Test the putCorsConfiguration operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPutCorsConfigurationNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.putCorsConfiguration(null).execute();
   }
 
   @Test
@@ -6005,7 +5937,6 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostLocalDocsOptions model
     PostLocalDocsOptions postLocalDocsOptionsModel = new PostLocalDocsOptions.Builder()
     .db("testString")
-    .accept("application/json")
     .attEncodingInfo(true)
     .attachments(true)
     .conflicts(true)
@@ -6019,6 +5950,7 @@ public class CloudantTest extends PowerMockTestCase {
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .startkey("testString")
+    .accept("application/json")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -6086,8 +6018,8 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostLocalDocsQueriesOptions model
     PostLocalDocsQueriesOptions postLocalDocsQueriesOptionsModel = new PostLocalDocsQueriesOptions.Builder()
     .db("testString")
-    .accept("application/json")
     .queries(new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)))
+    .accept("application/json")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -6120,56 +6052,6 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Invoke operation with null options model (negative test)
     cloudantService.postLocalDocsQueries(null).execute();
-  }
-
-  @Test
-  public void testPostEnsureFullCommitWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"instance_start_time\": \"instanceStartTime\", \"ok\": true}";
-    String postEnsureFullCommitPath = "/testString/_ensure_full_commit";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(201)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the PostEnsureFullCommitOptions model
-    PostEnsureFullCommitOptions postEnsureFullCommitOptionsModel = new PostEnsureFullCommitOptions.Builder()
-    .db("testString")
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<EnsureFullCommitInformation> response = cloudantService.postEnsureFullCommit(postEnsureFullCommitOptionsModel).execute();
-    assertNotNull(response);
-    EnsureFullCommitInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postEnsureFullCommitPath);
-  }
-
-  // Test the postEnsureFullCommit operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostEnsureFullCommitNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    cloudantService.postEnsureFullCommit(null).execute();
   }
 
   @Test

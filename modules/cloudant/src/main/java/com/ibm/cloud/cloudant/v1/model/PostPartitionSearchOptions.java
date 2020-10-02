@@ -34,6 +34,7 @@ public class PostPartitionSearchOptions extends GenericModel {
   protected String partitionKey;
   protected String ddoc;
   protected String index;
+  protected String query;
   protected String bookmark;
   protected List<String> highlightFields;
   protected Long highlightNumber;
@@ -43,7 +44,6 @@ public class PostPartitionSearchOptions extends GenericModel {
   protected Boolean includeDocs;
   protected List<String> includeFields;
   protected Long limit;
-  protected String query;
   protected List<String> sort;
   protected String stale;
 
@@ -55,6 +55,7 @@ public class PostPartitionSearchOptions extends GenericModel {
     private String partitionKey;
     private String ddoc;
     private String index;
+    private String query;
     private String bookmark;
     private List<String> highlightFields;
     private Long highlightNumber;
@@ -64,7 +65,6 @@ public class PostPartitionSearchOptions extends GenericModel {
     private Boolean includeDocs;
     private List<String> includeFields;
     private Long limit;
-    private String query;
     private List<String> sort;
     private String stale;
 
@@ -73,6 +73,7 @@ public class PostPartitionSearchOptions extends GenericModel {
       this.partitionKey = postPartitionSearchOptions.partitionKey;
       this.ddoc = postPartitionSearchOptions.ddoc;
       this.index = postPartitionSearchOptions.index;
+      this.query = postPartitionSearchOptions.query;
       this.bookmark = postPartitionSearchOptions.bookmark;
       this.highlightFields = postPartitionSearchOptions.highlightFields;
       this.highlightNumber = postPartitionSearchOptions.highlightNumber;
@@ -82,7 +83,6 @@ public class PostPartitionSearchOptions extends GenericModel {
       this.includeDocs = postPartitionSearchOptions.includeDocs;
       this.includeFields = postPartitionSearchOptions.includeFields;
       this.limit = postPartitionSearchOptions.limit;
-      this.query = postPartitionSearchOptions.query;
       this.sort = postPartitionSearchOptions.sort;
       this.stale = postPartitionSearchOptions.stale;
     }
@@ -100,12 +100,14 @@ public class PostPartitionSearchOptions extends GenericModel {
      * @param partitionKey the partitionKey
      * @param ddoc the ddoc
      * @param index the index
+     * @param query the query
      */
-    public Builder(String db, String partitionKey, String ddoc, String index) {
+    public Builder(String db, String partitionKey, String ddoc, String index, String query) {
       this.db = db;
       this.partitionKey = partitionKey;
       this.ddoc = ddoc;
       this.index = index;
+      this.query = query;
     }
 
     /**
@@ -206,6 +208,17 @@ public class PostPartitionSearchOptions extends GenericModel {
      */
     public Builder index(String index) {
       this.index = index;
+      return this;
+    }
+
+    /**
+     * Set the query.
+     *
+     * @param query the query
+     * @return the PostPartitionSearchOptions builder
+     */
+    public Builder query(String query) {
+      this.query = query;
       return this;
     }
 
@@ -311,17 +324,6 @@ public class PostPartitionSearchOptions extends GenericModel {
     }
 
     /**
-     * Set the query.
-     *
-     * @param query the query
-     * @return the PostPartitionSearchOptions builder
-     */
-    public Builder query(String query) {
-      this.query = query;
-      return this;
-    }
-
-    /**
      * Set the sort.
      * Existing sort will be replaced.
      *
@@ -354,10 +356,13 @@ public class PostPartitionSearchOptions extends GenericModel {
       "ddoc cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.index,
       "index cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.query,
+      "query cannot be null");
     db = builder.db;
     partitionKey = builder.partitionKey;
     ddoc = builder.ddoc;
     index = builder.index;
+    query = builder.query;
     bookmark = builder.bookmark;
     highlightFields = builder.highlightFields;
     highlightNumber = builder.highlightNumber;
@@ -367,7 +372,6 @@ public class PostPartitionSearchOptions extends GenericModel {
     includeDocs = builder.includeDocs;
     includeFields = builder.includeFields;
     limit = builder.limit;
-    query = builder.query;
     sort = builder.sort;
     stale = builder.stale;
   }
@@ -424,6 +428,17 @@ public class PostPartitionSearchOptions extends GenericModel {
    */
   public String index() {
     return index;
+  }
+
+  /**
+   * Gets the query.
+   *
+   * The Lucene query to execute.
+   *
+   * @return the query
+   */
+  public String query() {
+    return query;
   }
 
   /**
@@ -526,17 +541,6 @@ public class PostPartitionSearchOptions extends GenericModel {
    */
   public Long limit() {
     return limit;
-  }
-
-  /**
-   * Gets the query.
-   *
-   * The Lucene query to execute.
-   *
-   * @return the query
-   */
-  public String query() {
-    return query;
   }
 
   /**

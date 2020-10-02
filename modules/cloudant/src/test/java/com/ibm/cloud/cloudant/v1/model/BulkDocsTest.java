@@ -108,4 +108,10 @@ public class BulkDocsTest {
     assertTrue(bulkDocsModelNew instanceof BulkDocs);
     assertEquals(bulkDocsModelNew.newEdits(), Boolean.valueOf(true));
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testBulkDocsError() throws Throwable {
+    new BulkDocs.Builder().build();
+  }
+
 }

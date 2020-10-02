@@ -34,6 +34,7 @@ public class PostSearchOptions extends GenericModel {
   protected String db;
   protected String ddoc;
   protected String index;
+  protected String query;
   protected String bookmark;
   protected List<String> highlightFields;
   protected Long highlightNumber;
@@ -43,7 +44,6 @@ public class PostSearchOptions extends GenericModel {
   protected Boolean includeDocs;
   protected List<String> includeFields;
   protected Long limit;
-  protected String query;
   protected List<String> sort;
   protected String stale;
   protected List<String> counts;
@@ -60,6 +60,7 @@ public class PostSearchOptions extends GenericModel {
     private String db;
     private String ddoc;
     private String index;
+    private String query;
     private String bookmark;
     private List<String> highlightFields;
     private Long highlightNumber;
@@ -69,7 +70,6 @@ public class PostSearchOptions extends GenericModel {
     private Boolean includeDocs;
     private List<String> includeFields;
     private Long limit;
-    private String query;
     private List<String> sort;
     private String stale;
     private List<String> counts;
@@ -83,6 +83,7 @@ public class PostSearchOptions extends GenericModel {
       this.db = postSearchOptions.db;
       this.ddoc = postSearchOptions.ddoc;
       this.index = postSearchOptions.index;
+      this.query = postSearchOptions.query;
       this.bookmark = postSearchOptions.bookmark;
       this.highlightFields = postSearchOptions.highlightFields;
       this.highlightNumber = postSearchOptions.highlightNumber;
@@ -92,7 +93,6 @@ public class PostSearchOptions extends GenericModel {
       this.includeDocs = postSearchOptions.includeDocs;
       this.includeFields = postSearchOptions.includeFields;
       this.limit = postSearchOptions.limit;
-      this.query = postSearchOptions.query;
       this.sort = postSearchOptions.sort;
       this.stale = postSearchOptions.stale;
       this.counts = postSearchOptions.counts;
@@ -115,11 +115,13 @@ public class PostSearchOptions extends GenericModel {
      * @param db the db
      * @param ddoc the ddoc
      * @param index the index
+     * @param query the query
      */
-    public Builder(String db, String ddoc, String index) {
+    public Builder(String db, String ddoc, String index, String query) {
       this.db = db;
       this.ddoc = ddoc;
       this.index = index;
+      this.query = query;
     }
 
     /**
@@ -261,6 +263,17 @@ public class PostSearchOptions extends GenericModel {
     }
 
     /**
+     * Set the query.
+     *
+     * @param query the query
+     * @return the PostSearchOptions builder
+     */
+    public Builder query(String query) {
+      this.query = query;
+      return this;
+    }
+
+    /**
      * Set the bookmark.
      *
      * @param bookmark the bookmark
@@ -358,17 +371,6 @@ public class PostSearchOptions extends GenericModel {
      */
     public Builder limit(long limit) {
       this.limit = limit;
-      return this;
-    }
-
-    /**
-     * Set the query.
-     *
-     * @param query the query
-     * @return the PostSearchOptions builder
-     */
-    public Builder query(String query) {
-      this.query = query;
       return this;
     }
 
@@ -472,9 +474,12 @@ public class PostSearchOptions extends GenericModel {
       "ddoc cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.index,
       "index cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.query,
+      "query cannot be null");
     db = builder.db;
     ddoc = builder.ddoc;
     index = builder.index;
+    query = builder.query;
     bookmark = builder.bookmark;
     highlightFields = builder.highlightFields;
     highlightNumber = builder.highlightNumber;
@@ -484,7 +489,6 @@ public class PostSearchOptions extends GenericModel {
     includeDocs = builder.includeDocs;
     includeFields = builder.includeFields;
     limit = builder.limit;
-    query = builder.query;
     sort = builder.sort;
     stale = builder.stale;
     counts = builder.counts;
@@ -536,6 +540,17 @@ public class PostSearchOptions extends GenericModel {
    */
   public String index() {
     return index;
+  }
+
+  /**
+   * Gets the query.
+   *
+   * The Lucene query to execute.
+   *
+   * @return the query
+   */
+  public String query() {
+    return query;
   }
 
   /**
@@ -638,17 +653,6 @@ public class PostSearchOptions extends GenericModel {
    */
   public Long limit() {
     return limit;
-  }
-
-  /**
-   * Gets the query.
-   *
-   * The Lucene query to execute.
-   *
-   * @return the query
-   */
-  public String query() {
-    return query;
   }
 
   /**

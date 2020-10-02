@@ -22,28 +22,37 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class PutCorsConfigurationOptions extends GenericModel {
 
+  protected List<String> origins;
   protected Boolean allowCredentials;
   protected Boolean enableCors;
-  protected List<String> origins;
 
   /**
    * Builder.
    */
   public static class Builder {
+    private List<String> origins;
     private Boolean allowCredentials;
     private Boolean enableCors;
-    private List<String> origins;
 
     private Builder(PutCorsConfigurationOptions putCorsConfigurationOptions) {
+      this.origins = putCorsConfigurationOptions.origins;
       this.allowCredentials = putCorsConfigurationOptions.allowCredentials;
       this.enableCors = putCorsConfigurationOptions.enableCors;
-      this.origins = putCorsConfigurationOptions.origins;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param origins the origins
+     */
+    public Builder(List<String> origins) {
+      this.origins = origins;
     }
 
     /**
@@ -72,6 +81,18 @@ public class PutCorsConfigurationOptions extends GenericModel {
     }
 
     /**
+     * Set the origins.
+     * Existing origins will be replaced.
+     *
+     * @param origins the origins
+     * @return the PutCorsConfigurationOptions builder
+     */
+    public Builder origins(List<String> origins) {
+      this.origins = origins;
+      return this;
+    }
+
+    /**
      * Set the allowCredentials.
      *
      * @param allowCredentials the allowCredentials
@@ -94,35 +115,25 @@ public class PutCorsConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the origins.
-     * Existing origins will be replaced.
-     *
-     * @param origins the origins
-     * @return the PutCorsConfigurationOptions builder
-     */
-    public Builder origins(List<String> origins) {
-      this.origins = origins;
-      return this;
-    }
-
-    /**
      * Set the corsConfiguration.
      *
      * @param corsConfiguration the corsConfiguration
      * @return the PutCorsConfigurationOptions builder
      */
     public Builder corsConfiguration(CorsConfiguration corsConfiguration) {
+      this.origins = corsConfiguration.origins();
       this.allowCredentials = corsConfiguration.allowCredentials();
       this.enableCors = corsConfiguration.enableCors();
-      this.origins = corsConfiguration.origins();
       return this;
     }
   }
 
   protected PutCorsConfigurationOptions(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.origins,
+      "origins cannot be null");
+    origins = builder.origins;
     allowCredentials = builder.allowCredentials;
     enableCors = builder.enableCors;
-    origins = builder.origins;
   }
 
   /**
@@ -132,6 +143,19 @@ public class PutCorsConfigurationOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the origins.
+   *
+   * An array of strings that contain allowed origin domains. You have to specify the full URL including the protocol.
+   * It is recommended that only the HTTPS protocol is used. Subdomains count as separate domains, so you have to
+   * specify all subdomains used.
+   *
+   * @return the origins
+   */
+  public List<String> origins() {
+    return origins;
   }
 
   /**
@@ -155,19 +179,6 @@ public class PutCorsConfigurationOptions extends GenericModel {
    */
   public Boolean enableCors() {
     return enableCors;
-  }
-
-  /**
-   * Gets the origins.
-   *
-   * An array of strings that contain allowed origin domains. You have to specify the full URL including the protocol.
-   * It is recommended that only the HTTPS protocol is used. Subdomains count as separate domains, so you have to
-   * specify all subdomains used.
-   *
-   * @return the origins
-   */
-  public List<String> origins() {
-    return origins;
   }
 }
 

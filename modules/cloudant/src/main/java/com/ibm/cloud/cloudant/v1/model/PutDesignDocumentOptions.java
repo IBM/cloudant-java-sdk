@@ -69,10 +69,12 @@ public class PutDesignDocumentOptions extends GenericModel {
      *
      * @param db the db
      * @param ddoc the ddoc
+     * @param designDocument the designDocument
      */
-    public Builder(String db, String ddoc) {
+    public Builder(String db, String ddoc, DesignDocument designDocument) {
       this.db = db;
       this.ddoc = ddoc;
+      this.designDocument = designDocument;
     }
 
     /**
@@ -167,6 +169,8 @@ public class PutDesignDocumentOptions extends GenericModel {
       "db cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.ddoc,
       "ddoc cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.designDocument,
+      "designDocument cannot be null");
     db = builder.db;
     ddoc = builder.ddoc;
     designDocument = builder.designDocument;

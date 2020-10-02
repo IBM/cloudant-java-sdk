@@ -23,21 +23,21 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class PostDesignDocsQueriesOptions extends GenericModel {
 
   protected String db;
-  protected String accept;
   protected List<AllDocsQuery> queries;
+  protected String accept;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String db;
-    private String accept;
     private List<AllDocsQuery> queries;
+    private String accept;
 
     private Builder(PostDesignDocsQueriesOptions postDesignDocsQueriesOptions) {
       this.db = postDesignDocsQueriesOptions.db;
-      this.accept = postDesignDocsQueriesOptions.accept;
       this.queries = postDesignDocsQueriesOptions.queries;
+      this.accept = postDesignDocsQueriesOptions.accept;
     }
 
     /**
@@ -50,9 +50,11 @@ public class PostDesignDocsQueriesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param db the db
+     * @param queries the queries
      */
-    public Builder(String db) {
+    public Builder(String db, List<AllDocsQuery> queries) {
       this.db = db;
+      this.queries = queries;
     }
 
     /**
@@ -92,17 +94,6 @@ public class PostDesignDocsQueriesOptions extends GenericModel {
     }
 
     /**
-     * Set the accept.
-     *
-     * @param accept the accept
-     * @return the PostDesignDocsQueriesOptions builder
-     */
-    public Builder accept(String accept) {
-      this.accept = accept;
-      return this;
-    }
-
-    /**
      * Set the queries.
      * Existing queries will be replaced.
      *
@@ -113,14 +104,27 @@ public class PostDesignDocsQueriesOptions extends GenericModel {
       this.queries = queries;
       return this;
     }
+
+    /**
+     * Set the accept.
+     *
+     * @param accept the accept
+     * @return the PostDesignDocsQueriesOptions builder
+     */
+    public Builder accept(String accept) {
+      this.accept = accept;
+      return this;
+    }
   }
 
   protected PostDesignDocsQueriesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.queries,
+      "queries cannot be null");
     db = builder.db;
-    accept = builder.accept;
     queries = builder.queries;
+    accept = builder.accept;
   }
 
   /**
@@ -144,17 +148,6 @@ public class PostDesignDocsQueriesOptions extends GenericModel {
   }
 
   /**
-   * Gets the accept.
-   *
-   * The type of the response: application/json or application/octet-stream.
-   *
-   * @return the accept
-   */
-  public String accept() {
-    return accept;
-  }
-
-  /**
    * Gets the queries.
    *
    * An array of query objects with fields for the parameters of each individual view query to be executed. The field
@@ -164,6 +157,17 @@ public class PostDesignDocsQueriesOptions extends GenericModel {
    */
   public List<AllDocsQuery> queries() {
     return queries;
+  }
+
+  /**
+   * Gets the accept.
+   *
+   * The type of the response: application/json or application/octet-stream.
+   *
+   * @return the accept
+   */
+  public String accept() {
+    return accept;
   }
 }
 

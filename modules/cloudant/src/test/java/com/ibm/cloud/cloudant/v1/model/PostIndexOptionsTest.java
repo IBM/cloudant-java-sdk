@@ -73,18 +73,18 @@ public class PostIndexOptionsTest {
 
     PostIndexOptions postIndexOptionsModel = new PostIndexOptions.Builder()
       .db("testString")
+      .index(indexDefinitionModel)
       .ddoc("testString")
       .def(indexDefinitionModel)
-      .index(indexDefinitionModel)
       .name("testString")
       .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .partitioned(true)
       .type("json")
       .build();
     assertEquals(postIndexOptionsModel.db(), "testString");
+    assertEquals(postIndexOptionsModel.index(), indexDefinitionModel);
     assertEquals(postIndexOptionsModel.ddoc(), "testString");
     assertEquals(postIndexOptionsModel.def(), indexDefinitionModel);
-    assertEquals(postIndexOptionsModel.index(), indexDefinitionModel);
     assertEquals(postIndexOptionsModel.name(), "testString");
     assertEquals(postIndexOptionsModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postIndexOptionsModel.partitioned(), Boolean.valueOf(true));

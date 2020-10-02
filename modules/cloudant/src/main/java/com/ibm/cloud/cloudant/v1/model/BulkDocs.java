@@ -46,6 +46,15 @@ public class BulkDocs extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param docs the docs
+     */
+    public Builder(List<Document> docs) {
+      this.docs = docs;
+    }
+
+    /**
      * Builds a BulkDocs.
      *
      * @return the new BulkDocs instance
@@ -95,6 +104,8 @@ public class BulkDocs extends GenericModel {
   }
 
   protected BulkDocs(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.docs,
+      "docs cannot be null");
     docs = builder.docs;
     newEdits = builder.newEdits;
   }
