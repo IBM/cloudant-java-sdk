@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <sdk-core-version>9.3.0</sdk-core-version>
+        <sdk-core-version>9.4.0</sdk-core-version>
 
         <git-repository-name>cloudant-java-sdk</git-repository-name>
 
