@@ -15,12 +15,12 @@
     <packaging>pom</packaging>
 
     <properties>
-        <sdk-core-version>9.3.0</sdk-core-version>
+        <sdk-core-version>9.4.1</sdk-core-version>
 
         <git-repository-name>cloudant-java-sdk</git-repository-name>
 
         <testng-version>7.1.0</testng-version>
-        <okhttp3-version>3.14.9</okhttp3-version>
+        <okhttp3-version>4.9.0</okhttp3-version>
         <surefire-version>3.0.0-M3</surefire-version>
         <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
         <bintray-plugin-version>1.5.20191113165555</bintray-plugin-version>
