@@ -33,7 +33,7 @@ public class DbEventTest {
   public void testDbEvent() throws Throwable {
     DbEvent dbEventModel = new DbEvent();
     assertNull(dbEventModel.getAccount());
-    assertNull(dbEventModel.getDbname());
+    assertNull(dbEventModel.getDbName());
     assertNull(dbEventModel.getSeq());
     assertNull(dbEventModel.getType());
   }

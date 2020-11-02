@@ -59,4 +59,10 @@ public class ReplicationDatabaseTest {
     assertEquals(replicationDatabaseModelNew.auth().toString(), replicationDatabaseAuthModel.toString());
     assertEquals(replicationDatabaseModelNew.url(), "testString");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testReplicationDatabaseError() throws Throwable {
+    new ReplicationDatabase.Builder().build();
+  }
+
 }

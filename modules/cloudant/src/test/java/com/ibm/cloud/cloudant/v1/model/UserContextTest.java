@@ -49,4 +49,10 @@ public class UserContextTest {
     assertEquals(userContextModelNew.db(), "testString");
     assertEquals(userContextModelNew.name(), "testString");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUserContextError() throws Throwable {
+    new UserContext.Builder().build();
+  }
+
 }

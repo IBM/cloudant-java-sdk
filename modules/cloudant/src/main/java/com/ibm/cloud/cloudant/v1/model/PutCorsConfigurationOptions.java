@@ -113,19 +113,6 @@ public class PutCorsConfigurationOptions extends GenericModel {
       this.enableCors = enableCors;
       return this;
     }
-
-    /**
-     * Set the corsConfiguration.
-     *
-     * @param corsConfiguration the corsConfiguration
-     * @return the PutCorsConfigurationOptions builder
-     */
-    public Builder corsConfiguration(CorsConfiguration corsConfiguration) {
-      this.origins = corsConfiguration.origins();
-      this.allowCredentials = corsConfiguration.allowCredentials();
-      this.enableCors = corsConfiguration.enableCors();
-      return this;
-    }
   }
 
   protected PutCorsConfigurationOptions(Builder builder) {

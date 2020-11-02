@@ -37,5 +37,6 @@ public class ServerInformationTest {
     assertNull(serverInformationModel.getFeatures());
     assertNull(serverInformationModel.getVendor());
     assertNull(serverInformationModel.getVersion());
+    assertNull(serverInformationModel.getFeaturesFlags());
   }
 }

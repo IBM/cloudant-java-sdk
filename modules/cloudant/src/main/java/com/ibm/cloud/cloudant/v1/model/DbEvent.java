@@ -12,6 +12,7 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -32,7 +33,8 @@ public class DbEvent extends GenericModel {
   }
 
   protected String account;
-  protected String dbname;
+  @SerializedName("db_name")
+  protected String dbName;
   protected String seq;
   protected String type;
 
@@ -48,14 +50,14 @@ public class DbEvent extends GenericModel {
   }
 
   /**
-   * Gets the dbname.
+   * Gets the dbName.
    *
    * Database name.
    *
-   * @return the dbname
+   * @return the dbName
    */
-  public String getDbname() {
-    return dbname;
+  public String getDbName() {
+    return dbName;
   }
 
   /**

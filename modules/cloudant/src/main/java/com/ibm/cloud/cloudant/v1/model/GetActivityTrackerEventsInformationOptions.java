@@ -12,50 +12,12 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for information about the up state of the server.
+ * The getActivityTrackerEventsInformation options.
  */
-public class UpInformation extends GenericModel {
+public class GetActivityTrackerEventsInformationOptions extends GenericModel {
 
-  /**
-   * status.
-   */
-  public interface Status {
-    /** maintenance_mode. */
-    String MAINTENANCE_MODE = "maintenance_mode";
-    /** nolb. */
-    String NOLB = "nolb";
-    /** ok. */
-    String OK = "ok";
-  }
-
-  protected Map<String, Object> seeds;
-  protected String status;
-
-  /**
-   * Gets the seeds.
-   *
-   * seeds.
-   *
-   * @return the seeds
-   */
-  public Map<String, Object> getSeeds() {
-    return seeds;
-  }
-
-  /**
-   * Gets the status.
-   *
-   * status.
-   *
-   * @return the status
-   */
-  public String getStatus() {
-    return status;
-  }
 }
 

@@ -13,42 +13,40 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
+import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEventsConfiguration;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DocumentRevisionStatus model.
+ * Unit test class for the ActivityTrackerEventsConfiguration model.
  */
-public class DocumentRevisionStatusTest {
+public class ActivityTrackerEventsConfigurationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDocumentRevisionStatus() throws Throwable {
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-      .rev("testString")
-      .status("available")
+  public void testActivityTrackerEventsConfiguration() throws Throwable {
+    ActivityTrackerEventsConfiguration activityTrackerEventsConfigurationModel = new ActivityTrackerEventsConfiguration.Builder()
+      .types(new java.util.ArrayList<String>(java.util.Arrays.asList("management")))
       .build();
-    assertEquals(documentRevisionStatusModel.rev(), "testString");
-    assertEquals(documentRevisionStatusModel.status(), "available");
+    assertEquals(activityTrackerEventsConfigurationModel.types(), new java.util.ArrayList<String>(java.util.Arrays.asList("management")));
 
-    String json = TestUtilities.serialize(documentRevisionStatusModel);
+    String json = TestUtilities.serialize(activityTrackerEventsConfigurationModel);
 
-    DocumentRevisionStatus documentRevisionStatusModelNew = TestUtilities.deserialize(json, DocumentRevisionStatus.class);
-    assertTrue(documentRevisionStatusModelNew instanceof DocumentRevisionStatus);
-    assertEquals(documentRevisionStatusModelNew.rev(), "testString");
-    assertEquals(documentRevisionStatusModelNew.status(), "available");
+    ActivityTrackerEventsConfiguration activityTrackerEventsConfigurationModelNew = TestUtilities.deserialize(json, ActivityTrackerEventsConfiguration.class);
+    assertTrue(activityTrackerEventsConfigurationModelNew instanceof ActivityTrackerEventsConfiguration);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testDocumentRevisionStatusError() throws Throwable {
-    new DocumentRevisionStatus.Builder().build();
+  public void testActivityTrackerEventsConfigurationError() throws Throwable {
+    new ActivityTrackerEventsConfiguration.Builder().build();
   }
 
 }

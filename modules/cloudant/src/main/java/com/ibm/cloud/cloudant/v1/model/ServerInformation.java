@@ -14,6 +14,7 @@ package com.ibm.cloud.cloudant.v1.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -25,6 +26,8 @@ public class ServerInformation extends GenericModel {
   protected List<String> features;
   protected ServerVendor vendor;
   protected String version;
+  @SerializedName("features_flags")
+  protected List<String> featuresFlags;
 
   /**
    * Gets the couchdb.
@@ -68,6 +71,17 @@ public class ServerInformation extends GenericModel {
    */
   public String getVersion() {
     return version;
+  }
+
+  /**
+   * Gets the featuresFlags.
+   *
+   * List of feature flags.
+   *
+   * @return the featuresFlags
+   */
+  public List<String> getFeaturesFlags() {
+    return featuresFlags;
   }
 }
 

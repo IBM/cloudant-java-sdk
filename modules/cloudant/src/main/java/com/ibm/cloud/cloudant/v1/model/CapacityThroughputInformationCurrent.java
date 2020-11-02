@@ -12,50 +12,24 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for information about the up state of the server.
+ * Detailed information about provisioned throughput capacity.
  */
-public class UpInformation extends GenericModel {
+public class CapacityThroughputInformationCurrent extends GenericModel {
+
+  protected ThroughputInformation throughput;
 
   /**
-   * status.
+   * Gets the throughput.
+   *
+   * Schema for detailed information about throughput capacity with breakdown by specific throughput requests classes.
+   *
+   * @return the throughput
    */
-  public interface Status {
-    /** maintenance_mode. */
-    String MAINTENANCE_MODE = "maintenance_mode";
-    /** nolb. */
-    String NOLB = "nolb";
-    /** ok. */
-    String OK = "ok";
-  }
-
-  protected Map<String, Object> seeds;
-  protected String status;
-
-  /**
-   * Gets the seeds.
-   *
-   * seeds.
-   *
-   * @return the seeds
-   */
-  public Map<String, Object> getSeeds() {
-    return seeds;
-  }
-
-  /**
-   * Gets the status.
-   *
-   * status.
-   *
-   * @return the status
-   */
-  public String getStatus() {
-    return status;
+  public ThroughputInformation getThroughput() {
+    return throughput;
   }
 }
 

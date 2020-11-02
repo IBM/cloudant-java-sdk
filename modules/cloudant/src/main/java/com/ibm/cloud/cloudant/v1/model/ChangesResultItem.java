@@ -23,6 +23,7 @@ public class ChangesResultItem extends GenericModel {
 
   protected List<Change> changes;
   protected Boolean deleted;
+  protected Document doc;
   protected String id;
   protected String seq;
 
@@ -46,6 +47,17 @@ public class ChangesResultItem extends GenericModel {
    */
   public Boolean isDeleted() {
     return deleted;
+  }
+
+  /**
+   * Gets the doc.
+   *
+   * Schema for a document.
+   *
+   * @return the doc
+   */
+  public Document getDoc() {
+    return doc;
   }
 
   /**
