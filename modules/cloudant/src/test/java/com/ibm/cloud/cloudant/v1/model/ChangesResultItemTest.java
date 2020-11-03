@@ -13,11 +13,17 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
+import com.ibm.cloud.cloudant.v1.model.Attachment;
 import com.ibm.cloud.cloudant.v1.model.Change;
 import com.ibm.cloud.cloudant.v1.model.ChangesResultItem;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
+import com.ibm.cloud.cloudant.v1.model.Revisions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -35,6 +41,7 @@ public class ChangesResultItemTest {
     ChangesResultItem changesResultItemModel = new ChangesResultItem();
     assertNull(changesResultItemModel.getChanges());
     assertNull(changesResultItemModel.isDeleted());
+    assertNull(changesResultItemModel.getDoc());
     assertNull(changesResultItemModel.getId());
     assertNull(changesResultItemModel.getSeq());
   }

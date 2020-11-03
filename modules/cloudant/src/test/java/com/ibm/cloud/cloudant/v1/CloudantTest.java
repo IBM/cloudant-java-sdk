@@ -14,6 +14,7 @@ package com.ibm.cloud.cloudant.v1;
 
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.ActiveTask;
+import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEventsConfiguration;
 import com.ibm.cloud.cloudant.v1.model.AllDocsQueriesResult;
 import com.ibm.cloud.cloudant.v1.model.AllDocsQuery;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
@@ -26,11 +27,16 @@ import com.ibm.cloud.cloudant.v1.model.BulkGetQueryDocument;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResultDocument;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResultItem;
+import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformation;
+import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformationCurrent;
+import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformationTarget;
 import com.ibm.cloud.cloudant.v1.model.Change;
 import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.ChangesResultItem;
 import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
-import com.ibm.cloud.cloudant.v1.model.CorsConfiguration;
+import com.ibm.cloud.cloudant.v1.model.CorsInformation;
+import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformation;
+import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformationThroughput;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationCluster;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationProps;
@@ -69,9 +75,12 @@ import com.ibm.cloud.cloudant.v1.model.GeoJsonGeometryObject;
 import com.ibm.cloud.cloudant.v1.model.GeoResult;
 import com.ibm.cloud.cloudant.v1.model.GeoResultRow;
 import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
+import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCapacityThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCorsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCurrentThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDbUpdatesOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentInformationOptions;
@@ -115,6 +124,7 @@ import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationIndexes;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationIndexesIndexes;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationSizes;
+import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostApiKeysOptions;
@@ -143,6 +153,7 @@ import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PutAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCorsConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
@@ -180,6 +191,7 @@ import com.ibm.cloud.cloudant.v1.model.ServerVendor;
 import com.ibm.cloud.cloudant.v1.model.SessionAuthentication;
 import com.ibm.cloud.cloudant.v1.model.SessionInformation;
 import com.ibm.cloud.cloudant.v1.model.ShardsInformation;
+import com.ibm.cloud.cloudant.v1.model.ThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.UpInformation;
 import com.ibm.cloud.cloudant.v1.model.UserContext;
 import com.ibm.cloud.cloudant.v1.model.UuidsResult;
@@ -256,7 +268,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetServerInformationWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"couchdb\": \"couchdb\", \"features\": [\"features\"], \"vendor\": {\"name\": \"name\", \"variant\": \"variant\", \"version\": \"version\"}, \"version\": \"version\"}";
+    String mockResponseBody = "{\"couchdb\": \"couchdb\", \"features\": [\"features\"], \"vendor\": {\"name\": \"name\", \"variant\": \"variant\", \"version\": \"version\"}, \"version\": \"version\", \"features_flags\": [\"featuresFlags\"]}";
     String getServerInformationPath = "/";
 
     server.enqueue(new MockResponse()
@@ -362,6 +374,92 @@ public class CloudantTest extends PowerMockTestCase {
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getUuidsPath);
+  }
+
+  @Test
+  public void testGetCapacityThroughputInformationWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"current\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}, \"target\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}}";
+    String getCapacityThroughputInformationPath = "/_api/v2/user/capacity/throughput";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetCapacityThroughputInformationOptions model
+    GetCapacityThroughputInformationOptions getCapacityThroughputInformationOptionsModel = new GetCapacityThroughputInformationOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<CapacityThroughputInformation> response = cloudantService.getCapacityThroughputInformation(getCapacityThroughputInformationOptionsModel).execute();
+    assertNotNull(response);
+    CapacityThroughputInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCapacityThroughputInformationPath);
+  }
+
+  @Test
+  public void testPutCapacityThroughputInformationWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"current\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}, \"target\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}}";
+    String putCapacityThroughputInformationPath = "/_api/v2/user/capacity/throughput";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the PutCapacityThroughputInformationOptions model
+    PutCapacityThroughputInformationOptions putCapacityThroughputInformationOptionsModel = new PutCapacityThroughputInformationOptions.Builder()
+    .blocks(Long.valueOf("0"))
+    .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<CapacityThroughputInformation> response = cloudantService.putCapacityThroughputInformation(putCapacityThroughputInformationOptionsModel).execute();
+    assertNotNull(response);
+    CapacityThroughputInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PUT");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, putCapacityThroughputInformationPath);
+  }
+
+  // Test the putCapacityThroughputInformation operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPutCapacityThroughputInformationNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.putCapacityThroughputInformation(null).execute();
   }
 
   @Test
@@ -668,7 +766,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostChangesWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"pending\": 7, \"results\": [{\"changes\": [{\"rev\": \"rev\"}], \"deleted\": false, \"id\": \"id\", \"seq\": \"seq\"}]}";
+    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"pending\": 7, \"results\": [{\"changes\": [{\"rev\": \"rev\"}], \"deleted\": false, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"seq\": \"seq\"}]}";
     String postChangesPath = "/testString/_changes";
 
     server.enqueue(new MockResponse()
@@ -1005,13 +1103,13 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .startkey("testString")
+    .startkey("0007741142412418284")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1068,13 +1166,13 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .startkey("testString")
+    .startkey("0007741142412418284")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1367,9 +1465,9 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
     .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .id("foo")
+    .id("small-appliances:1000042")
     .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .rev("4-753875d51501a6b1883a9d62b4d33f91")
+    .rev("testString")
     .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -1434,9 +1532,9 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
     .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .id("foo")
+    .id("small-appliances:1000042")
     .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .rev("4-753875d51501a6b1883a9d62b4d33f91")
+    .rev("testString")
     .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -1501,9 +1599,9 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
     .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .id("foo")
+    .id("small-appliances:1000042")
     .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .rev("4-753875d51501a6b1883a9d62b4d33f91")
+    .rev("testString")
     .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -1568,9 +1666,9 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
     .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .id("foo")
+    .id("small-appliances:1000042")
     .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .rev("4-753875d51501a6b1883a9d62b4d33f91")
+    .rev("testString")
     .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -2033,7 +2131,7 @@ public class CloudantTest extends PowerMockTestCase {
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .id("testString")
+    .id("exampleid")
     .localSeq("testString")
     .rev("testString")
     .revisions(revisionsModel)
@@ -2487,13 +2585,13 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .startkey("testString")
+    .startkey("0007741142412418284")
     .accept("application/json")
     .build();
 
@@ -2622,7 +2720,7 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
@@ -2694,7 +2792,7 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
@@ -2768,7 +2866,7 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("5"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
@@ -2845,7 +2943,7 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("5"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
@@ -2980,13 +3078,13 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .startkey("testString")
+    .startkey("0007741142412418284")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3044,13 +3142,13 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .startkey("testString")
+    .startkey("0007741142412418284")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3250,7 +3348,7 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
@@ -3323,7 +3421,7 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
@@ -3588,7 +3686,7 @@ public class CloudantTest extends PowerMockTestCase {
     .conflicts(true)
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("3"))
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
@@ -3650,7 +3748,7 @@ public class CloudantTest extends PowerMockTestCase {
     .conflicts(true)
     .executionStats(true)
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("3"))
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
@@ -4353,7 +4451,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetGeoIndexInformationWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"geo_index\": {\"data_size\": 0, \"disk_size\": 0, \"doc_count\": 0}}";
+    String mockResponseBody = "{\"geo_index\": {\"data_size\": 0, \"disk_size\": 0, \"doc_count\": 0}, \"name\": \"name\"}";
     String getGeoIndexInformationPath = "/testString/_design/testString/_geo_info/testString";
 
     server.enqueue(new MockResponse()
@@ -4405,7 +4503,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDbUpdatesWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"results\": [{\"account\": \"account\", \"dbname\": \"dbname\", \"seq\": \"seq\", \"type\": \"created\"}]}";
+    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"results\": [{\"account\": \"account\", \"db_name\": \"dbName\", \"seq\": \"seq\", \"type\": \"created\"}]}";
     String getDbUpdatesPath = "/_db_updates";
 
     server.enqueue(new MockResponse()
@@ -4879,7 +4977,7 @@ public class CloudantTest extends PowerMockTestCase {
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
     .auth(replicationDatabaseAuthModel)
     .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-    .url("http://myserver.example:5984/foo-db")
+    .url("https://examples.cloudant.com/animaldb")
     .build();
 
     // Construct an instance of the UserContext model
@@ -5413,9 +5511,9 @@ public class CloudantTest extends PowerMockTestCase {
     GetCorsInformationOptions getCorsInformationOptionsModel = new GetCorsInformationOptions();
 
     // Invoke operation with valid options model (positive test)
-    Response<CorsConfiguration> response = cloudantService.getCorsInformation(getCorsInformationOptionsModel).execute();
+    Response<CorsInformation> response = cloudantService.getCorsInformation(getCorsInformationOptionsModel).execute();
     assertNotNull(response);
-    CorsConfiguration responseObj = response.getResult();
+    CorsInformation responseObj = response.getResult();
     assertNotNull(responseObj);
 
     // Verify the contents of the request
@@ -5871,7 +5969,7 @@ public class CloudantTest extends PowerMockTestCase {
     .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .deleted(true)
     .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .id("testString")
+    .id("exampleid")
     .localSeq("testString")
     .rev("testString")
     .revisions(revisionsModel)
@@ -5943,13 +6041,13 @@ public class CloudantTest extends PowerMockTestCase {
     .descending(true)
     .includeDocs(true)
     .inclusiveEnd(true)
-    .limit(Long.valueOf("0"))
+    .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
     .updateSeq(true)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .startkey("testString")
+    .startkey("0007741142412418284")
     .accept("application/json")
     .build();
 
@@ -6260,7 +6358,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetActiveTasksWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "[{\"changes_done\": 0, \"database\": \"database\", \"pid\": \"pid\", \"progress\": 0, \"started_on\": 0, \"status\": \"status\", \"task\": \"task\", \"total_changes\": 0, \"type\": \"type\", \"updated_on\": 0}]";
+    String mockResponseBody = "[{\"changes_done\": 0, \"database\": \"database\", \"node\": \"node\", \"pid\": \"pid\", \"progress\": 0, \"started_on\": 0, \"status\": \"status\", \"task\": \"task\", \"total_changes\": 0, \"type\": \"type\", \"updated_on\": 0}]";
     String getActiveTasksPath = "/_active_tasks";
 
     server.enqueue(new MockResponse()
@@ -6296,7 +6394,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetUpInformationWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"status\": \"maintenance_mode\"}";
+    String mockResponseBody = "{\"seeds\": {\"mapKey\": \"anyValue\"}, \"status\": \"maintenance_mode\"}";
     String getUpInformationPath = "/_up";
 
     server.enqueue(new MockResponse()
@@ -6327,6 +6425,128 @@ public class CloudantTest extends PowerMockTestCase {
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getUpInformationPath);
+  }
+
+  @Test
+  public void testGetActivityTrackerEventsInformationWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"types\": [\"management\"]}";
+    String getActivityTrackerEventsInformationPath = "/_api/v2/user/activity_tracker/events";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetActivityTrackerEventsInformationOptions model
+    GetActivityTrackerEventsInformationOptions getActivityTrackerEventsInformationOptionsModel = new GetActivityTrackerEventsInformationOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ActivityTrackerEventsConfiguration> response = cloudantService.getActivityTrackerEventsInformation(getActivityTrackerEventsInformationOptionsModel).execute();
+    assertNotNull(response);
+    ActivityTrackerEventsConfiguration responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getActivityTrackerEventsInformationPath);
+  }
+
+  @Test
+  public void testPostActivityTrackerEventsConfigurationWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"ok\": true}";
+    String postActivityTrackerEventsConfigurationPath = "/_api/v2/user/activity_tracker/events";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the PostActivityTrackerEventsConfigurationOptions model
+    PostActivityTrackerEventsConfigurationOptions postActivityTrackerEventsConfigurationOptionsModel = new PostActivityTrackerEventsConfigurationOptions.Builder()
+    .types(new java.util.ArrayList<String>(java.util.Arrays.asList("management")))
+    .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Ok> response = cloudantService.postActivityTrackerEventsConfiguration(postActivityTrackerEventsConfigurationOptionsModel).execute();
+    assertNotNull(response);
+    Ok responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postActivityTrackerEventsConfigurationPath);
+  }
+
+  // Test the postActivityTrackerEventsConfiguration operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostActivityTrackerEventsConfigurationNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.postActivityTrackerEventsConfiguration(null).execute();
+  }
+
+  @Test
+  public void testGetCurrentThroughputInformationWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"throughput\": {\"query\": 0, \"read\": 0, \"write\": 0}}";
+    String getCurrentThroughputInformationPath = "/_api/v2/user/current/throughput";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetCurrentThroughputInformationOptions model
+    GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptionsModel = new GetCurrentThroughputInformationOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<CurrentThroughputInformation> response = cloudantService.getCurrentThroughputInformation(getCurrentThroughputInformationOptionsModel).execute();
+    assertNotNull(response);
+    CurrentThroughputInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCurrentThroughputInformationPath);
   }
 
   /** Initialize the server */

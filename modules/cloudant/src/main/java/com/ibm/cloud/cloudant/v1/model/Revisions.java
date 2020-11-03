@@ -44,6 +44,17 @@ public class Revisions extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param ids the ids
+     * @param start the start
+     */
+    public Builder(List<String> ids, Long start) {
+      this.ids = ids;
+      this.start = start;
+    }
+
+    /**
      * Builds a Revisions.
      *
      * @return the new Revisions instance
@@ -93,6 +104,10 @@ public class Revisions extends GenericModel {
   }
 
   protected Revisions(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ids,
+      "ids cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.start,
+      "start cannot be null");
     ids = builder.ids;
     start = builder.start;
   }

@@ -13,35 +13,28 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.Attachment;
-import com.ibm.cloud.cloudant.v1.model.Change;
-import com.ibm.cloud.cloudant.v1.model.ChangesResult;
-import com.ibm.cloud.cloudant.v1.model.ChangesResultItem;
-import com.ibm.cloud.cloudant.v1.model.Document;
-import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
-import com.ibm.cloud.cloudant.v1.model.Revisions;
+import com.ibm.cloud.cloudant.v1.model.ThroughputInformation;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ChangesResult model.
+ * Unit test class for the ThroughputInformation model.
  */
-public class ChangesResultTest {
+public class ThroughputInformationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testChangesResult() throws Throwable {
-    ChangesResult changesResultModel = new ChangesResult();
-    assertNull(changesResultModel.getLastSeq());
-    assertNull(changesResultModel.getPending());
-    assertNull(changesResultModel.getResults());
+  public void testThroughputInformation() throws Throwable {
+    ThroughputInformation throughputInformationModel = new ThroughputInformation();
+    assertNull(throughputInformationModel.getBlocks());
+    assertNull(throughputInformationModel.getQuery());
+    assertNull(throughputInformationModel.getRead());
+    assertNull(throughputInformationModel.getWrite());
   }
 }

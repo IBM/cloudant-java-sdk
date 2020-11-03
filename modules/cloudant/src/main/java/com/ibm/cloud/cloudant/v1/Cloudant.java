@@ -19,12 +19,15 @@ package com.ibm.cloud.cloudant.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.cloudant.v1.model.ActiveTask;
+import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEventsConfiguration;
 import com.ibm.cloud.cloudant.v1.model.AllDocsQueriesResult;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
 import com.ibm.cloud.cloudant.v1.model.ApiKeysResult;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
+import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.ChangesResult;
-import com.ibm.cloud.cloudant.v1.model.CorsConfiguration;
+import com.ibm.cloud.cloudant.v1.model.CorsInformation;
+import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
 import com.ibm.cloud.cloudant.v1.model.DbUpdates;
 import com.ibm.cloud.cloudant.v1.model.DbsInfoResult;
@@ -45,9 +48,12 @@ import com.ibm.cloud.cloudant.v1.model.FindResult;
 import com.ibm.cloud.cloudant.v1.model.GeoIndexInformation;
 import com.ibm.cloud.cloudant.v1.model.GeoResult;
 import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
+import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCapacityThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCorsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCurrentThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDbUpdatesOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentInformationOptions;
@@ -84,6 +90,7 @@ import com.ibm.cloud.cloudant.v1.model.MembershipInformation;
 import com.ibm.cloud.cloudant.v1.model.MissingRevsResult;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
+import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostApiKeysOptions;
@@ -112,6 +119,7 @@ import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PutAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCorsConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
@@ -308,6 +316,65 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    */
   public ServiceCall<UuidsResult> getUuids() {
     return getUuids(null);
+  }
+
+  /**
+   * Retrieve provisioned throughput capacity information.
+   *
+   * View the amount of provisioned throughput capacity allocated to an IBM Cloudant instance and what is the target
+   * provisioned throughput capacity.
+   *
+   * @param getCapacityThroughputInformationOptions the {@link GetCapacityThroughputInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CapacityThroughputInformation}
+   */
+  public ServiceCall<CapacityThroughputInformation> getCapacityThroughputInformation(GetCapacityThroughputInformationOptions getCapacityThroughputInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/capacity/throughput"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCapacityThroughputInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<CapacityThroughputInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CapacityThroughputInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve provisioned throughput capacity information.
+   *
+   * View the amount of provisioned throughput capacity allocated to an IBM Cloudant instance and what is the target
+   * provisioned throughput capacity.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link CapacityThroughputInformation}
+   */
+  public ServiceCall<CapacityThroughputInformation> getCapacityThroughputInformation() {
+    return getCapacityThroughputInformation(null);
+  }
+
+  /**
+   * Update the target provisioned throughput capacity.
+   *
+   * Sets the target provisioned throughput capacity for an IBM Cloudant instance. When target capacity is changed, the
+   * current capacity asynchronously changes to meet the target capacity.
+   *
+   * @param putCapacityThroughputInformationOptions the {@link PutCapacityThroughputInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CapacityThroughputInformation}
+   */
+  public ServiceCall<CapacityThroughputInformation> putCapacityThroughputInformation(PutCapacityThroughputInformationOptions putCapacityThroughputInformationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(putCapacityThroughputInformationOptions,
+      "putCapacityThroughputInformationOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/capacity/throughput"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "putCapacityThroughputInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("blocks", putCapacityThroughputInformationOptions.blocks());
+    builder.bodyJson(contentJson);
+    ResponseConverter<CapacityThroughputInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CapacityThroughputInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -2559,7 +2626,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Retrieve information about which index is used for a query.
    *
    * Shows which index is being used by the query. Parameters are the same as the [`_find`
-   * endpoint](#query-an-index-by-using-selector-syntax.
+   * endpoint](#query-an-index-by-using-selector-syntax).
    *
    * @param postExplainOptions the {@link PostExplainOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ExplainResult}
@@ -3818,17 +3885,17 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * server interact to determine whether or not to allow the request.
    *
    * @param getCorsInformationOptions the {@link GetCorsInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link CorsConfiguration}
+   * @return a {@link ServiceCall} with a result of type {@link CorsInformation}
    */
-  public ServiceCall<CorsConfiguration> getCorsInformation(GetCorsInformationOptions getCorsInformationOptions) {
+  public ServiceCall<CorsInformation> getCorsInformation(GetCorsInformationOptions getCorsInformationOptions) {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/config/cors"));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCorsInformation");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    ResponseConverter<CorsConfiguration> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CorsConfiguration>() { }.getType());
+    ResponseConverter<CorsInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CorsInformation>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -3838,9 +3905,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Lists all Cross-origin resource sharing (CORS) configuration. CORS defines a way in which the browser and the
    * server interact to determine whether or not to allow the request.
    *
-   * @return a {@link ServiceCall} with a result of type {@link CorsConfiguration}
+   * @return a {@link ServiceCall} with a result of type {@link CorsInformation}
    */
-  public ServiceCall<CorsConfiguration> getCorsInformation() {
+  public ServiceCall<CorsInformation> getCorsInformation() {
     return getCorsInformation(null);
   }
 
@@ -4407,6 +4474,97 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    */
   public ServiceCall<UpInformation> getUpInformation() {
     return getUpInformation(null);
+  }
+
+  /**
+   * Retrieve Activity Tracker events information.
+   *
+   * Check event types that are being sent to IBM Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+   *
+   * @param getActivityTrackerEventsInformationOptions the {@link GetActivityTrackerEventsInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEventsConfiguration}
+   */
+  public ServiceCall<ActivityTrackerEventsConfiguration> getActivityTrackerEventsInformation(GetActivityTrackerEventsInformationOptions getActivityTrackerEventsInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getActivityTrackerEventsInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<ActivityTrackerEventsConfiguration> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ActivityTrackerEventsConfiguration>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve Activity Tracker events information.
+   *
+   * Check event types that are being sent to IBM Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEventsConfiguration}
+   */
+  public ServiceCall<ActivityTrackerEventsConfiguration> getActivityTrackerEventsInformation() {
+    return getActivityTrackerEventsInformation(null);
+  }
+
+  /**
+   * Modify Activity Tracker events configuration.
+   *
+   * Configure event types that are being sent to IBM Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+   *
+   * @param postActivityTrackerEventsConfigurationOptions the {@link PostActivityTrackerEventsConfigurationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Ok}
+   */
+  public ServiceCall<Ok> postActivityTrackerEventsConfiguration(PostActivityTrackerEventsConfigurationOptions postActivityTrackerEventsConfigurationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postActivityTrackerEventsConfigurationOptions,
+      "postActivityTrackerEventsConfigurationOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postActivityTrackerEventsConfiguration");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("types", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postActivityTrackerEventsConfigurationOptions.types()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<Ok> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve the current provisioned throughput capacity consumption.
+   *
+   * View the current consumption of provisioned throughput capacity for an IBM Cloudant instance. The current
+   * consumption shows the quantities of reads, writes, and global queries conducted against the instance for a given
+   * second.
+   *
+   * @param getCurrentThroughputInformationOptions the {@link GetCurrentThroughputInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CurrentThroughputInformation}
+   */
+  public ServiceCall<CurrentThroughputInformation> getCurrentThroughputInformation(GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/current/throughput"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCurrentThroughputInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<CurrentThroughputInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CurrentThroughputInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve the current provisioned throughput capacity consumption.
+   *
+   * View the current consumption of provisioned throughput capacity for an IBM Cloudant instance. The current
+   * consumption shows the quantities of reads, writes, and global queries conducted against the instance for a given
+   * second.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link CurrentThroughputInformation}
+   */
+  public ServiceCall<CurrentThroughputInformation> getCurrentThroughputInformation() {
+    return getCurrentThroughputInformation(null);
   }
 
 }

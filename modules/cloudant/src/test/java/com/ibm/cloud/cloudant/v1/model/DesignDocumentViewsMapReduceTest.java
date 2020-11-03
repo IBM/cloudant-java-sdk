@@ -45,4 +45,10 @@ public class DesignDocumentViewsMapReduceTest {
     assertEquals(designDocumentViewsMapReduceModelNew.map(), "testString");
     assertEquals(designDocumentViewsMapReduceModelNew.reduce(), "testString");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDesignDocumentViewsMapReduceError() throws Throwable {
+    new DesignDocumentViewsMapReduce.Builder().build();
+  }
+
 }

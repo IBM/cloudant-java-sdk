@@ -22,6 +22,7 @@ public class GeoIndexInformation extends GenericModel {
 
   @SerializedName("geo_index")
   protected GeoIndexStats geoIndex;
+  protected String name;
 
   /**
    * Gets the geoIndex.
@@ -32,6 +33,17 @@ public class GeoIndexInformation extends GenericModel {
    */
   public GeoIndexStats getGeoIndex() {
     return geoIndex;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * The name of the geospatial index design document.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
   }
 }
 

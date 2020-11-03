@@ -46,4 +46,10 @@ public class RevisionsTest {
     assertTrue(revisionsModelNew instanceof Revisions);
     assertEquals(revisionsModelNew.start(), Long.valueOf("1"));
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testRevisionsError() throws Throwable {
+    new Revisions.Builder().build();
+  }
+
 }

@@ -54,6 +54,17 @@ public class DocumentRevisionStatus extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param rev the rev
+     * @param status the status
+     */
+    public Builder(String rev, String status) {
+      this.rev = rev;
+      this.status = status;
+    }
+
+    /**
      * Builds a DocumentRevisionStatus.
      *
      * @return the new DocumentRevisionStatus instance
@@ -86,6 +97,10 @@ public class DocumentRevisionStatus extends GenericModel {
   }
 
   protected DocumentRevisionStatus(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.rev,
+      "rev cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.status,
+      "status cannot be null");
     rev = builder.rev;
     status = builder.status;
   }

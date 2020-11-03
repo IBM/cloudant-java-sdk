@@ -41,6 +41,15 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param map the map
+     */
+    public Builder(String map) {
+      this.map = map;
+    }
+
+    /**
      * Builds a DesignDocumentViewsMapReduce.
      *
      * @return the new DesignDocumentViewsMapReduce instance
@@ -73,6 +82,8 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
   }
 
   protected DesignDocumentViewsMapReduce(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.map,
+      "map cannot be null");
     map = builder.map;
     reduce = builder.reduce;
   }

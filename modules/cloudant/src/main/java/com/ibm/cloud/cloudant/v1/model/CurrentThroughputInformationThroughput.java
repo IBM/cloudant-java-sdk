@@ -12,50 +12,48 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
-import java.util.Map;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for information about the up state of the server.
+ * Detailed information about current consumption.
  */
-public class UpInformation extends GenericModel {
+public class CurrentThroughputInformationThroughput extends GenericModel {
+
+  protected Long query;
+  protected Long read;
+  protected Long write;
 
   /**
-   * status.
-   */
-  public interface Status {
-    /** maintenance_mode. */
-    String MAINTENANCE_MODE = "maintenance_mode";
-    /** nolb. */
-    String NOLB = "nolb";
-    /** ok. */
-    String OK = "ok";
-  }
-
-  protected Map<String, Object> seeds;
-  protected String status;
-
-  /**
-   * Gets the seeds.
+   * Gets the query.
    *
-   * seeds.
+   * Number of global queries conducted against the instance for a given second.
    *
-   * @return the seeds
+   * @return the query
    */
-  public Map<String, Object> getSeeds() {
-    return seeds;
+  public Long getQuery() {
+    return query;
   }
 
   /**
-   * Gets the status.
+   * Gets the read.
    *
-   * status.
+   * Number of reads conducted against the instance for a given second.
    *
-   * @return the status
+   * @return the read
    */
-  public String getStatus() {
-    return status;
+  public Long getRead() {
+    return read;
+  }
+
+  /**
+   * Gets the write.
+   *
+   * Number of writes conducted against the instance for a given second.
+   *
+   * @return the write
+   */
+  public Long getWrite() {
+    return write;
   }
 }
 

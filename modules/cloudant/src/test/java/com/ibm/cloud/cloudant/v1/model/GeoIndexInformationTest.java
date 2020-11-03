@@ -34,5 +34,6 @@ public class GeoIndexInformationTest {
   public void testGeoIndexInformation() throws Throwable {
     GeoIndexInformation geoIndexInformationModel = new GeoIndexInformation();
     assertNull(geoIndexInformationModel.getGeoIndex());
+    assertNull(geoIndexInformationModel.getName());
   }
 }
