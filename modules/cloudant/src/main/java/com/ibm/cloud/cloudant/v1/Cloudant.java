@@ -207,6 +207,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   public Cloudant(String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
+    enableGzipCompression(true);
   }
 
   /**

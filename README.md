@@ -80,6 +80,7 @@ Reasons why you should consider using Cloudant SDK for Java in your project:
 - Familiar user experience of IBM Cloud SDKs.
 - Perform requests either synchronously or asynchronously.
 - Instances of the client are unconditionally thread-safe.
+- Transparently compresses request and response bodies.
 
 ## Prerequisites
 
