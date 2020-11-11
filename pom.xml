@@ -36,7 +36,7 @@
         <maven-buildnumber-plugin-version>1.4</maven-buildnumber-plugin-version>
         <powermock-version>2.0.5</powermock-version>
         <mockito-version>3.2.4</mockito-version>
-        <slf4j-version>1.7.28</slf4j-version>
+        <slf4j-version>1.7.30</slf4j-version>
 
         <!-- Deployment-related properties -->
         <bintray.org>ibm-cloud-sdks</bintray.org>
