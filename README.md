@@ -13,7 +13,7 @@
 [![Build Status](https://travis-ci.com/IBM/cloudant-java-sdk.svg?branch=master)](https://travis-ci.com/IBM/cloudant-java-sdk)
 <!-- [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) -->
 
-# IBM Cloudant Java SDK Version 0.0.18
+# IBM Cloudant Java SDK Version 0.0.19
 
 Java client library to interact with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=java).
@@ -105,7 +105,7 @@ project:
 
 ## Installation
 
-The current version of this SDK is: 0.0.18
+The current version of this SDK is: 0.0.19
 
 The project artifacts are published on the following public maven repositories:
 
@@ -130,7 +130,7 @@ Extend *Maven dependencies* in your `pom.xml` file with the `cloudant` library.
   <dependency>
     <groupId>com.ibm.cloud</groupId>
       <artifactId>cloudant</artifactId>
-        <version>0.0.18</version>
+        <version>0.0.19</version>
   </dependency>
 </dependencies>
 ```
@@ -142,7 +142,7 @@ Add the `cloudant` library to *Gradle dependencies* in your `build.gradle` file:
 ```groovy
 dependencies {
     // other dependencies...
-    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.0.18"
+    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.0.19"
 }
 ```
 
