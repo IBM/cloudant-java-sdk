@@ -1,0 +1,23 @@
+# Copied files:
+
+.github/dco.yml @IBM/cloudant-sdks
+scripts/setup_couch.sh @IBM/cloudant-sdks
+scripts/setup_wiremock.sh @IBM/cloudant-sdks
+stubs/mappings.json @IBM/cloudant-sdks
+KNOWN_ISSUES.md @IBM/cloudant-sdks
+Jenkinsfile @IBM/cloudant-sdks
+
+# Generated code files:
+
+src/main/java/com/ibm/cloud/cloudant/v1/* @IBM/cloudant-sdks
+src/test/java/com/ibm/cloud/cloudant/v1/* @IBM/cloudant-sdks
+
+# Bump version files:
+
+.bumpversion.cfg @IBM/cloudant-sdks
+# README.md @IBM/cloudant-sdks
+# modules/cloudant/pom.xml @IBM/cloudant-sdks
+# modules/common/pom.xml @IBM/cloudant-sdks
+# modules/coverage-reports/pom.xml @IBM/cloudant-sdks
+# modules/examples/pom.xml @IBM/cloudant-sdks
+# pom.xml @IBM/cloudant-sdks
