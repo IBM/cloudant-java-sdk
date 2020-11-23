@@ -6,7 +6,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ]; then
     printf "\n>>>>> Publishing javadoc for release build: repo=%s branch=%s build_num=%s job_num=%s\n" ${TRAVIS_REPO_SLUG} ${TRAVIS_BRANCH} ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JOB_NUMBER}
 
     printf "\n>>>>> Cloning repository's gh-pages branch into directory 'gh-pages'"
-    git clone --branch=gh-pages https://${GH_TOKEN}@github.com/IBM/coudant-java-sdk.git gh-pages
+    git clone --branch=gh-pages https://${GH_TOKEN}@github.com/IBM/cloudant-java-sdk.git gh-pages
 
     printf "\n>>>>> Finished cloning...\n"
 
