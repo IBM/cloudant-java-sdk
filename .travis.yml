@@ -55,7 +55,8 @@ deploy:
    script: "./build/publish-javadoc.sh"
    skip_cleanup: true
    on:
-#     tags: true
+     tags: true
+     branch: 179-javadoc-gen
      jdk: openjdk8
 
 # To enable semantic-release, uncomment these sections.
