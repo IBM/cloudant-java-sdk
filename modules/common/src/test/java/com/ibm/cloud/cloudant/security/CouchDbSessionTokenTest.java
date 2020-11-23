@@ -36,6 +36,7 @@ public class CouchDbSessionTokenTest {
 
     /**
      * Test that a token needs refresh after 80% of it's lifetime
+     * @throws Exception The asserted condition not true, {@link java.lang.AssertionError} is thrown
      */
     @Test
     public void needsRefresh() throws Exception {
@@ -60,9 +61,10 @@ public class CouchDbSessionTokenTest {
 
     /**
      * Test that a token refresh calculation is correct
+     * @throws AssertionError The time between refresh and expiry is not 200 ms, {@link java.lang.AssertionError} is thrown
      */
     @Test
-    public void refreshTimeCalculation() throws Exception {
+    public void refreshTimeCalculation() throws AssertionError {
         long currentTime = System.currentTimeMillis();
         CouchDbSessionToken t = new CouchDbSessionToken(currentTime + 1000);
         assertEquals(200, t.expiryTime - t.refreshTime, "The time between refresh and expiry should be 200 ms");

@@ -99,7 +99,7 @@ public class CouchDbSessionAuthenticator
      * apply the configuration options of the
      * { @link com.ibm.cloud.cloudant.v1.Cloudant} client automatically.
      *
-     * @param options
+     * @param options the {@link com.ibm.cloud.sdk.core.http.HttpConfigOptions} object for modifying the client instance
      */
     public void setHttpConfigOptions(HttpConfigOptions options) {
         this.options = options;
@@ -110,14 +110,14 @@ public class CouchDbSessionAuthenticator
      * service URL. This is called internally to apply the service URL from the
      * { @link com.ibm.cloud.cloudant.v1.Cloudant} client automatically.
      *
-     * @param serviceUrl
+     * @param serviceUrl the base service URL associated with the service instance
      */
     public void setSessionUrl(String serviceUrl) {
         this.sessionUrl = RequestBuilder.constructHttpUrl(serviceUrl, new String[]{"_session"});
     }
 
     /**
-     * @param headers
+     * @param headers name value pairs of headers
      */
     @Override
     public void setHeaders(Map<String, String> headers) {

@@ -47,6 +47,8 @@ before_script:
 script:
 - mvn clean verify $MVN_ARGS
 - $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -X coveragepy -X s3
+- mvn javadoc:test-aggregate
+- ./build/publish-javadoc.sh
 
 # To enable semantic-release, uncomment these sections.
 # before_deploy:
