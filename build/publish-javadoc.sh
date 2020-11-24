@@ -1,5 +1,11 @@
 #!/bin/bash
 
+printf ">>>>> Publishing javadoc for release build: branch=%s build_num=%s job_name=%s" ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
+printf ">>>>> Cloning repository's gh-pages branch into directory 'gh-pages'"
+git clone --branch=gh-pages https://${GH_CREDS}@github.com/IBM/cloudant-java-sdk.git gh-pages
+
+printf ">>>>> Finished cloning..."
+
 pushd gh-pages
 
 # Create a new directory for this branch/tag and copy the aggregated javadocs there.

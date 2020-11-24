@@ -17,7 +17,7 @@ echo '<!DOCTYPE html>
         <h1>IBM Cloud Cloudant Java SDK Documentation</h1>
     </div>
 
-    <p><a href="https://cloud.ibm.com/apidocs/cloudant?code=java">Cloudant Services Info</a>
+    <p><a href="https://cloud.ibm.com/apidocs/cloudant?code=java">Cloudant API Docs</a>
         | <a href="https://github.com/IBM/cloudant-java-sdk">GitHub</a>
     </p>
 
