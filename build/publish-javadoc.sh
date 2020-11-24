@@ -28,9 +28,14 @@ printf "\n>>>>> Generating gh-pages index.html...\n"
   popd
 #fi
 
+printf "\n>>>>> Setting credential details...\n"
+git config user.email '71659186+cloudant-sdks-automation@users.noreply.github.com'
+git config user.name 'cloudant-sdks-automation'
+
 printf "\n>>>>> Committing new javadoc...\n"
 git add -f .
-git commit -m "Javadoc for release ${TAG_NAME} (${GIT_COMMIT})"
+#git commit -m "Javadoc for release ${TAG_NAME} (${GIT_COMMIT})"
+git commit -m "Javadoc for release 0.1-doc (${GIT_COMMIT})"
 git push -f origin gh-pages
 
 popd
