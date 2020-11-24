@@ -58,6 +58,7 @@ pipeline {
       steps {
         bumpVersion(true)
         publishStaging()
+        publishDocs()
       }
     }
     stage('Run Gauge tests') {
@@ -195,5 +196,13 @@ void publishPublic() {
 
 void publishMaven(mvnArgs='') {
   sh "mvn deploy --settings build/.travis.settings.xml -DskipTests ${mvnArgs}"
+}
+
+void publishDocs() {
+  sh "mvn javadoc:aggregate"
+  withCredentials([usernamePassword(credentialsId: 'gh-sdks-automation', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+    sh "./build/publish-javadoc.sh"
+
+  }
 }
 

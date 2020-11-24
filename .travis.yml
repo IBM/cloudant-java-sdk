@@ -47,17 +47,6 @@ before_script:
 script:
 - mvn clean verify $MVN_ARGS
 - $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -X coveragepy -X s3
-- mvn javadoc:test-aggregate
-
-deploy:
- # Publish javadocs to gh-pages only for a tagged-release.
- - provider: script
-   script: "./build/publish-javadoc.sh"
-   skip_cleanup: true
-   on:
-     tags: true
-     branch: 179-javadoc-gen
-     jdk: openjdk8
 
 # To enable semantic-release, uncomment these sections.
 # before_deploy:
