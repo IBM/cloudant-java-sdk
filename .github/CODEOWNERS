@@ -9,15 +9,14 @@ Jenkinsfile @IBM/cloudant-sdks
 
 # Generated code files:
 
-src/main/java/com/ibm/cloud/cloudant/v1/* @IBM/cloudant-sdks
-src/test/java/com/ibm/cloud/cloudant/v1/* @IBM/cloudant-sdks
+src/main/java/com/ibm/cloud/cloudant/v1/** @IBM/cloudant-sdks
+src/test/java/com/ibm/cloud/cloudant/v1/** @IBM/cloudant-sdks
 
-# Bump version files:
+# Bump version files except the README:
 
 .bumpversion.cfg @IBM/cloudant-sdks
-# README.md @IBM/cloudant-sdks
-# modules/cloudant/pom.xml @IBM/cloudant-sdks
-# modules/common/pom.xml @IBM/cloudant-sdks
-# modules/coverage-reports/pom.xml @IBM/cloudant-sdks
-# modules/examples/pom.xml @IBM/cloudant-sdks
-# pom.xml @IBM/cloudant-sdks
+modules/cloudant/pom.xml @IBM/cloudant-sdks
+modules/common/pom.xml @IBM/cloudant-sdks
+modules/coverage-reports/pom.xml @IBM/cloudant-sdks
+modules/examples/pom.xml @IBM/cloudant-sdks
+pom.xml @IBM/cloudant-sdks
