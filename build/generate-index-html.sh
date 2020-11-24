@@ -8,17 +8,17 @@ echo '<!DOCTYPE html>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IBM Cloud My Services</title>
+    <title>IBM Cloud Cloudant</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>IBM Cloud My Services Java SDK Documentation</h1>
+        <h1>IBM Cloud Cloudant Java SDK Documentation</h1>
     </div>
 
-    <p><a href="https://cloud.ibm.com/apidocs?category=<service-category>">My Services Info</a>
-        | <a href="<github-repo-url">GitHub</a>
+    <p><a href="https://cloud.ibm.com/apidocs/cloudant?code=java">Cloudant Services Info</a>
+        | <a href="https://github.com/IBM/cloudant-java-sdk">GitHub</a>
     </p>
 
     <p>Javadoc by branch/release:</p>

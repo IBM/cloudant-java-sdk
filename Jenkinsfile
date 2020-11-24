@@ -201,6 +201,13 @@ void publishMaven(mvnArgs='') {
 void publishDocs() {
   sh "mvn javadoc:aggregate"
   withCredentials([usernamePassword(credentialsId: 'gh-sdks-automation', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+    sh '''
+    printf "\n>>>>> Publishing javadoc for release build: branch=%s build_num=%s job_name=%s\n" ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
+    printf "\n>>>>> Cloning repository's gh-pages branch into directory 'gh-pages'"
+    git clone --branch=gh-pages git@github.com:IBM/cloudant-java-sdk.git gh-pages
+
+    printf "\n>>>>> Finished cloning...\n"
+    '''
     sh "./build/publish-javadoc.sh"
 
   }
