@@ -10,7 +10,7 @@ pushd gh-pages
 
 # Create a new directory for this branch/tag and copy the aggregated javadocs there.
 printf "\n>>>>> Copying aggregated javadocs to new tagged-release directory: %s\n" ${BRANCH_NAME}
-export TEST_TAG="0.1-doc"
+export TEST_TAG="0.0.19"
 rm -rf docs/${TEST_TAG}
 mkdir -p docs/${TEST_TAG}
 cp -rf ../target/site/apidocs/* docs/${TEST_TAG}
