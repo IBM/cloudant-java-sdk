@@ -54,7 +54,6 @@ pipeline {
     stage('Publish[staging]') {
       environment {
         STAGE_ROOT = 'https://na.artifactory.swg-devops.com/artifactory/api/'
-        STAGE_COMMIT = env.GIT_COMMIT[0..6]
       }
       steps {
 //        bumpVersion(true)
