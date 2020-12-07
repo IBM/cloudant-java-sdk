@@ -56,10 +56,8 @@ pipeline {
         STAGE_ROOT = 'https://na.artifactory.swg-devops.com/artifactory/api/'
       }
       steps {
-//        bumpVersion(true)
-//        publishStaging()
-          sh "mvn javadoc:aggregate"
-          sh "./build/publish-javadoc.sh"
+        bumpVersion(true)
+        publishStaging()
       }
     }
     stage('Run Gauge tests') {
@@ -198,3 +196,4 @@ void publishPublic() {
 void publishMaven(mvnArgs='') {
   sh "mvn deploy --settings build/.travis.settings.xml -DskipTests ${mvnArgs}"
 }
+
