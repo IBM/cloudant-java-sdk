@@ -40,4 +40,6 @@
 #popd
 
 printf "\n>>>>> Published javadoc for release build: repo=%s branch=%s build_num=%s job_name=%s\n" ${GIT_REPO_NAME} ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
-printf "git-url=%s git_commit=%s stage_commit=%s" ${GIT_URL} ${GIT_COMMIT} ${STAGE_COMMIT}
+GIT_COMMIT=$(git rev-parse --short HEAD)
+GIT_REPO=$(git remote get-url origin)
+printf "git-url=%s git_commit=%s stage_commit=%s" ${GIT_REPO} ${GIT_COMMIT} ${STAGE_COMMIT}
