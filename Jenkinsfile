@@ -54,10 +54,13 @@ pipeline {
     stage('Publish[staging]') {
       environment {
         STAGE_ROOT = 'https://na.artifactory.swg-devops.com/artifactory/api/'
+        STAGE_COMMIT = ${GIT_COMMIT}[0..6]
       }
       steps {
-        bumpVersion(true)
-        publishStaging()
+//        bumpVersion(true)
+//        publishStaging()
+          sh "mvn javadoc:aggregate"
+          sh "./build/publish-javadoc.sh"
       }
     }
     stage('Run Gauge tests') {
