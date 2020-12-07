@@ -10,10 +10,9 @@ pushd gh-pages
 
 # Create a new directory for this branch/tag and copy the aggregated javadocs there.
 printf "\n>>>>> Copying aggregated javadocs to new tagged-release directory: %s\n" ${BRANCH_NAME}
-export TEST_TAG="0.0.19"
-rm -rf docs/${TEST_TAG}
-mkdir -p docs/${TEST_TAG}
-cp -rf ../target/site/apidocs/* docs/${TEST_TAG}
+rm -rf docs/${TAG_NAME}
+mkdir -p docs/${TAG_NAME}
+cp -rf ../target/site/apidocs/* docs/${TAG_NAME}
 
 printf "\n>>>>> Generating gh-pages index.html...\n"
 ../build/generate-index-html.sh > index.html
@@ -22,8 +21,7 @@ printf "\n>>>>> Generating gh-pages index.html...\n"
 #if [ -n "TAG_NAME" ]; then
   pushd docs
   rm latest
-#  ln -s ./${TAG_NAME} latest
-  ln -s ./${TEST_TAG} latest
+  ln -s ./${TAG_NAME} latest
   printf "\n>>>>> Updated 'docs/latest' symlink:\n"
   ls -l latest
   popd
@@ -36,7 +34,7 @@ git config user.name 'cloudant-sdks-automation'
 printf "\n>>>>> Committing new javadoc...\n"
 git add -f .
 #git commit -m "Javadoc for release ${TAG_NAME} (${GIT_COMMIT})"
-git commit -m "Javadoc for release ${TEST_TAG} (${GIT_COMMIT})"
+git commit -m "Javadoc for release ${TAG_NAME} (${GIT_COMMIT})"
 git push -f origin gh-pages
 
 popd
