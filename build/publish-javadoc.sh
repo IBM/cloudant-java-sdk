@@ -23,24 +23,27 @@ if [ -n "TAG_NAME" ]; then
   printf "\n>>>>> Generating gh-pages index.html...\n"
   ../build/generate-index-html.sh > index.html
 
-# Update the 'latest' symlink to point to this directory
+  # Update the 'latest' symlink to point to this directory
   pushd docs
   rm latest
   ln -s ./${TAG_NAME} latest
   printf "\n>>>>> Updated 'docs/latest' symlink:\n"
   ls -l latest
   popd
+
+  printf "\n>>>>> Setting credential details...\n"
+  git config user.email '71659186+cloudant-sdks-automation@users.noreply.github.com'
+  git config user.name 'cloudant-sdks-automation'
+
+  printf "\n>>>>> Committing new javadoc...\n"
+  git add -f .
+  git commit -m "Javadoc for release ${TAG_NAME} (${GIT_COMMIT})"
+  git push -f origin gh-pages
+
+  popd
+
+  printf "\n>>>>> Published javadoc for release build: repo=%s branch=%s build_num=%s job_name=%s\n" ${GIT_REPO} ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
+else
+  printf "\n>>>>> Failed to publish javadoc for release build: TAG_NAME was empty\n"
 fi
 
-printf "\n>>>>> Setting credential details...\n"
-git config user.email '71659186+cloudant-sdks-automation@users.noreply.github.com'
-git config user.name 'cloudant-sdks-automation'
-
-printf "\n>>>>> Committing new javadoc...\n"
-git add -f .
-git commit -m "Javadoc for release ${TAG_NAME} (${GIT_COMMIT})"
-git push -f origin gh-pages
-
-popd
-
-printf "\n>>>>> Published javadoc for release build: repo=%s branch=%s build_num=%s job_name=%s\n" ${GIT_REPO} ${BRANCH_NAME} ${BUILD_NUMBER} ${JOB_NAME}
