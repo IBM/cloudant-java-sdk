@@ -8,13 +8,13 @@ echo '<!DOCTYPE html>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IBM Cloud Cloudant</title>
+    <title>IBM Cloudant</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>IBM Cloud Cloudant Java SDK Documentation</h1>
+        <h1>IBM Cloudant Java SDK Documentation</h1>
     </div>
 
     <p><a href="https://cloud.ibm.com/apidocs/cloudant?code=java">Cloudant API Docs</a>

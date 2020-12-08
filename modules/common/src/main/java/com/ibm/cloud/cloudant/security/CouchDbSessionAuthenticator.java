@@ -117,7 +117,7 @@ public class CouchDbSessionAuthenticator
     }
 
     /**
-     * @param headers name value pairs of headers
+     * @param headers map of header name and value pairs
      */
     @Override
     public void setHeaders(Map<String, String> headers) {
