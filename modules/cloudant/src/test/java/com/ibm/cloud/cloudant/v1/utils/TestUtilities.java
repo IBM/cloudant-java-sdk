@@ -20,10 +20,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
-import java.text.SimpleDateFormat;
 
 import okhttp3.mockwebserver.RecordedRequest;
 import okhttp3.HttpUrl;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 
@@ -120,10 +120,10 @@ public class TestUtilities {
     }
 
     public static Date createMockDate(String date) throws Exception {
-        return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        return DateUtils.parseAsDate(date);
     }
 
     public static Date createMockDateTime(String date) throws Exception {
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(date);
+        return DateUtils.parseAsDateTime(date);
     }
 }
