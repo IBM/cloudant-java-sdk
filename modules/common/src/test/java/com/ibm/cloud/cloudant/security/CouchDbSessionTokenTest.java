@@ -14,13 +14,14 @@
 package com.ibm.cloud.cloudant.security;
 
 
-import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator.CouchDbSessionToken;
-import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
+
+import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator.CouchDbSessionToken;
+
+import org.testng.annotations.Test;
 
 
 public class CouchDbSessionTokenTest {
@@ -36,9 +37,11 @@ public class CouchDbSessionTokenTest {
 
     /**
      * Test that a token needs refresh after 80% of it's lifetime
+     *
+     * @throws InterruptedException if the test is interrupted while sleeping
      */
     @Test
-    public void needsRefresh() throws Exception {
+    public void needsRefresh() throws InterruptedException {
         // 1 second lifetime
         CouchDbSessionToken t = new CouchDbSessionToken(System.currentTimeMillis() + 1000);
         // The minimum refresh time is 800 ms, sleep for slightly longer than that (850 ms) to allow
@@ -62,7 +65,7 @@ public class CouchDbSessionTokenTest {
      * Test that a token refresh calculation is correct
      */
     @Test
-    public void refreshTimeCalculation() throws Exception {
+    public void refreshTimeCalculation() {
         long currentTime = System.currentTimeMillis();
         CouchDbSessionToken t = new CouchDbSessionToken(currentTime + 1000);
         assertEquals(200, t.expiryTime - t.refreshTime, "The time between refresh and expiry should be 200 ms");
