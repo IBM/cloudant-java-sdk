@@ -12,7 +12,7 @@
 
   <module name="Checker">
 
-  <module name="Header">
+  <module name="RegexpHeader">
     <property name="headerFile" value="config/java.header"/>
     <property name="fileExtensions" value="java"/>
     <property name="id" value="header"/>
