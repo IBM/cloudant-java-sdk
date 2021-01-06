@@ -184,9 +184,9 @@ account.
 
 There are several ways to **set** these properties:
 
-1. As [environment variables](#authenticate-with-environment-variables)
-1. The [programmatic approach](#authenticate-programmatically)
-1. With an [external credentials file](#authenticate-with-external-configuration)
+1. As [environment variables](#authentication-with-environment-variables)
+1. The [programmatic approach](#programmatic-authentication)
+1. With an [external credentials file](#authentication-with-external-configuration)
 
 ### Authentication with environment variables
 
@@ -374,7 +374,6 @@ import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
-import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 
 public class CreateDbAndDoc {
@@ -422,19 +421,6 @@ public class CreateDbAndDoc {
                         .docId(exampleDocId)
                         .build();
 
-        /* Try to get the document and set revision of exampleDocument to the
-           latest one if it previously existed in the database */
-        try {
-            Document documentInfo = client
-                    .getDocument(documentInfoOptions)
-                    .execute()
-                    .getResult();
-            exampleDocument.setRev(documentInfo.getRev());
-            System.out.println("The document revision for " + exampleDocId +
-                    " is set to " + exampleDocument.getRev() + ".");
-        } catch (NotFoundException nfe) {
-        }
-
         // Save the document in the database
         PostDocumentOptions createDocumentOptions =
                 new PostDocumentOptions.Builder()
@@ -464,7 +450,7 @@ The result of the code is similar to the following output.
 You have created the document:
 {
   "_id": "example",
-  "_rev": "1-2c3b9502ed7c4a41d35c92bcf734869c",
+  "_rev": "1-1b403633540686aa32d013fda9041a5d",
   "joined": "2019-01-24T10:42:99.000Z",
   "name": "Bob Smith"
 }
@@ -549,7 +535,7 @@ The result of the code is similar to the following output.
 You have updated the document:
 {
   "_id": "example",
-  "_rev": "2-6cc06e9484d776322f7e697c03fb23f7",
+  "_rev": "2-4e2178e85cffb32d38ba4e451f6ca376",
   "address": "19 Front Street, Darlington, DL5 1TY",
   "name": "Bob Smith"
 }
