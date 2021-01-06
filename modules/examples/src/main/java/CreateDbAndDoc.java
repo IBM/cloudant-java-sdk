@@ -18,7 +18,6 @@ import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
-import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 
 public class CreateDbAndDoc {
@@ -65,19 +64,6 @@ public class CreateDbAndDoc {
                         .db(exampleDbName)
                         .docId(exampleDocId)
                         .build();
-
-        /* Try to get the document and set revision of exampleDocument to the
-           latest one if it previously existed in the database */
-        try {
-            Document documentInfo = client
-                    .getDocument(documentInfoOptions)
-                    .execute()
-                    .getResult();
-            exampleDocument.setRev(documentInfo.getRev());
-            System.out.println("The document revision for " + exampleDocId +
-                    " is set to " + exampleDocument.getRev() + ".");
-        } catch (NotFoundException nfe) {
-        }
 
         // Save the document in the database
         PostDocumentOptions createDocumentOptions =
