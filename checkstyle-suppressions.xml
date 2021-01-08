@@ -7,8 +7,6 @@
 <suppressions>
     <suppress checks="UnusedImports"
               files="Cloudant.java" />
-    <suppress checks="Header"
-              files="com/ibm/cloud/cloudant/v1/.*" />
     <suppress checks="OperatorWrap"
               files="modules/examples/src/main/java/.*" />
     <suppress checks="HideUtilityClassConstructor"
