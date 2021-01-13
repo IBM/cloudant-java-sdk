@@ -18,12 +18,12 @@ pipeline {
           applyCustomizations()
           checkoutResult = checkout scm
           commitHash = "${checkoutResult.GIT_COMMIT[0..6]}"
-          sh '''
-            git config --global user.email $GH_SDKS_AUTOMATION_MAIL
-            git config --global user.name $GH_CREDS_USR
-            git config --global credential.username $GH_CREDS_USR
-            git config --global credential.helper '!f() { echo password=\$GH_CREDS_PSW; echo; }; f'
-          '''
+          sh """
+            git config user.email '71659186+cloudant-sdks-automation@users.noreply.github.com'
+            git config user.name 'cloudant-sdks-automation'
+            git config credential.username '${env.GH_CREDS_USR}'
+            git config credential.helper '!f() { echo password=\$GH_CREDS_PSW; echo; }; f'
+          """
         }
       }
     }
@@ -108,7 +108,6 @@ pipeline {
         // Push the version bump and release tag
         sh 'git push --tags origin HEAD:master'
         publishPublic()
-        publishDocs()
       }
     }
   }
@@ -163,7 +162,6 @@ String getNewVersion(isDevRelease, version) {
 // runTests()
 // publishStaging()
 // publishPublic()
-// publishDocs()
 // + other customizations
 void applyCustomizations() {
   libName = 'java'
@@ -197,9 +195,5 @@ void publishPublic() {
 
 void publishMaven(mvnArgs='') {
   sh "mvn deploy --settings build/.travis.settings.xml -DskipTests ${mvnArgs}"
-}
-
-void publishDocs() {
-  sh './scripts/javadoc/publish-doc.sh'
 }
 
