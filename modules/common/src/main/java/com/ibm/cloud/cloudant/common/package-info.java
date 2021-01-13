@@ -13,7 +13,7 @@
 
 /**
  * This package contains non-API classes used by
- * [@link com.ibm.cloud.cloudant.v1.Cloudant} to customize requests. User code should
+ * the service client to customize requests. User code should
  * not directly call these classes.
  *
  * @since 0.0
