@@ -12,6 +12,7 @@
 
 [![Build Status](https://travis-ci.com/IBM/cloudant-java-sdk.svg?branch=master)](https://travis-ci.com/IBM/cloudant-java-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-java-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-java-sdk/releases/latest)
+[![Docs](https://img.shields.io/static/v1?label=javadoc&message=latest&color=blue)](https://ibm.github.io/cloudant-java-sdk/)
 
 # IBM Cloudant Java SDK Version 0.0.20
 
