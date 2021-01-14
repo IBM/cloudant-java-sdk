@@ -97,7 +97,7 @@ public class CouchDbSessionAuthenticator
      * Setter to configure this authenticator with HttpConfigOptions. This is called
      * internally to
      * apply the configuration options of the
-     * { @link com.ibm.cloud.cloudant.v1.Cloudant} client automatically.
+     * service client automatically.
      *
      * @param options
      */
@@ -108,7 +108,7 @@ public class CouchDbSessionAuthenticator
     /**
      * Setter to configure this authenticator with a new session URL derived from the supplied
      * service URL. This is called internally to apply the service URL from the
-     * { @link com.ibm.cloud.cloudant.v1.Cloudant} client automatically.
+     * service client automatically.
      *
      * @param serviceUrl
      */
