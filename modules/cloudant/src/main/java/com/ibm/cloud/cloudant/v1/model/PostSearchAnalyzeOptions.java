@@ -20,7 +20,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class PostSearchAnalyzeOptions extends GenericModel {
 
   /**
-   * analyzer.
+   * The analyzer type that is being used at the tokenization.
    */
   public interface Analyzer {
     /** arabic. */
@@ -190,7 +190,7 @@ public class PostSearchAnalyzeOptions extends GenericModel {
   /**
    * Gets the analyzer.
    *
-   * analyzer.
+   * The analyzer type that is being used at the tokenization.
    *
    * @return the analyzer
    */
@@ -201,7 +201,7 @@ public class PostSearchAnalyzeOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * text.
+   * The text to tokenize with the analyzer.
    *
    * @return the text
    */
