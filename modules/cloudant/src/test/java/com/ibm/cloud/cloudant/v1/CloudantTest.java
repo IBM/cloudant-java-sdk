@@ -109,11 +109,8 @@ import com.ibm.cloud.cloudant.v1.model.HeadAttachmentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDatabaseOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
-import com.ibm.cloud.cloudant.v1.model.HeadLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadReplicationDocumentOptions;
-import com.ibm.cloud.cloudant.v1.model.HeadSchedulerDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadSchedulerJobOptions;
-import com.ibm.cloud.cloudant.v1.model.HeadUpInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.IndexField;
 import com.ibm.cloud.cloudant.v1.model.IndexInformation;
@@ -466,220 +463,6 @@ public class CloudantTest extends PowerMockTestCase {
   }
 
   @Test
-  public void testGetDbUpdatesWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"results\": [{\"account\": \"account\", \"db_name\": \"dbName\", \"seq\": \"seq\", \"type\": \"created\"}]}";
-    String getDbUpdatesPath = "/_db_updates";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the GetDbUpdatesOptions model
-    GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
-    .feed("continuous")
-    .heartbeat(Long.valueOf("0"))
-    .timeout(Long.valueOf("0"))
-    .since("testString")
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<DbUpdates> response = cloudantService.getDbUpdates(getDbUpdatesOptionsModel).execute();
-    assertNotNull(response);
-    DbUpdates responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("feed"), "continuous");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
-    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
-    assertEquals(query.get("since"), "testString");
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getDbUpdatesPath);
-  }
-
-  @Test
-  public void testPostChangesWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"pending\": 7, \"results\": [{\"changes\": [{\"rev\": \"rev\"}], \"deleted\": false, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"seq\": \"seq\"}]}";
-    String postChangesPath = "/testString/_changes";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the PostChangesOptions model
-    PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
-    .db("testString")
-    .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-    .lastEventId("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .feed("continuous")
-    .filter("testString")
-    .heartbeat(Long.valueOf("0"))
-    .includeDocs(true)
-    .limit(Long.valueOf("0"))
-    .seqInterval(Long.valueOf("1"))
-    .since("testString")
-    .style("testString")
-    .timeout(Long.valueOf("0"))
-    .view("testString")
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<ChangesResult> response = cloudantService.postChanges(postChangesOptionsModel).execute();
-    assertNotNull(response);
-    ChangesResult responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(true));
-    assertEquals(query.get("feed"), "continuous");
-    assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
-    assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
-    assertEquals(query.get("since"), "testString");
-    assertEquals(query.get("style"), "testString");
-    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
-    assertEquals(query.get("view"), "testString");
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postChangesPath);
-  }
-
-  // Test the postChanges operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostChangesNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    cloudantService.postChanges(null).execute();
-  }
-
-  @Test
-  public void testPostChangesAsStreamWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String postChangesAsStreamPath = "/testString/_changes";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the PostChangesOptions model
-    PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
-    .db("testString")
-    .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-    .lastEventId("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .feed("continuous")
-    .filter("testString")
-    .heartbeat(Long.valueOf("0"))
-    .includeDocs(true)
-    .limit(Long.valueOf("0"))
-    .seqInterval(Long.valueOf("1"))
-    .since("testString")
-    .style("testString")
-    .timeout(Long.valueOf("0"))
-    .view("testString")
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<InputStream> response = cloudantService.postChangesAsStream(postChangesOptionsModel).execute();
-    assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(true));
-    assertEquals(query.get("feed"), "continuous");
-    assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
-    assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
-    assertEquals(query.get("since"), "testString");
-    assertEquals(query.get("style"), "testString");
-    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
-    assertEquals(query.get("view"), "testString");
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postChangesAsStreamPath);
-
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-  }
-
-  // Test the postChangesAsStream operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostChangesAsStreamNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    cloudantService.postChangesAsStream(null).execute();
-  }
-
-  @Test
   public void testHeadDatabaseWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
@@ -978,6 +761,175 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Invoke operation with null options model (negative test)
     cloudantService.putDatabase(null).execute();
+  }
+
+  @Test
+  public void testPostChangesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"pending\": 7, \"results\": [{\"changes\": [{\"rev\": \"rev\"}], \"deleted\": false, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"seq\": \"seq\"}]}";
+    String postChangesPath = "/testString/_changes";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the PostChangesOptions model
+    PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
+    .db("testString")
+    .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+    .lastEventId("testString")
+    .attEncodingInfo(true)
+    .attachments(true)
+    .conflicts(true)
+    .descending(true)
+    .feed("continuous")
+    .filter("testString")
+    .heartbeat(Long.valueOf("0"))
+    .includeDocs(true)
+    .limit(Long.valueOf("0"))
+    .seqInterval(Long.valueOf("1"))
+    .since("testString")
+    .style("testString")
+    .timeout(Long.valueOf("0"))
+    .view("testString")
+    .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ChangesResult> response = cloudantService.postChanges(postChangesOptionsModel).execute();
+    assertNotNull(response);
+    ChangesResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(true));
+    assertEquals(query.get("feed"), "continuous");
+    assertEquals(query.get("filter"), "testString");
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
+    assertEquals(query.get("since"), "testString");
+    assertEquals(query.get("style"), "testString");
+    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
+    assertEquals(query.get("view"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postChangesPath);
+  }
+
+  // Test the postChanges operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostChangesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.postChanges(null).execute();
+  }
+
+  @Test
+  public void testPostChangesAsStreamWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
+    String postChangesAsStreamPath = "/testString/_changes";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the PostChangesOptions model
+    PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
+    .db("testString")
+    .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+    .lastEventId("testString")
+    .attEncodingInfo(true)
+    .attachments(true)
+    .conflicts(true)
+    .descending(true)
+    .feed("continuous")
+    .filter("testString")
+    .heartbeat(Long.valueOf("0"))
+    .includeDocs(true)
+    .limit(Long.valueOf("0"))
+    .seqInterval(Long.valueOf("1"))
+    .since("testString")
+    .style("testString")
+    .timeout(Long.valueOf("0"))
+    .view("testString")
+    .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<InputStream> response = cloudantService.postChangesAsStream(postChangesOptionsModel).execute();
+    assertNotNull(response);
+    InputStream responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(true));
+    assertEquals(query.get("feed"), "continuous");
+    assertEquals(query.get("filter"), "testString");
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
+    assertEquals(query.get("since"), "testString");
+    assertEquals(query.get("style"), "testString");
+    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
+    assertEquals(query.get("view"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postChangesAsStreamPath);
+
+    // Verify streamed JSON response
+    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
+    String streamedResponseBody = s.hasNext() ? s.next() : "";
+    assertEquals(streamedResponseBody, mockResponseBody);
+  }
+
+  // Test the postChangesAsStream operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostChangesAsStreamNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    cloudantService.postChangesAsStream(null).execute();
   }
 
   @Test
@@ -4549,6 +4501,51 @@ public class CloudantTest extends PowerMockTestCase {
   }
 
   @Test
+  public void testGetDbUpdatesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"results\": [{\"account\": \"account\", \"db_name\": \"dbName\", \"seq\": \"seq\", \"type\": \"created\"}]}";
+    String getDbUpdatesPath = "/_db_updates";
+
+    server.enqueue(new MockResponse()
+    .setHeader("Content-type", "application/json")
+    .setResponseCode(200)
+    .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetDbUpdatesOptions model
+    GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
+    .feed("continuous")
+    .heartbeat(Long.valueOf("0"))
+    .timeout(Long.valueOf("0"))
+    .since("testString")
+    .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DbUpdates> response = cloudantService.getDbUpdates(getDbUpdatesOptionsModel).execute();
+    assertNotNull(response);
+    DbUpdates responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("feed"), "continuous");
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
+    assertEquals(query.get("since"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getDbUpdatesPath);
+  }
+
+  @Test
   public void testHeadReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "";
@@ -4597,56 +4594,6 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Invoke operation with null options model (negative test)
     cloudantService.headReplicationDocument(null).execute();
-  }
-
-  @Test
-  public void testHeadSchedulerDocumentWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "";
-    String headSchedulerDocumentPath = "/_scheduler/docs/_replicator/testString";
-
-    server.enqueue(new MockResponse()
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the HeadSchedulerDocumentOptions model
-    HeadSchedulerDocumentOptions headSchedulerDocumentOptionsModel = new HeadSchedulerDocumentOptions.Builder()
-    .docId("testString")
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<Void> response = cloudantService.headSchedulerDocument(headSchedulerDocumentOptionsModel).execute();
-    assertNotNull(response);
-    Void responseObj = response.getResult();
-    // Response does not have a return type. Check that the result is null.
-    assertNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "HEAD");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, headSchedulerDocumentPath);
-  }
-
-  // Test the headSchedulerDocument operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testHeadSchedulerDocumentNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    cloudantService.headSchedulerDocument(null).execute();
   }
 
   @Test
@@ -5865,58 +5812,6 @@ public class CloudantTest extends PowerMockTestCase {
   }
 
   @Test
-  public void testHeadLocalDocumentWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "";
-    String headLocalDocumentPath = "/testString/_local/testString";
-
-    server.enqueue(new MockResponse()
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the HeadLocalDocumentOptions model
-    HeadLocalDocumentOptions headLocalDocumentOptionsModel = new HeadLocalDocumentOptions.Builder()
-    .db("testString")
-    .docId("testString")
-    .ifNoneMatch("testString")
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<Void> response = cloudantService.headLocalDocument(headLocalDocumentOptionsModel).execute();
-    assertNotNull(response);
-    Void responseObj = response.getResult();
-    // Response does not have a return type. Check that the result is null.
-    assertNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "HEAD");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, headLocalDocumentPath);
-  }
-
-  // Test the headLocalDocument operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testHeadLocalDocumentNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    cloudantService.headLocalDocument(null).execute();
-  }
-
-  @Test
   public void testDeleteLocalDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
@@ -6458,42 +6353,6 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Invoke operation with null options model (negative test)
     cloudantService.getDocumentShardsInfo(null).execute();
-  }
-
-  @Test
-  public void testHeadUpInformationWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "";
-    String headUpInformationPath = "/_up";
-
-    server.enqueue(new MockResponse()
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the HeadUpInformationOptions model
-    HeadUpInformationOptions headUpInformationOptionsModel = new HeadUpInformationOptions();
-
-    // Invoke operation with valid options model (positive test)
-    Response<Void> response = cloudantService.headUpInformation(headUpInformationOptionsModel).execute();
-    assertNotNull(response);
-    Void responseObj = response.getResult();
-    // Response does not have a return type. Check that the result is null.
-    assertNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "HEAD");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, headUpInformationPath);
   }
 
   @Test

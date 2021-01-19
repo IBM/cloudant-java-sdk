@@ -82,11 +82,8 @@ import com.ibm.cloud.cloudant.v1.model.HeadAttachmentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDatabaseOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
-import com.ibm.cloud.cloudant.v1.model.HeadLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadReplicationDocumentOptions;
-import com.ibm.cloud.cloudant.v1.model.HeadSchedulerDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadSchedulerJobOptions;
-import com.ibm.cloud.cloudant.v1.model.HeadUpInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.IndexResult;
 import com.ibm.cloud.cloudant.v1.model.IndexesInformation;
 import com.ibm.cloud.cloudant.v1.model.MembershipInformation;
@@ -382,219 +379,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve change events for all databases.
-   *
-   * Lists changes to databases, like a global changes feed. Types of changes include updating the database and creating
-   * or deleting a database. Like the changes feed, the feed is not guaranteed to return changes in the correct order
-   * and might repeat changes. Polling modes for this method work like polling modes for the changes feed.
-   * **Note: This endpoint requires _admin or _db_updates role and is only available on dedicated clusters.**.
-   *
-   * @param getDbUpdatesOptions the {@link GetDbUpdatesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DbUpdates}
-   */
-  public ServiceCall<DbUpdates> getDbUpdates(GetDbUpdatesOptions getDbUpdatesOptions) {
-    if (getDbUpdatesOptions == null) {
-      getDbUpdatesOptions = new GetDbUpdatesOptions.Builder().build();
-    }
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_db_updates"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getDbUpdates");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getDbUpdatesOptions.feed() != null) {
-      builder.query("feed", String.valueOf(getDbUpdatesOptions.feed()));
-    }
-    if (getDbUpdatesOptions.heartbeat() != null) {
-      builder.query("heartbeat", String.valueOf(getDbUpdatesOptions.heartbeat()));
-    }
-    if (getDbUpdatesOptions.timeout() != null) {
-      builder.query("timeout", String.valueOf(getDbUpdatesOptions.timeout()));
-    }
-    if (getDbUpdatesOptions.since() != null) {
-      builder.query("since", String.valueOf(getDbUpdatesOptions.since()));
-    }
-    ResponseConverter<DbUpdates> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DbUpdates>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve change events for all databases.
-   *
-   * Lists changes to databases, like a global changes feed. Types of changes include updating the database and creating
-   * or deleting a database. Like the changes feed, the feed is not guaranteed to return changes in the correct order
-   * and might repeat changes. Polling modes for this method work like polling modes for the changes feed.
-   * **Note: This endpoint requires _admin or _db_updates role and is only available on dedicated clusters.**.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link DbUpdates}
-   */
-  public ServiceCall<DbUpdates> getDbUpdates() {
-    return getDbUpdates(null);
-  }
-
-  /**
-   * Query the database document changes feed.
-   *
-   * Requests the database changes feed in the same way as `GET /{db}/_changes` does. It is widely used with the
-   * `filter` query parameter because it allows one to pass more information to the filter.
-   *
-   * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ChangesResult}
-   */
-  public ServiceCall<ChangesResult> postChanges(PostChangesOptions postChangesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postChangesOptions,
-      "postChangesOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", postChangesOptions.db());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_changes", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postChanges");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (postChangesOptions.lastEventId() != null) {
-      builder.header("Last-Event-ID", postChangesOptions.lastEventId());
-    }
-    if (postChangesOptions.attEncodingInfo() != null) {
-      builder.query("att_encoding_info", String.valueOf(postChangesOptions.attEncodingInfo()));
-    }
-    if (postChangesOptions.attachments() != null) {
-      builder.query("attachments", String.valueOf(postChangesOptions.attachments()));
-    }
-    if (postChangesOptions.conflicts() != null) {
-      builder.query("conflicts", String.valueOf(postChangesOptions.conflicts()));
-    }
-    if (postChangesOptions.descending() != null) {
-      builder.query("descending", String.valueOf(postChangesOptions.descending()));
-    }
-    if (postChangesOptions.feed() != null) {
-      builder.query("feed", String.valueOf(postChangesOptions.feed()));
-    }
-    if (postChangesOptions.filter() != null) {
-      builder.query("filter", String.valueOf(postChangesOptions.filter()));
-    }
-    if (postChangesOptions.heartbeat() != null) {
-      builder.query("heartbeat", String.valueOf(postChangesOptions.heartbeat()));
-    }
-    if (postChangesOptions.includeDocs() != null) {
-      builder.query("include_docs", String.valueOf(postChangesOptions.includeDocs()));
-    }
-    if (postChangesOptions.limit() != null) {
-      builder.query("limit", String.valueOf(postChangesOptions.limit()));
-    }
-    if (postChangesOptions.seqInterval() != null) {
-      builder.query("seq_interval", String.valueOf(postChangesOptions.seqInterval()));
-    }
-    if (postChangesOptions.since() != null) {
-      builder.query("since", String.valueOf(postChangesOptions.since()));
-    }
-    if (postChangesOptions.style() != null) {
-      builder.query("style", String.valueOf(postChangesOptions.style()));
-    }
-    if (postChangesOptions.timeout() != null) {
-      builder.query("timeout", String.valueOf(postChangesOptions.timeout()));
-    }
-    if (postChangesOptions.view() != null) {
-      builder.query("view", String.valueOf(postChangesOptions.view()));
-    }
-    final JsonObject contentJson = new JsonObject();
-    if (postChangesOptions.docIds() != null) {
-      contentJson.add("doc_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.docIds()));
-    }
-    if (postChangesOptions.fields() != null) {
-      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.fields()));
-    }
-    if (postChangesOptions.selector() != null) {
-      contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.selector()));
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<ChangesResult> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ChangesResult>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Query the database document changes feed as stream.
-   *
-   * Requests the database changes feed in the same way as `GET /{db}/_changes` does. It is widely used with the
-   * `filter` query parameter because it allows one to pass more information to the filter.
-   *
-   * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link InputStream}
-   */
-  public ServiceCall<InputStream> postChangesAsStream(PostChangesOptions postChangesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postChangesOptions,
-      "postChangesOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", postChangesOptions.db());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_changes", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postChangesAsStream");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (postChangesOptions.lastEventId() != null) {
-      builder.header("Last-Event-ID", postChangesOptions.lastEventId());
-    }
-    if (postChangesOptions.attEncodingInfo() != null) {
-      builder.query("att_encoding_info", String.valueOf(postChangesOptions.attEncodingInfo()));
-    }
-    if (postChangesOptions.attachments() != null) {
-      builder.query("attachments", String.valueOf(postChangesOptions.attachments()));
-    }
-    if (postChangesOptions.conflicts() != null) {
-      builder.query("conflicts", String.valueOf(postChangesOptions.conflicts()));
-    }
-    if (postChangesOptions.descending() != null) {
-      builder.query("descending", String.valueOf(postChangesOptions.descending()));
-    }
-    if (postChangesOptions.feed() != null) {
-      builder.query("feed", String.valueOf(postChangesOptions.feed()));
-    }
-    if (postChangesOptions.filter() != null) {
-      builder.query("filter", String.valueOf(postChangesOptions.filter()));
-    }
-    if (postChangesOptions.heartbeat() != null) {
-      builder.query("heartbeat", String.valueOf(postChangesOptions.heartbeat()));
-    }
-    if (postChangesOptions.includeDocs() != null) {
-      builder.query("include_docs", String.valueOf(postChangesOptions.includeDocs()));
-    }
-    if (postChangesOptions.limit() != null) {
-      builder.query("limit", String.valueOf(postChangesOptions.limit()));
-    }
-    if (postChangesOptions.seqInterval() != null) {
-      builder.query("seq_interval", String.valueOf(postChangesOptions.seqInterval()));
-    }
-    if (postChangesOptions.since() != null) {
-      builder.query("since", String.valueOf(postChangesOptions.since()));
-    }
-    if (postChangesOptions.style() != null) {
-      builder.query("style", String.valueOf(postChangesOptions.style()));
-    }
-    if (postChangesOptions.timeout() != null) {
-      builder.query("timeout", String.valueOf(postChangesOptions.timeout()));
-    }
-    if (postChangesOptions.view() != null) {
-      builder.query("view", String.valueOf(postChangesOptions.view()));
-    }
-    final JsonObject contentJson = new JsonObject();
-    if (postChangesOptions.docIds() != null) {
-      contentJson.add("doc_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.docIds()));
-    }
-    if (postChangesOptions.fields() != null) {
-      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.fields()));
-    }
-    if (postChangesOptions.selector() != null) {
-      contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.selector()));
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Retrieve the HTTP headers for a database.
    *
    * Returns the HTTP headers that contain a minimal amount of information about the specified database. Since the
@@ -762,6 +546,167 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     ResponseConverter<Ok> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Query the database document changes feed.
+   *
+   * Requests the database changes feed in the same way as `GET /{db}/_changes` does. It is widely used with the
+   * `filter` query parameter because it allows one to pass more information to the filter.
+   *
+   * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ChangesResult}
+   */
+  public ServiceCall<ChangesResult> postChanges(PostChangesOptions postChangesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postChangesOptions,
+      "postChangesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", postChangesOptions.db());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_changes", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postChanges");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (postChangesOptions.lastEventId() != null) {
+      builder.header("Last-Event-ID", postChangesOptions.lastEventId());
+    }
+    if (postChangesOptions.attEncodingInfo() != null) {
+      builder.query("att_encoding_info", String.valueOf(postChangesOptions.attEncodingInfo()));
+    }
+    if (postChangesOptions.attachments() != null) {
+      builder.query("attachments", String.valueOf(postChangesOptions.attachments()));
+    }
+    if (postChangesOptions.conflicts() != null) {
+      builder.query("conflicts", String.valueOf(postChangesOptions.conflicts()));
+    }
+    if (postChangesOptions.descending() != null) {
+      builder.query("descending", String.valueOf(postChangesOptions.descending()));
+    }
+    if (postChangesOptions.feed() != null) {
+      builder.query("feed", String.valueOf(postChangesOptions.feed()));
+    }
+    if (postChangesOptions.filter() != null) {
+      builder.query("filter", String.valueOf(postChangesOptions.filter()));
+    }
+    if (postChangesOptions.heartbeat() != null) {
+      builder.query("heartbeat", String.valueOf(postChangesOptions.heartbeat()));
+    }
+    if (postChangesOptions.includeDocs() != null) {
+      builder.query("include_docs", String.valueOf(postChangesOptions.includeDocs()));
+    }
+    if (postChangesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(postChangesOptions.limit()));
+    }
+    if (postChangesOptions.seqInterval() != null) {
+      builder.query("seq_interval", String.valueOf(postChangesOptions.seqInterval()));
+    }
+    if (postChangesOptions.since() != null) {
+      builder.query("since", String.valueOf(postChangesOptions.since()));
+    }
+    if (postChangesOptions.style() != null) {
+      builder.query("style", String.valueOf(postChangesOptions.style()));
+    }
+    if (postChangesOptions.timeout() != null) {
+      builder.query("timeout", String.valueOf(postChangesOptions.timeout()));
+    }
+    if (postChangesOptions.view() != null) {
+      builder.query("view", String.valueOf(postChangesOptions.view()));
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (postChangesOptions.docIds() != null) {
+      contentJson.add("doc_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.docIds()));
+    }
+    if (postChangesOptions.fields() != null) {
+      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.fields()));
+    }
+    if (postChangesOptions.selector() != null) {
+      contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.selector()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<ChangesResult> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ChangesResult>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Query the database document changes feed as stream.
+   *
+   * Requests the database changes feed in the same way as `GET /{db}/_changes` does. It is widely used with the
+   * `filter` query parameter because it allows one to pass more information to the filter.
+   *
+   * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
+   */
+  public ServiceCall<InputStream> postChangesAsStream(PostChangesOptions postChangesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postChangesOptions,
+      "postChangesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", postChangesOptions.db());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_changes", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postChangesAsStream");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (postChangesOptions.lastEventId() != null) {
+      builder.header("Last-Event-ID", postChangesOptions.lastEventId());
+    }
+    if (postChangesOptions.attEncodingInfo() != null) {
+      builder.query("att_encoding_info", String.valueOf(postChangesOptions.attEncodingInfo()));
+    }
+    if (postChangesOptions.attachments() != null) {
+      builder.query("attachments", String.valueOf(postChangesOptions.attachments()));
+    }
+    if (postChangesOptions.conflicts() != null) {
+      builder.query("conflicts", String.valueOf(postChangesOptions.conflicts()));
+    }
+    if (postChangesOptions.descending() != null) {
+      builder.query("descending", String.valueOf(postChangesOptions.descending()));
+    }
+    if (postChangesOptions.feed() != null) {
+      builder.query("feed", String.valueOf(postChangesOptions.feed()));
+    }
+    if (postChangesOptions.filter() != null) {
+      builder.query("filter", String.valueOf(postChangesOptions.filter()));
+    }
+    if (postChangesOptions.heartbeat() != null) {
+      builder.query("heartbeat", String.valueOf(postChangesOptions.heartbeat()));
+    }
+    if (postChangesOptions.includeDocs() != null) {
+      builder.query("include_docs", String.valueOf(postChangesOptions.includeDocs()));
+    }
+    if (postChangesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(postChangesOptions.limit()));
+    }
+    if (postChangesOptions.seqInterval() != null) {
+      builder.query("seq_interval", String.valueOf(postChangesOptions.seqInterval()));
+    }
+    if (postChangesOptions.since() != null) {
+      builder.query("since", String.valueOf(postChangesOptions.since()));
+    }
+    if (postChangesOptions.style() != null) {
+      builder.query("style", String.valueOf(postChangesOptions.style()));
+    }
+    if (postChangesOptions.timeout() != null) {
+      builder.query("timeout", String.valueOf(postChangesOptions.timeout()));
+    }
+    if (postChangesOptions.view() != null) {
+      builder.query("view", String.valueOf(postChangesOptions.view()));
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (postChangesOptions.docIds() != null) {
+      contentJson.add("doc_ids", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.docIds()));
+    }
+    if (postChangesOptions.fields() != null) {
+      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.fields()));
+    }
+    if (postChangesOptions.selector() != null) {
+      contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postChangesOptions.selector()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -3366,11 +3311,61 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
+   * Retrieve change events for all databases.
+   *
+   * Lists changes to databases, like a global changes feed. Types of changes include updating the database and creating
+   * or deleting a database. Like the changes feed, the feed is not guaranteed to return changes in the correct order
+   * and might repeat changes. Polling modes for this method work like polling modes for the changes feed.
+   * **Note: This endpoint requires _admin or _db_updates role and is only available on dedicated clusters.**.
+   *
+   * @param getDbUpdatesOptions the {@link GetDbUpdatesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DbUpdates}
+   */
+  public ServiceCall<DbUpdates> getDbUpdates(GetDbUpdatesOptions getDbUpdatesOptions) {
+    if (getDbUpdatesOptions == null) {
+      getDbUpdatesOptions = new GetDbUpdatesOptions.Builder().build();
+    }
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_db_updates"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getDbUpdates");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getDbUpdatesOptions.feed() != null) {
+      builder.query("feed", String.valueOf(getDbUpdatesOptions.feed()));
+    }
+    if (getDbUpdatesOptions.heartbeat() != null) {
+      builder.query("heartbeat", String.valueOf(getDbUpdatesOptions.heartbeat()));
+    }
+    if (getDbUpdatesOptions.timeout() != null) {
+      builder.query("timeout", String.valueOf(getDbUpdatesOptions.timeout()));
+    }
+    if (getDbUpdatesOptions.since() != null) {
+      builder.query("since", String.valueOf(getDbUpdatesOptions.since()));
+    }
+    ResponseConverter<DbUpdates> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DbUpdates>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve change events for all databases.
+   *
+   * Lists changes to databases, like a global changes feed. Types of changes include updating the database and creating
+   * or deleting a database. Like the changes feed, the feed is not guaranteed to return changes in the correct order
+   * and might repeat changes. Polling modes for this method work like polling modes for the changes feed.
+   * **Note: This endpoint requires _admin or _db_updates role and is only available on dedicated clusters.**.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link DbUpdates}
+   */
+  public ServiceCall<DbUpdates> getDbUpdates() {
+    return getDbUpdates(null);
+  }
+
+  /**
    * Retrieve the HTTP headers for a replication document.
    *
-   * Retrieves the HTTP headers containing minimal amount of information about the specified replication document from
-   * the `_replicator` database.  The method supports the same query arguments as the `GET /_replicator/{doc_id}`
-   * method, but only headers like content length and the revision (ETag header) are returned.
+   * Retrieves the HTTP headers for a replication document from the `_replicator` database.
    *
    * @param headReplicationDocumentOptions the {@link HeadReplicationDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a void result
@@ -3387,30 +3382,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (headReplicationDocumentOptions.ifNoneMatch() != null) {
       builder.header("If-None-Match", headReplicationDocumentOptions.ifNoneMatch());
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve HTTP headers for a replication scheduler document.
-   *
-   * Retrieves the HTTP headers containing minimal amount of information about the specified replication scheduler
-   * document.  Since the response body is empty, using the HEAD method is a lightweight way to check if the replication
-   * scheduler document exists or not.
-   *
-   * @param headSchedulerDocumentOptions the {@link HeadSchedulerDocumentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> headSchedulerDocument(HeadSchedulerDocumentOptions headSchedulerDocumentOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(headSchedulerDocumentOptions,
-      "headSchedulerDocumentOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("doc_id", headSchedulerDocumentOptions.docId());
-    RequestBuilder builder = RequestBuilder.head(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_scheduler/docs/_replicator/{doc_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "headSchedulerDocument");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
     }
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
@@ -4127,33 +4098,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve HTTP headers for a local document.
-   *
-   * Retrieves the HTTP headers containing minimal amount of information about the specified local document. Since the
-   * response body is empty, using the HEAD method is a lightweight way to check if the local document exists or not.
-   *
-   * @param headLocalDocumentOptions the {@link HeadLocalDocumentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> headLocalDocument(HeadLocalDocumentOptions headLocalDocumentOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(headLocalDocumentOptions,
-      "headLocalDocumentOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", headLocalDocumentOptions.db());
-    pathParamsMap.put("doc_id", headLocalDocumentOptions.docId());
-    RequestBuilder builder = RequestBuilder.head(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_local/{doc_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "headLocalDocument");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (headLocalDocumentOptions.ifNoneMatch() != null) {
-      builder.header("If-None-Match", headLocalDocumentOptions.ifNoneMatch());
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Delete a local document.
    *
    * Deletes the specified local document. The semantics are identical to deleting a standard document in the specified
@@ -4463,35 +4407,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     ResponseConverter<DocumentShardInfo> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentShardInfo>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve HTTP headers about whether the server is up.
-   *
-   * Retrieves the HTTP headers about whether the server is up.
-   *
-   * @param headUpInformationOptions the {@link HeadUpInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> headUpInformation(HeadUpInformationOptions headUpInformationOptions) {
-    RequestBuilder builder = RequestBuilder.head(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_up"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "headUpInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve HTTP headers about whether the server is up.
-   *
-   * Retrieves the HTTP headers about whether the server is up.
-   *
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> headUpInformation() {
-    return headUpInformation(null);
   }
 
   /**
