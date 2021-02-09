@@ -207,6 +207,7 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.cloud.sdk.core.util.EnvironmentUtils;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import java.io.IOException;
@@ -5124,7 +5125,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetSchedulerDocsWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"total_rows\": 0, \"docs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"error_count\": 0, \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"last_updated\": \"2019-01-01T12:00:00\", \"node\": \"node\", \"source\": \"source\", \"source_proxy\": \"sourceProxy\", \"start_time\": \"2019-01-01T12:00:00\", \"state\": \"initializing\", \"target\": \"target\", \"target_proxy\": \"targetProxy\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"docs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"error_count\": 0, \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"last_updated\": \"2019-01-01T12:00:00.000Z\", \"node\": \"node\", \"source\": \"source\", \"source_proxy\": \"sourceProxy\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"state\": \"initializing\", \"target\": \"target\", \"target_proxy\": \"targetProxy\"}]}";
     String getSchedulerDocsPath = "/_scheduler/docs";
 
     server.enqueue(new MockResponse()
@@ -5167,7 +5168,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetSchedulerDocumentWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"error_count\": 0, \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"last_updated\": \"2019-01-01T12:00:00\", \"node\": \"node\", \"source\": \"source\", \"source_proxy\": \"sourceProxy\", \"start_time\": \"2019-01-01T12:00:00\", \"state\": \"initializing\", \"target\": \"target\", \"target_proxy\": \"targetProxy\"}";
+    String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"error_count\": 0, \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"last_updated\": \"2019-01-01T12:00:00.000Z\", \"node\": \"node\", \"source\": \"source\", \"source_proxy\": \"sourceProxy\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"state\": \"initializing\", \"target\": \"target\", \"target_proxy\": \"targetProxy\"}";
     String getSchedulerDocumentPath = "/_scheduler/docs/_replicator/testString";
 
     server.enqueue(new MockResponse()
@@ -5217,7 +5218,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetSchedulerJobsWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"total_rows\": 0, \"jobs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00\", \"target\": \"target\", \"user\": \"user\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"jobs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00.000Z\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"target\": \"target\", \"user\": \"user\"}]}";
     String getSchedulerJobsPath = "/_scheduler/jobs";
 
     server.enqueue(new MockResponse()
@@ -5258,7 +5259,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetSchedulerJobWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00\", \"target\": \"target\", \"user\": \"user\"}";
+    String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00.000Z\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"target\": \"target\", \"user\": \"user\"}";
     String getSchedulerJobPath = "/_scheduler/jobs/testString";
 
     server.enqueue(new MockResponse()
