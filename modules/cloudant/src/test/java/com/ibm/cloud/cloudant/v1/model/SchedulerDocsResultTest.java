@@ -18,7 +18,6 @@ import com.ibm.cloud.cloudant.v1.model.SchedulerDocument;
 import com.ibm.cloud.cloudant.v1.model.SchedulerInfo;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.cloud.sdk.core.util.DateUtils;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
