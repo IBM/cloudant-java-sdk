@@ -244,7 +244,7 @@ will guide you.
 
 To learn more about how to use programmatic authentication, see the related
 documentation in the
-[Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=python#programmatic-authentication)
+[Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=java#programmatic-authentication)
 or in the
 [Java SDK Core document](https://github.com/IBM/java-sdk-core/blob/master/Authentication.md) about authentication.
 
