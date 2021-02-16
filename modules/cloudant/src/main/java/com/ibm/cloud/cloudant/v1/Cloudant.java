@@ -108,8 +108,6 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostGeoCleanupOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
-import com.ibm.cloud.cloudant.v1.model.PostLocalDocsOptions;
-import com.ibm.cloud.cloudant.v1.model.PostLocalDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostMissingRevsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
@@ -4260,106 +4258,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
       null, putLocalDocumentOptions.body());
     ResponseConverter<DocumentResult> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentResult>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Query a list of all local documents in a database.
-   *
-   * Queries the list of all local document IDs. The results matching the request body parameters are returned in a JSON
-   * object, including a list of matching local documents with basic contents, such as the ID. When no request body
-   * parameters are specified, results for all local documents in the database are returned. Optionally, document
-   * content or additional metadata can be included in the response.
-   *
-   * @param postLocalDocsOptions the {@link PostLocalDocsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link AllDocsResult}
-   */
-  public ServiceCall<AllDocsResult> postLocalDocs(PostLocalDocsOptions postLocalDocsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postLocalDocsOptions,
-      "postLocalDocsOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", postLocalDocsOptions.db());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_local_docs", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postLocalDocs");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (postLocalDocsOptions.accept() != null) {
-      builder.header("Accept", postLocalDocsOptions.accept());
-    }
-    final JsonObject contentJson = new JsonObject();
-    if (postLocalDocsOptions.attEncodingInfo() != null) {
-      contentJson.addProperty("att_encoding_info", postLocalDocsOptions.attEncodingInfo());
-    }
-    if (postLocalDocsOptions.attachments() != null) {
-      contentJson.addProperty("attachments", postLocalDocsOptions.attachments());
-    }
-    if (postLocalDocsOptions.conflicts() != null) {
-      contentJson.addProperty("conflicts", postLocalDocsOptions.conflicts());
-    }
-    if (postLocalDocsOptions.descending() != null) {
-      contentJson.addProperty("descending", postLocalDocsOptions.descending());
-    }
-    if (postLocalDocsOptions.includeDocs() != null) {
-      contentJson.addProperty("include_docs", postLocalDocsOptions.includeDocs());
-    }
-    if (postLocalDocsOptions.inclusiveEnd() != null) {
-      contentJson.addProperty("inclusive_end", postLocalDocsOptions.inclusiveEnd());
-    }
-    if (postLocalDocsOptions.limit() != null) {
-      contentJson.addProperty("limit", postLocalDocsOptions.limit());
-    }
-    if (postLocalDocsOptions.skip() != null) {
-      contentJson.addProperty("skip", postLocalDocsOptions.skip());
-    }
-    if (postLocalDocsOptions.updateSeq() != null) {
-      contentJson.addProperty("update_seq", postLocalDocsOptions.updateSeq());
-    }
-    if (postLocalDocsOptions.endkey() != null) {
-      contentJson.addProperty("endkey", postLocalDocsOptions.endkey());
-    }
-    if (postLocalDocsOptions.key() != null) {
-      contentJson.addProperty("key", postLocalDocsOptions.key());
-    }
-    if (postLocalDocsOptions.keys() != null) {
-      contentJson.add("keys", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postLocalDocsOptions.keys()));
-    }
-    if (postLocalDocsOptions.startkey() != null) {
-      contentJson.addProperty("startkey", postLocalDocsOptions.startkey());
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<AllDocsResult> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllDocsResult>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Multi-query the list of all local documents in a database.
-   *
-   * Runs multiple view queries of all local documents in this database. This operation enables you to request multiple
-   * queries in a single request, in place of multiple `POST /{db}/_local_docs` requests.
-   *
-   * @param postLocalDocsQueriesOptions the {@link PostLocalDocsQueriesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link AllDocsQueriesResult}
-   */
-  public ServiceCall<AllDocsQueriesResult> postLocalDocsQueries(PostLocalDocsQueriesOptions postLocalDocsQueriesOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postLocalDocsQueriesOptions,
-      "postLocalDocsQueriesOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", postLocalDocsQueriesOptions.db());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_local_docs/queries", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postLocalDocsQueries");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    if (postLocalDocsQueriesOptions.accept() != null) {
-      builder.header("Accept", postLocalDocsQueriesOptions.accept());
-    }
-    final JsonObject contentJson = new JsonObject();
-    contentJson.add("queries", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postLocalDocsQueriesOptions.queries()));
-    builder.bodyJson(contentJson);
-    ResponseConverter<AllDocsQueriesResult> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllDocsQueriesResult>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
