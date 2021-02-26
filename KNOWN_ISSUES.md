@@ -114,3 +114,14 @@ consult the Cloudant documentation for further information.
 
 * It is not currently possible to deserialize a GeoJSON feature that has no properties into the model classes. (`Expected BEGIN_OBJECT but was BEGIN_ARRAY`)
     * The workaround is to request the query as a stream `Cloudant#getGeoAsStream` and use custom deserialization.
+
+### Session authentication
+
+Session authentication does not work with compressed request bodies when the server is CouchDB <= 3.1.1 or Cloudant <= 8169. Disabling gzip compression for requests is required when using session authentication with these server versions:
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+
+Cloudant client = Cloudant.newInstance("YOUR_SERVICE_NAME");
+client.enableGzipCompression(false);
+...
+```
