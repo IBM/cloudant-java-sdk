@@ -2914,9 +2914,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (postIndexOptions.name() != null) {
       contentJson.addProperty("name", postIndexOptions.name());
     }
-    if (postIndexOptions.partialFilterSelector() != null) {
-      contentJson.add("partial_filter_selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postIndexOptions.partialFilterSelector()));
-    }
     if (postIndexOptions.partitioned() != null) {
       contentJson.addProperty("partitioned", postIndexOptions.partitioned());
     }

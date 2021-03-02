@@ -3653,7 +3653,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"mapKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"mapKey\": \"anyValue\"}, \"skip\": 0}";
+    String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"mapKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"mapKey\": \"anyValue\"}, \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
 
     server.enqueue(new MockResponse()
@@ -3844,7 +3844,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetIndexesInformationWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false}, \"name\": \"name\", \"type\": \"json\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}]}";
     String getIndexesInformationPath = "/testString/_index";
 
     server.enqueue(new MockResponse()
@@ -3929,6 +3929,7 @@ public class CloudantTest extends PowerMockTestCase {
     .defaultField(indexTextOperatorDefaultFieldModel)
     .fields(new java.util.ArrayList<IndexField>(java.util.Arrays.asList(indexFieldModel)))
     .indexArrayLengths(true)
+    .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .build();
 
     // Construct an instance of the PostIndexOptions model
@@ -3938,7 +3939,6 @@ public class CloudantTest extends PowerMockTestCase {
     .ddoc("testString")
     .def(indexDefinitionModel)
     .name("testString")
-    .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .partitioned(true)
     .type("json")
     .build();
