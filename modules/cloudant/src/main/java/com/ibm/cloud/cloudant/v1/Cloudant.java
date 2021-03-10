@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.28.0-55613c9e-20210220-164656
+ * IBM OpenAPI SDK Code Generator Version: 3.26.0-4b317b0c-20210127-171701
  */
 
 package com.ibm.cloud.cloudant.v1;
@@ -2913,6 +2913,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (postIndexOptions.name() != null) {
       contentJson.addProperty("name", postIndexOptions.name());
+    }
+    if (postIndexOptions.partialFilterSelector() != null) {
+      contentJson.add("partial_filter_selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postIndexOptions.partialFilterSelector()));
     }
     if (postIndexOptions.partitioned() != null) {
       contentJson.addProperty("partitioned", postIndexOptions.partitioned());

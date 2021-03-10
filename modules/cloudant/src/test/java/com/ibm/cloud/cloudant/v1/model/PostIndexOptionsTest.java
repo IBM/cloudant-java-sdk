@@ -65,13 +65,11 @@ public class PostIndexOptionsTest {
       .defaultField(indexTextOperatorDefaultFieldModel)
       .fields(new java.util.ArrayList<IndexField>(java.util.Arrays.asList(indexFieldModel)))
       .indexArrayLengths(true)
-      .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .build();
     assertEquals(indexDefinitionModel.defaultAnalyzer(), analyzerModel);
     assertEquals(indexDefinitionModel.defaultField(), indexTextOperatorDefaultFieldModel);
     assertEquals(indexDefinitionModel.fields(), new java.util.ArrayList<IndexField>(java.util.Arrays.asList(indexFieldModel)));
     assertEquals(indexDefinitionModel.indexArrayLengths(), Boolean.valueOf(true));
-    assertEquals(indexDefinitionModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
 
     PostIndexOptions postIndexOptionsModel = new PostIndexOptions.Builder()
       .db("testString")
@@ -79,6 +77,7 @@ public class PostIndexOptionsTest {
       .ddoc("testString")
       .def(indexDefinitionModel)
       .name("testString")
+      .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .partitioned(true)
       .type("json")
       .build();
@@ -87,6 +86,7 @@ public class PostIndexOptionsTest {
     assertEquals(postIndexOptionsModel.ddoc(), "testString");
     assertEquals(postIndexOptionsModel.def(), indexDefinitionModel);
     assertEquals(postIndexOptionsModel.name(), "testString");
+    assertEquals(postIndexOptionsModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postIndexOptionsModel.partitioned(), Boolean.valueOf(true));
     assertEquals(postIndexOptionsModel.type(), "json");
   }

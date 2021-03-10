@@ -64,13 +64,11 @@ public class IndexDefinitionTest {
       .defaultField(indexTextOperatorDefaultFieldModel)
       .fields(new java.util.ArrayList<IndexField>(java.util.Arrays.asList(indexFieldModel)))
       .indexArrayLengths(true)
-      .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .build();
     assertEquals(indexDefinitionModel.defaultAnalyzer(), analyzerModel);
     assertEquals(indexDefinitionModel.defaultField(), indexTextOperatorDefaultFieldModel);
     assertEquals(indexDefinitionModel.fields(), new java.util.ArrayList<IndexField>(java.util.Arrays.asList(indexFieldModel)));
     assertEquals(indexDefinitionModel.indexArrayLengths(), Boolean.valueOf(true));
-    assertEquals(indexDefinitionModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
 
     String json = TestUtilities.serialize(indexDefinitionModel);
 
