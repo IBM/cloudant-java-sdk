@@ -23,9 +23,11 @@
         <okhttp3-version>4.9.1</okhttp3-version>
         <surefire-version>3.0.0-M3</surefire-version>
         <jacoco-plugin-version>0.8.6</jacoco-plugin-version>
-        <bintray-plugin-version>1.5.20191113165555</bintray-plugin-version>
         <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
         <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
+        <nexus-staging-plugin-version>1.6.8</nexus-staging-plugin-version>
+        <pgp-maven-plugin-version>1.1</pgp-maven-plugin-version>
+        <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
         <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>3.2.0</maven-javadoc-plugin-version>
         <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
@@ -37,11 +39,6 @@
         <powermock-version>2.0.9</powermock-version>
         <mockito-version>3.2.4</mockito-version>
         <slf4j-version>1.7.30</slf4j-version>
-
-        <!-- Deployment-related properties -->
-        <bintray.org>ibm-cloud-sdks</bintray.org>
-        <bintray.repo>cloudant-java-sdk</bintray.repo>
-        <bintray.package.url>https://github.com/IBM/cloudant-java-sdk</bintray.package.url>
 
         <!-- Set UTF-8 encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -89,7 +86,23 @@
 
     <profiles>
         <profile>
-            <id>bintray</id>
+            <!-- "central" is used to deploy artifacts on maven central -->
+            <id>central</id>
+
+            <!-- For this profile, we'll get dependencies from maven central -->
+            <repositories></repositories>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <!-- We don't deploy snapshot releases -->
+                </snapshotRepository>
+                <repository>
+                    <!-- This is where the nexus staging plugin will publish artifacts -->
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+
             <build>
                 <plugins>
                     <!-- Disable default maven-deploy-plugin -->
@@ -100,45 +113,17 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- Enable alternate bintray-maven-plugin -->
+                    <!-- Enable alternate nexus-staging-maven-plugin -->
                     <plugin>
-                        <groupId>com.carrotgarden.maven</groupId>
-                        <artifactId>bintray-maven-plugin</artifactId>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
                         <configuration>
-                            <skip>false</skip>
-
-                            <!-- Bintray oranization name. -->
-                            <subject>${bintray.org}</subject>
-
-                            <!-- Bintray target repository. -->
-                            <repository>${bintray.repo}</repository>
-
-                            <!-- Bintray credentials in settings.xml. -->
-                            <serverId>bintray</serverId>
-
-                            <!-- We'll use the maven coordinates for the bintray package name -->
-                            <bintrayPackage>${project.groupId}:${project.artifactId}</bintrayPackage>
-
-                            <!-- Use the project's github url when creating each module's package in the bintray repo -->
-                            <packageVcsUrl>${bintray.package.url}</packageVcsUrl>
-
-                            <performDestroy>false</performDestroy>
-                            <performCleanup>false</performCleanup>
-                            <performDeploy>true</performDeploy>
-                            <performEnsure>true</performEnsure>
-                            <retryFailedDeploymentCount>2</retryFailedDeploymentCount>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
                         </configuration>
-                        <executions>
-                            <!-- Activate "bintray:deploy" during "deploy" -->
-                            <execution>
-                                <?m2e ignore?>
-                                <id>bintray-deploy</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -151,6 +136,34 @@
                     <url>https://na.artifactory.swg-devops.com:443/artifactory/cloudant-sdks-maven-local/</url>
                 </repository>
             </distributionManagement>
+        </profile>
+        <profile>
+            <id>signing</id>
+            <!-- configure for signing artifacts when the SIGNING_KEYFILE env var is set -->
+            <activation>
+                <property>
+                    <name>env.SIGNING_KEYFILE</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                  <plugin>
+                      <groupId>org.kohsuke</groupId>
+                      <artifactId>pgp-maven-plugin</artifactId>
+                      <executions>
+                          <execution>
+                              <goals>
+                                  <goal>sign</goal>
+                              </goals>
+                          </execution>
+                      </executions>
+                      <configuration>
+                          <secretkey>keyfile:${env.SIGNING_KEYFILE}</secretkey>
+                          <passphrase>literal:${env.SIGNING_PSW}</passphrase>
+                      </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>java9plus</id>
@@ -234,14 +247,19 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.carrotgarden.maven</groupId>
-                    <artifactId>bintray-maven-plugin</artifactId>
-                    <version>${bintray-plugin-version}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${maven-deploy-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.kohsuke</groupId>
+                    <artifactId>pgp-maven-plugin</artifactId>
+                    <version>${pgp-maven-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -425,6 +443,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-version}</version>
+                <configuration>
+                    <skipTests>${skip.unit.tests}</skipTests>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
