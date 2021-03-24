@@ -166,6 +166,17 @@
             </build>
         </profile>
         <profile>
+            <id>skipunits</id>
+            <activation>
+              <property>
+                <name>skipTests</name>
+              </property>
+            </activation>
+            <properties>
+                <skip.unit.tests>${skipTests}</skip.unit.tests>
+            </properties>
+        </profile>
+        <profile>
             <id>java9plus</id>
             <activation>
                 <jdk>[9,)</jdk>
