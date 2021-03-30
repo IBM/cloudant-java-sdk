@@ -193,14 +193,16 @@ void publishStaging() {
 }
 
 void publishPublic() {
-  withCredentials([usernamePassword(credentialsId: 'bintray', passwordVariable: 'BINTRAY_APIKEY', usernameVariable: 'BINTRAY_USER')]) {
-    publishMaven('-P bintray')
-    sh "./build/bintraySync.sh $BINTRAY_USER $BINTRAY_APIKEY ibm-cloud-sdks cloudant-java-sdk $NEW_SDK_VERSION"
+  withCredentials([usernamePassword(credentialsId: 'ossrh', passwordVariable: 'OSSRH_PSW', usernameVariable: 'OSSRH_USR')]) {
+    publishMaven('-P central')
   }
 }
 
 void publishMaven(mvnArgs='') {
-  sh "mvn deploy --settings build/.travis.settings.xml -DskipTests ${mvnArgs}"
+  withCredentials([usernamePassword(credentialsId: 'signing-creds', passwordVariable: 'SIGNING_PSW', usernameVariable: 'SIGNING_USR'),
+                   file(credentialsId: 'signing-key', variable: 'SIGNING_KEYFILE')]) {
+    sh "mvn deploy --settings build/.travis.settings.xml -DskipTests ${mvnArgs}"
+  }
 }
 
 void publishDocs() {
