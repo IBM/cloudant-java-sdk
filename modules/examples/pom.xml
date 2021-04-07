@@ -35,10 +35,6 @@
         </dependency>
     </dependencies>
 
-    <properties>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-    </properties>
-
     <developers>
         <developer>
             <name>IBM Cloudant</name>
