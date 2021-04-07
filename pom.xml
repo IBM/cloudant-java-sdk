@@ -51,10 +51,13 @@
         <!-- >>> List each service's module here -->
         <module>modules/cloudant</module>
 
-        <module>modules/examples</module>
-
-        <!-- This module should always be listed last -->
+        <!-- This module skips deployment as it is just reporting -->
         <module>modules/coverage-reports</module>
+
+        <!-- A module that deploys is needed last because nexus-staging-maven-plugin deployment is batched
+        until the final module -->
+        <!-- This module should always be listed last -->
+        <module>modules/examples</module>
     </modules>
 
     <licenses>
