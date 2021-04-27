@@ -39,6 +39,12 @@ public class UpdateDoc {
                     .execute()
                     .getResult();
 
+            // Note: for byte response (Output Stream) use:
+            //InputStream resultAsInputStream =
+            //        client.getDocumentAsStream(documentInfoOptions)
+            //                .execute()
+            //                .getResult();
+
             // Add Bob Smith's address to the document
             document.put("address", "19 Front Street, Darlington, DL5 1TY");
 
@@ -51,6 +57,15 @@ public class UpdateDoc {
                             .db(exampleDbName)
                             .document(document)
                             .build();
+
+            //Note: for byte request (Input Stream) use:
+            //PostDocumentOptions updateDocumentOptions =
+            //        new PostDocumentOptions.Builder()
+            //                .db(exampleDbName)
+            //                .contentType("application/json")
+            //                .body(inputStream)
+            //                .build();
+
             DocumentResult updateDocumentResponse = client
                     .postDocument(updateDocumentOptions)
                     .execute()
