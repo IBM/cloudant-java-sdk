@@ -13,35 +13,33 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsConfigurationOptions;
+import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the PostActivityTrackerEventsConfigurationOptions model.
+ * Unit test class for the PutCapacityThroughputConfigurationOptions model.
  */
-public class PostActivityTrackerEventsConfigurationOptionsTest {
+public class PutCapacityThroughputConfigurationOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testPostActivityTrackerEventsConfigurationOptions() throws Throwable {
-    PostActivityTrackerEventsConfigurationOptions postActivityTrackerEventsConfigurationOptionsModel = new PostActivityTrackerEventsConfigurationOptions.Builder()
-      .types(new java.util.ArrayList<String>(java.util.Arrays.asList("management")))
+  public void testPutCapacityThroughputConfigurationOptions() throws Throwable {
+    PutCapacityThroughputConfigurationOptions putCapacityThroughputConfigurationOptionsModel = new PutCapacityThroughputConfigurationOptions.Builder()
+      .blocks(Long.valueOf("0"))
       .build();
-    assertEquals(postActivityTrackerEventsConfigurationOptionsModel.types(), new java.util.ArrayList<String>(java.util.Arrays.asList("management")));
+    assertEquals(putCapacityThroughputConfigurationOptionsModel.blocks(), Long.valueOf("0"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostActivityTrackerEventsConfigurationOptionsError() throws Throwable {
-    new PostActivityTrackerEventsConfigurationOptions.Builder().build();
+  public void testPutCapacityThroughputConfigurationOptionsError() throws Throwable {
+    new PutCapacityThroughputConfigurationOptions.Builder().build();
   }
 
 }

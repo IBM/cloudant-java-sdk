@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.GetReplicationDocumentOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -38,13 +36,11 @@ public class GetReplicationDocumentOptionsTest {
       .ifNoneMatch("testString")
       .attachments(true)
       .attEncodingInfo(true)
-      .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .conflicts(true)
       .deletedConflicts(true)
       .latest(true)
       .localSeq(true)
       .meta(true)
-      .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .rev("testString")
       .revs(true)
       .revsInfo(true)
@@ -53,13 +49,11 @@ public class GetReplicationDocumentOptionsTest {
     assertEquals(getReplicationDocumentOptionsModel.ifNoneMatch(), "testString");
     assertEquals(getReplicationDocumentOptionsModel.attachments(), Boolean.valueOf(true));
     assertEquals(getReplicationDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.attsSince(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(getReplicationDocumentOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(getReplicationDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(true));
     assertEquals(getReplicationDocumentOptionsModel.latest(), Boolean.valueOf(true));
     assertEquals(getReplicationDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
     assertEquals(getReplicationDocumentOptionsModel.meta(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.openRevs(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(getReplicationDocumentOptionsModel.rev(), "testString");
     assertEquals(getReplicationDocumentOptionsModel.revs(), Boolean.valueOf(true));
     assertEquals(getReplicationDocumentOptionsModel.revsInfo(), Boolean.valueOf(true));

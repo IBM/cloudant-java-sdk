@@ -15,9 +15,9 @@ package com.ibm.cloud.cloudant.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The putCapacityThroughputInformation options.
+ * The putCapacityThroughputConfiguration options.
  */
-public class PutCapacityThroughputInformationOptions extends GenericModel {
+public class PutCapacityThroughputConfigurationOptions extends GenericModel {
 
   protected Long blocks;
 
@@ -27,8 +27,8 @@ public class PutCapacityThroughputInformationOptions extends GenericModel {
   public static class Builder {
     private Long blocks;
 
-    private Builder(PutCapacityThroughputInformationOptions putCapacityThroughputInformationOptions) {
-      this.blocks = putCapacityThroughputInformationOptions.blocks;
+    private Builder(PutCapacityThroughputConfigurationOptions putCapacityThroughputConfigurationOptions) {
+      this.blocks = putCapacityThroughputConfigurationOptions.blocks;
     }
 
     /**
@@ -47,19 +47,19 @@ public class PutCapacityThroughputInformationOptions extends GenericModel {
     }
 
     /**
-     * Builds a PutCapacityThroughputInformationOptions.
+     * Builds a PutCapacityThroughputConfigurationOptions.
      *
-     * @return the new PutCapacityThroughputInformationOptions instance
+     * @return the new PutCapacityThroughputConfigurationOptions instance
      */
-    public PutCapacityThroughputInformationOptions build() {
-      return new PutCapacityThroughputInformationOptions(this);
+    public PutCapacityThroughputConfigurationOptions build() {
+      return new PutCapacityThroughputConfigurationOptions(this);
     }
 
     /**
      * Set the blocks.
      *
      * @param blocks the blocks
-     * @return the PutCapacityThroughputInformationOptions builder
+     * @return the PutCapacityThroughputConfigurationOptions builder
      */
     public Builder blocks(long blocks) {
       this.blocks = blocks;
@@ -67,7 +67,7 @@ public class PutCapacityThroughputInformationOptions extends GenericModel {
     }
   }
 
-  protected PutCapacityThroughputInformationOptions(Builder builder) {
+  protected PutCapacityThroughputConfigurationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.blocks,
       "blocks cannot be null");
     blocks = builder.blocks;
@@ -76,7 +76,7 @@ public class PutCapacityThroughputInformationOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a PutCapacityThroughputInformationOptions builder
+   * @return a PutCapacityThroughputConfigurationOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

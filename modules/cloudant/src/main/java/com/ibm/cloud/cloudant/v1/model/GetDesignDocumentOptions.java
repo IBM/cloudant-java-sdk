@@ -12,9 +12,6 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -27,13 +24,11 @@ public class GetDesignDocumentOptions extends GenericModel {
   protected String ifNoneMatch;
   protected Boolean attachments;
   protected Boolean attEncodingInfo;
-  protected List<String> attsSince;
   protected Boolean conflicts;
   protected Boolean deletedConflicts;
   protected Boolean latest;
   protected Boolean localSeq;
   protected Boolean meta;
-  protected List<String> openRevs;
   protected String rev;
   protected Boolean revs;
   protected Boolean revsInfo;
@@ -47,13 +42,11 @@ public class GetDesignDocumentOptions extends GenericModel {
     private String ifNoneMatch;
     private Boolean attachments;
     private Boolean attEncodingInfo;
-    private List<String> attsSince;
     private Boolean conflicts;
     private Boolean deletedConflicts;
     private Boolean latest;
     private Boolean localSeq;
     private Boolean meta;
-    private List<String> openRevs;
     private String rev;
     private Boolean revs;
     private Boolean revsInfo;
@@ -64,13 +57,11 @@ public class GetDesignDocumentOptions extends GenericModel {
       this.ifNoneMatch = getDesignDocumentOptions.ifNoneMatch;
       this.attachments = getDesignDocumentOptions.attachments;
       this.attEncodingInfo = getDesignDocumentOptions.attEncodingInfo;
-      this.attsSince = getDesignDocumentOptions.attsSince;
       this.conflicts = getDesignDocumentOptions.conflicts;
       this.deletedConflicts = getDesignDocumentOptions.deletedConflicts;
       this.latest = getDesignDocumentOptions.latest;
       this.localSeq = getDesignDocumentOptions.localSeq;
       this.meta = getDesignDocumentOptions.meta;
-      this.openRevs = getDesignDocumentOptions.openRevs;
       this.rev = getDesignDocumentOptions.rev;
       this.revs = getDesignDocumentOptions.revs;
       this.revsInfo = getDesignDocumentOptions.revsInfo;
@@ -100,38 +91,6 @@ public class GetDesignDocumentOptions extends GenericModel {
      */
     public GetDesignDocumentOptions build() {
       return new GetDesignDocumentOptions(this);
-    }
-
-    /**
-     * Adds an attsSince to attsSince.
-     *
-     * @param attsSince the new attsSince
-     * @return the GetDesignDocumentOptions builder
-     */
-    public Builder addAttsSince(String attsSince) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(attsSince,
-        "attsSince cannot be null");
-      if (this.attsSince == null) {
-        this.attsSince = new ArrayList<String>();
-      }
-      this.attsSince.add(attsSince);
-      return this;
-    }
-
-    /**
-     * Adds an openRevs to openRevs.
-     *
-     * @param openRevs the new openRevs
-     * @return the GetDesignDocumentOptions builder
-     */
-    public Builder addOpenRevs(String openRevs) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(openRevs,
-        "openRevs cannot be null");
-      if (this.openRevs == null) {
-        this.openRevs = new ArrayList<String>();
-      }
-      this.openRevs.add(openRevs);
-      return this;
     }
 
     /**
@@ -186,18 +145,6 @@ public class GetDesignDocumentOptions extends GenericModel {
      */
     public Builder attEncodingInfo(Boolean attEncodingInfo) {
       this.attEncodingInfo = attEncodingInfo;
-      return this;
-    }
-
-    /**
-     * Set the attsSince.
-     * Existing attsSince will be replaced.
-     *
-     * @param attsSince the attsSince
-     * @return the GetDesignDocumentOptions builder
-     */
-    public Builder attsSince(List<String> attsSince) {
-      this.attsSince = attsSince;
       return this;
     }
 
@@ -257,18 +204,6 @@ public class GetDesignDocumentOptions extends GenericModel {
     }
 
     /**
-     * Set the openRevs.
-     * Existing openRevs will be replaced.
-     *
-     * @param openRevs the openRevs
-     * @return the GetDesignDocumentOptions builder
-     */
-    public Builder openRevs(List<String> openRevs) {
-      this.openRevs = openRevs;
-      return this;
-    }
-
-    /**
      * Set the rev.
      *
      * @param rev the rev
@@ -312,13 +247,11 @@ public class GetDesignDocumentOptions extends GenericModel {
     ifNoneMatch = builder.ifNoneMatch;
     attachments = builder.attachments;
     attEncodingInfo = builder.attEncodingInfo;
-    attsSince = builder.attsSince;
     conflicts = builder.conflicts;
     deletedConflicts = builder.deletedConflicts;
     latest = builder.latest;
     localSeq = builder.localSeq;
     meta = builder.meta;
-    openRevs = builder.openRevs;
     rev = builder.rev;
     revs = builder.revs;
     revsInfo = builder.revsInfo;
@@ -391,18 +324,6 @@ public class GetDesignDocumentOptions extends GenericModel {
   }
 
   /**
-   * Gets the attsSince.
-   *
-   * Query parameter to specify whether to include attachments only since specified revisions. Note this does not
-   * include the attachments for the specified revisions.
-   *
-   * @return the attsSince
-   */
-  public List<String> attsSince() {
-    return attsSince;
-  }
-
-  /**
    * Gets the conflicts.
    *
    * Query parameter to specify whether to include a list of conflicted revisions in the `_conflicts` property of the
@@ -458,18 +379,6 @@ public class GetDesignDocumentOptions extends GenericModel {
    */
   public Boolean meta() {
     return meta;
-  }
-
-  /**
-   * Gets the openRevs.
-   *
-   * Query parameter to specify leaf revisions to retrieve. Additionally, it accepts a value of `all` to return all leaf
-   * revisions.
-   *
-   * @return the openRevs
-   */
-  public List<String> openRevs() {
-    return openRevs;
   }
 
   /**
