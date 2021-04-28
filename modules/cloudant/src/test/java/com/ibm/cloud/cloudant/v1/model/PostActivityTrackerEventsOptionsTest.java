@@ -13,25 +13,35 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the GetActivityTrackerEventsInformationOptions model.
+ * Unit test class for the PostActivityTrackerEventsOptions model.
  */
-public class GetActivityTrackerEventsInformationOptionsTest {
+public class PostActivityTrackerEventsOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testGetActivityTrackerEventsInformationOptions() throws Throwable {
-    GetActivityTrackerEventsInformationOptions getActivityTrackerEventsInformationOptionsModel = new GetActivityTrackerEventsInformationOptions();
-    assertNotNull(getActivityTrackerEventsInformationOptionsModel);
+  public void testPostActivityTrackerEventsOptions() throws Throwable {
+    PostActivityTrackerEventsOptions postActivityTrackerEventsOptionsModel = new PostActivityTrackerEventsOptions.Builder()
+      .types(new java.util.ArrayList<String>(java.util.Arrays.asList("management")))
+      .build();
+    assertEquals(postActivityTrackerEventsOptionsModel.types(), new java.util.ArrayList<String>(java.util.Arrays.asList("management")));
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostActivityTrackerEventsOptionsError() throws Throwable {
+    new PostActivityTrackerEventsOptions.Builder().build();
+  }
+
 }

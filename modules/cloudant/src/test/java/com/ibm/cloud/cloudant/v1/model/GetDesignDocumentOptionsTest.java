@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -39,13 +37,11 @@ public class GetDesignDocumentOptionsTest {
       .ifNoneMatch("testString")
       .attachments(true)
       .attEncodingInfo(true)
-      .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .conflicts(true)
       .deletedConflicts(true)
       .latest(true)
       .localSeq(true)
       .meta(true)
-      .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .rev("testString")
       .revs(true)
       .revsInfo(true)
@@ -55,13 +51,11 @@ public class GetDesignDocumentOptionsTest {
     assertEquals(getDesignDocumentOptionsModel.ifNoneMatch(), "testString");
     assertEquals(getDesignDocumentOptionsModel.attachments(), Boolean.valueOf(true));
     assertEquals(getDesignDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.attsSince(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(getDesignDocumentOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(getDesignDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(true));
     assertEquals(getDesignDocumentOptionsModel.latest(), Boolean.valueOf(true));
     assertEquals(getDesignDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
     assertEquals(getDesignDocumentOptionsModel.meta(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.openRevs(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(getDesignDocumentOptionsModel.rev(), "testString");
     assertEquals(getDesignDocumentOptionsModel.revs(), Boolean.valueOf(true));
     assertEquals(getDesignDocumentOptionsModel.revsInfo(), Boolean.valueOf(true));

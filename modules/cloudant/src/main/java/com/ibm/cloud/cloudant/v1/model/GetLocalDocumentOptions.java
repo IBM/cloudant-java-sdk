@@ -12,9 +12,6 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -28,7 +25,6 @@ public class GetLocalDocumentOptions extends GenericModel {
   protected String ifNoneMatch;
   protected Boolean attachments;
   protected Boolean attEncodingInfo;
-  protected List<String> attsSince;
   protected Boolean localSeq;
 
   /**
@@ -41,7 +37,6 @@ public class GetLocalDocumentOptions extends GenericModel {
     private String ifNoneMatch;
     private Boolean attachments;
     private Boolean attEncodingInfo;
-    private List<String> attsSince;
     private Boolean localSeq;
 
     private Builder(GetLocalDocumentOptions getLocalDocumentOptions) {
@@ -51,7 +46,6 @@ public class GetLocalDocumentOptions extends GenericModel {
       this.ifNoneMatch = getLocalDocumentOptions.ifNoneMatch;
       this.attachments = getLocalDocumentOptions.attachments;
       this.attEncodingInfo = getLocalDocumentOptions.attEncodingInfo;
-      this.attsSince = getLocalDocumentOptions.attsSince;
       this.localSeq = getLocalDocumentOptions.localSeq;
     }
 
@@ -79,22 +73,6 @@ public class GetLocalDocumentOptions extends GenericModel {
      */
     public GetLocalDocumentOptions build() {
       return new GetLocalDocumentOptions(this);
-    }
-
-    /**
-     * Adds an attsSince to attsSince.
-     *
-     * @param attsSince the new attsSince
-     * @return the GetLocalDocumentOptions builder
-     */
-    public Builder addAttsSince(String attsSince) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(attsSince,
-        "attsSince cannot be null");
-      if (this.attsSince == null) {
-        this.attsSince = new ArrayList<String>();
-      }
-      this.attsSince.add(attsSince);
-      return this;
     }
 
     /**
@@ -164,18 +142,6 @@ public class GetLocalDocumentOptions extends GenericModel {
     }
 
     /**
-     * Set the attsSince.
-     * Existing attsSince will be replaced.
-     *
-     * @param attsSince the attsSince
-     * @return the GetLocalDocumentOptions builder
-     */
-    public Builder attsSince(List<String> attsSince) {
-      this.attsSince = attsSince;
-      return this;
-    }
-
-    /**
      * Set the localSeq.
      *
      * @param localSeq the localSeq
@@ -198,7 +164,6 @@ public class GetLocalDocumentOptions extends GenericModel {
     ifNoneMatch = builder.ifNoneMatch;
     attachments = builder.attachments;
     attEncodingInfo = builder.attEncodingInfo;
-    attsSince = builder.attsSince;
     localSeq = builder.localSeq;
   }
 
@@ -276,18 +241,6 @@ public class GetLocalDocumentOptions extends GenericModel {
    */
   public Boolean attEncodingInfo() {
     return attEncodingInfo;
-  }
-
-  /**
-   * Gets the attsSince.
-   *
-   * Query parameter to specify whether to include attachments only since specified revisions. Note this does not
-   * include the attachments for the specified revisions.
-   *
-   * @return the attsSince
-   */
-  public List<String> attsSince() {
-    return attsSince;
   }
 
   /**

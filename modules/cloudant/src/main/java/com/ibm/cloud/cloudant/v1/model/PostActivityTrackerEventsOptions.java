@@ -18,9 +18,9 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for Activity Tracker events configuration.
+ * The postActivityTrackerEvents options.
  */
-public class ActivityTrackerEventsConfiguration extends GenericModel {
+public class PostActivityTrackerEventsOptions extends GenericModel {
 
   public interface Types {
     /** management. */
@@ -37,8 +37,8 @@ public class ActivityTrackerEventsConfiguration extends GenericModel {
   public static class Builder {
     private List<String> types;
 
-    private Builder(ActivityTrackerEventsConfiguration activityTrackerEventsConfiguration) {
-      this.types = activityTrackerEventsConfiguration.types;
+    private Builder(PostActivityTrackerEventsOptions postActivityTrackerEventsOptions) {
+      this.types = postActivityTrackerEventsOptions.types;
     }
 
     /**
@@ -57,19 +57,19 @@ public class ActivityTrackerEventsConfiguration extends GenericModel {
     }
 
     /**
-     * Builds a ActivityTrackerEventsConfiguration.
+     * Builds a PostActivityTrackerEventsOptions.
      *
-     * @return the new ActivityTrackerEventsConfiguration instance
+     * @return the new PostActivityTrackerEventsOptions instance
      */
-    public ActivityTrackerEventsConfiguration build() {
-      return new ActivityTrackerEventsConfiguration(this);
+    public PostActivityTrackerEventsOptions build() {
+      return new PostActivityTrackerEventsOptions(this);
     }
 
     /**
      * Adds an types to types.
      *
      * @param types the new types
-     * @return the ActivityTrackerEventsConfiguration builder
+     * @return the PostActivityTrackerEventsOptions builder
      */
     public Builder addTypes(String types) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(types,
@@ -86,15 +86,26 @@ public class ActivityTrackerEventsConfiguration extends GenericModel {
      * Existing types will be replaced.
      *
      * @param types the types
-     * @return the ActivityTrackerEventsConfiguration builder
+     * @return the PostActivityTrackerEventsOptions builder
      */
     public Builder types(List<String> types) {
       this.types = types;
       return this;
     }
+
+    /**
+     * Set the activityTrackerEvents.
+     *
+     * @param activityTrackerEvents the activityTrackerEvents
+     * @return the PostActivityTrackerEventsOptions builder
+     */
+    public Builder activityTrackerEvents(ActivityTrackerEvents activityTrackerEvents) {
+      this.types = activityTrackerEvents.types();
+      return this;
+    }
   }
 
-  protected ActivityTrackerEventsConfiguration(Builder builder) {
+  protected PostActivityTrackerEventsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.types,
       "types cannot be null");
     types = builder.types;
@@ -103,7 +114,7 @@ public class ActivityTrackerEventsConfiguration extends GenericModel {
   /**
    * New builder.
    *
-   * @return a ActivityTrackerEventsConfiguration builder
+   * @return a PostActivityTrackerEventsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -112,8 +123,8 @@ public class ActivityTrackerEventsConfiguration extends GenericModel {
   /**
    * Gets the types.
    *
-   * An array of event types that are being sent to IBM Cloud Activity Tracker with LogDNA for the IBM Cloudant
-   * instance. "management" is a required element of this array.
+   * An array of event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
+   * "management" is a required element of this array.
    *
    * @return the types
    */

@@ -15,9 +15,9 @@ package com.ibm.cloud.cloudant.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The getActivityTrackerEventsInformation options.
+ * The getActivityTrackerEvents options.
  */
-public class GetActivityTrackerEventsInformationOptions extends GenericModel {
+public class GetActivityTrackerEventsOptions extends GenericModel {
 
 }
 

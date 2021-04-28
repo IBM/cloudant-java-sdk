@@ -13,33 +13,40 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEvents;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the PutCapacityThroughputInformationOptions model.
+ * Unit test class for the ActivityTrackerEvents model.
  */
-public class PutCapacityThroughputInformationOptionsTest {
+public class ActivityTrackerEventsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testPutCapacityThroughputInformationOptions() throws Throwable {
-    PutCapacityThroughputInformationOptions putCapacityThroughputInformationOptionsModel = new PutCapacityThroughputInformationOptions.Builder()
-      .blocks(Long.valueOf("0"))
+  public void testActivityTrackerEvents() throws Throwable {
+    ActivityTrackerEvents activityTrackerEventsModel = new ActivityTrackerEvents.Builder()
+      .types(new java.util.ArrayList<String>(java.util.Arrays.asList("management")))
       .build();
-    assertEquals(putCapacityThroughputInformationOptionsModel.blocks(), Long.valueOf("0"));
+    assertEquals(activityTrackerEventsModel.types(), new java.util.ArrayList<String>(java.util.Arrays.asList("management")));
+
+    String json = TestUtilities.serialize(activityTrackerEventsModel);
+
+    ActivityTrackerEvents activityTrackerEventsModelNew = TestUtilities.deserialize(json, ActivityTrackerEvents.class);
+    assertTrue(activityTrackerEventsModelNew instanceof ActivityTrackerEvents);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPutCapacityThroughputInformationOptionsError() throws Throwable {
-    new PutCapacityThroughputInformationOptions.Builder().build();
+  public void testActivityTrackerEventsError() throws Throwable {
+    new ActivityTrackerEvents.Builder().build();
   }
 
 }

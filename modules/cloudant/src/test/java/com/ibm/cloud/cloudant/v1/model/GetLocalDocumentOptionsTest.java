@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.GetLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -40,7 +38,6 @@ public class GetLocalDocumentOptionsTest {
       .ifNoneMatch("testString")
       .attachments(true)
       .attEncodingInfo(true)
-      .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .localSeq(true)
       .build();
     assertEquals(getLocalDocumentOptionsModel.db(), "testString");
@@ -49,7 +46,6 @@ public class GetLocalDocumentOptionsTest {
     assertEquals(getLocalDocumentOptionsModel.ifNoneMatch(), "testString");
     assertEquals(getLocalDocumentOptionsModel.attachments(), Boolean.valueOf(true));
     assertEquals(getLocalDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getLocalDocumentOptionsModel.attsSince(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(getLocalDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
   }
 

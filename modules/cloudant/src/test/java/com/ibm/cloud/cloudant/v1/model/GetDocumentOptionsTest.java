@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -39,13 +37,11 @@ public class GetDocumentOptionsTest {
       .ifNoneMatch("testString")
       .attachments(true)
       .attEncodingInfo(true)
-      .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .conflicts(true)
       .deletedConflicts(true)
       .latest(true)
       .localSeq(true)
       .meta(true)
-      .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .rev("testString")
       .revs(true)
       .revsInfo(true)
@@ -55,13 +51,11 @@ public class GetDocumentOptionsTest {
     assertEquals(getDocumentOptionsModel.ifNoneMatch(), "testString");
     assertEquals(getDocumentOptionsModel.attachments(), Boolean.valueOf(true));
     assertEquals(getDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.attsSince(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(getDocumentOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(getDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(true));
     assertEquals(getDocumentOptionsModel.latest(), Boolean.valueOf(true));
     assertEquals(getDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
     assertEquals(getDocumentOptionsModel.meta(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.openRevs(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(getDocumentOptionsModel.rev(), "testString");
     assertEquals(getDocumentOptionsModel.revs(), Boolean.valueOf(true));
     assertEquals(getDocumentOptionsModel.revsInfo(), Boolean.valueOf(true));

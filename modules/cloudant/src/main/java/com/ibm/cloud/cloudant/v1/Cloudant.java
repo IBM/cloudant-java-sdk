@@ -19,7 +19,7 @@ package com.ibm.cloud.cloudant.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.cloud.cloudant.v1.model.ActiveTask;
-import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEventsConfiguration;
+import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEvents;
 import com.ibm.cloud.cloudant.v1.model.AllDocsQueriesResult;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
 import com.ibm.cloud.cloudant.v1.model.ApiKeysResult;
@@ -48,7 +48,7 @@ import com.ibm.cloud.cloudant.v1.model.FindResult;
 import com.ibm.cloud.cloudant.v1.model.GeoIndexInformation;
 import com.ibm.cloud.cloudant.v1.model.GeoResult;
 import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
-import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAttachmentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCapacityThroughputInformationOptions;
@@ -93,7 +93,7 @@ import com.ibm.cloud.cloudant.v1.model.MembershipInformation;
 import com.ibm.cloud.cloudant.v1.model.MissingRevsResult;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
-import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsConfigurationOptions;
+import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostApiKeysOptions;
@@ -120,7 +120,7 @@ import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PutAttachmentOptions;
-import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutCorsConfigurationOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
@@ -323,8 +323,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve provisioned throughput capacity information.
    *
-   * View the amount of provisioned throughput capacity allocated to an IBM Cloudant instance and what is the target
-   * provisioned throughput capacity.
+   * View the amount of provisioned throughput capacity that is allocated to an IBM Cloudant instance and what is the
+   * target provisioned throughput capacity.
    *
    * @param getCapacityThroughputInformationOptions the {@link GetCapacityThroughputInformationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link CapacityThroughputInformation}
@@ -344,8 +344,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve provisioned throughput capacity information.
    *
-   * View the amount of provisioned throughput capacity allocated to an IBM Cloudant instance and what is the target
-   * provisioned throughput capacity.
+   * View the amount of provisioned throughput capacity that is allocated to an IBM Cloudant instance and what is the
+   * target provisioned throughput capacity.
    *
    * @return a {@link ServiceCall} with a result of type {@link CapacityThroughputInformation}
    */
@@ -359,20 +359,20 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Sets the target provisioned throughput capacity for an IBM Cloudant instance. When target capacity is changed, the
    * current capacity asynchronously changes to meet the target capacity.
    *
-   * @param putCapacityThroughputInformationOptions the {@link PutCapacityThroughputInformationOptions} containing the options for the call
+   * @param putCapacityThroughputConfigurationOptions the {@link PutCapacityThroughputConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link CapacityThroughputInformation}
    */
-  public ServiceCall<CapacityThroughputInformation> putCapacityThroughputInformation(PutCapacityThroughputInformationOptions putCapacityThroughputInformationOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(putCapacityThroughputInformationOptions,
-      "putCapacityThroughputInformationOptions cannot be null");
+  public ServiceCall<CapacityThroughputInformation> putCapacityThroughputConfiguration(PutCapacityThroughputConfigurationOptions putCapacityThroughputConfigurationOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(putCapacityThroughputConfigurationOptions,
+      "putCapacityThroughputConfigurationOptions cannot be null");
     RequestBuilder builder = RequestBuilder.put(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/capacity/throughput"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "putCapacityThroughputInformation");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "putCapacityThroughputConfiguration");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("blocks", putCapacityThroughputInformationOptions.blocks());
+    contentJson.addProperty("blocks", putCapacityThroughputConfigurationOptions.blocks());
     builder.bodyJson(contentJson);
     ResponseConverter<CapacityThroughputInformation> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CapacityThroughputInformation>() { }.getType());
@@ -1278,9 +1278,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (getDocumentOptions.attEncodingInfo() != null) {
       builder.query("att_encoding_info", String.valueOf(getDocumentOptions.attEncodingInfo()));
     }
-    if (getDocumentOptions.attsSince() != null) {
-      builder.query("atts_since", RequestUtils.join(getDocumentOptions.attsSince(), ","));
-    }
     if (getDocumentOptions.conflicts() != null) {
       builder.query("conflicts", String.valueOf(getDocumentOptions.conflicts()));
     }
@@ -1295,9 +1292,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (getDocumentOptions.meta() != null) {
       builder.query("meta", String.valueOf(getDocumentOptions.meta()));
-    }
-    if (getDocumentOptions.openRevs() != null) {
-      builder.query("open_revs", RequestUtils.join(getDocumentOptions.openRevs(), ","));
     }
     if (getDocumentOptions.rev() != null) {
       builder.query("rev", String.valueOf(getDocumentOptions.rev()));
@@ -1343,9 +1337,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (getDocumentOptions.attEncodingInfo() != null) {
       builder.query("att_encoding_info", String.valueOf(getDocumentOptions.attEncodingInfo()));
     }
-    if (getDocumentOptions.attsSince() != null) {
-      builder.query("atts_since", RequestUtils.join(getDocumentOptions.attsSince(), ","));
-    }
     if (getDocumentOptions.conflicts() != null) {
       builder.query("conflicts", String.valueOf(getDocumentOptions.conflicts()));
     }
@@ -1360,9 +1351,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (getDocumentOptions.meta() != null) {
       builder.query("meta", String.valueOf(getDocumentOptions.meta()));
-    }
-    if (getDocumentOptions.openRevs() != null) {
-      builder.query("open_revs", RequestUtils.join(getDocumentOptions.openRevs(), ","));
     }
     if (getDocumentOptions.rev() != null) {
       builder.query("rev", String.valueOf(getDocumentOptions.rev()));
@@ -1407,9 +1395,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (getDocumentOptions.attEncodingInfo() != null) {
       builder.query("att_encoding_info", String.valueOf(getDocumentOptions.attEncodingInfo()));
     }
-    if (getDocumentOptions.attsSince() != null) {
-      builder.query("atts_since", RequestUtils.join(getDocumentOptions.attsSince(), ","));
-    }
     if (getDocumentOptions.conflicts() != null) {
       builder.query("conflicts", String.valueOf(getDocumentOptions.conflicts()));
     }
@@ -1424,9 +1409,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (getDocumentOptions.meta() != null) {
       builder.query("meta", String.valueOf(getDocumentOptions.meta()));
-    }
-    if (getDocumentOptions.openRevs() != null) {
-      builder.query("open_revs", RequestUtils.join(getDocumentOptions.openRevs(), ","));
     }
     if (getDocumentOptions.rev() != null) {
       builder.query("rev", String.valueOf(getDocumentOptions.rev()));
@@ -1471,9 +1453,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (getDocumentOptions.attEncodingInfo() != null) {
       builder.query("att_encoding_info", String.valueOf(getDocumentOptions.attEncodingInfo()));
     }
-    if (getDocumentOptions.attsSince() != null) {
-      builder.query("atts_since", RequestUtils.join(getDocumentOptions.attsSince(), ","));
-    }
     if (getDocumentOptions.conflicts() != null) {
       builder.query("conflicts", String.valueOf(getDocumentOptions.conflicts()));
     }
@@ -1488,9 +1467,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (getDocumentOptions.meta() != null) {
       builder.query("meta", String.valueOf(getDocumentOptions.meta()));
-    }
-    if (getDocumentOptions.openRevs() != null) {
-      builder.query("open_revs", RequestUtils.join(getDocumentOptions.openRevs(), ","));
     }
     if (getDocumentOptions.rev() != null) {
       builder.query("rev", String.valueOf(getDocumentOptions.rev()));
@@ -1648,9 +1624,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (getDesignDocumentOptions.attEncodingInfo() != null) {
       builder.query("att_encoding_info", String.valueOf(getDesignDocumentOptions.attEncodingInfo()));
     }
-    if (getDesignDocumentOptions.attsSince() != null) {
-      builder.query("atts_since", RequestUtils.join(getDesignDocumentOptions.attsSince(), ","));
-    }
     if (getDesignDocumentOptions.conflicts() != null) {
       builder.query("conflicts", String.valueOf(getDesignDocumentOptions.conflicts()));
     }
@@ -1665,9 +1638,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (getDesignDocumentOptions.meta() != null) {
       builder.query("meta", String.valueOf(getDesignDocumentOptions.meta()));
-    }
-    if (getDesignDocumentOptions.openRevs() != null) {
-      builder.query("open_revs", RequestUtils.join(getDesignDocumentOptions.openRevs(), ","));
     }
     if (getDesignDocumentOptions.rev() != null) {
       builder.query("rev", String.valueOf(getDesignDocumentOptions.rev()));
@@ -3519,9 +3489,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (getReplicationDocumentOptions.attEncodingInfo() != null) {
       builder.query("att_encoding_info", String.valueOf(getReplicationDocumentOptions.attEncodingInfo()));
     }
-    if (getReplicationDocumentOptions.attsSince() != null) {
-      builder.query("atts_since", RequestUtils.join(getReplicationDocumentOptions.attsSince(), ","));
-    }
     if (getReplicationDocumentOptions.conflicts() != null) {
       builder.query("conflicts", String.valueOf(getReplicationDocumentOptions.conflicts()));
     }
@@ -3536,9 +3503,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (getReplicationDocumentOptions.meta() != null) {
       builder.query("meta", String.valueOf(getReplicationDocumentOptions.meta()));
-    }
-    if (getReplicationDocumentOptions.openRevs() != null) {
-      builder.query("open_revs", RequestUtils.join(getReplicationDocumentOptions.openRevs(), ","));
     }
     if (getReplicationDocumentOptions.rev() != null) {
       builder.query("rev", String.valueOf(getReplicationDocumentOptions.rev()));
@@ -4209,9 +4173,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (getLocalDocumentOptions.attEncodingInfo() != null) {
       builder.query("att_encoding_info", String.valueOf(getLocalDocumentOptions.attEncodingInfo()));
     }
-    if (getLocalDocumentOptions.attsSince() != null) {
-      builder.query("atts_since", RequestUtils.join(getLocalDocumentOptions.attsSince(), ","));
-    }
     if (getLocalDocumentOptions.localSeq() != null) {
       builder.query("local_seq", String.valueOf(getLocalDocumentOptions.localSeq()));
     }
@@ -4460,53 +4421,53 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve Activity Tracker events information.
    *
-   * Check event types that are being sent to IBM Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+   * Check event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
    *
-   * @param getActivityTrackerEventsInformationOptions the {@link GetActivityTrackerEventsInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEventsConfiguration}
+   * @param getActivityTrackerEventsOptions the {@link GetActivityTrackerEventsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
    */
-  public ServiceCall<ActivityTrackerEventsConfiguration> getActivityTrackerEventsInformation(GetActivityTrackerEventsInformationOptions getActivityTrackerEventsInformationOptions) {
+  public ServiceCall<ActivityTrackerEvents> getActivityTrackerEvents(GetActivityTrackerEventsOptions getActivityTrackerEventsOptions) {
     RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getActivityTrackerEventsInformation");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getActivityTrackerEvents");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    ResponseConverter<ActivityTrackerEventsConfiguration> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ActivityTrackerEventsConfiguration>() { }.getType());
+    ResponseConverter<ActivityTrackerEvents> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ActivityTrackerEvents>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * Retrieve Activity Tracker events information.
    *
-   * Check event types that are being sent to IBM Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+   * Check event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
    *
-   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEventsConfiguration}
+   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
    */
-  public ServiceCall<ActivityTrackerEventsConfiguration> getActivityTrackerEventsInformation() {
-    return getActivityTrackerEventsInformation(null);
+  public ServiceCall<ActivityTrackerEvents> getActivityTrackerEvents() {
+    return getActivityTrackerEvents(null);
   }
 
   /**
    * Modify Activity Tracker events configuration.
    *
-   * Configure event types that are being sent to IBM Cloud Activity Tracker with LogDNA for the IBM Cloudant instance.
+   * Configure event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
    *
-   * @param postActivityTrackerEventsConfigurationOptions the {@link PostActivityTrackerEventsConfigurationOptions} containing the options for the call
+   * @param postActivityTrackerEventsOptions the {@link PostActivityTrackerEventsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Ok}
    */
-  public ServiceCall<Ok> postActivityTrackerEventsConfiguration(PostActivityTrackerEventsConfigurationOptions postActivityTrackerEventsConfigurationOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postActivityTrackerEventsConfigurationOptions,
-      "postActivityTrackerEventsConfigurationOptions cannot be null");
+  public ServiceCall<Ok> postActivityTrackerEvents(PostActivityTrackerEventsOptions postActivityTrackerEventsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postActivityTrackerEventsOptions,
+      "postActivityTrackerEventsOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postActivityTrackerEventsConfiguration");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postActivityTrackerEvents");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("types", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postActivityTrackerEventsConfigurationOptions.types()));
+    contentJson.add("types", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postActivityTrackerEventsOptions.types()));
     builder.bodyJson(contentJson);
     ResponseConverter<Ok> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
