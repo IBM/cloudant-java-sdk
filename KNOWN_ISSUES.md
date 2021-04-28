@@ -48,7 +48,7 @@ The workaround is to call `POST /{db}/_bulk_get` using the `atts_since` field un
 Example JSON request body:
 ```json
 {
-  "docs": [{"id": "order00058", "atts_since": "1-99b02e08da151943c2dcb40090160bb8"}] 
+  "docs": [{"id": "order00058", "atts_since": "1-99b02e08da151943c2dcb40090160bb8"}]
 }
 ```
 
@@ -82,11 +82,6 @@ consult the Cloudant documentation for further information.
   ```java
   return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, valueType);
   ```
-
-### Documents
-#### Cannot request all open revs
-
-* It is not currently possible to request `open_revs=all` when getting a document.
 
 ### Search
 #### Analyzer definitions should be in object format
