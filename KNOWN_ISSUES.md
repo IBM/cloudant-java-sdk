@@ -52,6 +52,36 @@ Example JSON request body:
 }
 ```
 
+#### Open revisions
+
+The `open_revs` parameter is not supported when retrieving a document.
+If you want to retrieve documents with all leaf revisions (`open_revs=all`), the workaround is to call `POST /{db}/_bulk_get` using the `id` field within the `docs` array request body.
+See the [alternative example request for `open_revs=all` using the `/_bulk_get` endpoint](https://cloud.ibm.com/apidocs/cloudant#postbulkget) in our API Docs.
+Example JSON request body:
+```json
+{
+  "docs": [{"id": "order00067"}]
+}
+```
+
+If you want to retrieve documents of specified leaf revisions (e.g. `open_revs=["3-917fa2381192822767f010b95b45325b", "4-a5be949eeb7296747cc271766e9a498b"]`), the workaround is to call `POST /{db}/_bulk_get` using the same `id` value for each unique `rev` value within of the `docs` array request body.
+See the [default example request using the `/_bulk_get` endpoint](https://cloud.ibm.com/apidocs/cloudant#postbulkget) in our API Docs.
+Example JSON request body:
+```json
+{
+  "docs": [
+    {
+      "id": "order00067",
+      "rev": "3-917fa2381192822767f010b95b45325b"
+    },
+    {
+      "id": "order00067",
+      "rev": "4-a5be949eeb7296747cc271766e9a498b"
+    }
+  ]
+}
+```
+
 ### Cloudant on Transaction Engine
 
 Whilst most SDK methods will work with _Cloudant on Transaction Engine_ there are some limitations.
