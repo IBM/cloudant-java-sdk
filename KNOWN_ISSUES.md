@@ -113,11 +113,6 @@ consult the Cloudant documentation for further information.
   return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, valueType);
   ```
 
-### Documents
-#### Cannot request all open revs
-
-* It is not currently possible to request `open_revs=all` when getting a document.
-
 ### Search
 #### Analyzer definitions should be in object format
 
