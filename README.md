@@ -1,15 +1,3 @@
-<!--
-  The example codes and outputs below are generated using the `embedmd` go
-  package.
-
-      https://github.com/campoy/embedmd
-
-  You should regenerate the example codes after making any changes to
-  examples in the modules/examples/ folder.
-
-      embedmd -w README.md
-  -->
-
 [![Build Status](https://travis-ci.com/IBM/cloudant-java-sdk.svg?branch=master)](https://travis-ci.com/IBM/cloudant-java-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-java-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-java-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Javadoc&message=latest&color=blue)](https://ibm.github.io/cloudant-java-sdk/)
@@ -646,11 +634,8 @@ For examples of using byte streams, see the API reference documentation
   API reference including usage examples for Cloudant Java SDK API.
 - [Javadoc](https://ibm.github.io/cloudant-java-sdk/):
   Cloudant Java SDK API Documentation.
-- [Cloudant docs](https://cloud.ibm.com/docs/services/Cloudant?topic=cloudant-overview#overview):
+- [Cloudant docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-getting-started-with-cloudant):
   The official documentation page for Cloudant.
-- [Cloudant Learning Center](https://developer.ibm.com/clouddataservices/docs/compose/cloudant/):
-  The official learning center with several useful videos which help you use
-  Cloudant successfully.
 - [Cloudant blog](https://blog.cloudant.com/):
   Many useful articles about how to optimize Cloudant for common problems.
 
