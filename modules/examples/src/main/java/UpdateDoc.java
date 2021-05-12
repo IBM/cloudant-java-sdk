@@ -40,7 +40,7 @@ public class UpdateDoc {
                     .getResult();
 
             // Note: for response byte stream use:
-            //InputStream documentAsByteStream =
+            // InputStream documentAsByteStream =
             //        client.getDocumentAsStream(documentInfoOptions)
             //                .execute()
             //                .getResult();
@@ -58,8 +58,8 @@ public class UpdateDoc {
                             .document(document)
                             .build();
 
-            //Note: for request byte stream use:
-            //PostDocumentOptions updateDocumentOptions =
+            // Note: for request byte stream use:
+            // PostDocumentOptions updateDocumentOptions =
             //        new PostDocumentOptions.Builder()
             //                .db(exampleDbName)
             //                .contentType("application/json")
