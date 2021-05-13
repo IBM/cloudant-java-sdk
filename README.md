@@ -493,6 +493,12 @@ public class UpdateDoc {
                     .execute()
                     .getResult();
 
+            // Note: for response byte stream use:
+            // InputStream documentAsByteStream =
+            //        client.getDocumentAsStream(documentInfoOptions)
+            //                .execute()
+            //                .getResult();
+
             // Add Bob Smith's address to the document
             document.put("address", "19 Front Street, Darlington, DL5 1TY");
 
@@ -505,6 +511,15 @@ public class UpdateDoc {
                             .db(exampleDbName)
                             .document(document)
                             .build();
+
+            // Note: for request byte stream use:
+            // PostDocumentOptions updateDocumentOptions =
+            //        new PostDocumentOptions.Builder()
+            //                .db(exampleDbName)
+            //                .contentType("application/json")
+            //                .body(documentAsByteStream)
+            //                .build();
+
             DocumentResult updateDocumentResponse = client
                     .postDocument(updateDocumentOptions)
                     .execute()
@@ -620,13 +635,32 @@ For sample code on handling errors, see
 ### Raw IO
 
 For endpoints that read or write document content it is possible to bypass
-usage of the built-in models and send or receive a bytes response.
-For examples of using byte streams, see the API reference documentation
-("Example request as a stream" section).
+usage of the built-in object with byte streams. 
 
-- [Bulk modify multiple documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=java#postbulkdocs)
-- [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=java#postalldocs)
-- [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=java#postchanges)
+Depending on the specific SDK operation it may be possible to:
+* accept a user-provided byte stream to send to the server as a request body
+* return a byte stream of the server response body to the user
+
+Request byte stream can be supplied for builder objects that have the `body` method.
+For these cases you can pass this byte stream directly to the HTTP request body.
+
+Response byte stream is supported in functions with the suffix of `AsStream`.
+The returned byte stream allows the response body to be consumed
+without triggering JSON unmarshalling that is typically performed by the SDK.
+
+The [update document](#3-update-your-previously-created-document) section
+contains examples for both request and response byte stream cases.
+
+The API reference contains further examples of using byte streams. 
+They are titled "Example request as stream" and are initially collapsed. 
+Expand them to see examples of:
+
+- Byte requests:
+  - [Bulk modify multiple documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=java#postbulkdocs)
+
+- Byte responses:
+  - [Query a list of all documents in a database](https://cloud.ibm.com/apidocs/cloudant?code=java#postalldocs)
+  - [Query the database document changes feed](https://cloud.ibm.com/apidocs/cloudant?code=java#postchanges)
 
 ### Further resources
 
