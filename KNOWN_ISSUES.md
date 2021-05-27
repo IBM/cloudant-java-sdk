@@ -186,6 +186,7 @@ Session authentication does not work with compressed request bodies when the ser
 
 
 ### Disabling request body compression
+
 ```java
 import com.ibm.cloud.cloudant.v1.Cloudant;
 
