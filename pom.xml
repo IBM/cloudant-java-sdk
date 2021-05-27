@@ -179,25 +179,6 @@
                 <skip.unit.tests>${skipTests}</skip.unit.tests>
             </properties>
         </profile>
-        <profile>
-            <id>java9plus</id>
-            <activation>
-                <jdk>[9,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven-javadoc-plugin-version}</version>
-                        <configuration>
-                            <!-- Temporary workaround for https://issues.apache.org/jira/projects/MJAVADOC/issues/MJAVADOC-595 -->
-                            <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
     <dependencyManagement>
