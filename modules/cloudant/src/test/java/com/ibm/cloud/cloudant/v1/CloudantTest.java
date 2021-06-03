@@ -1511,9 +1511,8 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
-    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")))
     .id("order00067")
-    .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .rev("3-917fa2381192822767f010b95b45325b")
     .build();
 
@@ -1578,9 +1577,8 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
-    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")))
     .id("order00067")
-    .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .rev("3-917fa2381192822767f010b95b45325b")
     .build();
 
@@ -1645,9 +1643,8 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
-    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")))
     .id("order00067")
-    .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .rev("3-917fa2381192822767f010b95b45325b")
     .build();
 
@@ -1712,9 +1709,8 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
-    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")))
     .id("order00067")
-    .openRevs(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .rev("3-917fa2381192822767f010b95b45325b")
     .build();
 
