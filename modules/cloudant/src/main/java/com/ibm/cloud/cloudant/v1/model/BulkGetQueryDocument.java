@@ -26,8 +26,6 @@ public class BulkGetQueryDocument extends GenericModel {
   @SerializedName("atts_since")
   protected List<String> attsSince;
   protected String id;
-  @SerializedName("open_revs")
-  protected List<String> openRevs;
   protected String rev;
 
   /**
@@ -36,13 +34,11 @@ public class BulkGetQueryDocument extends GenericModel {
   public static class Builder {
     private List<String> attsSince;
     private String id;
-    private List<String> openRevs;
     private String rev;
 
     private Builder(BulkGetQueryDocument bulkGetQueryDocument) {
       this.attsSince = bulkGetQueryDocument.attsSince;
       this.id = bulkGetQueryDocument.id;
-      this.openRevs = bulkGetQueryDocument.openRevs;
       this.rev = bulkGetQueryDocument.rev;
     }
 
@@ -87,22 +83,6 @@ public class BulkGetQueryDocument extends GenericModel {
     }
 
     /**
-     * Adds an openRevs to openRevs.
-     *
-     * @param openRevs the new openRevs
-     * @return the BulkGetQueryDocument builder
-     */
-    public Builder addOpenRevs(String openRevs) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(openRevs,
-        "openRevs cannot be null");
-      if (this.openRevs == null) {
-        this.openRevs = new ArrayList<String>();
-      }
-      this.openRevs.add(openRevs);
-      return this;
-    }
-
-    /**
      * Set the attsSince.
      * Existing attsSince will be replaced.
      *
@@ -126,18 +106,6 @@ public class BulkGetQueryDocument extends GenericModel {
     }
 
     /**
-     * Set the openRevs.
-     * Existing openRevs will be replaced.
-     *
-     * @param openRevs the openRevs
-     * @return the BulkGetQueryDocument builder
-     */
-    public Builder openRevs(List<String> openRevs) {
-      this.openRevs = openRevs;
-      return this;
-    }
-
-    /**
      * Set the rev.
      *
      * @param rev the rev
@@ -154,7 +122,6 @@ public class BulkGetQueryDocument extends GenericModel {
       "id cannot be null");
     attsSince = builder.attsSince;
     id = builder.id;
-    openRevs = builder.openRevs;
     rev = builder.rev;
   }
 
@@ -187,17 +154,6 @@ public class BulkGetQueryDocument extends GenericModel {
    */
   public String id() {
     return id;
-  }
-
-  /**
-   * Gets the openRevs.
-   *
-   * Retrieves documents of specified leaf revisions.
-   *
-   * @return the openRevs
-   */
-  public List<String> openRevs() {
-    return openRevs;
   }
 
   /**
