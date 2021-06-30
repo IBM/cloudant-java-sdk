@@ -147,7 +147,6 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
-import com.ibm.cloud.cloudant.v1.model.PostReplicateOptions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
@@ -168,8 +167,6 @@ import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
-import com.ibm.cloud.cloudant.v1.model.ReplicationHistory;
-import com.ibm.cloud.cloudant.v1.model.ReplicationResult;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
 import com.ibm.cloud.cloudant.v1.model.RevsDiff;
 import com.ibm.cloud.cloudant.v1.model.SchedulerDocsResult;
@@ -4675,148 +4672,6 @@ public class CloudantTest extends PowerMockTestCase {
   }
 
   @Test
-  public void testPostReplicateWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"history\": [{\"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"end_last_seq\": \"endLastSeq\", \"end_time\": \"endTime\", \"missing_checked\": 0, \"missing_found\": 0, \"recorded_seq\": \"recordedSeq\", \"session_id\": \"sessionId\", \"start_last_seq\": \"startLastSeq\", \"start_time\": \"startTime\"}], \"ok\": true, \"replication_id_version\": 0, \"session_id\": \"sessionId\", \"source_last_seq\": \"sourceLastSeq\"}";
-    String postReplicatePath = "/_replicate";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the Attachment model
-    Attachment attachmentModel = new Attachment.Builder()
-    .contentType("testString")
-    .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
-    .digest("testString")
-    .encodedLength(Long.valueOf("0"))
-    .encoding("testString")
-    .follows(true)
-    .length(Long.valueOf("0"))
-    .revpos(Long.valueOf("1"))
-    .stub(true)
-    .build();
-
-    // Construct an instance of the Revisions model
-    Revisions revisionsModel = new Revisions.Builder()
-    .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .start(Long.valueOf("1"))
-    .build();
-
-    // Construct an instance of the DocumentRevisionStatus model
-    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
-    .rev("testString")
-    .status("available")
-    .build();
-
-    // Construct an instance of the ReplicationCreateTargetParameters model
-    ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
-    .n(Long.valueOf("1"))
-    .partitioned(true)
-    .q(Long.valueOf("1"))
-    .build();
-
-    // Construct an instance of the ReplicationDatabaseAuthIam model
-    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
-    .apiKey("testString")
-    .build();
-
-    // Construct an instance of the ReplicationDatabaseAuth model
-    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
-    .iam(replicationDatabaseAuthIamModel)
-    .build();
-
-    // Construct an instance of the ReplicationDatabase model
-    ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
-    .auth(replicationDatabaseAuthModel)
-    .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-    .url("testString")
-    .build();
-
-    // Construct an instance of the UserContext model
-    UserContext userContextModel = new UserContext.Builder()
-    .db("testString")
-    .name("testString")
-    .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("_reader")))
-    .build();
-
-    // Construct an instance of the ReplicationDocument model
-    ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-    .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
-    .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .deleted(true)
-    .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .id("testString")
-    .localSeq("testString")
-    .rev("testString")
-    .revisions(revisionsModel)
-    .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
-    .cancel(true)
-    .checkpointInterval(Long.valueOf("0"))
-    .connectionTimeout(Long.valueOf("0"))
-    .continuous(true)
-    .createTarget(true)
-    .createTargetParams(replicationCreateTargetParametersModel)
-    .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-    .filter("testString")
-    .httpConnections(Long.valueOf("1"))
-    .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-    .retriesPerRequest(Long.valueOf("0"))
-    .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-    .sinceSeq("testString")
-    .socketOptions("testString")
-    .source(replicationDatabaseModel)
-    .sourceProxy("testString")
-    .target(replicationDatabaseModel)
-    .targetProxy("testString")
-    .useCheckpoints(true)
-    .userCtx(userContextModel)
-    .workerBatchSize(Long.valueOf("1"))
-    .workerProcesses(Long.valueOf("1"))
-    .add("foo", "testString")
-    .build();
-
-    // Construct an instance of the PostReplicateOptions model
-    PostReplicateOptions postReplicateOptionsModel = new PostReplicateOptions.Builder()
-    .replicationDocument(replicationDocumentModel)
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<ReplicationResult> response = cloudantService.postReplicate(postReplicateOptionsModel).execute();
-    assertNotNull(response);
-    ReplicationResult responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postReplicatePath);
-  }
-
-  // Test the postReplicate operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostReplicateNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    cloudantService.postReplicate(null).execute();
-  }
-
-  @Test
   public void testDeleteReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\"}";
@@ -5001,14 +4856,14 @@ public class CloudantTest extends PowerMockTestCase {
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
     .auth(replicationDatabaseAuthModel)
     .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-    .url("https://examples.cloudant.com/animaldb")
+    .url("testString")
     .build();
 
     // Construct an instance of the UserContext model
     UserContext userContextModel = new UserContext.Builder()
     .db("testString")
-    .name("john")
-    .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("researcher")))
+    .name("testString")
+    .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("_reader")))
     .build();
 
     // Construct an instance of the ReplicationDocument model
@@ -5022,28 +4877,28 @@ public class CloudantTest extends PowerMockTestCase {
     .rev("testString")
     .revisions(revisionsModel)
     .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
-    .cancel(false)
-    .checkpointInterval(Long.valueOf("4500"))
-    .connectionTimeout(Long.valueOf("15000"))
+    .cancel(true)
+    .checkpointInterval(Long.valueOf("0"))
+    .connectionTimeout(Long.valueOf("0"))
     .continuous(true)
     .createTarget(true)
     .createTargetParams(replicationCreateTargetParametersModel)
-    .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("badger", "lemur", "llama")))
-    .filter("ddoc/my_filter")
-    .httpConnections(Long.valueOf("10"))
+    .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+    .filter("testString")
+    .httpConnections(Long.valueOf("1"))
     .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-    .retriesPerRequest(Long.valueOf("3"))
+    .retriesPerRequest(Long.valueOf("0"))
     .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
-    .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
-    .socketOptions("[{keepalive, true}, {nodelay, false}]")
+    .sinceSeq("testString")
+    .socketOptions("testString")
     .source(replicationDatabaseModel)
-    .sourceProxy("http://my-source-proxy.example:8888")
+    .sourceProxy("testString")
     .target(replicationDatabaseModel)
-    .targetProxy("http://my-target-proxy.example:8888")
-    .useCheckpoints(false)
+    .targetProxy("testString")
+    .useCheckpoints(true)
     .userCtx(userContextModel)
-    .workerBatchSize(Long.valueOf("400"))
-    .workerProcesses(Long.valueOf("3"))
+    .workerBatchSize(Long.valueOf("1"))
+    .workerProcesses(Long.valueOf("1"))
     .add("foo", "testString")
     .build();
 
