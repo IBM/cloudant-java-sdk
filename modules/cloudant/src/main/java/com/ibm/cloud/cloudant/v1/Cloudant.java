@@ -113,6 +113,7 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
+import com.ibm.cloud.cloudant.v1.model.PostReplicateOptions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
@@ -129,6 +130,7 @@ import com.ibm.cloud.cloudant.v1.model.PutLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PutReplicationDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PutSecurityOptions;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
+import com.ibm.cloud.cloudant.v1.model.ReplicationResult;
 import com.ibm.cloud.cloudant.v1.model.RevsDiff;
 import com.ibm.cloud.cloudant.v1.model.SchedulerDocsResult;
 import com.ibm.cloud.cloudant.v1.model.SchedulerDocument;
@@ -3403,6 +3405,29 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
+   * Create or modify a replication operation.
+   *
+   * Requests, configures, or stops a replicate operation.
+   *
+   * @param postReplicateOptions the {@link PostReplicateOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ReplicationResult}
+   */
+  public ServiceCall<ReplicationResult> postReplicate(PostReplicateOptions postReplicateOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postReplicateOptions,
+      "postReplicateOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_replicate"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postReplicate");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(postReplicateOptions.replicationDocument()), "application/json");
+    ResponseConverter<ReplicationResult> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ReplicationResult>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Cancel a replication.
    *
    * Cancels a replication by deleting the document that describes it from the `_replicator` database.
@@ -3494,7 +3519,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Create or modify a replication using a replication document.
+   * Start or update a replication.
    *
    * Creates or modifies a document in the `_replicator` database to start a new replication or to edit an existing
    * replication.
