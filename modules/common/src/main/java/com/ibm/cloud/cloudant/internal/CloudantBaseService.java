@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2021. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,13 +14,21 @@
 package com.ibm.cloud.cloudant.internal;
 
 import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
+import com.ibm.cloud.sdk.core.http.ResponseConverter;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator;
-
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-
+import okhttp3.Request;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 
 /**
@@ -29,6 +37,8 @@ import java.util.function.Consumer;
  * class to the SDK core BaseService.
  */
 public abstract class CloudantBaseService extends BaseService {
+
+    private int serviceUrlPathSegmentSize = 0;
 
     public CloudantBaseService(String serviceName, Authenticator authenticator) {
         super(serviceName, authenticator);
@@ -46,6 +56,17 @@ public abstract class CloudantBaseService extends BaseService {
     @Override
     public void setServiceUrl(String serviceUrl) {
         super.setServiceUrl(serviceUrl);
+        // Get the now sanitized value
+        serviceUrl = getServiceUrl();
+        HttpUrl sUrl = HttpUrl.parse(serviceUrl);
+        if (sUrl != null) {
+            List<String> serviceUrlSegements = sUrl.encodedPathSegments();
+            if (serviceUrlSegements.size() == 1 && serviceUrlSegements.get(0).isEmpty()) {
+                serviceUrlPathSegmentSize = 0;
+            } else {
+                serviceUrlPathSegmentSize = serviceUrlSegements.size();
+            }
+        }
         customizeAuthenticator(a -> {
             a.setSessionUrl(getServiceUrl());
             a.invalidateToken();
@@ -75,5 +96,89 @@ public abstract class CloudantBaseService extends BaseService {
         if (authenticator instanceof CouchDbSessionAuthenticator) {
             consumer.accept((CouchDbSessionAuthenticator) authenticator);
         }
+    }
+
+    private enum ValidationRule {
+        DOC_ID(
+            1, // Doc ID is in path segment 1 (database is 0)
+            "Document ID",
+            Arrays.asList(
+                "deleteDocument",
+                "getDocument",
+                "headDocument",
+                "putDocument",
+                "deleteAttachment",
+                "getAttachment",
+                "headAttachment",
+                "putAttachment"
+            )
+        ),
+        ATT_NAME(
+            2, // Attachment name is in path segment 2 (database is 0, doc is 1)
+            "Attachment name",
+            Arrays.asList(
+                "deleteAttachment",
+                "getAttachment",
+                "headAttachment",
+                "putAttachment"
+            )
+        );
+
+        private static final EnumSet<ValidationRule> NONE = EnumSet.noneOf(ValidationRule.class);
+        private final int pathSegmentIndex;
+        private final String errorParameterName;
+        private final List<String> operationIds;
+
+        ValidationRule(int pathSegmentIndex, String errorParameterName, List<String> operationIds) {
+            this.pathSegmentIndex = pathSegmentIndex;
+            this.errorParameterName = errorParameterName;
+            this.operationIds = operationIds;
+        }
+    }
+    static final Map<String, EnumSet<ValidationRule>> rulesByOperation = new TreeMap<>();
+    static {
+        for (ValidationRule rule : ValidationRule.values()) {
+            for (String operationId : rule.operationIds) {
+                EnumSet<ValidationRule> existing = rulesByOperation.putIfAbsent(operationId, EnumSet.of(rule));
+                if (existing != null) {
+                    existing.add(rule);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected <T> ServiceCall<T> createServiceCall(Request request,
+            ResponseConverter<T> converter) {
+        // Extract the operation ID from the request headers.
+        String operationId = null;
+        String header = request.header("X-IBMCloud-SDK-Analytics");
+        if (header != null) {
+            StringTokenizer tokenizer = new StringTokenizer(request.header("X-IBMCloud-SDK-Analytics"), "=;");
+            while (tokenizer.hasMoreTokens()) {
+                if ("operation_id".equals(tokenizer.nextToken())) {
+                    operationId = tokenizer.nextToken();
+                    break;
+                }
+            }
+        }
+        if (operationId != null) {
+            List<String> requestUrlPathSegments = request.url().pathSegments();
+            if (requestUrlPathSegments.size() == 1 && requestUrlPathSegments.contains("")) {
+                requestUrlPathSegments = Collections.emptyList();
+            }
+            // Check each validation rule that applies to the operation.
+            for (ValidationRule rule : rulesByOperation.getOrDefault(operationId, ValidationRule.NONE)) {
+                // Allow for any path segments that might exist in e.g. the URL of a proxy by offseting from the service URL index.
+                int pathSegmentIndex = serviceUrlPathSegmentSize + rule.pathSegmentIndex;
+                if (requestUrlPathSegments.size() > pathSegmentIndex) {
+                    String segmentToValidate = requestUrlPathSegments.get(pathSegmentIndex);
+                    if (segmentToValidate.startsWith("_")) {
+                        throw new IllegalArgumentException(String.format("%s %s starts with the invalid _ character.", rule.errorParameterName, segmentToValidate));
+                    }
+                }
+            }
+        }
+        return super.createServiceCall(request, converter);
     }
 }
