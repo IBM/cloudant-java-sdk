@@ -37,7 +37,7 @@ public class PutAttachmentOptionsTest {
       .docId("testString")
       .attachmentName("testString")
       .attachment(TestUtilities.createMockStream("This is a mock file."))
-      .contentType("testString")
+      .contentType("application/octet-stream")
       .ifMatch("testString")
       .rev("testString")
       .build();
@@ -45,7 +45,7 @@ public class PutAttachmentOptionsTest {
     assertEquals(putAttachmentOptionsModel.docId(), "testString");
     assertEquals(putAttachmentOptionsModel.attachmentName(), "testString");
     assertEquals(IOUtils.toString(putAttachmentOptionsModel.attachment()), IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
-    assertEquals(putAttachmentOptionsModel.contentType(), "testString");
+    assertEquals(putAttachmentOptionsModel.contentType(), "application/octet-stream");
     assertEquals(putAttachmentOptionsModel.ifMatch(), "testString");
     assertEquals(putAttachmentOptionsModel.rev(), "testString");
   }

@@ -38,23 +38,23 @@ public class PostPartitionViewOptionsTest {
       .partitionKey("testString")
       .ddoc("testString")
       .view("testString")
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .includeDocs(true)
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
       .inclusiveEnd(true)
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .updateSeq(true)
+      .updateSeq(false)
       .endkey("testString")
       .endkeyDocid("testString")
-      .group(true)
+      .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
-      .stable(true)
+      .stable(false)
       .startkey("testString")
       .startkeyDocid("testString")
       .update("true")
@@ -63,23 +63,23 @@ public class PostPartitionViewOptionsTest {
     assertEquals(postPartitionViewOptionsModel.partitionKey(), "testString");
     assertEquals(postPartitionViewOptionsModel.ddoc(), "testString");
     assertEquals(postPartitionViewOptionsModel.view(), "testString");
-    assertEquals(postPartitionViewOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(postPartitionViewOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(postPartitionViewOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(postPartitionViewOptionsModel.descending(), Boolean.valueOf(true));
-    assertEquals(postPartitionViewOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postPartitionViewOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(postPartitionViewOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(postPartitionViewOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(postPartitionViewOptionsModel.descending(), Boolean.valueOf(false));
+    assertEquals(postPartitionViewOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(postPartitionViewOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postPartitionViewOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postPartitionViewOptionsModel.updateSeq(), Boolean.valueOf(true));
+    assertEquals(postPartitionViewOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.endkey(), "testString");
     assertEquals(postPartitionViewOptionsModel.endkeyDocid(), "testString");
-    assertEquals(postPartitionViewOptionsModel.group(), Boolean.valueOf(true));
+    assertEquals(postPartitionViewOptionsModel.group(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.groupLevel(), Long.valueOf("1"));
     assertEquals(postPartitionViewOptionsModel.key(), "testString");
     assertEquals(postPartitionViewOptionsModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
     assertEquals(postPartitionViewOptionsModel.reduce(), Boolean.valueOf(true));
-    assertEquals(postPartitionViewOptionsModel.stable(), Boolean.valueOf(true));
+    assertEquals(postPartitionViewOptionsModel.stable(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.startkey(), "testString");
     assertEquals(postPartitionViewOptionsModel.startkeyDocid(), "testString");
     assertEquals(postPartitionViewOptionsModel.update(), "true");

@@ -79,11 +79,11 @@ public class PutReplicationDocumentOptionsTest {
 
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
       .n(Long.valueOf("1"))
-      .partitioned(true)
+      .partitioned(false)
       .q(Long.valueOf("1"))
       .build();
     assertEquals(replicationCreateTargetParametersModel.n(), Long.valueOf("1"));
-    assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(true));
+    assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(false));
     assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("1"));
 
     ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
@@ -127,8 +127,8 @@ public class PutReplicationDocumentOptionsTest {
       .cancel(true)
       .checkpointInterval(Long.valueOf("0"))
       .connectionTimeout(Long.valueOf("0"))
-      .continuous(true)
-      .createTarget(true)
+      .continuous(false)
+      .createTarget(false)
       .createTargetParams(replicationCreateTargetParametersModel)
       .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .filter("testString")
@@ -160,8 +160,8 @@ public class PutReplicationDocumentOptionsTest {
     assertEquals(replicationDocumentModel.isCancel(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getCheckpointInterval(), Long.valueOf("0"));
     assertEquals(replicationDocumentModel.getConnectionTimeout(), Long.valueOf("0"));
-    assertEquals(replicationDocumentModel.isContinuous(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModel.isCreateTarget(), Boolean.valueOf(true));
+    assertEquals(replicationDocumentModel.isContinuous(), Boolean.valueOf(false));
+    assertEquals(replicationDocumentModel.isCreateTarget(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModel.getCreateTargetParams(), replicationCreateTargetParametersModel);
     assertEquals(replicationDocumentModel.getDocIds(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(replicationDocumentModel.getFilter(), "testString");
@@ -186,14 +186,14 @@ public class PutReplicationDocumentOptionsTest {
       .replicationDocument(replicationDocumentModel)
       .ifMatch("testString")
       .batch("ok")
-      .newEdits(true)
+      .newEdits(false)
       .rev("testString")
       .build();
     assertEquals(putReplicationDocumentOptionsModel.docId(), "testString");
     assertEquals(putReplicationDocumentOptionsModel.replicationDocument(), replicationDocumentModel);
     assertEquals(putReplicationDocumentOptionsModel.ifMatch(), "testString");
     assertEquals(putReplicationDocumentOptionsModel.batch(), "ok");
-    assertEquals(putReplicationDocumentOptionsModel.newEdits(), Boolean.valueOf(true));
+    assertEquals(putReplicationDocumentOptionsModel.newEdits(), Boolean.valueOf(false));
     assertEquals(putReplicationDocumentOptionsModel.rev(), "testString");
   }
 

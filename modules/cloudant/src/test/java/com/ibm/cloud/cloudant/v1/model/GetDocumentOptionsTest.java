@@ -35,30 +35,30 @@ public class GetDocumentOptionsTest {
       .db("testString")
       .docId("testString")
       .ifNoneMatch("testString")
-      .attachments(true)
-      .attEncodingInfo(true)
-      .conflicts(true)
-      .deletedConflicts(true)
-      .latest(true)
-      .localSeq(true)
-      .meta(true)
+      .attachments(false)
+      .attEncodingInfo(false)
+      .conflicts(false)
+      .deletedConflicts(false)
+      .latest(false)
+      .localSeq(false)
+      .meta(false)
       .rev("testString")
-      .revs(true)
-      .revsInfo(true)
+      .revs(false)
+      .revsInfo(false)
       .build();
     assertEquals(getDocumentOptionsModel.db(), "testString");
     assertEquals(getDocumentOptionsModel.docId(), "testString");
     assertEquals(getDocumentOptionsModel.ifNoneMatch(), "testString");
-    assertEquals(getDocumentOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.latest(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.meta(), Boolean.valueOf(true));
+    assertEquals(getDocumentOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(getDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(getDocumentOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(getDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(false));
+    assertEquals(getDocumentOptionsModel.latest(), Boolean.valueOf(false));
+    assertEquals(getDocumentOptionsModel.localSeq(), Boolean.valueOf(false));
+    assertEquals(getDocumentOptionsModel.meta(), Boolean.valueOf(false));
     assertEquals(getDocumentOptionsModel.rev(), "testString");
-    assertEquals(getDocumentOptionsModel.revs(), Boolean.valueOf(true));
-    assertEquals(getDocumentOptionsModel.revsInfo(), Boolean.valueOf(true));
+    assertEquals(getDocumentOptionsModel.revs(), Boolean.valueOf(false));
+    assertEquals(getDocumentOptionsModel.revsInfo(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

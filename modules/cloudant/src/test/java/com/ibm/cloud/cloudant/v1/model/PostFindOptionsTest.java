@@ -45,7 +45,7 @@ public class PostFindOptionsTest {
       .skip(Long.valueOf("0"))
       .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
       .stable(true)
-      .update("false")
+      .update("true")
       .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .r(Long.valueOf("1"))
       .build();
@@ -59,7 +59,7 @@ public class PostFindOptionsTest {
     assertEquals(postFindOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
     assertEquals(postFindOptionsModel.stable(), Boolean.valueOf(true));
-    assertEquals(postFindOptionsModel.update(), "false");
+    assertEquals(postFindOptionsModel.update(), "true");
     assertEquals(postFindOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postFindOptionsModel.r(), Long.valueOf("1"));
   }

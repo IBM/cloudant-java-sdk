@@ -45,7 +45,7 @@ public class PostExplainOptionsTest {
       .skip(Long.valueOf("0"))
       .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
       .stable(true)
-      .update("false")
+      .update("true")
       .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .r(Long.valueOf("1"))
       .build();
@@ -59,7 +59,7 @@ public class PostExplainOptionsTest {
     assertEquals(postExplainOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postExplainOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
     assertEquals(postExplainOptionsModel.stable(), Boolean.valueOf(true));
-    assertEquals(postExplainOptionsModel.update(), "false");
+    assertEquals(postExplainOptionsModel.update(), "true");
     assertEquals(postExplainOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postExplainOptionsModel.r(), Long.valueOf("1"));
   }

@@ -130,7 +130,7 @@ public class DesignDocumentTest {
       .autoupdate(true)
       .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
-      .language("testString")
+      .language("javascript")
       .options(designDocumentOptionsModel)
       .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .validateDocUpdate(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
@@ -150,7 +150,7 @@ public class DesignDocumentTest {
     assertEquals(designDocumentModel.isAutoupdate(), Boolean.valueOf(true));
     assertEquals(designDocumentModel.getFilters(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(designDocumentModel.getIndexes(), new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } });
-    assertEquals(designDocumentModel.getLanguage(), "testString");
+    assertEquals(designDocumentModel.getLanguage(), "javascript");
     assertEquals(designDocumentModel.getOptions(), designDocumentOptionsModel);
     assertEquals(designDocumentModel.getUpdates(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(designDocumentModel.getValidateDocUpdate(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
@@ -168,7 +168,7 @@ public class DesignDocumentTest {
     assertEquals(designDocumentModelNew.getRev(), "testString");
     assertEquals(designDocumentModelNew.getRevisions().toString(), revisionsModel.toString());
     assertEquals(designDocumentModelNew.isAutoupdate(), Boolean.valueOf(true));
-    assertEquals(designDocumentModelNew.getLanguage(), "testString");
+    assertEquals(designDocumentModelNew.getLanguage(), "javascript");
     assertEquals(designDocumentModelNew.getOptions().toString(), designDocumentOptionsModel.toString());
     assertEquals(designDocumentModelNew.get("foo"), "testString");
   }

@@ -35,13 +35,13 @@ public class HeadDocumentOptionsTest {
       .db("testString")
       .docId("testString")
       .ifNoneMatch("testString")
-      .latest(true)
+      .latest(false)
       .rev("testString")
       .build();
     assertEquals(headDocumentOptionsModel.db(), "testString");
     assertEquals(headDocumentOptionsModel.docId(), "testString");
     assertEquals(headDocumentOptionsModel.ifNoneMatch(), "testString");
-    assertEquals(headDocumentOptionsModel.latest(), Boolean.valueOf(true));
+    assertEquals(headDocumentOptionsModel.latest(), Boolean.valueOf(false));
     assertEquals(headDocumentOptionsModel.rev(), "testString");
   }
 

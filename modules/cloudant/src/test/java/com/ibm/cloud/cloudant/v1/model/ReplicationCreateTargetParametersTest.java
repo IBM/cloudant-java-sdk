@@ -33,11 +33,11 @@ public class ReplicationCreateTargetParametersTest {
   public void testReplicationCreateTargetParameters() throws Throwable {
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
       .n(Long.valueOf("1"))
-      .partitioned(true)
+      .partitioned(false)
       .q(Long.valueOf("1"))
       .build();
     assertEquals(replicationCreateTargetParametersModel.n(), Long.valueOf("1"));
-    assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(true));
+    assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(false));
     assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("1"));
 
     String json = TestUtilities.serialize(replicationCreateTargetParametersModel);
@@ -45,7 +45,7 @@ public class ReplicationCreateTargetParametersTest {
     ReplicationCreateTargetParameters replicationCreateTargetParametersModelNew = TestUtilities.deserialize(json, ReplicationCreateTargetParameters.class);
     assertTrue(replicationCreateTargetParametersModelNew instanceof ReplicationCreateTargetParameters);
     assertEquals(replicationCreateTargetParametersModelNew.n(), Long.valueOf("1"));
-    assertEquals(replicationCreateTargetParametersModelNew.partitioned(), Boolean.valueOf(true));
+    assertEquals(replicationCreateTargetParametersModelNew.partitioned(), Boolean.valueOf(false));
     assertEquals(replicationCreateTargetParametersModelNew.q(), Long.valueOf("1"));
   }
 }
