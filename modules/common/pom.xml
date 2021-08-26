@@ -4,13 +4,13 @@
     <parent>
         <artifactId>cloudant-parent</artifactId>
         <groupId>com.ibm.cloud</groupId>
-        <version>0.0.26</version>
+        <version>0.0.27</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <groupId>com.ibm.cloud</groupId>
     <artifactId>cloudant-common</artifactId>
-    <version>0.0.26</version>
+    <version>0.0.27</version>
 
     <name>Cloudant Common Library</name>
     <packaging>jar</packaging>
