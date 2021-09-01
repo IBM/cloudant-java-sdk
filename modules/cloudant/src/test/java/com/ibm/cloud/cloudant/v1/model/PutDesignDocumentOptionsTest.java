@@ -131,7 +131,7 @@ public class PutDesignDocumentOptionsTest {
       .autoupdate(true)
       .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
-      .language("testString")
+      .language("javascript")
       .options(designDocumentOptionsModel)
       .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .validateDocUpdate("testString")
@@ -151,7 +151,7 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentModel.isAutoupdate(), Boolean.valueOf(true));
     assertEquals(designDocumentModel.getFilters(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(designDocumentModel.getIndexes(), new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } });
-    assertEquals(designDocumentModel.getLanguage(), "testString");
+    assertEquals(designDocumentModel.getLanguage(), "javascript");
     assertEquals(designDocumentModel.getOptions(), designDocumentOptionsModel);
     assertEquals(designDocumentModel.getUpdates(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(designDocumentModel.getValidateDocUpdate(), "testString");
@@ -165,7 +165,7 @@ public class PutDesignDocumentOptionsTest {
       .designDocument(designDocumentModel)
       .ifMatch("testString")
       .batch("ok")
-      .newEdits(true)
+      .newEdits(false)
       .rev("testString")
       .build();
     assertEquals(putDesignDocumentOptionsModel.db(), "testString");
@@ -173,7 +173,7 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(putDesignDocumentOptionsModel.designDocument(), designDocumentModel);
     assertEquals(putDesignDocumentOptionsModel.ifMatch(), "testString");
     assertEquals(putDesignDocumentOptionsModel.batch(), "ok");
-    assertEquals(putDesignDocumentOptionsModel.newEdits(), Boolean.valueOf(true));
+    assertEquals(putDesignDocumentOptionsModel.newEdits(), Boolean.valueOf(false));
     assertEquals(putDesignDocumentOptionsModel.rev(), "testString");
   }
 

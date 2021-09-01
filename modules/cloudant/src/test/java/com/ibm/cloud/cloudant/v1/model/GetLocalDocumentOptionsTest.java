@@ -36,17 +36,17 @@ public class GetLocalDocumentOptionsTest {
       .docId("testString")
       .accept("application/json")
       .ifNoneMatch("testString")
-      .attachments(true)
-      .attEncodingInfo(true)
-      .localSeq(true)
+      .attachments(false)
+      .attEncodingInfo(false)
+      .localSeq(false)
       .build();
     assertEquals(getLocalDocumentOptionsModel.db(), "testString");
     assertEquals(getLocalDocumentOptionsModel.docId(), "testString");
     assertEquals(getLocalDocumentOptionsModel.accept(), "application/json");
     assertEquals(getLocalDocumentOptionsModel.ifNoneMatch(), "testString");
-    assertEquals(getLocalDocumentOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(getLocalDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getLocalDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
+    assertEquals(getLocalDocumentOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(getLocalDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(getLocalDocumentOptionsModel.localSeq(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

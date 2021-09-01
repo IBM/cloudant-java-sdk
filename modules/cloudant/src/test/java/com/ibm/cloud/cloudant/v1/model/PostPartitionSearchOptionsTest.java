@@ -42,10 +42,10 @@ public class PostPartitionSearchOptionsTest {
       .bookmark("testString")
       .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .highlightNumber(Long.valueOf("1"))
-      .highlightPostTag("testString")
-      .highlightPreTag("testString")
+      .highlightPostTag("</em>")
+      .highlightPreTag("<em>")
       .highlightSize(Long.valueOf("1"))
-      .includeDocs(true)
+      .includeDocs(false)
       .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .limit(Long.valueOf("0"))
       .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -59,10 +59,10 @@ public class PostPartitionSearchOptionsTest {
     assertEquals(postPartitionSearchOptionsModel.bookmark(), "testString");
     assertEquals(postPartitionSearchOptionsModel.highlightFields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postPartitionSearchOptionsModel.highlightNumber(), Long.valueOf("1"));
-    assertEquals(postPartitionSearchOptionsModel.highlightPostTag(), "testString");
-    assertEquals(postPartitionSearchOptionsModel.highlightPreTag(), "testString");
+    assertEquals(postPartitionSearchOptionsModel.highlightPostTag(), "</em>");
+    assertEquals(postPartitionSearchOptionsModel.highlightPreTag(), "<em>");
     assertEquals(postPartitionSearchOptionsModel.highlightSize(), Long.valueOf("1"));
-    assertEquals(postPartitionSearchOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postPartitionSearchOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postPartitionSearchOptionsModel.includeFields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postPartitionSearchOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postPartitionSearchOptionsModel.sort(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

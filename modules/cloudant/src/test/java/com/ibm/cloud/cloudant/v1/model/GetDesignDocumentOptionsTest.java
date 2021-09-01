@@ -35,30 +35,30 @@ public class GetDesignDocumentOptionsTest {
       .db("testString")
       .ddoc("testString")
       .ifNoneMatch("testString")
-      .attachments(true)
-      .attEncodingInfo(true)
-      .conflicts(true)
-      .deletedConflicts(true)
-      .latest(true)
-      .localSeq(true)
-      .meta(true)
+      .attachments(false)
+      .attEncodingInfo(false)
+      .conflicts(false)
+      .deletedConflicts(false)
+      .latest(false)
+      .localSeq(false)
+      .meta(false)
       .rev("testString")
-      .revs(true)
-      .revsInfo(true)
+      .revs(false)
+      .revsInfo(false)
       .build();
     assertEquals(getDesignDocumentOptionsModel.db(), "testString");
     assertEquals(getDesignDocumentOptionsModel.ddoc(), "testString");
     assertEquals(getDesignDocumentOptionsModel.ifNoneMatch(), "testString");
-    assertEquals(getDesignDocumentOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.latest(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.meta(), Boolean.valueOf(true));
+    assertEquals(getDesignDocumentOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(getDesignDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(getDesignDocumentOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(getDesignDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(false));
+    assertEquals(getDesignDocumentOptionsModel.latest(), Boolean.valueOf(false));
+    assertEquals(getDesignDocumentOptionsModel.localSeq(), Boolean.valueOf(false));
+    assertEquals(getDesignDocumentOptionsModel.meta(), Boolean.valueOf(false));
     assertEquals(getDesignDocumentOptionsModel.rev(), "testString");
-    assertEquals(getDesignDocumentOptionsModel.revs(), Boolean.valueOf(true));
-    assertEquals(getDesignDocumentOptionsModel.revsInfo(), Boolean.valueOf(true));
+    assertEquals(getDesignDocumentOptionsModel.revs(), Boolean.valueOf(false));
+    assertEquals(getDesignDocumentOptionsModel.revsInfo(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

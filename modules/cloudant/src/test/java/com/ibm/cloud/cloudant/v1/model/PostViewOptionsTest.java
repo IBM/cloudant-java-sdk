@@ -37,23 +37,23 @@ public class PostViewOptionsTest {
       .db("testString")
       .ddoc("testString")
       .view("testString")
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .includeDocs(true)
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
       .inclusiveEnd(true)
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .updateSeq(true)
+      .updateSeq(false)
       .endkey("testString")
       .endkeyDocid("testString")
-      .group(true)
+      .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
-      .stable(true)
+      .stable(false)
       .startkey("testString")
       .startkeyDocid("testString")
       .update("true")
@@ -61,23 +61,23 @@ public class PostViewOptionsTest {
     assertEquals(postViewOptionsModel.db(), "testString");
     assertEquals(postViewOptionsModel.ddoc(), "testString");
     assertEquals(postViewOptionsModel.view(), "testString");
-    assertEquals(postViewOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(postViewOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(postViewOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(postViewOptionsModel.descending(), Boolean.valueOf(true));
-    assertEquals(postViewOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postViewOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(postViewOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(postViewOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(postViewOptionsModel.descending(), Boolean.valueOf(false));
+    assertEquals(postViewOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postViewOptionsModel.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(postViewOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postViewOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postViewOptionsModel.updateSeq(), Boolean.valueOf(true));
+    assertEquals(postViewOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postViewOptionsModel.endkey(), "testString");
     assertEquals(postViewOptionsModel.endkeyDocid(), "testString");
-    assertEquals(postViewOptionsModel.group(), Boolean.valueOf(true));
+    assertEquals(postViewOptionsModel.group(), Boolean.valueOf(false));
     assertEquals(postViewOptionsModel.groupLevel(), Long.valueOf("1"));
     assertEquals(postViewOptionsModel.key(), "testString");
     assertEquals(postViewOptionsModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
     assertEquals(postViewOptionsModel.reduce(), Boolean.valueOf(true));
-    assertEquals(postViewOptionsModel.stable(), Boolean.valueOf(true));
+    assertEquals(postViewOptionsModel.stable(), Boolean.valueOf(false));
     assertEquals(postViewOptionsModel.startkey(), "testString");
     assertEquals(postViewOptionsModel.startkeyDocid(), "testString");
     assertEquals(postViewOptionsModel.update(), "true");

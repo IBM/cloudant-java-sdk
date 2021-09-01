@@ -39,18 +39,18 @@ public class PostChangesOptionsTest {
       .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .lastEventId("testString")
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .feed("continuous")
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .feed("normal")
       .filter("testString")
       .heartbeat(Long.valueOf("0"))
-      .includeDocs(true)
+      .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
-      .since("testString")
-      .style("testString")
+      .since("0")
+      .style("main_only")
       .timeout(Long.valueOf("0"))
       .view("testString")
       .build();
@@ -59,18 +59,18 @@ public class PostChangesOptionsTest {
     assertEquals(postChangesOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postChangesOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postChangesOptionsModel.lastEventId(), "testString");
-    assertEquals(postChangesOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(postChangesOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(postChangesOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(postChangesOptionsModel.descending(), Boolean.valueOf(true));
-    assertEquals(postChangesOptionsModel.feed(), "continuous");
+    assertEquals(postChangesOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(postChangesOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(postChangesOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(postChangesOptionsModel.descending(), Boolean.valueOf(false));
+    assertEquals(postChangesOptionsModel.feed(), "normal");
     assertEquals(postChangesOptionsModel.filter(), "testString");
     assertEquals(postChangesOptionsModel.heartbeat(), Long.valueOf("0"));
-    assertEquals(postChangesOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postChangesOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postChangesOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postChangesOptionsModel.seqInterval(), Long.valueOf("1"));
-    assertEquals(postChangesOptionsModel.since(), "testString");
-    assertEquals(postChangesOptionsModel.style(), "testString");
+    assertEquals(postChangesOptionsModel.since(), "0");
+    assertEquals(postChangesOptionsModel.style(), "main_only");
     assertEquals(postChangesOptionsModel.timeout(), Long.valueOf("0"));
     assertEquals(postChangesOptionsModel.view(), "testString");
   }

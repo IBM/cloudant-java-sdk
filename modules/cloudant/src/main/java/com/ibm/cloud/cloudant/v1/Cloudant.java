@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.30.0-bd714324-20210406-200538
+ * IBM OpenAPI SDK Code Generator Version: 3.37.1-66e80f2e-20210813-202232
  */
 
 package com.ibm.cloud.cloudant.v1;

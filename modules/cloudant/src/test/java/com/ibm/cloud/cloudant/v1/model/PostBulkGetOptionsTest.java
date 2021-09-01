@@ -46,17 +46,17 @@ public class PostBulkGetOptionsTest {
     PostBulkGetOptions postBulkGetOptionsModel = new PostBulkGetOptions.Builder()
       .db("testString")
       .docs(new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)))
-      .attachments(true)
-      .attEncodingInfo(true)
-      .latest(true)
-      .revs(true)
+      .attachments(false)
+      .attEncodingInfo(false)
+      .latest(false)
+      .revs(false)
       .build();
     assertEquals(postBulkGetOptionsModel.db(), "testString");
     assertEquals(postBulkGetOptionsModel.docs(), new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)));
-    assertEquals(postBulkGetOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(postBulkGetOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(postBulkGetOptionsModel.latest(), Boolean.valueOf(true));
-    assertEquals(postBulkGetOptionsModel.revs(), Boolean.valueOf(true));
+    assertEquals(postBulkGetOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(postBulkGetOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(postBulkGetOptionsModel.latest(), Boolean.valueOf(false));
+    assertEquals(postBulkGetOptionsModel.revs(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -36,15 +36,15 @@ public class PostPartitionAllDocsOptionsTest {
     PostPartitionAllDocsOptions postPartitionAllDocsOptionsModel = new PostPartitionAllDocsOptions.Builder()
       .db("testString")
       .partitionKey("testString")
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .includeDocs(true)
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
       .inclusiveEnd(true)
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .updateSeq(true)
+      .updateSeq(false)
       .endkey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -52,15 +52,15 @@ public class PostPartitionAllDocsOptionsTest {
       .build();
     assertEquals(postPartitionAllDocsOptionsModel.db(), "testString");
     assertEquals(postPartitionAllDocsOptionsModel.partitionKey(), "testString");
-    assertEquals(postPartitionAllDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(postPartitionAllDocsOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(postPartitionAllDocsOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(postPartitionAllDocsOptionsModel.descending(), Boolean.valueOf(true));
-    assertEquals(postPartitionAllDocsOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postPartitionAllDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(postPartitionAllDocsOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(postPartitionAllDocsOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(postPartitionAllDocsOptionsModel.descending(), Boolean.valueOf(false));
+    assertEquals(postPartitionAllDocsOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postPartitionAllDocsOptionsModel.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(postPartitionAllDocsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postPartitionAllDocsOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postPartitionAllDocsOptionsModel.updateSeq(), Boolean.valueOf(true));
+    assertEquals(postPartitionAllDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postPartitionAllDocsOptionsModel.endkey(), "testString");
     assertEquals(postPartitionAllDocsOptionsModel.key(), "testString");
     assertEquals(postPartitionAllDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
