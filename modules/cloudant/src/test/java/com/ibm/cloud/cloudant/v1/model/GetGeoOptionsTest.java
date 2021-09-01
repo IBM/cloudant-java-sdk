@@ -37,17 +37,17 @@ public class GetGeoOptionsTest {
       .index("testString")
       .bbox("testString")
       .bookmark("testString")
-      .format("legacy")
+      .format("view")
       .g("testString")
-      .includeDocs(true)
+      .includeDocs(false)
       .lat(Double.valueOf("-90"))
       .limit(Long.valueOf("0"))
       .lon(Double.valueOf("-180"))
-      .nearest(true)
+      .nearest(false)
       .radius(Double.valueOf("0"))
       .rangex(Double.valueOf("0"))
       .rangey(Double.valueOf("0"))
-      .relation("contains")
+      .relation("intersects")
       .skip(Long.valueOf("0"))
       .stale("ok")
       .build();
@@ -56,17 +56,17 @@ public class GetGeoOptionsTest {
     assertEquals(getGeoOptionsModel.index(), "testString");
     assertEquals(getGeoOptionsModel.bbox(), "testString");
     assertEquals(getGeoOptionsModel.bookmark(), "testString");
-    assertEquals(getGeoOptionsModel.format(), "legacy");
+    assertEquals(getGeoOptionsModel.format(), "view");
     assertEquals(getGeoOptionsModel.g(), "testString");
-    assertEquals(getGeoOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(getGeoOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(getGeoOptionsModel.lat(), Double.valueOf("-90"));
     assertEquals(getGeoOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(getGeoOptionsModel.lon(), Double.valueOf("-180"));
-    assertEquals(getGeoOptionsModel.nearest(), Boolean.valueOf(true));
+    assertEquals(getGeoOptionsModel.nearest(), Boolean.valueOf(false));
     assertEquals(getGeoOptionsModel.radius(), Double.valueOf("0"));
     assertEquals(getGeoOptionsModel.rangex(), Double.valueOf("0"));
     assertEquals(getGeoOptionsModel.rangey(), Double.valueOf("0"));
-    assertEquals(getGeoOptionsModel.relation(), "contains");
+    assertEquals(getGeoOptionsModel.relation(), "intersects");
     assertEquals(getGeoOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(getGeoOptionsModel.stale(), "ok");
   }

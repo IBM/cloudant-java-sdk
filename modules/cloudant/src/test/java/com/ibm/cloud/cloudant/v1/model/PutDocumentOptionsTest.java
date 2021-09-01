@@ -104,7 +104,7 @@ public class PutDocumentOptionsTest {
       .contentType("application/json")
       .ifMatch("testString")
       .batch("ok")
-      .newEdits(true)
+      .newEdits(false)
       .rev("testString")
       .build();
     assertEquals(putDocumentOptionsModel.db(), "testString");
@@ -114,7 +114,7 @@ public class PutDocumentOptionsTest {
     assertEquals(putDocumentOptionsModel.contentType(), "application/json");
     assertEquals(putDocumentOptionsModel.ifMatch(), "testString");
     assertEquals(putDocumentOptionsModel.batch(), "ok");
-    assertEquals(putDocumentOptionsModel.newEdits(), Boolean.valueOf(true));
+    assertEquals(putDocumentOptionsModel.newEdits(), Boolean.valueOf(false));
     assertEquals(putDocumentOptionsModel.rev(), "testString");
   }
 

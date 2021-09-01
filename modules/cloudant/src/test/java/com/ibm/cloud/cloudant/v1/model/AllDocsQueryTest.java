@@ -34,29 +34,29 @@ public class AllDocsQueryTest {
   @Test
   public void testAllDocsQuery() throws Throwable {
     AllDocsQuery allDocsQueryModel = new AllDocsQuery.Builder()
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .includeDocs(true)
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
       .inclusiveEnd(true)
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .updateSeq(true)
+      .updateSeq(false)
       .endkey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .startkey("testString")
       .build();
-    assertEquals(allDocsQueryModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModel.attachments(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModel.descending(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(allDocsQueryModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModel.attachments(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModel.descending(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(allDocsQueryModel.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(allDocsQueryModel.limit(), Long.valueOf("0"));
     assertEquals(allDocsQueryModel.skip(), Long.valueOf("0"));
-    assertEquals(allDocsQueryModel.updateSeq(), Boolean.valueOf(true));
+    assertEquals(allDocsQueryModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(allDocsQueryModel.endkey(), "testString");
     assertEquals(allDocsQueryModel.key(), "testString");
     assertEquals(allDocsQueryModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
@@ -66,15 +66,15 @@ public class AllDocsQueryTest {
 
     AllDocsQuery allDocsQueryModelNew = TestUtilities.deserialize(json, AllDocsQuery.class);
     assertTrue(allDocsQueryModelNew instanceof AllDocsQuery);
-    assertEquals(allDocsQueryModelNew.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModelNew.attachments(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModelNew.conflicts(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModelNew.descending(), Boolean.valueOf(true));
-    assertEquals(allDocsQueryModelNew.includeDocs(), Boolean.valueOf(true));
+    assertEquals(allDocsQueryModelNew.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModelNew.attachments(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModelNew.conflicts(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModelNew.descending(), Boolean.valueOf(false));
+    assertEquals(allDocsQueryModelNew.includeDocs(), Boolean.valueOf(false));
     assertEquals(allDocsQueryModelNew.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(allDocsQueryModelNew.limit(), Long.valueOf("0"));
     assertEquals(allDocsQueryModelNew.skip(), Long.valueOf("0"));
-    assertEquals(allDocsQueryModelNew.updateSeq(), Boolean.valueOf(true));
+    assertEquals(allDocsQueryModelNew.updateSeq(), Boolean.valueOf(false));
     assertEquals(allDocsQueryModelNew.endkey(), "testString");
     assertEquals(allDocsQueryModelNew.key(), "testString");
     assertEquals(allDocsQueryModelNew.startkey(), "testString");

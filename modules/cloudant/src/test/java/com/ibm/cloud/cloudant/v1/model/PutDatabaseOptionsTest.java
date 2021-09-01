@@ -33,11 +33,11 @@ public class PutDatabaseOptionsTest {
   public void testPutDatabaseOptions() throws Throwable {
     PutDatabaseOptions putDatabaseOptionsModel = new PutDatabaseOptions.Builder()
       .db("testString")
-      .partitioned(true)
+      .partitioned(false)
       .q(Long.valueOf("1"))
       .build();
     assertEquals(putDatabaseOptionsModel.db(), "testString");
-    assertEquals(putDatabaseOptionsModel.partitioned(), Boolean.valueOf(true));
+    assertEquals(putDatabaseOptionsModel.partitioned(), Boolean.valueOf(false));
     assertEquals(putDatabaseOptionsModel.q(), Long.valueOf("1"));
   }
 

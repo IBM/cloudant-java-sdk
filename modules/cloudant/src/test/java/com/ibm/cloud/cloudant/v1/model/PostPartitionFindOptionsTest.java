@@ -46,7 +46,7 @@ public class PostPartitionFindOptionsTest {
       .skip(Long.valueOf("0"))
       .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
       .stable(true)
-      .update("false")
+      .update("true")
       .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .build();
     assertEquals(postPartitionFindOptionsModel.db(), "testString");
@@ -60,7 +60,7 @@ public class PostPartitionFindOptionsTest {
     assertEquals(postPartitionFindOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postPartitionFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
     assertEquals(postPartitionFindOptionsModel.stable(), Boolean.valueOf(true));
-    assertEquals(postPartitionFindOptionsModel.update(), "false");
+    assertEquals(postPartitionFindOptionsModel.update(), "true");
     assertEquals(postPartitionFindOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
   }
 

@@ -35,30 +35,30 @@ public class PostAllDocsOptionsTest {
   public void testPostAllDocsOptions() throws Throwable {
     PostAllDocsOptions postAllDocsOptionsModel = new PostAllDocsOptions.Builder()
       .db("testString")
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .includeDocs(true)
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
       .inclusiveEnd(true)
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .updateSeq(true)
+      .updateSeq(false)
       .endkey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .startkey("testString")
       .build();
     assertEquals(postAllDocsOptionsModel.db(), "testString");
-    assertEquals(postAllDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(postAllDocsOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(postAllDocsOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(postAllDocsOptionsModel.descending(), Boolean.valueOf(true));
-    assertEquals(postAllDocsOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postAllDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(postAllDocsOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(postAllDocsOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(postAllDocsOptionsModel.descending(), Boolean.valueOf(false));
+    assertEquals(postAllDocsOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postAllDocsOptionsModel.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(postAllDocsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postAllDocsOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postAllDocsOptionsModel.updateSeq(), Boolean.valueOf(true));
+    assertEquals(postAllDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postAllDocsOptionsModel.endkey(), "testString");
     assertEquals(postAllDocsOptionsModel.key(), "testString");
     assertEquals(postAllDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

@@ -34,29 +34,29 @@ public class GetReplicationDocumentOptionsTest {
     GetReplicationDocumentOptions getReplicationDocumentOptionsModel = new GetReplicationDocumentOptions.Builder()
       .docId("testString")
       .ifNoneMatch("testString")
-      .attachments(true)
-      .attEncodingInfo(true)
-      .conflicts(true)
-      .deletedConflicts(true)
-      .latest(true)
-      .localSeq(true)
-      .meta(true)
+      .attachments(false)
+      .attEncodingInfo(false)
+      .conflicts(false)
+      .deletedConflicts(false)
+      .latest(false)
+      .localSeq(false)
+      .meta(false)
       .rev("testString")
-      .revs(true)
-      .revsInfo(true)
+      .revs(false)
+      .revsInfo(false)
       .build();
     assertEquals(getReplicationDocumentOptionsModel.docId(), "testString");
     assertEquals(getReplicationDocumentOptionsModel.ifNoneMatch(), "testString");
-    assertEquals(getReplicationDocumentOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.latest(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.localSeq(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.meta(), Boolean.valueOf(true));
+    assertEquals(getReplicationDocumentOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(getReplicationDocumentOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(getReplicationDocumentOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(getReplicationDocumentOptionsModel.deletedConflicts(), Boolean.valueOf(false));
+    assertEquals(getReplicationDocumentOptionsModel.latest(), Boolean.valueOf(false));
+    assertEquals(getReplicationDocumentOptionsModel.localSeq(), Boolean.valueOf(false));
+    assertEquals(getReplicationDocumentOptionsModel.meta(), Boolean.valueOf(false));
     assertEquals(getReplicationDocumentOptionsModel.rev(), "testString");
-    assertEquals(getReplicationDocumentOptionsModel.revs(), Boolean.valueOf(true));
-    assertEquals(getReplicationDocumentOptionsModel.revsInfo(), Boolean.valueOf(true));
+    assertEquals(getReplicationDocumentOptionsModel.revs(), Boolean.valueOf(false));
+    assertEquals(getReplicationDocumentOptionsModel.revsInfo(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

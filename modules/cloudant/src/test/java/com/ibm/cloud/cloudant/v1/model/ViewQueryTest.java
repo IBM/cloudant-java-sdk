@@ -34,44 +34,44 @@ public class ViewQueryTest {
   @Test
   public void testViewQuery() throws Throwable {
     ViewQuery viewQueryModel = new ViewQuery.Builder()
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .includeDocs(true)
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
       .inclusiveEnd(true)
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .updateSeq(true)
+      .updateSeq(false)
       .endkey("testString")
       .endkeyDocid("testString")
-      .group(true)
+      .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
-      .stable(true)
+      .stable(false)
       .startkey("testString")
       .startkeyDocid("testString")
       .update("true")
       .build();
-    assertEquals(viewQueryModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(viewQueryModel.attachments(), Boolean.valueOf(true));
-    assertEquals(viewQueryModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(viewQueryModel.descending(), Boolean.valueOf(true));
-    assertEquals(viewQueryModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(viewQueryModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(viewQueryModel.attachments(), Boolean.valueOf(false));
+    assertEquals(viewQueryModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(viewQueryModel.descending(), Boolean.valueOf(false));
+    assertEquals(viewQueryModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(viewQueryModel.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(viewQueryModel.limit(), Long.valueOf("0"));
     assertEquals(viewQueryModel.skip(), Long.valueOf("0"));
-    assertEquals(viewQueryModel.updateSeq(), Boolean.valueOf(true));
+    assertEquals(viewQueryModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(viewQueryModel.endkey(), "testString");
     assertEquals(viewQueryModel.endkeyDocid(), "testString");
-    assertEquals(viewQueryModel.group(), Boolean.valueOf(true));
+    assertEquals(viewQueryModel.group(), Boolean.valueOf(false));
     assertEquals(viewQueryModel.groupLevel(), Long.valueOf("1"));
     assertEquals(viewQueryModel.key(), "testString");
     assertEquals(viewQueryModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
     assertEquals(viewQueryModel.reduce(), Boolean.valueOf(true));
-    assertEquals(viewQueryModel.stable(), Boolean.valueOf(true));
+    assertEquals(viewQueryModel.stable(), Boolean.valueOf(false));
     assertEquals(viewQueryModel.startkey(), "testString");
     assertEquals(viewQueryModel.startkeyDocid(), "testString");
     assertEquals(viewQueryModel.update(), "true");
@@ -80,22 +80,22 @@ public class ViewQueryTest {
 
     ViewQuery viewQueryModelNew = TestUtilities.deserialize(json, ViewQuery.class);
     assertTrue(viewQueryModelNew instanceof ViewQuery);
-    assertEquals(viewQueryModelNew.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(viewQueryModelNew.attachments(), Boolean.valueOf(true));
-    assertEquals(viewQueryModelNew.conflicts(), Boolean.valueOf(true));
-    assertEquals(viewQueryModelNew.descending(), Boolean.valueOf(true));
-    assertEquals(viewQueryModelNew.includeDocs(), Boolean.valueOf(true));
+    assertEquals(viewQueryModelNew.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(viewQueryModelNew.attachments(), Boolean.valueOf(false));
+    assertEquals(viewQueryModelNew.conflicts(), Boolean.valueOf(false));
+    assertEquals(viewQueryModelNew.descending(), Boolean.valueOf(false));
+    assertEquals(viewQueryModelNew.includeDocs(), Boolean.valueOf(false));
     assertEquals(viewQueryModelNew.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(viewQueryModelNew.limit(), Long.valueOf("0"));
     assertEquals(viewQueryModelNew.skip(), Long.valueOf("0"));
-    assertEquals(viewQueryModelNew.updateSeq(), Boolean.valueOf(true));
+    assertEquals(viewQueryModelNew.updateSeq(), Boolean.valueOf(false));
     assertEquals(viewQueryModelNew.endkey(), "testString");
     assertEquals(viewQueryModelNew.endkeyDocid(), "testString");
-    assertEquals(viewQueryModelNew.group(), Boolean.valueOf(true));
+    assertEquals(viewQueryModelNew.group(), Boolean.valueOf(false));
     assertEquals(viewQueryModelNew.groupLevel(), Long.valueOf("1"));
     assertEquals(viewQueryModelNew.key(), "testString");
     assertEquals(viewQueryModelNew.reduce(), Boolean.valueOf(true));
-    assertEquals(viewQueryModelNew.stable(), Boolean.valueOf(true));
+    assertEquals(viewQueryModelNew.stable(), Boolean.valueOf(false));
     assertEquals(viewQueryModelNew.startkey(), "testString");
     assertEquals(viewQueryModelNew.startkeyDocid(), "testString");
     assertEquals(viewQueryModelNew.update(), "true");

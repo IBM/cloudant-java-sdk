@@ -36,15 +36,15 @@ public class PostDesignDocsOptionsTest {
     PostDesignDocsOptions postDesignDocsOptionsModel = new PostDesignDocsOptions.Builder()
       .db("testString")
       .accept("application/json")
-      .attEncodingInfo(true)
-      .attachments(true)
-      .conflicts(true)
-      .descending(true)
-      .includeDocs(true)
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
       .inclusiveEnd(true)
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .updateSeq(true)
+      .updateSeq(false)
       .endkey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -52,15 +52,15 @@ public class PostDesignDocsOptionsTest {
       .build();
     assertEquals(postDesignDocsOptionsModel.db(), "testString");
     assertEquals(postDesignDocsOptionsModel.accept(), "application/json");
-    assertEquals(postDesignDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(true));
-    assertEquals(postDesignDocsOptionsModel.attachments(), Boolean.valueOf(true));
-    assertEquals(postDesignDocsOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(postDesignDocsOptionsModel.descending(), Boolean.valueOf(true));
-    assertEquals(postDesignDocsOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postDesignDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
+    assertEquals(postDesignDocsOptionsModel.attachments(), Boolean.valueOf(false));
+    assertEquals(postDesignDocsOptionsModel.conflicts(), Boolean.valueOf(false));
+    assertEquals(postDesignDocsOptionsModel.descending(), Boolean.valueOf(false));
+    assertEquals(postDesignDocsOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postDesignDocsOptionsModel.inclusiveEnd(), Boolean.valueOf(true));
     assertEquals(postDesignDocsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postDesignDocsOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postDesignDocsOptionsModel.updateSeq(), Boolean.valueOf(true));
+    assertEquals(postDesignDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postDesignDocsOptionsModel.endkey(), "testString");
     assertEquals(postDesignDocsOptionsModel.key(), "testString");
     assertEquals(postDesignDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

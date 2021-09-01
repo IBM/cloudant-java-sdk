@@ -476,10 +476,10 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the GetDbUpdatesOptions model
     GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
-    .feed("continuous")
+    .feed("normal")
     .heartbeat(Long.valueOf("0"))
     .timeout(Long.valueOf("0"))
-    .since("testString")
+    .since("0")
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -497,10 +497,10 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("feed"), "continuous");
+    assertEquals(query.get("feed"), "normal");
     assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
-    assertEquals(query.get("since"), "testString");
+    assertEquals(query.get("since"), "0");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDbUpdatesPath);
@@ -526,18 +526,18 @@ public class CloudantTest extends PowerMockTestCase {
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .lastEventId("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .feed("continuous")
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .feed("normal")
     .filter("testString")
     .heartbeat(Long.valueOf("0"))
-    .includeDocs(true)
+    .includeDocs(false)
     .limit(Long.valueOf("0"))
     .seqInterval(Long.valueOf("1"))
-    .since("testString")
-    .style("testString")
+    .since("0")
+    .style("main_only")
     .timeout(Long.valueOf("0"))
     .view("testString")
     .build();
@@ -557,18 +557,18 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(true));
-    assertEquals(query.get("feed"), "continuous");
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
+    assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
     assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
-    assertEquals(query.get("since"), "testString");
-    assertEquals(query.get("style"), "testString");
+    assertEquals(query.get("since"), "0");
+    assertEquals(query.get("style"), "main_only");
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
     assertEquals(query.get("view"), "testString");
     // Check request path
@@ -608,18 +608,18 @@ public class CloudantTest extends PowerMockTestCase {
     .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
     .lastEventId("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .feed("continuous")
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .feed("normal")
     .filter("testString")
     .heartbeat(Long.valueOf("0"))
-    .includeDocs(true)
+    .includeDocs(false)
     .limit(Long.valueOf("0"))
     .seqInterval(Long.valueOf("1"))
-    .since("testString")
-    .style("testString")
+    .since("0")
+    .style("main_only")
     .timeout(Long.valueOf("0"))
     .view("testString")
     .build();
@@ -639,18 +639,18 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(true));
-    assertEquals(query.get("feed"), "continuous");
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
+    assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
     assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
-    assertEquals(query.get("since"), "testString");
-    assertEquals(query.get("style"), "testString");
+    assertEquals(query.get("since"), "0");
+    assertEquals(query.get("style"), "main_only");
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
     assertEquals(query.get("view"), "testString");
     // Check request path
@@ -740,7 +740,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the GetAllDbsOptions model
     GetAllDbsOptions getAllDbsOptionsModel = new GetAllDbsOptions.Builder()
-    .descending(true)
+    .descending(false)
     .endkey("testString")
     .limit(Long.valueOf("0"))
     .skip(Long.valueOf("0"))
@@ -762,7 +762,7 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("endkey"), "testString");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("skip")), Long.valueOf("0"));
@@ -938,7 +938,7 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PutDatabaseOptions model
     PutDatabaseOptions putDatabaseOptionsModel = new PutDatabaseOptions.Builder()
     .db("testString")
-    .partitioned(true)
+    .partitioned(false)
     .q(Long.valueOf("1"))
     .build();
 
@@ -957,7 +957,7 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("partitioned")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("partitioned")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("q")), Long.valueOf("1"));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -993,7 +993,7 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .docId("testString")
     .ifNoneMatch("testString")
-    .latest(true)
+    .latest(false)
     .rev("testString")
     .build();
 
@@ -1013,7 +1013,7 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -1141,15 +1141,15 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostAllDocsOptions model
     PostAllDocsOptions postAllDocsOptionsModel = new PostAllDocsOptions.Builder()
     .db("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -1204,15 +1204,15 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostAllDocsOptions model
     PostAllDocsOptions postAllDocsOptionsModel = new PostAllDocsOptions.Builder()
     .db("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -1271,15 +1271,15 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the AllDocsQuery model
     AllDocsQuery allDocsQueryModel = new AllDocsQuery.Builder()
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("0"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("small-appliances:1000042", "small-appliances:1000043")))
@@ -1339,15 +1339,15 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the AllDocsQuery model
     AllDocsQuery allDocsQueryModel = new AllDocsQuery.Builder()
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("0"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("small-appliances:1000042", "small-appliances:1000043")))
@@ -1517,10 +1517,10 @@ public class CloudantTest extends PowerMockTestCase {
     PostBulkGetOptions postBulkGetOptionsModel = new PostBulkGetOptions.Builder()
     .db("testString")
     .docs(new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)))
-    .attachments(true)
-    .attEncodingInfo(true)
-    .latest(true)
-    .revs(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .latest(false)
+    .revs(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1538,10 +1538,10 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkGetPath);
@@ -1583,10 +1583,10 @@ public class CloudantTest extends PowerMockTestCase {
     PostBulkGetOptions postBulkGetOptionsModel = new PostBulkGetOptions.Builder()
     .db("testString")
     .docs(new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)))
-    .attachments(true)
-    .attEncodingInfo(true)
-    .latest(true)
-    .revs(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .latest(false)
+    .revs(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1604,10 +1604,10 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkGetAsMixedPath);
@@ -1649,10 +1649,10 @@ public class CloudantTest extends PowerMockTestCase {
     PostBulkGetOptions postBulkGetOptionsModel = new PostBulkGetOptions.Builder()
     .db("testString")
     .docs(new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)))
-    .attachments(true)
-    .attEncodingInfo(true)
-    .latest(true)
-    .revs(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .latest(false)
+    .revs(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1670,10 +1670,10 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkGetAsRelatedPath);
@@ -1715,10 +1715,10 @@ public class CloudantTest extends PowerMockTestCase {
     PostBulkGetOptions postBulkGetOptionsModel = new PostBulkGetOptions.Builder()
     .db("testString")
     .docs(new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)))
-    .attachments(true)
-    .attEncodingInfo(true)
-    .latest(true)
-    .revs(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .latest(false)
+    .revs(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1736,10 +1736,10 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkGetAsStreamPath);
@@ -1836,16 +1836,16 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .docId("testString")
     .ifNoneMatch("testString")
-    .attachments(true)
-    .attEncodingInfo(true)
-    .conflicts(true)
-    .deletedConflicts(true)
-    .latest(true)
-    .localSeq(true)
-    .meta(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .conflicts(false)
+    .deletedConflicts(false)
+    .latest(false)
+    .localSeq(false)
+    .meta(false)
     .rev("testString")
-    .revs(true)
-    .revsInfo(true)
+    .revs(false)
+    .revsInfo(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1863,16 +1863,16 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentPath);
@@ -1908,16 +1908,16 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .docId("testString")
     .ifNoneMatch("testString")
-    .attachments(true)
-    .attEncodingInfo(true)
-    .conflicts(true)
-    .deletedConflicts(true)
-    .latest(true)
-    .localSeq(true)
-    .meta(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .conflicts(false)
+    .deletedConflicts(false)
+    .latest(false)
+    .localSeq(false)
+    .meta(false)
     .rev("testString")
-    .revs(true)
-    .revsInfo(true)
+    .revs(false)
+    .revsInfo(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1935,16 +1935,16 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentAsMixedPath);
@@ -1980,16 +1980,16 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .docId("testString")
     .ifNoneMatch("testString")
-    .attachments(true)
-    .attEncodingInfo(true)
-    .conflicts(true)
-    .deletedConflicts(true)
-    .latest(true)
-    .localSeq(true)
-    .meta(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .conflicts(false)
+    .deletedConflicts(false)
+    .latest(false)
+    .localSeq(false)
+    .meta(false)
     .rev("testString")
-    .revs(true)
-    .revsInfo(true)
+    .revs(false)
+    .revsInfo(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2007,16 +2007,16 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentAsRelatedPath);
@@ -2052,16 +2052,16 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .docId("testString")
     .ifNoneMatch("testString")
-    .attachments(true)
-    .attEncodingInfo(true)
-    .conflicts(true)
-    .deletedConflicts(true)
-    .latest(true)
-    .localSeq(true)
-    .meta(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .conflicts(false)
+    .deletedConflicts(false)
+    .latest(false)
+    .localSeq(false)
+    .meta(false)
     .rev("testString")
-    .revs(true)
-    .revsInfo(true)
+    .revs(false)
+    .revsInfo(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2079,16 +2079,16 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentAsStreamPath);
@@ -2160,7 +2160,16 @@ public class CloudantTest extends PowerMockTestCase {
     .rev("testString")
     .revisions(revisionsModel)
     .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
-    .add("foo", "testString")
+    .add("brand", "Foo")
+    .add("colours", "[\"red\",\"green\",\"black\",\"blue\"]")
+    .add("description", "Slim Colourful Design Electronic Cooking Appliance for ...")
+    .add("image", "assets/img/0gmsnghhew.jpg")
+    .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
+    .add("name", "Digital Kitchen Scales")
+    .add("price", "14.99")
+    .add("productid", "1000042")
+    .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
+    .add("type", "product")
     .build();
 
     // Construct an instance of the PutDocumentOptions model
@@ -2171,7 +2180,7 @@ public class CloudantTest extends PowerMockTestCase {
     .contentType("application/json")
     .ifMatch("testString")
     .batch("ok")
-    .newEdits(true)
+    .newEdits(false)
     .rev("testString")
     .build();
 
@@ -2191,7 +2200,7 @@ public class CloudantTest extends PowerMockTestCase {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("batch"), "ok");
-    assertEquals(Boolean.valueOf(query.get("new_edits")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("new_edits")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -2321,7 +2330,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDesignDocumentWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"language\", \"options\": {\"partitioned\": false}, \"updates\": {\"mapKey\": \"inner\"}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"updates\": {\"mapKey\": \"inner\"}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
     String getDesignDocumentPath = "/testString/_design/testString";
 
     server.enqueue(new MockResponse()
@@ -2336,16 +2345,16 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .ddoc("testString")
     .ifNoneMatch("testString")
-    .attachments(true)
-    .attEncodingInfo(true)
-    .conflicts(true)
-    .deletedConflicts(true)
-    .latest(true)
-    .localSeq(true)
-    .meta(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .conflicts(false)
+    .deletedConflicts(false)
+    .latest(false)
+    .localSeq(false)
+    .meta(false)
     .rev("testString")
-    .revs(true)
-    .revsInfo(true)
+    .revs(false)
+    .revsInfo(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2363,16 +2372,16 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDesignDocumentPath);
@@ -2477,7 +2486,7 @@ public class CloudantTest extends PowerMockTestCase {
     .autoupdate(true)
     .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
     .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
-    .language("testString")
+    .language("javascript")
     .options(designDocumentOptionsModel)
     .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
     .validateDocUpdate("testString")
@@ -2493,7 +2502,7 @@ public class CloudantTest extends PowerMockTestCase {
     .designDocument(designDocumentModel)
     .ifMatch("testString")
     .batch("ok")
-    .newEdits(true)
+    .newEdits(false)
     .rev("testString")
     .build();
 
@@ -2513,7 +2522,7 @@ public class CloudantTest extends PowerMockTestCase {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("batch"), "ok");
-    assertEquals(Boolean.valueOf(query.get("new_edits")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("new_edits")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -2599,15 +2608,15 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostDesignDocsOptions model
     PostDesignDocsOptions postDesignDocsOptionsModel = new PostDesignDocsOptions.Builder()
     .db("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -2662,15 +2671,15 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the AllDocsQuery model
     AllDocsQuery allDocsQueryModel = new AllDocsQuery.Builder()
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("0"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("small-appliances:1000042", "small-appliances:1000043")))
@@ -2734,23 +2743,23 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .ddoc("testString")
     .view("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
     .includeDocs(true)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .endkeyDocid("testString")
-    .group(true)
+    .group(false)
     .groupLevel(Long.valueOf("1"))
     .key("testString")
-    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
+    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("examplekey")))
     .reduce(true)
-    .stable(true)
+    .stable(false)
     .startkey("testString")
     .startkeyDocid("testString")
     .update("true")
@@ -2806,23 +2815,23 @@ public class CloudantTest extends PowerMockTestCase {
     .db("testString")
     .ddoc("testString")
     .view("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
     .includeDocs(true)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .endkeyDocid("testString")
-    .group(true)
+    .group(false)
     .groupLevel(Long.valueOf("1"))
     .key("testString")
-    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
+    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("examplekey")))
     .reduce(true)
-    .stable(true)
+    .stable(false)
     .startkey("testString")
     .startkeyDocid("testString")
     .update("true")
@@ -2880,23 +2889,23 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the ViewQuery model
     ViewQuery viewQueryModel = new ViewQuery.Builder()
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
     .includeDocs(true)
     .inclusiveEnd(true)
     .limit(Long.valueOf("5"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .endkeyDocid("testString")
-    .group(true)
+    .group(false)
     .groupLevel(Long.valueOf("1"))
     .key("testString")
     .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
     .reduce(true)
-    .stable(true)
+    .stable(false)
     .startkey("testString")
     .startkeyDocid("testString")
     .update("true")
@@ -2957,23 +2966,23 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the ViewQuery model
     ViewQuery viewQueryModel = new ViewQuery.Builder()
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
     .includeDocs(true)
     .inclusiveEnd(true)
     .limit(Long.valueOf("5"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .endkeyDocid("testString")
-    .group(true)
+    .group(false)
     .groupLevel(Long.valueOf("1"))
     .key("testString")
     .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
     .reduce(true)
-    .stable(true)
+    .stable(false)
     .startkey("testString")
     .startkeyDocid("testString")
     .update("true")
@@ -3092,15 +3101,15 @@ public class CloudantTest extends PowerMockTestCase {
     PostPartitionAllDocsOptions postPartitionAllDocsOptionsModel = new PostPartitionAllDocsOptions.Builder()
     .db("testString")
     .partitionKey("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3156,15 +3165,15 @@ public class CloudantTest extends PowerMockTestCase {
     PostPartitionAllDocsOptions postPartitionAllDocsOptionsModel = new PostPartitionAllDocsOptions.Builder()
     .db("testString")
     .partitionKey("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
-    .includeDocs(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
+    .includeDocs(false)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .key("testString")
     .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3231,10 +3240,10 @@ public class CloudantTest extends PowerMockTestCase {
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
-    .highlightPostTag("testString")
-    .highlightPreTag("testString")
+    .highlightPostTag("</em>")
+    .highlightPreTag("<em>")
     .highlightSize(Long.valueOf("1"))
-    .includeDocs(true)
+    .includeDocs(false)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3296,10 +3305,10 @@ public class CloudantTest extends PowerMockTestCase {
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
-    .highlightPostTag("testString")
-    .highlightPreTag("testString")
+    .highlightPostTag("</em>")
+    .highlightPreTag("<em>")
     .highlightSize(Long.valueOf("1"))
-    .includeDocs(true)
+    .includeDocs(false)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -3362,23 +3371,23 @@ public class CloudantTest extends PowerMockTestCase {
     .partitionKey("testString")
     .ddoc("testString")
     .view("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
     .includeDocs(true)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .endkeyDocid("testString")
-    .group(true)
+    .group(false)
     .groupLevel(Long.valueOf("1"))
     .key("testString")
-    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
+    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("examplekey")))
     .reduce(true)
-    .stable(true)
+    .stable(false)
     .startkey("testString")
     .startkeyDocid("testString")
     .update("true")
@@ -3435,23 +3444,23 @@ public class CloudantTest extends PowerMockTestCase {
     .partitionKey("testString")
     .ddoc("testString")
     .view("testString")
-    .attEncodingInfo(true)
-    .attachments(true)
-    .conflicts(true)
-    .descending(true)
+    .attEncodingInfo(false)
+    .attachments(false)
+    .conflicts(false)
+    .descending(false)
     .includeDocs(true)
     .inclusiveEnd(true)
     .limit(Long.valueOf("10"))
     .skip(Long.valueOf("0"))
-    .updateSeq(true)
+    .updateSeq(false)
     .endkey("testString")
     .endkeyDocid("testString")
-    .group(true)
+    .group(false)
     .groupLevel(Long.valueOf("1"))
     .key("testString")
-    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
+    .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("examplekey")))
     .reduce(true)
-    .stable(true)
+    .stable(false)
     .startkey("testString")
     .startkeyDocid("testString")
     .update("true")
@@ -3520,7 +3529,7 @@ public class CloudantTest extends PowerMockTestCase {
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
-    .update("false")
+    .update("true")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .build();
 
@@ -3582,7 +3591,7 @@ public class CloudantTest extends PowerMockTestCase {
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
-    .update("false")
+    .update("true")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .build();
 
@@ -3626,7 +3635,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"mapKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"mapKey\": \"anyValue\"}, \"skip\": 0}";
+    String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"mapKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"mapKey\": \"anyValue\"}, \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
 
     server.enqueue(new MockResponse()
@@ -3648,7 +3657,7 @@ public class CloudantTest extends PowerMockTestCase {
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
-    .update("false")
+    .update("true")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .r(Long.valueOf("1"))
     .build();
@@ -3710,7 +3719,7 @@ public class CloudantTest extends PowerMockTestCase {
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
-    .update("false")
+    .update("true")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .r(Long.valueOf("1"))
     .build();
@@ -3772,7 +3781,7 @@ public class CloudantTest extends PowerMockTestCase {
     .skip(Long.valueOf("0"))
     .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
     .stable(true)
-    .update("false")
+    .update("true")
     .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .r(Long.valueOf("1"))
     .build();
@@ -3817,7 +3826,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetIndexesInformationWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": false}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": false, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}]}";
     String getIndexesInformationPath = "/testString/_index";
 
     server.enqueue(new MockResponse()
@@ -4074,10 +4083,10 @@ public class CloudantTest extends PowerMockTestCase {
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
-    .highlightPostTag("testString")
-    .highlightPreTag("testString")
+    .highlightPostTag("</em>")
+    .highlightPreTag("<em>")
     .highlightSize(Long.valueOf("1"))
-    .includeDocs(true)
+    .includeDocs(false)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -4144,10 +4153,10 @@ public class CloudantTest extends PowerMockTestCase {
     .bookmark("testString")
     .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .highlightNumber(Long.valueOf("1"))
-    .highlightPostTag("testString")
-    .highlightPreTag("testString")
+    .highlightPostTag("</em>")
+    .highlightPreTag("<em>")
     .highlightSize(Long.valueOf("1"))
-    .includeDocs(true)
+    .includeDocs(false)
     .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .limit(Long.valueOf("3"))
     .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -4269,17 +4278,17 @@ public class CloudantTest extends PowerMockTestCase {
     .index("testString")
     .bbox("testString")
     .bookmark("testString")
-    .format("legacy")
+    .format("view")
     .g("testString")
-    .includeDocs(true)
+    .includeDocs(false)
     .lat(Double.valueOf("-90"))
     .limit(Long.valueOf("0"))
     .lon(Double.valueOf("-180"))
-    .nearest(true)
+    .nearest(false)
     .radius(Double.valueOf("0"))
     .rangex(Double.valueOf("0"))
     .rangey(Double.valueOf("0"))
-    .relation("contains")
+    .relation("intersects")
     .skip(Long.valueOf("0"))
     .stale("ok")
     .build();
@@ -4301,17 +4310,17 @@ public class CloudantTest extends PowerMockTestCase {
     // Get query params
     assertEquals(query.get("bbox"), "testString");
     assertEquals(query.get("bookmark"), "testString");
-    assertEquals(query.get("format"), "legacy");
+    assertEquals(query.get("format"), "view");
     assertEquals(query.get("g"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Double.valueOf(query.get("lat")), Double.valueOf("-90"));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Double.valueOf(query.get("lon")), Double.valueOf("-180"));
-    assertEquals(Boolean.valueOf(query.get("nearest")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("nearest")), Boolean.valueOf(false));
     assertEquals(Double.valueOf(query.get("radius")), Double.valueOf("0"));
     assertEquals(Double.valueOf(query.get("rangex")), Double.valueOf("0"));
     assertEquals(Double.valueOf(query.get("rangey")), Double.valueOf("0"));
-    assertEquals(query.get("relation"), "contains");
+    assertEquals(query.get("relation"), "intersects");
     assertEquals(Long.valueOf(query.get("skip")), Long.valueOf("0"));
     assertEquals(query.get("stale"), "ok");
     // Check request path
@@ -4351,17 +4360,17 @@ public class CloudantTest extends PowerMockTestCase {
     .index("testString")
     .bbox("testString")
     .bookmark("testString")
-    .format("legacy")
+    .format("view")
     .g("testString")
-    .includeDocs(true)
+    .includeDocs(false)
     .lat(Double.valueOf("-90"))
     .limit(Long.valueOf("0"))
     .lon(Double.valueOf("-180"))
-    .nearest(true)
+    .nearest(false)
     .radius(Double.valueOf("0"))
     .rangex(Double.valueOf("0"))
     .rangey(Double.valueOf("0"))
-    .relation("contains")
+    .relation("intersects")
     .skip(Long.valueOf("0"))
     .stale("ok")
     .build();
@@ -4383,17 +4392,17 @@ public class CloudantTest extends PowerMockTestCase {
     // Get query params
     assertEquals(query.get("bbox"), "testString");
     assertEquals(query.get("bookmark"), "testString");
-    assertEquals(query.get("format"), "legacy");
+    assertEquals(query.get("format"), "view");
     assertEquals(query.get("g"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Double.valueOf(query.get("lat")), Double.valueOf("-90"));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Double.valueOf(query.get("lon")), Double.valueOf("-180"));
-    assertEquals(Boolean.valueOf(query.get("nearest")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("nearest")), Boolean.valueOf(false));
     assertEquals(Double.valueOf(query.get("radius")), Double.valueOf("0"));
     assertEquals(Double.valueOf(query.get("rangex")), Double.valueOf("0"));
     assertEquals(Double.valueOf(query.get("rangey")), Double.valueOf("0"));
-    assertEquals(query.get("relation"), "contains");
+    assertEquals(query.get("relation"), "intersects");
     assertEquals(Long.valueOf(query.get("skip")), Long.valueOf("0"));
     assertEquals(query.get("stale"), "ok");
     // Check request path
@@ -4729,7 +4738,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": true, \"create_target\": true, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"worker_batch_size\": 1, \"worker_processes\": 1}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"worker_batch_size\": 1, \"worker_processes\": 1}";
     String getReplicationDocumentPath = "/_replicator/testString";
 
     server.enqueue(new MockResponse()
@@ -4743,16 +4752,16 @@ public class CloudantTest extends PowerMockTestCase {
     GetReplicationDocumentOptions getReplicationDocumentOptionsModel = new GetReplicationDocumentOptions.Builder()
     .docId("testString")
     .ifNoneMatch("testString")
-    .attachments(true)
-    .attEncodingInfo(true)
-    .conflicts(true)
-    .deletedConflicts(true)
-    .latest(true)
-    .localSeq(true)
-    .meta(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .conflicts(false)
+    .deletedConflicts(false)
+    .latest(false)
+    .localSeq(false)
+    .meta(false)
     .rev("testString")
-    .revs(true)
-    .revsInfo(true)
+    .revs(false)
+    .revsInfo(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -4770,16 +4779,16 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("deleted_conflicts")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("meta")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
-    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getReplicationDocumentPath);
@@ -4838,7 +4847,7 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the ReplicationCreateTargetParameters model
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
     .n(Long.valueOf("1"))
-    .partitioned(true)
+    .partitioned(false)
     .q(Long.valueOf("1"))
     .build();
 
@@ -4880,8 +4889,8 @@ public class CloudantTest extends PowerMockTestCase {
     .cancel(true)
     .checkpointInterval(Long.valueOf("0"))
     .connectionTimeout(Long.valueOf("0"))
-    .continuous(true)
-    .createTarget(true)
+    .continuous(false)
+    .createTarget(false)
     .createTargetParams(replicationCreateTargetParametersModel)
     .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
     .filter("testString")
@@ -4908,7 +4917,7 @@ public class CloudantTest extends PowerMockTestCase {
     .replicationDocument(replicationDocumentModel)
     .ifMatch("testString")
     .batch("ok")
-    .newEdits(true)
+    .newEdits(false)
     .rev("testString")
     .build();
 
@@ -4928,7 +4937,7 @@ public class CloudantTest extends PowerMockTestCase {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("batch"), "ok");
-    assertEquals(Boolean.valueOf(query.get("new_edits")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("new_edits")), Boolean.valueOf(false));
     assertEquals(query.get("rev"), "testString");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -5651,7 +5660,7 @@ public class CloudantTest extends PowerMockTestCase {
     .docId("testString")
     .attachmentName("testString")
     .attachment(TestUtilities.createMockStream("This is a mock file."))
-    .contentType("testString")
+    .contentType("application/octet-stream")
     .ifMatch("testString")
     .rev("testString")
     .build();
@@ -5666,7 +5675,7 @@ public class CloudantTest extends PowerMockTestCase {
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "PUT");
-    assertEquals(request.getHeader("Content-Type"), "testString");
+    assertEquals(request.getHeader("Content-Type"), "application/octet-stream");
 
     // Check query
     Map<String, String> query = TestUtilities.parseQueryString(request);
@@ -5814,9 +5823,9 @@ public class CloudantTest extends PowerMockTestCase {
     .docId("testString")
     .accept("application/json")
     .ifNoneMatch("testString")
-    .attachments(true)
-    .attEncodingInfo(true)
-    .localSeq(true)
+    .attachments(false)
+    .attEncodingInfo(false)
+    .localSeq(false)
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -5834,9 +5843,9 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("attachments")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("local_seq")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getLocalDocumentPath);
@@ -5903,7 +5912,16 @@ public class CloudantTest extends PowerMockTestCase {
     .rev("testString")
     .revisions(revisionsModel)
     .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
-    .add("foo", "testString")
+    .add("brand", "Foo")
+    .add("colours", "[\"red\",\"green\",\"black\",\"blue\"]")
+    .add("description", "Slim Colourful Design Electronic Cooking Appliance for ...")
+    .add("image", "assets/img/0gmsnghhew.jpg")
+    .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
+    .add("name", "Digital Kitchen Scales")
+    .add("price", "14.99")
+    .add("productid", "1000042")
+    .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
+    .add("type", "product")
     .build();
 
     // Construct an instance of the PutLocalDocumentOptions model

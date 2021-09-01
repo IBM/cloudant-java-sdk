@@ -42,10 +42,10 @@ public class PostSearchOptionsTest {
       .bookmark("testString")
       .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .highlightNumber(Long.valueOf("1"))
-      .highlightPostTag("testString")
-      .highlightPreTag("testString")
+      .highlightPostTag("</em>")
+      .highlightPreTag("<em>")
       .highlightSize(Long.valueOf("1"))
-      .includeDocs(true)
+      .includeDocs(false)
       .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
       .limit(Long.valueOf("0"))
       .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -64,10 +64,10 @@ public class PostSearchOptionsTest {
     assertEquals(postSearchOptionsModel.bookmark(), "testString");
     assertEquals(postSearchOptionsModel.highlightFields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postSearchOptionsModel.highlightNumber(), Long.valueOf("1"));
-    assertEquals(postSearchOptionsModel.highlightPostTag(), "testString");
-    assertEquals(postSearchOptionsModel.highlightPreTag(), "testString");
+    assertEquals(postSearchOptionsModel.highlightPostTag(), "</em>");
+    assertEquals(postSearchOptionsModel.highlightPreTag(), "<em>");
     assertEquals(postSearchOptionsModel.highlightSize(), Long.valueOf("1"));
-    assertEquals(postSearchOptionsModel.includeDocs(), Boolean.valueOf(true));
+    assertEquals(postSearchOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postSearchOptionsModel.includeFields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(postSearchOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postSearchOptionsModel.sort(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
