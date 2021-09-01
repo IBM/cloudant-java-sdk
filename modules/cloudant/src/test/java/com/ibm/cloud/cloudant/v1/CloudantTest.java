@@ -2321,7 +2321,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDesignDocumentWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"language\", \"options\": {\"partitioned\": false}, \"updates\": {\"mapKey\": \"inner\"}, \"validate_doc_update\": {\"mapKey\": \"inner\"}, \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"language\", \"options\": {\"partitioned\": false}, \"updates\": {\"mapKey\": \"inner\"}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
     String getDesignDocumentPath = "/testString/_design/testString";
 
     server.enqueue(new MockResponse()
@@ -2480,7 +2480,7 @@ public class CloudantTest extends PowerMockTestCase {
     .language("testString")
     .options(designDocumentOptionsModel)
     .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-    .validateDocUpdate(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+    .validateDocUpdate("testString")
     .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
     .stIndexes(new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } })
     .add("foo", "testString")
