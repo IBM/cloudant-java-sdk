@@ -68,6 +68,7 @@ public class CouchDbSessionTokenTest {
     public void refreshTimeCalculation() {
         long currentTime = System.currentTimeMillis();
         CouchDbSessionToken t = new CouchDbSessionToken(currentTime + 1000);
-        assertEquals(200, t.expiryTime - t.refreshTime, "The time between refresh and expiry should be 200 ms");
+        double actualRefreshTime = t.expiryTime - t.refreshTime;
+        assertEquals(actualRefreshTime, 200., 2., "The time between refresh and expiry should be 200 ms");
     }
 }
