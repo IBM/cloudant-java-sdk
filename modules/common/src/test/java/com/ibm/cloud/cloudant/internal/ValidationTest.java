@@ -14,9 +14,14 @@ package com.ibm.cloud.cloudant.internal;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
+
 import com.ibm.cloud.cloudant.common.SdkCommon;
+import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
+import okhttp3.OkHttpClient;
 import org.testng.annotations.Test;
+import static org.testng.Assert.assertEquals;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
@@ -24,6 +29,29 @@ public class ValidationTest {
     
     private final String dbName = "testDatabase";
     private final String docId = "_testDocument";
+
+    @Test
+    void validateDefaultReadTimeoutSetting() {
+        // Default 2.5 minutes read timeout is set by default.
+        CloudantBaseService cloudantBaseService = new CloudantBaseService(null, new NoAuthAuthenticator()) {
+        };
+        assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), 150);
+
+        // Calling setServiceUrl not change this.
+        cloudantBaseService.setServiceUrl("https://cloudant.example");
+        assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), 150);
+
+        // Calling configureClient not change this.
+        HttpConfigOptions options = new HttpConfigOptions.Builder().disableRetries().build();
+        cloudantBaseService.configureClient(options);
+        assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), 150);
+
+        // Allow overwrite by the common SDK suggested way
+        OkHttpClient client = cloudantBaseService.getClient();
+        client = client.newBuilder().readTimeout(10, TimeUnit.SECONDS).build();
+        cloudantBaseService.setClient(client);
+        assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), 10);
+    }
     
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = ".+_testDocument.+")
     void validatesDocumentId() {
