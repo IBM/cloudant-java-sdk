@@ -46,8 +46,14 @@ public class ValidationTest {
         cloudantBaseService.configureClient(options);
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), 150);
 
-        // Allow overwrite by the common SDK suggested way
+        // Calling setClient not change this.
         OkHttpClient client = cloudantBaseService.getClient();
+        client = client.newBuilder().callTimeout(10, TimeUnit.SECONDS).build();
+        cloudantBaseService.setClient(client);
+        assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), 150);
+        assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().callTimeoutMillis()), 10);
+
+        // Allow overwrite by the common SDK suggested way
         client = client.newBuilder().readTimeout(10, TimeUnit.SECONDS).build();
         cloudantBaseService.setClient(client);
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), 10);
