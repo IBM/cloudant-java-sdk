@@ -49,7 +49,7 @@ public abstract class CloudantBaseService extends BaseService {
     protected OkHttpClient configureHttpClient() {
         OkHttpClient.Builder builder = super.configureHttpClient().newBuilder();
         // Overwrite default read timeout to 2.5 minutes
-        builder.readTimeout(150, TimeUnit.SECONDS);
+        builder.readTimeout(150L, TimeUnit.SECONDS);
         // If we are using a CouchDB session authenticator we need to customize the cookie jar
         customizeAuthenticator(a -> builder
                 .cookieJar(a.getCookieJar()));
