@@ -14,6 +14,7 @@
 package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -32,20 +33,30 @@ public class ReplicationDatabaseAuthTest {
 
   @Test
   public void testReplicationDatabaseAuth() throws Throwable {
+    ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+      .password("testString")
+      .username("testString")
+      .build();
+    assertEquals(replicationDatabaseAuthBasicModel.password(), "testString");
+    assertEquals(replicationDatabaseAuthBasicModel.username(), "testString");
+
     ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
       .apiKey("testString")
       .build();
     assertEquals(replicationDatabaseAuthIamModel.apiKey(), "testString");
 
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+      .basic(replicationDatabaseAuthBasicModel)
       .iam(replicationDatabaseAuthIamModel)
       .build();
+    assertEquals(replicationDatabaseAuthModel.basic(), replicationDatabaseAuthBasicModel);
     assertEquals(replicationDatabaseAuthModel.iam(), replicationDatabaseAuthIamModel);
 
     String json = TestUtilities.serialize(replicationDatabaseAuthModel);
 
     ReplicationDatabaseAuth replicationDatabaseAuthModelNew = TestUtilities.deserialize(json, ReplicationDatabaseAuth.class);
     assertTrue(replicationDatabaseAuthModelNew instanceof ReplicationDatabaseAuth);
+    assertEquals(replicationDatabaseAuthModelNew.basic().toString(), replicationDatabaseAuthBasicModel.toString());
     assertEquals(replicationDatabaseAuthModelNew.iam().toString(), replicationDatabaseAuthIamModel.toString());
   }
 }

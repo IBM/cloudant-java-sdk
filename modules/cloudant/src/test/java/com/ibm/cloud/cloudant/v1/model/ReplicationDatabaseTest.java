@@ -15,6 +15,7 @@ package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -33,14 +34,23 @@ public class ReplicationDatabaseTest {
 
   @Test
   public void testReplicationDatabase() throws Throwable {
+    ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+      .password("testString")
+      .username("testString")
+      .build();
+    assertEquals(replicationDatabaseAuthBasicModel.password(), "testString");
+    assertEquals(replicationDatabaseAuthBasicModel.username(), "testString");
+
     ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
       .apiKey("testString")
       .build();
     assertEquals(replicationDatabaseAuthIamModel.apiKey(), "testString");
 
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+      .basic(replicationDatabaseAuthBasicModel)
       .iam(replicationDatabaseAuthIamModel)
       .build();
+    assertEquals(replicationDatabaseAuthModel.basic(), replicationDatabaseAuthBasicModel);
     assertEquals(replicationDatabaseAuthModel.iam(), replicationDatabaseAuthIamModel);
 
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()

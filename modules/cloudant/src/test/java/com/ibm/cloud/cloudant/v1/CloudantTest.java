@@ -121,7 +121,6 @@ import com.ibm.cloud.cloudant.v1.model.IndexResult;
 import com.ibm.cloud.cloudant.v1.model.IndexTextOperatorDefaultField;
 import com.ibm.cloud.cloudant.v1.model.IndexesInformation;
 import com.ibm.cloud.cloudant.v1.model.MembershipInformation;
-import com.ibm.cloud.cloudant.v1.model.MissingRevsResult;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationIndexes;
@@ -142,7 +141,6 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostGeoCleanupOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
-import com.ibm.cloud.cloudant.v1.model.PostMissingRevsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
@@ -165,6 +163,7 @@ import com.ibm.cloud.cloudant.v1.model.PutSecurityOptions;
 import com.ibm.cloud.cloudant.v1.model.ReplicationCreateTargetParameters;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
@@ -775,7 +774,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostDbsInfoWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "[{\"info\": {\"cluster\": {\"n\": 1, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}, \"key\": \"key\"}]";
+    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 1, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}, \"key\": \"key\"}]";
     String postDbsInfoPath = "/_dbs_info";
 
     server.enqueue(new MockResponse()
@@ -2330,7 +2329,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDesignDocumentWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"updates\": {\"mapKey\": \"inner\"}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
     String getDesignDocumentPath = "/testString/_design/testString";
 
     server.enqueue(new MockResponse()
@@ -2488,7 +2487,6 @@ public class CloudantTest extends PowerMockTestCase {
     .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
     .language("javascript")
     .options(designDocumentOptionsModel)
-    .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
     .validateDocUpdate("testString")
     .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
     .stIndexes(new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } })
@@ -2544,7 +2542,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDesignDocumentInformationWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"updater_running\": true, \"waiting_clients\": 0, \"waiting_commit\": false}}";
+    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"updater_running\": true, \"waiting_clients\": 0, \"waiting_commit\": false}}";
     String getDesignDocumentInformationPath = "/testString/_design/testString/_info";
 
     server.enqueue(new MockResponse()
@@ -4738,7 +4736,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"worker_batch_size\": 1, \"worker_processes\": 1}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"worker_batch_size\": 1, \"worker_processes\": 1}";
     String getReplicationDocumentPath = "/_replicator/testString";
 
     server.enqueue(new MockResponse()
@@ -4851,6 +4849,12 @@ public class CloudantTest extends PowerMockTestCase {
     .q(Long.valueOf("1"))
     .build();
 
+    // Construct an instance of the ReplicationDatabaseAuthBasic model
+    ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+    .password("testString")
+    .username("testString")
+    .build();
+
     // Construct an instance of the ReplicationDatabaseAuthIam model
     ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
     .apiKey("testString")
@@ -4858,6 +4862,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the ReplicationDatabaseAuth model
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+    .basic(replicationDatabaseAuthBasicModel)
     .iam(replicationDatabaseAuthIamModel)
     .build();
 
@@ -5052,7 +5057,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetSchedulerJobsWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"total_rows\": 0, \"jobs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00.000Z\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"target\": \"target\", \"user\": \"user\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"jobs\": [{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"reason\": \"reason\", \"timestamp\": \"2019-01-01T12:00:00.000Z\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"target\": \"target\", \"user\": \"user\"}]}";
     String getSchedulerJobsPath = "/_scheduler/jobs";
 
     server.enqueue(new MockResponse()
@@ -5093,7 +5098,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetSchedulerJobWOptions() throws Throwable {
     // Schedule some responses.
-    String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"timestamp\": \"2019-01-01T12:00:00.000Z\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"target\": \"target\", \"user\": \"user\"}";
+    String mockResponseBody = "{\"database\": \"database\", \"doc_id\": \"docId\", \"history\": [{\"reason\": \"reason\", \"timestamp\": \"2019-01-01T12:00:00.000Z\", \"type\": \"type\"}], \"id\": \"id\", \"info\": {\"changes_pending\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"error\": \"error\", \"missing_revisions_found\": 0, \"revisions_checked\": 0, \"source_seq\": \"sourceSeq\", \"through_seq\": \"throughSeq\"}, \"node\": \"node\", \"pid\": \"pid\", \"source\": \"source\", \"start_time\": \"2019-01-01T12:00:00.000Z\", \"target\": \"target\", \"user\": \"user\"}";
     String getSchedulerJobPath = "/_scheduler/jobs/testString";
 
     server.enqueue(new MockResponse()
@@ -5964,57 +5969,6 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Invoke operation with null options model (negative test)
     cloudantService.putLocalDocument(null).execute();
-  }
-
-  @Test
-  public void testPostMissingRevsWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody = "{\"missing_revs\": {\"mapKey\": [\"inner\"]}}";
-    String postMissingRevsPath = "/testString/_missing_revs";
-
-    server.enqueue(new MockResponse()
-    .setHeader("Content-type", "application/json")
-    .setResponseCode(200)
-    .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the PostMissingRevsOptions model
-    PostMissingRevsOptions postMissingRevsOptionsModel = new PostMissingRevsOptions.Builder()
-    .db("testString")
-    .documentRevisions(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("testString"))); } })
-    .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<MissingRevsResult> response = cloudantService.postMissingRevs(postMissingRevsOptionsModel).execute();
-    assertNotNull(response);
-    MissingRevsResult responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postMissingRevsPath);
-  }
-
-  // Test the postMissingRevs operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostMissingRevsNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    cloudantService.postMissingRevs(null).execute();
   }
 
   @Test

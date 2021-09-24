@@ -36,6 +36,7 @@ public class DbsInfoResultTest {
   @Test
   public void testDbsInfoResult() throws Throwable {
     DbsInfoResult dbsInfoResultModel = new DbsInfoResult();
+    assertNull(dbsInfoResultModel.getError());
     assertNull(dbsInfoResultModel.getInfo());
     assertNull(dbsInfoResultModel.getKey());
   }

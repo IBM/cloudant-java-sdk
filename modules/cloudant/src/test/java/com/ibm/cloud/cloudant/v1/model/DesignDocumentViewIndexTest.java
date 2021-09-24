@@ -37,7 +37,6 @@ public class DesignDocumentViewIndexTest {
     assertNull(designDocumentViewIndexModel.getLanguage());
     assertNull(designDocumentViewIndexModel.getSignature());
     assertNull(designDocumentViewIndexModel.getSizes());
-    assertNull(designDocumentViewIndexModel.getUpdateSeq());
     assertNull(designDocumentViewIndexModel.isUpdaterRunning());
     assertNull(designDocumentViewIndexModel.getWaitingClients());
     assertNull(designDocumentViewIndexModel.isWaitingCommit());
