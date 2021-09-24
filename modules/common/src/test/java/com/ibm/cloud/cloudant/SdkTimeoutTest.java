@@ -21,23 +21,23 @@ public class SdkTimeoutTest {
         // Default 2.5 minutes read timeout is set by default.
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), defaultTimeoutValue);
 
-        // Calling setServiceUrl not change this.
+        // Calling setServiceUrl function will not change the default timeout
         cloudantBaseService.setServiceUrl("https://cloudant.example");
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), defaultTimeoutValue);
 
-        // Calling configureClient not change this.
+        // Calling configureClient function will not change the default timeout
         HttpConfigOptions options = new HttpConfigOptions.Builder().disableRetries().build();
         cloudantBaseService.configureClient(options);
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), defaultTimeoutValue);
 
-        // Calling setClient not change this.
+        // Calling setClient function will not change the default timeout
         OkHttpClient client = cloudantBaseService.getClient();
         client = client.newBuilder().callTimeout(customTimeoutValue, TimeUnit.SECONDS).build();
         cloudantBaseService.setClient(client);
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), defaultTimeoutValue);
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().callTimeoutMillis()), customTimeoutValue);
 
-        // Allow overwrite by the common SDK suggested way
+        // Allow timeout overwrite by the common SDK suggested way
         client = client.newBuilder().readTimeout(customTimeoutValue, TimeUnit.SECONDS).build();
         cloudantBaseService.setClient(client);
         assertEquals(TimeUnit.MILLISECONDS.toSeconds(cloudantBaseService.getClient().readTimeoutMillis()), customTimeoutValue);
