@@ -19,15 +19,18 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ReplicationDatabaseAuth extends GenericModel {
 
+  protected ReplicationDatabaseAuthBasic basic;
   protected ReplicationDatabaseAuthIam iam;
 
   /**
    * Builder.
    */
   public static class Builder {
+    private ReplicationDatabaseAuthBasic basic;
     private ReplicationDatabaseAuthIam iam;
 
     private Builder(ReplicationDatabaseAuth replicationDatabaseAuth) {
+      this.basic = replicationDatabaseAuth.basic;
       this.iam = replicationDatabaseAuth.iam;
     }
 
@@ -47,6 +50,17 @@ public class ReplicationDatabaseAuth extends GenericModel {
     }
 
     /**
+     * Set the basic.
+     *
+     * @param basic the basic
+     * @return the ReplicationDatabaseAuth builder
+     */
+    public Builder basic(ReplicationDatabaseAuthBasic basic) {
+      this.basic = basic;
+      return this;
+    }
+
+    /**
      * Set the iam.
      *
      * @param iam the iam
@@ -59,6 +73,7 @@ public class ReplicationDatabaseAuth extends GenericModel {
   }
 
   protected ReplicationDatabaseAuth(Builder builder) {
+    basic = builder.basic;
     iam = builder.iam;
   }
 
@@ -69,6 +84,17 @@ public class ReplicationDatabaseAuth extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the basic.
+   *
+   * Schema for basic authentication of replication source or target database.
+   *
+   * @return the basic
+   */
+  public ReplicationDatabaseAuthBasic basic() {
+    return basic;
   }
 
   /**

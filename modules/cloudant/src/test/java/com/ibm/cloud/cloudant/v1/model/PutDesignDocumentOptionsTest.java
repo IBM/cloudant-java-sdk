@@ -133,7 +133,6 @@ public class PutDesignDocumentOptionsTest {
       .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
       .language("javascript")
       .options(designDocumentOptionsModel)
-      .updates(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .validateDocUpdate("testString")
       .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
       .stIndexes(new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } })
@@ -153,7 +152,6 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentModel.getIndexes(), new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } });
     assertEquals(designDocumentModel.getLanguage(), "javascript");
     assertEquals(designDocumentModel.getOptions(), designDocumentOptionsModel);
-    assertEquals(designDocumentModel.getUpdates(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(designDocumentModel.getValidateDocUpdate(), "testString");
     assertEquals(designDocumentModel.getViews(), new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } });
     assertEquals(designDocumentModel.getStIndexes(), new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } });

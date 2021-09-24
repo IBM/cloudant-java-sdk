@@ -19,8 +19,20 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DbsInfoResult extends GenericModel {
 
+  protected String error;
   protected DatabaseInformation info;
   protected String key;
+
+  /**
+   * Gets the error.
+   *
+   * The name of the error.
+   *
+   * @return the error
+   */
+  public String getError() {
+    return error;
+  }
 
   /**
    * Gets the info.

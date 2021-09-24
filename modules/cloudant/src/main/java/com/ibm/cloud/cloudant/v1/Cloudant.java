@@ -90,7 +90,6 @@ import com.ibm.cloud.cloudant.v1.model.HeadUpInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.IndexResult;
 import com.ibm.cloud.cloudant.v1.model.IndexesInformation;
 import com.ibm.cloud.cloudant.v1.model.MembershipInformation;
-import com.ibm.cloud.cloudant.v1.model.MissingRevsResult;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
 import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsOptions;
@@ -108,7 +107,6 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostGeoCleanupOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
-import com.ibm.cloud.cloudant.v1.model.PostMissingRevsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
@@ -4191,31 +4189,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
       null, putLocalDocumentOptions.body());
     ResponseConverter<DocumentResult> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentResult>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Query which document revisions are missing from the database.
-   *
-   * Given a list of document revisions, returns the document revisions that do not exist in the database.
-   *
-   * @param postMissingRevsOptions the {@link PostMissingRevsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link MissingRevsResult}
-   */
-  public ServiceCall<MissingRevsResult> postMissingRevs(PostMissingRevsOptions postMissingRevsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postMissingRevsOptions,
-      "postMissingRevsOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", postMissingRevsOptions.db());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_missing_revs", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postMissingRevs");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(postMissingRevsOptions.documentRevisions()), "application/json");
-    ResponseConverter<MissingRevsResult> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MissingRevsResult>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

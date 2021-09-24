@@ -18,6 +18,7 @@ import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
 import com.ibm.cloud.cloudant.v1.model.ReplicationCreateTargetParameters;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
@@ -85,14 +86,23 @@ public class ReplicationDocumentTest {
     assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(false));
     assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("1"));
 
+    ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+      .password("testString")
+      .username("testString")
+      .build();
+    assertEquals(replicationDatabaseAuthBasicModel.password(), "testString");
+    assertEquals(replicationDatabaseAuthBasicModel.username(), "testString");
+
     ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
       .apiKey("testString")
       .build();
     assertEquals(replicationDatabaseAuthIamModel.apiKey(), "testString");
 
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+      .basic(replicationDatabaseAuthBasicModel)
       .iam(replicationDatabaseAuthIamModel)
       .build();
+    assertEquals(replicationDatabaseAuthModel.basic(), replicationDatabaseAuthBasicModel);
     assertEquals(replicationDatabaseAuthModel.iam(), replicationDatabaseAuthIamModel);
 
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()

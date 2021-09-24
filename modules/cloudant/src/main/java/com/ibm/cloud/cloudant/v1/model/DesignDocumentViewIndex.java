@@ -25,8 +25,6 @@ public class DesignDocumentViewIndex extends GenericModel {
   protected String language;
   protected String signature;
   protected ContentInformationSizes sizes;
-  @SerializedName("update_seq")
-  protected String updateSeq;
   @SerializedName("updater_running")
   protected Boolean updaterRunning;
   @SerializedName("waiting_clients")
@@ -76,17 +74,6 @@ public class DesignDocumentViewIndex extends GenericModel {
    */
   public ContentInformationSizes getSizes() {
     return sizes;
-  }
-
-  /**
-   * Gets the updateSeq.
-   *
-   * The update sequence of the corresponding database that has been indexed.
-   *
-   * @return the updateSeq
-   */
-  public String getUpdateSeq() {
-    return updateSeq;
   }
 
   /**

@@ -544,17 +544,18 @@ public class PostChangesOptions extends GenericModel {
    * Gets the filter.
    *
    * Query parameter to specify a filter function from a design document that will filter the changes stream emitting
-   * only filtered events. Additionally, several built-in filters are available:
-   * - `_design`
-   * - Returns only changes to design documents.
-   * - `_doc_ids`
-   * - Returns changes for documents whit an ID matching one specified in `doc_ids` request body parameter.
-   * - `_selector`
-   * - Returns changes for documents that match the `selector` request body parameter. The selector syntax is the same
-   * as used for `_find`.
-   * - `_view`
-   * - Returns changes for documents that match an existing map function in the view specified by the query parameter
-   * `view`.
+   * only filtered events. For example: `design_doc/filtername`.
+   *
+   * Additionally, some keywords are reserved for built-in filters:
+   *
+   *   * `_design` - Returns only changes to design documents.
+   *   * `_doc_ids` - Returns changes for documents with an ID matching one specified in
+   *       `doc_ids` request body parameter.
+   *   * `_selector` - Returns changes for documents that match the `selector`
+   *       request body parameter. The selector syntax is the same as used for
+   *       `_find`.
+   *   * `_view` - Returns changes for documents that match an existing map
+   *       function in the view specified by the query parameter `view`.
    *
    * @return the filter
    */

@@ -21,8 +21,20 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class SchedulerJobEvent extends GenericModel {
 
+  protected String reason;
   protected Date timestamp;
   protected String type;
+
+  /**
+   * Gets the reason.
+   *
+   * Reason for current state of event.
+   *
+   * @return the reason
+   */
+  public String getReason() {
+    return reason;
+  }
 
   /**
    * Gets the timestamp.

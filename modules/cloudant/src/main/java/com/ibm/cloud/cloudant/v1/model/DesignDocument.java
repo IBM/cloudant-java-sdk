@@ -54,8 +54,6 @@ public class DesignDocument extends DynamicModel<Object> {
   protected String language;
   @SerializedName("options")
   protected DesignDocumentOptions options;
-  @SerializedName("updates")
-  protected Map<String, String> updates;
   @SerializedName("validate_doc_update")
   protected String validateDocUpdate;
   @SerializedName("views")
@@ -85,7 +83,6 @@ public class DesignDocument extends DynamicModel<Object> {
     private Map<String, SearchIndexDefinition> indexes;
     private String language;
     private DesignDocumentOptions options;
-    private Map<String, String> updates;
     private String validateDocUpdate;
     private Map<String, DesignDocumentViewsMapReduce> views;
     private Map<String, GeoIndexDefinition> stIndexes;
@@ -106,7 +103,6 @@ public class DesignDocument extends DynamicModel<Object> {
       this.indexes = designDocument.indexes;
       this.language = designDocument.language;
       this.options = designDocument.options;
-      this.updates = designDocument.updates;
       this.validateDocUpdate = designDocument.validateDocUpdate;
       this.views = designDocument.views;
       this.stIndexes = designDocument.stIndexes;
@@ -334,17 +330,6 @@ public class DesignDocument extends DynamicModel<Object> {
     }
 
     /**
-     * Set the updates.
-     *
-     * @param updates the updates
-     * @return the DesignDocument builder
-     */
-    public Builder updates(Map<String, String> updates) {
-      this.updates = updates;
-      return this;
-    }
-
-    /**
      * Set the validateDocUpdate.
      *
      * @param validateDocUpdate the validateDocUpdate
@@ -410,7 +395,6 @@ public class DesignDocument extends DynamicModel<Object> {
     indexes = builder.indexes;
     language = builder.language;
     options = builder.options;
-    updates = builder.updates;
     validateDocUpdate = builder.validateDocUpdate;
     views = builder.views;
     stIndexes = builder.stIndexes;
@@ -705,26 +689,6 @@ public class DesignDocument extends DynamicModel<Object> {
    */
   public void setOptions(final DesignDocumentOptions options) {
     this.options = options;
-  }
-
-  /**
-   * Gets the updates.
-   *
-   * Schema for update function definitions.
-   *
-   * @return the updates
-   */
-  public Map<String, String> getUpdates() {
-    return this.updates;
-  }
-
-  /**
-   * Sets the updates.
-   *
-   * @param updates the new updates
-   */
-  public void setUpdates(final Map<String, String> updates) {
-    this.updates = updates;
   }
 
   /**

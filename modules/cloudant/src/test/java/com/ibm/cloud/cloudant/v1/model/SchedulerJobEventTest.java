@@ -32,6 +32,7 @@ public class SchedulerJobEventTest {
   @Test
   public void testSchedulerJobEvent() throws Throwable {
     SchedulerJobEvent schedulerJobEventModel = new SchedulerJobEvent();
+    assertNull(schedulerJobEventModel.getReason());
     assertNull(schedulerJobEventModel.getTimestamp());
     assertNull(schedulerJobEventModel.getType());
   }
