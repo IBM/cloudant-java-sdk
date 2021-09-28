@@ -14,14 +14,10 @@ package com.ibm.cloud.cloudant.internal;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 
 import com.ibm.cloud.cloudant.common.SdkCommon;
-import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
-import okhttp3.OkHttpClient;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
