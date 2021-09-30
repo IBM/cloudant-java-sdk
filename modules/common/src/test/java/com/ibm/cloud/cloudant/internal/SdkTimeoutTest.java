@@ -37,7 +37,7 @@ import static org.testng.Assert.assertEquals;
 
 
 // Every method tests an authenticator.
-public class SdkTimeoutTestNew {
+public class SdkTimeoutTest {
     final long defaultTimeoutValue = 150L;
     final long authenticationTimeoutValue = 90L;
     final long customTimeoutValue = 10L;
