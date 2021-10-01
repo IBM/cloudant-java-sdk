@@ -42,6 +42,7 @@ public class SdkTimeoutTest {
     final long authenticationTimeoutValue = 90L;
     final long customTimeoutValue = 10L;
 
+    // Every test case tests a timeout settings.
     final long testCases[] = {
             // 1. case: check default timeout value
             defaultTimeoutValue,
