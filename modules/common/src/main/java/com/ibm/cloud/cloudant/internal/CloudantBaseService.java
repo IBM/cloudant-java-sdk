@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
@@ -47,6 +48,8 @@ public abstract class CloudantBaseService extends BaseService {
     @Override
     protected OkHttpClient configureHttpClient() {
         OkHttpClient.Builder builder = super.configureHttpClient().newBuilder();
+        // Overwrite default read timeout to 2.5 minutes
+        builder.readTimeout(150L, TimeUnit.SECONDS);
         // If we are using a CouchDB session authenticator we need to customize the cookie jar
         customizeAuthenticator(a -> builder
                 .cookieJar(a.getCookieJar()));
