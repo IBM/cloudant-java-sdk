@@ -298,6 +298,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getServerInformationPath);
   }
+  
+  public void testGetServerInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetServerInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetServerInformationWOptions();
+
+    // Disable retries and run testGetServerInformationWOptions.
+    cloudantService.disableRetries();
+    testGetServerInformationWOptions();
+  }  
 
   @Test
   public void testGetMembershipInformationWOptions() throws Throwable {
@@ -334,6 +344,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getMembershipInformationPath);
   }
+  
+  public void testGetMembershipInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetMembershipInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetMembershipInformationWOptions();
+
+    // Disable retries and run testGetMembershipInformationWOptions.
+    cloudantService.disableRetries();
+    testGetMembershipInformationWOptions();
+  }  
 
   @Test
   public void testGetUuidsWOptions() throws Throwable {
@@ -373,6 +393,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getUuidsPath);
   }
+  
+  public void testGetUuidsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetUuidsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetUuidsWOptions();
+
+    // Disable retries and run testGetUuidsWOptions.
+    cloudantService.disableRetries();
+    testGetUuidsWOptions();
+  }  
 
   @Test
   public void testGetCapacityThroughputInformationWOptions() throws Throwable {
@@ -409,6 +439,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getCapacityThroughputInformationPath);
   }
+  
+  public void testGetCapacityThroughputInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetCapacityThroughputInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetCapacityThroughputInformationWOptions();
+
+    // Disable retries and run testGetCapacityThroughputInformationWOptions.
+    cloudantService.disableRetries();
+    testGetCapacityThroughputInformationWOptions();
+  }  
 
   @Test
   public void testPutCapacityThroughputConfigurationWOptions() throws Throwable {
@@ -447,6 +487,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putCapacityThroughputConfigurationPath);
   }
+  
+  public void testPutCapacityThroughputConfigurationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutCapacityThroughputConfigurationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutCapacityThroughputConfigurationWOptions();
+
+    // Disable retries and run testPutCapacityThroughputConfigurationWOptions.
+    cloudantService.disableRetries();
+    testPutCapacityThroughputConfigurationWOptions();
+  }  
 
   // Test the putCapacityThroughputConfiguration operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -504,6 +554,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDbUpdatesPath);
   }
+  
+  public void testGetDbUpdatesWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDbUpdatesWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDbUpdatesWOptions();
+
+    // Disable retries and run testGetDbUpdatesWOptions.
+    cloudantService.disableRetries();
+    testGetDbUpdatesWOptions();
+  }  
 
   @Test
   public void testPostChangesWOptions() throws Throwable {
@@ -574,6 +634,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postChangesPath);
   }
+  
+  public void testPostChangesWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostChangesWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostChangesWOptions();
+
+    // Disable retries and run testPostChangesWOptions.
+    cloudantService.disableRetries();
+    testPostChangesWOptions();
+  }  
 
   // Test the postChanges operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -661,6 +731,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostChangesAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostChangesAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostChangesAsStreamWOptions();
+
+    // Disable retries and run testPostChangesAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostChangesAsStreamWOptions();
+  }  
 
   // Test the postChangesAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -711,6 +791,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headDatabasePath);
   }
+  
+  public void testHeadDatabaseWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadDatabaseWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadDatabaseWOptions();
+
+    // Disable retries and run testHeadDatabaseWOptions.
+    cloudantService.disableRetries();
+    testHeadDatabaseWOptions();
+  }  
 
   // Test the headDatabase operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -770,6 +860,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getAllDbsPath);
   }
+  
+  public void testGetAllDbsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetAllDbsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetAllDbsWOptions();
+
+    // Disable retries and run testGetAllDbsWOptions.
+    cloudantService.disableRetries();
+    testGetAllDbsWOptions();
+  }  
 
   @Test
   public void testPostDbsInfoWOptions() throws Throwable {
@@ -808,6 +908,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postDbsInfoPath);
   }
+  
+  public void testPostDbsInfoWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostDbsInfoWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostDbsInfoWOptions();
+
+    // Disable retries and run testPostDbsInfoWOptions.
+    cloudantService.disableRetries();
+    testPostDbsInfoWOptions();
+  }  
 
   // Test the postDbsInfo operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -858,6 +968,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteDatabasePath);
   }
+  
+  public void testDeleteDatabaseWOptionsWRetries() throws Throwable {
+    // Enable retries and run testDeleteDatabaseWOptions.
+    cloudantService.enableRetries(4, 30);
+    testDeleteDatabaseWOptions();
+
+    // Disable retries and run testDeleteDatabaseWOptions.
+    cloudantService.disableRetries();
+    testDeleteDatabaseWOptions();
+  }  
 
   // Test the deleteDatabase operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -908,6 +1028,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDatabaseInformationPath);
   }
+  
+  public void testGetDatabaseInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDatabaseInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDatabaseInformationWOptions();
+
+    // Disable retries and run testGetDatabaseInformationWOptions.
+    cloudantService.disableRetries();
+    testGetDatabaseInformationWOptions();
+  }  
 
   // Test the getDatabaseInformation operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -962,6 +1092,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putDatabasePath);
   }
+  
+  public void testPutDatabaseWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutDatabaseWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutDatabaseWOptions();
+
+    // Disable retries and run testPutDatabaseWOptions.
+    cloudantService.disableRetries();
+    testPutDatabaseWOptions();
+  }  
 
   // Test the putDatabase operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1018,6 +1158,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headDocumentPath);
   }
+  
+  public void testHeadDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadDocumentWOptions();
+
+    // Disable retries and run testHeadDocumentWOptions.
+    cloudantService.disableRetries();
+    testHeadDocumentWOptions();
+  }  
 
   // Test the headDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1111,6 +1261,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postDocumentPath);
   }
+  
+  public void testPostDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostDocumentWOptions();
+
+    // Disable retries and run testPostDocumentWOptions.
+    cloudantService.disableRetries();
+    testPostDocumentWOptions();
+  }  
 
   // Test the postDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1174,6 +1334,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postAllDocsPath);
   }
+  
+  public void testPostAllDocsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostAllDocsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostAllDocsWOptions();
+
+    // Disable retries and run testPostAllDocsWOptions.
+    cloudantService.disableRetries();
+    testPostAllDocsWOptions();
+  }  
 
   // Test the postAllDocs operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1242,6 +1412,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostAllDocsAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostAllDocsAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostAllDocsAsStreamWOptions();
+
+    // Disable retries and run testPostAllDocsAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostAllDocsAsStreamWOptions();
+  }  
 
   // Test the postAllDocsAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1310,6 +1490,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postAllDocsQueriesPath);
   }
+  
+  public void testPostAllDocsQueriesWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostAllDocsQueriesWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostAllDocsQueriesWOptions();
+
+    // Disable retries and run testPostAllDocsQueriesWOptions.
+    cloudantService.disableRetries();
+    testPostAllDocsQueriesWOptions();
+  }  
 
   // Test the postAllDocsQueries operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1383,6 +1573,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostAllDocsQueriesAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostAllDocsQueriesAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostAllDocsQueriesAsStreamWOptions();
+
+    // Disable retries and run testPostAllDocsQueriesAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostAllDocsQueriesAsStreamWOptions();
+  }  
 
   // Test the postAllDocsQueriesAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1479,6 +1679,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkDocsPath);
   }
+  
+  public void testPostBulkDocsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostBulkDocsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostBulkDocsWOptions();
+
+    // Disable retries and run testPostBulkDocsWOptions.
+    cloudantService.disableRetries();
+    testPostBulkDocsWOptions();
+  }  
 
   // Test the postBulkDocs operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1545,6 +1755,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkGetPath);
   }
+  
+  public void testPostBulkGetWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostBulkGetWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostBulkGetWOptions();
+
+    // Disable retries and run testPostBulkGetWOptions.
+    cloudantService.disableRetries();
+    testPostBulkGetWOptions();
+  }  
 
   // Test the postBulkGet operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1611,6 +1831,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkGetAsMixedPath);
   }
+  
+  public void testPostBulkGetAsMixedWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostBulkGetAsMixedWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostBulkGetAsMixedWOptions();
+
+    // Disable retries and run testPostBulkGetAsMixedWOptions.
+    cloudantService.disableRetries();
+    testPostBulkGetAsMixedWOptions();
+  }  
 
   // Test the postBulkGetAsMixed operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1677,6 +1907,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postBulkGetAsRelatedPath);
   }
+  
+  public void testPostBulkGetAsRelatedWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostBulkGetAsRelatedWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostBulkGetAsRelatedWOptions();
+
+    // Disable retries and run testPostBulkGetAsRelatedWOptions.
+    cloudantService.disableRetries();
+    testPostBulkGetAsRelatedWOptions();
+  }  
 
   // Test the postBulkGetAsRelated operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1748,6 +1988,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostBulkGetAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostBulkGetAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostBulkGetAsStreamWOptions();
+
+    // Disable retries and run testPostBulkGetAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostBulkGetAsStreamWOptions();
+  }  
 
   // Test the postBulkGetAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1804,6 +2054,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteDocumentPath);
   }
+  
+  public void testDeleteDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testDeleteDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testDeleteDocumentWOptions();
+
+    // Disable retries and run testDeleteDocumentWOptions.
+    cloudantService.disableRetries();
+    testDeleteDocumentWOptions();
+  }  
 
   // Test the deleteDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1876,6 +2136,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentPath);
   }
+  
+  public void testGetDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDocumentWOptions();
+
+    // Disable retries and run testGetDocumentWOptions.
+    cloudantService.disableRetries();
+    testGetDocumentWOptions();
+  }  
 
   // Test the getDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -1948,6 +2218,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentAsMixedPath);
   }
+  
+  public void testGetDocumentAsMixedWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDocumentAsMixedWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDocumentAsMixedWOptions();
+
+    // Disable retries and run testGetDocumentAsMixedWOptions.
+    cloudantService.disableRetries();
+    testGetDocumentAsMixedWOptions();
+  }  
 
   // Test the getDocumentAsMixed operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2020,6 +2300,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentAsRelatedPath);
   }
+  
+  public void testGetDocumentAsRelatedWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDocumentAsRelatedWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDocumentAsRelatedWOptions();
+
+    // Disable retries and run testGetDocumentAsRelatedWOptions.
+    cloudantService.disableRetries();
+    testGetDocumentAsRelatedWOptions();
+  }  
 
   // Test the getDocumentAsRelated operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2097,6 +2387,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testGetDocumentAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDocumentAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDocumentAsStreamWOptions();
+
+    // Disable retries and run testGetDocumentAsStreamWOptions.
+    cloudantService.disableRetries();
+    testGetDocumentAsStreamWOptions();
+  }  
 
   // Test the getDocumentAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2205,6 +2505,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putDocumentPath);
   }
+  
+  public void testPutDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutDocumentWOptions();
+
+    // Disable retries and run testPutDocumentWOptions.
+    cloudantService.disableRetries();
+    testPutDocumentWOptions();
+  }  
 
   // Test the putDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2257,6 +2567,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headDesignDocumentPath);
   }
+  
+  public void testHeadDesignDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadDesignDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadDesignDocumentWOptions();
+
+    // Disable retries and run testHeadDesignDocumentWOptions.
+    cloudantService.disableRetries();
+    testHeadDesignDocumentWOptions();
+  }  
 
   // Test the headDesignDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2313,6 +2633,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteDesignDocumentPath);
   }
+  
+  public void testDeleteDesignDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testDeleteDesignDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testDeleteDesignDocumentWOptions();
+
+    // Disable retries and run testDeleteDesignDocumentWOptions.
+    cloudantService.disableRetries();
+    testDeleteDesignDocumentWOptions();
+  }  
 
   // Test the deleteDesignDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2385,6 +2715,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDesignDocumentPath);
   }
+  
+  public void testGetDesignDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDesignDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDesignDocumentWOptions();
+
+    // Disable retries and run testGetDesignDocumentWOptions.
+    cloudantService.disableRetries();
+    testGetDesignDocumentWOptions();
+  }  
 
   // Test the getDesignDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2526,6 +2866,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putDesignDocumentPath);
   }
+  
+  public void testPutDesignDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutDesignDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutDesignDocumentWOptions();
+
+    // Disable retries and run testPutDesignDocumentWOptions.
+    cloudantService.disableRetries();
+    testPutDesignDocumentWOptions();
+  }  
 
   // Test the putDesignDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2577,6 +2927,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDesignDocumentInformationPath);
   }
+  
+  public void testGetDesignDocumentInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDesignDocumentInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDesignDocumentInformationWOptions();
+
+    // Disable retries and run testGetDesignDocumentInformationWOptions.
+    cloudantService.disableRetries();
+    testGetDesignDocumentInformationWOptions();
+  }  
 
   // Test the getDesignDocumentInformation operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2641,6 +3001,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postDesignDocsPath);
   }
+  
+  public void testPostDesignDocsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostDesignDocsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostDesignDocsWOptions();
+
+    // Disable retries and run testPostDesignDocsWOptions.
+    cloudantService.disableRetries();
+    testPostDesignDocsWOptions();
+  }  
 
   // Test the postDesignDocs operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2710,6 +3080,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postDesignDocsQueriesPath);
   }
+  
+  public void testPostDesignDocsQueriesWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostDesignDocsQueriesWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostDesignDocsQueriesWOptions();
+
+    // Disable retries and run testPostDesignDocsQueriesWOptions.
+    cloudantService.disableRetries();
+    testPostDesignDocsQueriesWOptions();
+  }  
 
   // Test the postDesignDocsQueries operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2782,6 +3162,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postViewPath);
   }
+  
+  public void testPostViewWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostViewWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostViewWOptions();
+
+    // Disable retries and run testPostViewWOptions.
+    cloudantService.disableRetries();
+    testPostViewWOptions();
+  }  
 
   // Test the postView operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2859,6 +3249,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostViewAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostViewAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostViewAsStreamWOptions();
+
+    // Disable retries and run testPostViewAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostViewAsStreamWOptions();
+  }  
 
   // Test the postViewAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -2936,6 +3336,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postViewQueriesPath);
   }
+  
+  public void testPostViewQueriesWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostViewQueriesWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostViewQueriesWOptions();
+
+    // Disable retries and run testPostViewQueriesWOptions.
+    cloudantService.disableRetries();
+    testPostViewQueriesWOptions();
+  }  
 
   // Test the postViewQueries operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3018,6 +3428,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostViewQueriesAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostViewQueriesAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostViewQueriesAsStreamWOptions();
+
+    // Disable retries and run testPostViewQueriesAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostViewQueriesAsStreamWOptions();
+  }  
 
   // Test the postViewQueriesAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3069,6 +3489,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getPartitionInformationPath);
   }
+  
+  public void testGetPartitionInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetPartitionInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetPartitionInformationWOptions();
+
+    // Disable retries and run testGetPartitionInformationWOptions.
+    cloudantService.disableRetries();
+    testGetPartitionInformationWOptions();
+  }  
 
   // Test the getPartitionInformation operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3133,6 +3563,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postPartitionAllDocsPath);
   }
+  
+  public void testPostPartitionAllDocsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionAllDocsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionAllDocsWOptions();
+
+    // Disable retries and run testPostPartitionAllDocsWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionAllDocsWOptions();
+  }  
 
   // Test the postPartitionAllDocs operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3202,6 +3642,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostPartitionAllDocsAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionAllDocsAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionAllDocsAsStreamWOptions();
+
+    // Disable retries and run testPostPartitionAllDocsAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionAllDocsAsStreamWOptions();
+  }  
 
   // Test the postPartitionAllDocsAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3267,6 +3717,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postPartitionSearchPath);
   }
+  
+  public void testPostPartitionSearchWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionSearchWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionSearchWOptions();
+
+    // Disable retries and run testPostPartitionSearchWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionSearchWOptions();
+  }  
 
   // Test the postPartitionSearch operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3337,6 +3797,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostPartitionSearchAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionSearchAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionSearchAsStreamWOptions();
+
+    // Disable retries and run testPostPartitionSearchAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionSearchAsStreamWOptions();
+  }  
 
   // Test the postPartitionSearchAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3410,6 +3880,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postPartitionViewPath);
   }
+  
+  public void testPostPartitionViewWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionViewWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionViewWOptions();
+
+    // Disable retries and run testPostPartitionViewWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionViewWOptions();
+  }  
 
   // Test the postPartitionView operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3488,6 +3968,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostPartitionViewAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionViewAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionViewAsStreamWOptions();
+
+    // Disable retries and run testPostPartitionViewAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionViewAsStreamWOptions();
+  }  
 
   // Test the postPartitionViewAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3550,6 +4040,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postPartitionFindPath);
   }
+  
+  public void testPostPartitionFindWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionFindWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionFindWOptions();
+
+    // Disable retries and run testPostPartitionFindWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionFindWOptions();
+  }  
 
   // Test the postPartitionFind operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3617,6 +4117,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostPartitionFindAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostPartitionFindAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionFindAsStreamWOptions();
+
+    // Disable retries and run testPostPartitionFindAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostPartitionFindAsStreamWOptions();
+  }  
 
   // Test the postPartitionFindAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3679,6 +4189,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postExplainPath);
   }
+  
+  public void testPostExplainWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostExplainWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostExplainWOptions();
+
+    // Disable retries and run testPostExplainWOptions.
+    cloudantService.disableRetries();
+    testPostExplainWOptions();
+  }  
 
   // Test the postExplain operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3741,6 +4261,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postFindPath);
   }
+  
+  public void testPostFindWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostFindWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostFindWOptions();
+
+    // Disable retries and run testPostFindWOptions.
+    cloudantService.disableRetries();
+    testPostFindWOptions();
+  }  
 
   // Test the postFind operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3808,6 +4338,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostFindAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostFindAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostFindAsStreamWOptions();
+
+    // Disable retries and run testPostFindAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostFindAsStreamWOptions();
+  }  
 
   // Test the postFindAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3858,6 +4398,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getIndexesInformationPath);
   }
+  
+  public void testGetIndexesInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetIndexesInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetIndexesInformationWOptions();
+
+    // Disable retries and run testGetIndexesInformationWOptions.
+    cloudantService.disableRetries();
+    testGetIndexesInformationWOptions();
+  }  
 
   // Test the getIndexesInformation operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3942,6 +4492,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postIndexPath);
   }
+  
+  public void testPostIndexWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostIndexWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostIndexWOptions();
+
+    // Disable retries and run testPostIndexWOptions.
+    cloudantService.disableRetries();
+    testPostIndexWOptions();
+  }  
 
   // Test the postIndex operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -3995,6 +4555,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteIndexPath);
   }
+  
+  public void testDeleteIndexWOptionsWRetries() throws Throwable {
+    // Enable retries and run testDeleteIndexWOptions.
+    cloudantService.enableRetries(4, 30);
+    testDeleteIndexWOptions();
+
+    // Disable retries and run testDeleteIndexWOptions.
+    cloudantService.disableRetries();
+    testDeleteIndexWOptions();
+  }  
 
   // Test the deleteIndex operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4046,6 +4616,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postSearchAnalyzePath);
   }
+  
+  public void testPostSearchAnalyzeWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostSearchAnalyzeWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostSearchAnalyzeWOptions();
+
+    // Disable retries and run testPostSearchAnalyzeWOptions.
+    cloudantService.disableRetries();
+    testPostSearchAnalyzeWOptions();
+  }  
 
   // Test the postSearchAnalyze operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4116,6 +4696,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postSearchPath);
   }
+  
+  public void testPostSearchWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostSearchWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostSearchWOptions();
+
+    // Disable retries and run testPostSearchWOptions.
+    cloudantService.disableRetries();
+    testPostSearchWOptions();
+  }  
 
   // Test the postSearch operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4191,6 +4781,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testPostSearchAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostSearchAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostSearchAsStreamWOptions();
+
+    // Disable retries and run testPostSearchAsStreamWOptions.
+    cloudantService.disableRetries();
+    testPostSearchAsStreamWOptions();
+  }  
 
   // Test the postSearchAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4243,6 +4843,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSearchInfoPath);
   }
+  
+  public void testGetSearchInfoWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetSearchInfoWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetSearchInfoWOptions();
+
+    // Disable retries and run testGetSearchInfoWOptions.
+    cloudantService.disableRetries();
+    testGetSearchInfoWOptions();
+  }  
 
   // Test the getSearchInfo operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4325,6 +4935,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getGeoPath);
   }
+  
+  public void testGetGeoWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetGeoWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetGeoWOptions();
+
+    // Disable retries and run testGetGeoWOptions.
+    cloudantService.disableRetries();
+    testGetGeoWOptions();
+  }  
 
   // Test the getGeo operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4412,6 +5032,16 @@ public class CloudantTest extends PowerMockTestCase {
     String streamedResponseBody = s.hasNext() ? s.next() : "";
     assertEquals(streamedResponseBody, mockResponseBody);
   }
+  
+  public void testGetGeoAsStreamWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetGeoAsStreamWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetGeoAsStreamWOptions();
+
+    // Disable retries and run testGetGeoAsStreamWOptions.
+    cloudantService.disableRetries();
+    testGetGeoAsStreamWOptions();
+  }  
 
   // Test the getGeoAsStream operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4462,6 +5092,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postGeoCleanupPath);
   }
+  
+  public void testPostGeoCleanupWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostGeoCleanupWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostGeoCleanupWOptions();
+
+    // Disable retries and run testPostGeoCleanupWOptions.
+    cloudantService.disableRetries();
+    testPostGeoCleanupWOptions();
+  }  
 
   // Test the postGeoCleanup operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4514,6 +5154,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getGeoIndexInformationPath);
   }
+  
+  public void testGetGeoIndexInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetGeoIndexInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetGeoIndexInformationWOptions();
+
+    // Disable retries and run testGetGeoIndexInformationWOptions.
+    cloudantService.disableRetries();
+    testGetGeoIndexInformationWOptions();
+  }  
 
   // Test the getGeoIndexInformation operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4565,6 +5215,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headReplicationDocumentPath);
   }
+  
+  public void testHeadReplicationDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadReplicationDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadReplicationDocumentWOptions();
+
+    // Disable retries and run testHeadReplicationDocumentWOptions.
+    cloudantService.disableRetries();
+    testHeadReplicationDocumentWOptions();
+  }  
 
   // Test the headReplicationDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4615,6 +5275,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headSchedulerDocumentPath);
   }
+  
+  public void testHeadSchedulerDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadSchedulerDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadSchedulerDocumentWOptions();
+
+    // Disable retries and run testHeadSchedulerDocumentWOptions.
+    cloudantService.disableRetries();
+    testHeadSchedulerDocumentWOptions();
+  }  
 
   // Test the headSchedulerDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4665,6 +5335,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headSchedulerJobPath);
   }
+  
+  public void testHeadSchedulerJobWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadSchedulerJobWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadSchedulerJobWOptions();
+
+    // Disable retries and run testHeadSchedulerJobWOptions.
+    cloudantService.disableRetries();
+    testHeadSchedulerJobWOptions();
+  }  
 
   // Test the headSchedulerJob operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4720,6 +5400,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteReplicationDocumentPath);
   }
+  
+  public void testDeleteReplicationDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testDeleteReplicationDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testDeleteReplicationDocumentWOptions();
+
+    // Disable retries and run testDeleteReplicationDocumentWOptions.
+    cloudantService.disableRetries();
+    testDeleteReplicationDocumentWOptions();
+  }  
 
   // Test the deleteReplicationDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4791,6 +5481,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getReplicationDocumentPath);
   }
+  
+  public void testGetReplicationDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetReplicationDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetReplicationDocumentWOptions();
+
+    // Disable retries and run testGetReplicationDocumentWOptions.
+    cloudantService.disableRetries();
+    testGetReplicationDocumentWOptions();
+  }  
 
   // Test the getReplicationDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -4948,6 +5648,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putReplicationDocumentPath);
   }
+  
+  public void testPutReplicationDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutReplicationDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutReplicationDocumentWOptions();
+
+    // Disable retries and run testPutReplicationDocumentWOptions.
+    cloudantService.disableRetries();
+    testPutReplicationDocumentWOptions();
+  }  
 
   // Test the putReplicationDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5003,6 +5713,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSchedulerDocsPath);
   }
+  
+  public void testGetSchedulerDocsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetSchedulerDocsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetSchedulerDocsWOptions();
+
+    // Disable retries and run testGetSchedulerDocsWOptions.
+    cloudantService.disableRetries();
+    testGetSchedulerDocsWOptions();
+  }  
 
   @Test
   public void testGetSchedulerDocumentWOptions() throws Throwable {
@@ -5041,6 +5761,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSchedulerDocumentPath);
   }
+  
+  public void testGetSchedulerDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetSchedulerDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetSchedulerDocumentWOptions();
+
+    // Disable retries and run testGetSchedulerDocumentWOptions.
+    cloudantService.disableRetries();
+    testGetSchedulerDocumentWOptions();
+  }  
 
   // Test the getSchedulerDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5094,6 +5824,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSchedulerJobsPath);
   }
+  
+  public void testGetSchedulerJobsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetSchedulerJobsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetSchedulerJobsWOptions();
+
+    // Disable retries and run testGetSchedulerJobsWOptions.
+    cloudantService.disableRetries();
+    testGetSchedulerJobsWOptions();
+  }  
 
   @Test
   public void testGetSchedulerJobWOptions() throws Throwable {
@@ -5132,6 +5872,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSchedulerJobPath);
   }
+  
+  public void testGetSchedulerJobWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetSchedulerJobWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetSchedulerJobWOptions();
+
+    // Disable retries and run testGetSchedulerJobWOptions.
+    cloudantService.disableRetries();
+    testGetSchedulerJobWOptions();
+  }  
 
   // Test the getSchedulerJob operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5180,6 +5930,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSessionInformationPath);
   }
+  
+  public void testGetSessionInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetSessionInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetSessionInformationWOptions();
+
+    // Disable retries and run testGetSessionInformationWOptions.
+    cloudantService.disableRetries();
+    testGetSessionInformationWOptions();
+  }  
 
   @Test
   public void testGetSecurityWOptions() throws Throwable {
@@ -5218,6 +5978,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSecurityPath);
   }
+  
+  public void testGetSecurityWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetSecurityWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetSecurityWOptions();
+
+    // Disable retries and run testGetSecurityWOptions.
+    cloudantService.disableRetries();
+    testGetSecurityWOptions();
+  }  
 
   // Test the getSecurity operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5278,6 +6048,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putSecurityPath);
   }
+  
+  public void testPutSecurityWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutSecurityWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutSecurityWOptions();
+
+    // Disable retries and run testPutSecurityWOptions.
+    cloudantService.disableRetries();
+    testPutSecurityWOptions();
+  }  
 
   // Test the putSecurity operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5326,6 +6106,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postApiKeysPath);
   }
+  
+  public void testPostApiKeysWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostApiKeysWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostApiKeysWOptions();
+
+    // Disable retries and run testPostApiKeysWOptions.
+    cloudantService.disableRetries();
+    testPostApiKeysWOptions();
+  }  
 
   @Test
   public void testPutCloudantSecurityConfigurationWOptions() throws Throwable {
@@ -5374,6 +6164,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putCloudantSecurityConfigurationPath);
   }
+  
+  public void testPutCloudantSecurityConfigurationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutCloudantSecurityConfigurationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutCloudantSecurityConfigurationWOptions();
+
+    // Disable retries and run testPutCloudantSecurityConfigurationWOptions.
+    cloudantService.disableRetries();
+    testPutCloudantSecurityConfigurationWOptions();
+  }  
 
   // Test the putCloudantSecurityConfiguration operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5422,6 +6222,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getCorsInformationPath);
   }
+  
+  public void testGetCorsInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetCorsInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetCorsInformationWOptions();
+
+    // Disable retries and run testGetCorsInformationWOptions.
+    cloudantService.disableRetries();
+    testGetCorsInformationWOptions();
+  }  
 
   @Test
   public void testPutCorsConfigurationWOptions() throws Throwable {
@@ -5462,6 +6272,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putCorsConfigurationPath);
   }
+  
+  public void testPutCorsConfigurationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutCorsConfigurationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutCorsConfigurationWOptions();
+
+    // Disable retries and run testPutCorsConfigurationWOptions.
+    cloudantService.disableRetries();
+    testPutCorsConfigurationWOptions();
+  }  
 
   // Test the putCorsConfiguration operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5518,6 +6338,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headAttachmentPath);
   }
+  
+  public void testHeadAttachmentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadAttachmentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadAttachmentWOptions();
+
+    // Disable retries and run testHeadAttachmentWOptions.
+    cloudantService.disableRetries();
+    testHeadAttachmentWOptions();
+  }  
 
   // Test the headAttachment operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5575,6 +6405,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteAttachmentPath);
   }
+  
+  public void testDeleteAttachmentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testDeleteAttachmentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testDeleteAttachmentWOptions();
+
+    // Disable retries and run testDeleteAttachmentWOptions.
+    cloudantService.disableRetries();
+    testDeleteAttachmentWOptions();
+  }  
 
   // Test the deleteAttachment operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5633,6 +6473,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getAttachmentPath);
   }
+  
+  public void testGetAttachmentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetAttachmentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetAttachmentWOptions();
+
+    // Disable retries and run testGetAttachmentWOptions.
+    cloudantService.disableRetries();
+    testGetAttachmentWOptions();
+  }  
 
   // Test the getAttachment operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5691,6 +6541,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putAttachmentPath);
   }
+  
+  public void testPutAttachmentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutAttachmentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutAttachmentWOptions();
+
+    // Disable retries and run testPutAttachmentWOptions.
+    cloudantService.disableRetries();
+    testPutAttachmentWOptions();
+  }  
 
   // Test the putAttachment operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5743,6 +6603,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headLocalDocumentPath);
   }
+  
+  public void testHeadLocalDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadLocalDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadLocalDocumentWOptions();
+
+    // Disable retries and run testHeadLocalDocumentWOptions.
+    cloudantService.disableRetries();
+    testHeadLocalDocumentWOptions();
+  }  
 
   // Test the headLocalDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5796,6 +6666,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteLocalDocumentPath);
   }
+  
+  public void testDeleteLocalDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testDeleteLocalDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testDeleteLocalDocumentWOptions();
+
+    // Disable retries and run testDeleteLocalDocumentWOptions.
+    cloudantService.disableRetries();
+    testDeleteLocalDocumentWOptions();
+  }  
 
   // Test the deleteLocalDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5855,6 +6735,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getLocalDocumentPath);
   }
+  
+  public void testGetLocalDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetLocalDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetLocalDocumentWOptions();
+
+    // Disable retries and run testGetLocalDocumentWOptions.
+    cloudantService.disableRetries();
+    testGetLocalDocumentWOptions();
+  }  
 
   // Test the getLocalDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -5958,6 +6848,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putLocalDocumentPath);
   }
+  
+  public void testPutLocalDocumentWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPutLocalDocumentWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPutLocalDocumentWOptions();
+
+    // Disable retries and run testPutLocalDocumentWOptions.
+    cloudantService.disableRetries();
+    testPutLocalDocumentWOptions();
+  }  
 
   // Test the putLocalDocument operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -6009,6 +6909,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postRevsDiffPath);
   }
+  
+  public void testPostRevsDiffWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostRevsDiffWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostRevsDiffWOptions();
+
+    // Disable retries and run testPostRevsDiffWOptions.
+    cloudantService.disableRetries();
+    testPostRevsDiffWOptions();
+  }  
 
   // Test the postRevsDiff operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -6059,6 +6969,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getShardsInformationPath);
   }
+  
+  public void testGetShardsInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetShardsInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetShardsInformationWOptions();
+
+    // Disable retries and run testGetShardsInformationWOptions.
+    cloudantService.disableRetries();
+    testGetShardsInformationWOptions();
+  }  
 
   // Test the getShardsInformation operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -6110,6 +7030,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentShardsInfoPath);
   }
+  
+  public void testGetDocumentShardsInfoWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetDocumentShardsInfoWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetDocumentShardsInfoWOptions();
+
+    // Disable retries and run testGetDocumentShardsInfoWOptions.
+    cloudantService.disableRetries();
+    testGetDocumentShardsInfoWOptions();
+  }  
 
   // Test the getDocumentShardsInfo operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -6158,6 +7088,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, headUpInformationPath);
   }
+  
+  public void testHeadUpInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testHeadUpInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testHeadUpInformationWOptions();
+
+    // Disable retries and run testHeadUpInformationWOptions.
+    cloudantService.disableRetries();
+    testHeadUpInformationWOptions();
+  }  
 
   @Test
   public void testGetActiveTasksWOptions() throws Throwable {
@@ -6194,6 +7134,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getActiveTasksPath);
   }
+  
+  public void testGetActiveTasksWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetActiveTasksWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetActiveTasksWOptions();
+
+    // Disable retries and run testGetActiveTasksWOptions.
+    cloudantService.disableRetries();
+    testGetActiveTasksWOptions();
+  }  
 
   @Test
   public void testGetUpInformationWOptions() throws Throwable {
@@ -6230,6 +7180,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getUpInformationPath);
   }
+  
+  public void testGetUpInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetUpInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetUpInformationWOptions();
+
+    // Disable retries and run testGetUpInformationWOptions.
+    cloudantService.disableRetries();
+    testGetUpInformationWOptions();
+  }  
 
   @Test
   public void testGetActivityTrackerEventsWOptions() throws Throwable {
@@ -6266,6 +7226,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getActivityTrackerEventsPath);
   }
+  
+  public void testGetActivityTrackerEventsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetActivityTrackerEventsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetActivityTrackerEventsWOptions();
+
+    // Disable retries and run testGetActivityTrackerEventsWOptions.
+    cloudantService.disableRetries();
+    testGetActivityTrackerEventsWOptions();
+  }  
 
   @Test
   public void testPostActivityTrackerEventsWOptions() throws Throwable {
@@ -6304,6 +7274,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, postActivityTrackerEventsPath);
   }
+  
+  public void testPostActivityTrackerEventsWOptionsWRetries() throws Throwable {
+    // Enable retries and run testPostActivityTrackerEventsWOptions.
+    cloudantService.enableRetries(4, 30);
+    testPostActivityTrackerEventsWOptions();
+
+    // Disable retries and run testPostActivityTrackerEventsWOptions.
+    cloudantService.disableRetries();
+    testPostActivityTrackerEventsWOptions();
+  }  
 
   // Test the postActivityTrackerEvents operation with null options model parameter
   @Test(expectedExceptions = IllegalArgumentException.class)
@@ -6352,6 +7332,16 @@ public class CloudantTest extends PowerMockTestCase {
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getCurrentThroughputInformationPath);
   }
+  
+  public void testGetCurrentThroughputInformationWOptionsWRetries() throws Throwable {
+    // Enable retries and run testGetCurrentThroughputInformationWOptions.
+    cloudantService.enableRetries(4, 30);
+    testGetCurrentThroughputInformationWOptions();
+
+    // Disable retries and run testGetCurrentThroughputInformationWOptions.
+    cloudantService.disableRetries();
+    testGetCurrentThroughputInformationWOptions();
+  }  
 
   /** Initialize the server */
   @BeforeMethod
