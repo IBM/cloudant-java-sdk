@@ -189,7 +189,7 @@
                 <jdk>[16,)</jdk>
             </activation>
             <properties>
-                <surefire.options>--illegal-access=warn</surefire.options>
+                <surefire.options>--add-exports java.base/java.lang=ALL-UNNAMED --add-exports java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</surefire.options>
             </properties>
         </profile>
     </profiles>
