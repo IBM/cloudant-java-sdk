@@ -99,7 +99,7 @@ project:
   service instance or a
   [CouchDB](https://docs.couchdb.org/en/latest/install/index.html)
   server.
-- Java 8, 11 or 14.
+- Java 8, 11.
 
 ## Installation
 
