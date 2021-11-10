@@ -40,6 +40,9 @@
         <mockito-version>3.2.4</mockito-version>
         <slf4j-version>1.7.32</slf4j-version>
 
+        <!-- Till https://github.com/powermock/powermock/issues/1094 -->
+        <surefire.options/>
+
         <!-- Set UTF-8 encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -177,6 +180,16 @@
             </activation>
             <properties>
                 <skip.unit.tests>${skipTests}</skip.unit.tests>
+            </properties>
+        </profile>
+        <!-- Till https://github.com/powermock/powermock/issues/1094 -->
+        <profile>
+            <id>java16+</id>
+            <activation>
+                <jdk>[16,)</jdk>
+            </activation>
+            <properties>
+                <surefire.options>--add-exports java.base/java.lang=ALL-UNNAMED --add-exports java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</surefire.options>
             </properties>
         </profile>
     </profiles>
@@ -451,6 +464,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-version}</version>
                 <configuration>
+                    <!-- Till https://github.com/powermock/powermock/issues/1094 -->
+                    <argLine>${surefire.options}</argLine>
                     <skipTests>${skip.unit.tests}</skipTests>
                 </configuration>
             </plugin>
