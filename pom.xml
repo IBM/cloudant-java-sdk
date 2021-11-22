@@ -20,7 +20,7 @@
         <git-repository-name>cloudant-java-sdk</git-repository-name>
 
         <testng-version>7.4.0</testng-version>
-        <okhttp3-version>4.9.2</okhttp3-version>
+        <okhttp3-version>4.9.3</okhttp3-version>
         <surefire-version>3.0.0-M5</surefire-version>
         <jacoco-plugin-version>0.8.7</jacoco-plugin-version>
         <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
