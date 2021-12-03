@@ -118,7 +118,7 @@ public class PostRevsDiffOptions extends GenericModel {
   /**
    * Gets the documentRevisions.
    *
-   * HTTP request body for operations with Document revisions.
+   * HTTP request body for postMissingRevs and postRevsDiff.
    *
    * @return the documentRevisions
    */
