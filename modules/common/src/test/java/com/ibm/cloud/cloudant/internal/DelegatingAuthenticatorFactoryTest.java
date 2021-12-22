@@ -41,17 +41,25 @@ class DelegatingAuthenticatorFactoryTest {
         servicePropsBase.put(Authenticator.PROPNAME_PASSWORD, "testpass");
     }
 
-    private Map<String, String> getServicePropsWithAuthType(String authType) {
+    private Map<String, String> getServicePropsWithAuthType(String propName, String authType) {
         Map<String, String> serviceProps = new HashMap<>();
         serviceProps.putAll(servicePropsBase);
-        serviceProps.put(Authenticator.PROPNAME_AUTH_TYPE, authType);
+        serviceProps.put(propName, authType);
         return serviceProps;
     }
 
     @Test
     void getAuthenticatorForSessionAuthType() {
         Authenticator authenticator = DelegatingAuthenticatorFactory.getAuthenticator("test",
-                getServicePropsWithAuthType("COUCHDB_SESSION"));
+                getServicePropsWithAuthType(Authenticator.PROPNAME_AUTH_TYPE, "COUCHDB_SESSION"));
+        assertTrue(authenticator instanceof CouchDbSessionAuthenticator, "Should return an " +
+                "instance of CouchDbSessionAuthenticator");
+    }
+
+    @Test
+    void getAuthenticatorForSessionAuthTypeAlias() {
+        Authenticator authenticator = DelegatingAuthenticatorFactory.getAuthenticator("test",
+                getServicePropsWithAuthType("AUTHTYPE", "COUCHDB_SESSION"));
         assertTrue(authenticator instanceof CouchDbSessionAuthenticator, "Should return an " +
                 "instance of CouchDbSessionAuthenticator");
     }
@@ -59,7 +67,7 @@ class DelegatingAuthenticatorFactoryTest {
     @Test
     void getAuthenticatorForOtherAuthType() {
         Authenticator authenticator = DelegatingAuthenticatorFactory.getAuthenticator("test",
-                getServicePropsWithAuthType("BASIC"));
+                getServicePropsWithAuthType(Authenticator.PROPNAME_AUTH_TYPE, "BASIC"));
         assertFalse(authenticator instanceof CouchDbSessionAuthenticator, "Should not return " +
                 "an instance of CouchDbSessionAuthenticator");
     }

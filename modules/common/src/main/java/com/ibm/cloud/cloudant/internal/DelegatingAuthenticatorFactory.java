@@ -20,6 +20,8 @@ import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * This class serves as an Authenticator factory.
  * It will detect and use various configuration sources in order to produce an Authenticator
@@ -38,12 +40,20 @@ public class DelegatingAuthenticatorFactory extends ConfigBasedAuthenticatorFact
 
     static Authenticator getAuthenticator(String serviceName,
                                                  Map<String, String> serviceProperties) {
-        // If the auth type is COUCHDB_SESSION create the authenticator
-        if (serviceProperties != null && !serviceProperties.isEmpty()
-                && CouchDbSessionAuthenticator.AUTH_TYPE.equalsIgnoreCase(serviceProperties.get(Authenticator.PROPNAME_AUTH_TYPE))) {
-            return CouchDbSessionAuthenticator.newAuthenticator(
-                    serviceProperties.get(Authenticator.PROPNAME_USERNAME),
-                    serviceProperties.get(Authenticator.PROPNAME_PASSWORD));
+        if (serviceProperties != null && !serviceProperties.isEmpty()) {
+            String authType = serviceProperties.get(Authenticator.PROPNAME_AUTH_TYPE);
+
+            if (StringUtils.isEmpty(authType)) {
+                // this property doesn't have an according Authenticator constant
+                authType = serviceProperties.get("AUTHTYPE");
+            }
+
+            // If the auth type is COUCHDB_SESSION create the authenticator
+            if (CouchDbSessionAuthenticator.AUTH_TYPE.equalsIgnoreCase(authType)) {
+                return CouchDbSessionAuthenticator.newAuthenticator(
+                        serviceProperties.get(Authenticator.PROPNAME_USERNAME),
+                        serviceProperties.get(Authenticator.PROPNAME_PASSWORD));
+            }
         }
 
         // For all other auth types, delegate to the core factory
