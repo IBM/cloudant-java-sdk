@@ -28,7 +28,7 @@
         <nexus-staging-plugin-version>1.6.8</nexus-staging-plugin-version>
         <pgp-maven-plugin-version>1.1</pgp-maven-plugin-version>
         <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
-        <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
+        <maven-jar-plugin-version>3.2.1</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>3.3.1</maven-javadoc-plugin-version>
         <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
         <maven-site-plugin-version>3.10.0</maven-site-plugin-version>
