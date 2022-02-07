@@ -449,7 +449,13 @@ public class PostExplainOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * JSON array of sort syntax elements to determine the sort order of the results.
+   * The sort field contains a list of pairs, each mapping a field name to a sort direction (asc or desc). The first
+   * field name and direction pair is the topmost level of sort. The second pair, if provided, is the next level of
+   * sort. The field can be any field, using dotted notation if desired for sub-document fields.
+   *
+   * For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
+   *
+   * When sorting with multiple fields they must use the same sort direction, either all ascending or all descending.
    *
    * @return the sort
    */

@@ -80,11 +80,11 @@ public class ReplicationDocumentTest {
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
       .n(Long.valueOf("1"))
       .partitioned(false)
-      .q(Long.valueOf("1"))
+      .q(Long.valueOf("26"))
       .build();
     assertEquals(replicationCreateTargetParametersModel.n(), Long.valueOf("1"));
     assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(false));
-    assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("1"));
+    assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("26"));
 
     ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
       .password("testString")

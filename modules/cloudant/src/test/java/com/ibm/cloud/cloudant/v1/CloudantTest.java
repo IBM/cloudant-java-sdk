@@ -1068,7 +1068,7 @@ public class CloudantTest extends PowerMockTestCase {
     PutDatabaseOptions putDatabaseOptionsModel = new PutDatabaseOptions.Builder()
     .db("testString")
     .partitioned(false)
-    .q(Long.valueOf("1"))
+    .q(Long.valueOf("26"))
     .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1087,7 +1087,7 @@ public class CloudantTest extends PowerMockTestCase {
     assertNotNull(query);
     // Get query params
     assertEquals(Boolean.valueOf(query.get("partitioned")), Boolean.valueOf(false));
-    assertEquals(Long.valueOf(query.get("q")), Long.valueOf("1"));
+    assertEquals(Long.valueOf(query.get("q")), Long.valueOf("26"));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, putDatabasePath);
@@ -5546,7 +5546,7 @@ public class CloudantTest extends PowerMockTestCase {
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
     .n(Long.valueOf("1"))
     .partitioned(false)
-    .q(Long.valueOf("1"))
+    .q(Long.valueOf("26"))
     .build();
 
     // Construct an instance of the ReplicationDatabaseAuthBasic model
