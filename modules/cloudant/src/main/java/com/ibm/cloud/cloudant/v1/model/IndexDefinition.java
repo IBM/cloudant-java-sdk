@@ -186,7 +186,12 @@ public class IndexDefinition extends GenericModel {
   /**
    * Gets the fields.
    *
-   * List of fields to index.
+   * List of field objects to index.  Nested fields are also allowed, e.g. `person.name`.
+   *
+   * For "json" type indexes each object is a mapping of field name to sort direction (asc or desc).
+   *
+   * For "text" type indexes each object has a `name` property of the field name and a `type` property of the field type
+   * (string, number, or boolean).
    *
    * @return the fields
    */

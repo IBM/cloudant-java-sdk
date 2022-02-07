@@ -3729,6 +3729,12 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * and CouchDB related permissions. Be careful: by removing a Cloudant API key, a member or an admin from the list of
    * users that have access permissions, you remove it from the list of users that have access to the database.
    *
+   * ### Note about nobody role
+   *
+   * The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to
+   * read data from a database, but did not identify itself, the task can continue only if the `nobody` user has the
+   * role `_reader`.
+   *
    * @param putSecurityOptions the {@link PutSecurityOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Ok}
    */
@@ -3802,6 +3808,12 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * Modify only Cloudant related permissions to database. Be careful: by removing an API key from the list, you remove
    * the API key from the list of users that have access to the database.
+   *
+   * ### Note about nobody role
+   *
+   * The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to
+   * read data from a database, but did not identify itself, the task can continue only if the `nobody` user has the
+   * role `_reader`.
    *
    * @param putCloudantSecurityConfigurationOptions the {@link PutCloudantSecurityConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Ok}

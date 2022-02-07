@@ -137,8 +137,8 @@ public class PutDatabaseOptions extends GenericModel {
   /**
    * Gets the q.
    *
-   * The number of shards in the database. Each shard is a partition of the hash value range. Default is 8, unless
-   * overridden in the `cluster config`.
+   * The number of shards in the database. Each shard is a partition of the hash value range. Its value is set by the
+   * service. For more information about modifying database configuration, contact IBM Cloudant support.
    *
    * @return the q
    */
