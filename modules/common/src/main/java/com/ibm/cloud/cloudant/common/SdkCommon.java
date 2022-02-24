@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2022. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,7 +22,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ibm.cloud.sdk.core.http.HttpHeaders;
-import com.ibm.cloud.sdk.core.util.RequestUtils;
 
 /**
  * The purpose of this class is to provide SDK-specific HTTP headers to be included in REST API requests made
@@ -77,9 +76,24 @@ public class SdkCommon {
      */
     private static synchronized String getUserAgent() {
         if (userAgent == null) {
-            String systemInfo = RequestUtils.getSystemInfo();
-            systemInfo = systemInfo.replace("(", "(lang=java; ");
-            userAgent = String.format("%s/%s %s", projectName, version, systemInfo);
+            String lang = "java";
+            String langVersion = System.getProperty("java.version");
+            String langVendor = System.getProperty("java.vendor");
+            String osName = System.getProperty("os.name");
+            String osVersion = System.getProperty("os.version");
+            String osArch = System.getProperty("os.arch");
+            // cloudant-<lang>-sdk/<sdk_version> (<lang>.version=<value>; [<lang>.vendor=<value>]; os.name=<value>; os.version=<value>; os.arch=<value>; lang=<lang>;)
+            userAgent = String.format("%s/%s (%s.version=%s; [%s.vendor=%s]; os.name=%s; os.version=%s; os.arch=%s; lang=%s;)",
+                    projectName,
+                    version,
+                    lang,
+                    langVersion,
+                    lang,
+                    langVendor,
+                    osName,
+                    osVersion,
+                    osArch,
+                    lang);
         }
         return userAgent;
     }
