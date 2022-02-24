@@ -83,7 +83,7 @@ public class SdkCommon {
             String osVersion = System.getProperty("os.version");
             String osArch = System.getProperty("os.arch");
             // cloudant-<lang>-sdk/<sdk_version> (<lang>.version=<value>; [<lang>.vendor=<value>]; os.name=<value>; os.version=<value>; os.arch=<value>; lang=<lang>;)
-            userAgent = String.format("%s/%s (%s.version=%s; [%s.vendor=%s]; os.name=%s; os.version=%s; os.arch=%s; lang=%s;)",
+            userAgent = String.format("%s/%s (%s.version=%s; %s.vendor=%s; os.name=%s; os.version=%s; os.arch=%s; lang=%s;)",
                     projectName,
                     version,
                     lang,
