@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2022. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,37 +28,37 @@ public class DeleteDoc {
         String exampleDbName = "orders";
         String exampleDocId = "example";
         GetDocumentOptions documentInfoOptions =
-                new GetDocumentOptions.Builder()
-                        .db(exampleDbName)
-                        .docId(exampleDocId)
-                        .build();
+            new GetDocumentOptions.Builder()
+                .db(exampleDbName)
+                .docId(exampleDocId)
+                .build();
 
         try {
             // Try to get the document if it previously existed in the database
             Document document = client
-                    .getDocument(documentInfoOptions)
-                    .execute()
-                    .getResult();
+                .getDocument(documentInfoOptions)
+                .execute()
+                .getResult();
 
             // Delete the document from the database
             DeleteDocumentOptions deleteDocumentOptions =
                     new DeleteDocumentOptions.Builder()
-                            .db(exampleDbName)
-                            .rev(document.getRev())
-                            .docId(exampleDocId)
-                            .build();
+                        .db(exampleDbName)
+                        .docId(exampleDocId)    // docId is required for DELETE
+                        .rev(document.getRev()) // rev is required for DELETE
+                        .build();
             DocumentResult deleteDocumentResponse = client
-                    .deleteDocument(deleteDocumentOptions)
-                    .execute()
-                    .getResult();
+                .deleteDocument(deleteDocumentOptions)
+                .execute()
+                .getResult();
             if (deleteDocumentResponse.isOk()) {
                 System.out.println("You have deleted the document.");
             }
 
         } catch (NotFoundException nfe) {
             System.out.println("Cannot delete document because " +
-                    "either \"orders\" database or the \"example\" " +
-                    "document was not found.");
+                "either \"orders\" database or the \"example\" " +
+                "document was not found.");
         }
     }
 }
