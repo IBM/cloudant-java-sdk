@@ -16,9 +16,11 @@ import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.DocumentResult;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
+// Uncomment import below if using "putDocument" method
 // import com.ibm.cloud.cloudant.v1.model.PutDocumentOptions;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 
+// Uncomment import below if using response byte stream
 // import java.io.InputStream;
 
 public class UpdateDoc {
