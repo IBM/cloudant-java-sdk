@@ -82,8 +82,7 @@ public class UpdateDoc {
 
             // ====================================================================
             // Note: updating the document can also be done with the "putDocument"
-            // method. docId and rev are required for an UPDATE operation,
-            // method. In this case `docId` is required for a CREATE operation:
+            // method. docId and rev are required for an UPDATE operation:
             /*
             PutDocumentOptions updateDocumentOptions =
                 new PutDocumentOptions.Builder()
