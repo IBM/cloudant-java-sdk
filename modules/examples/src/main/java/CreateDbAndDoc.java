@@ -59,7 +59,7 @@ public class CreateDbAndDoc {
 
         // Add "name" and "joined" fields to the document
         exampleDocument.put("name", "Bob Smith");
-        exampleDocument.put("joined", "2019-01-24T10:42:99.000Z");
+        exampleDocument.put("joined", "2019-01-24T10:42:59.000Z");
 
         // Save the document in the database with "postDocument" method
         PostDocumentOptions createDocumentOptions =
