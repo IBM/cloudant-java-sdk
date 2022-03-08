@@ -1,6 +1,6 @@
 ---
 language: java
-dist: focal
+dist: bionic
 
 services:
   - docker
