@@ -300,45 +300,45 @@ public class GetInfoFromExistingDatabase {
 
         // 2. Get server information ==========================================
         ServerInformation serverInformation = client
-                .getServerInformation()
-                .execute()
-                .getResult();
+            .getServerInformation()
+            .execute()
+            .getResult();
 
         System.out.println("Server Version: " +
-                serverInformation.getVersion());
+            serverInformation.getVersion());
 
         // 3. Get database information for "animaldb" =========================
         String dbName = "animaldb";
 
         GetDatabaseInformationOptions dbInformationOptions =
-                new GetDatabaseInformationOptions.Builder(dbName).build();
+            new GetDatabaseInformationOptions.Builder(dbName).build();
 
         DatabaseInformation dbInformationResponse = client
-                .getDatabaseInformation(dbInformationOptions)
-                .execute()
-                .getResult();
+            .getDatabaseInformation(dbInformationOptions)
+            .execute()
+            .getResult();
 
         // 4. Show document count in database =================================
         Long documentCount = dbInformationResponse.getDocCount();
 
         System.out.println("Document count in \"" +
-                dbInformationResponse.getDbName() +
-                "\" database is " + documentCount +
-                ".");
+            dbInformationResponse.getDbName() +
+            "\" database is " + documentCount +
+            ".");
 
         // 5. Get zebra document out of the database by document id ===========
         GetDocumentOptions getDocOptions = new GetDocumentOptions.Builder()
-                .db(dbName)
-                .docId("zebra")
-                .build();
+            .db(dbName)
+            .docId("zebra")
+            .build();
 
         Document documentAboutZebra = client
-                .getDocument(getDocOptions)
-                .execute()
-                .getResult();
+            .getDocument(getDocOptions)
+            .execute()
+            .getResult();
 
         System.out.println("Document retrieved from database:\n" +
-                documentAboutZebra);
+            documentAboutZebra);
     }
 }
 ```
@@ -378,10 +378,11 @@ Now comes the exciting part, you create your own `orders` database and add a doc
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.DocumentResult;
-import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
+// Uncomment import below if using "putDocument" method
+// import com.ibm.cloud.cloudant.v1.model.PutDocumentOptions;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 
 public class CreateDbAndDoc {
@@ -393,57 +394,72 @@ public class CreateDbAndDoc {
         // Create a database object with "orders" id
         String exampleDbName = "orders";
         PutDatabaseOptions putDbOptions =
-                new PutDatabaseOptions.Builder().db(exampleDbName).build();
+            new PutDatabaseOptions.Builder().db(exampleDbName).build();
 
         // Try to create database if it doesn't exist
         try {
             Ok putDatabaseResult = client
-                    .putDatabase(putDbOptions)
-                    .execute()
-                    .getResult();
+                .putDatabase(putDbOptions)
+                .execute()
+                .getResult();
 
             if (putDatabaseResult.isOk()) {
                 System.out.println("\"" + exampleDbName +
-                        "\" database created.");
+                    "\" database created.");
             }
         } catch (ServiceResponseException sre) {
             if (sre.getStatusCode() == 412)
                 System.out.println("Cannot create \"" + exampleDbName +
-                        "\" database, it already exists.");
+                    "\" database, it already exists.");
         }
 
         // 3. Create a document ===============================================
         // Create a document object with "example" id
         String exampleDocId = "example";
         Document exampleDocument = new Document();
+
+        // Setting id for the document is optional when "postDocument" method is used for CREATE.
+        // When id is not provided the server will generate one for your document.
         exampleDocument.setId(exampleDocId);
 
         // Add "name" and "joined" fields to the document
         exampleDocument.put("name", "Bob Smith");
-        exampleDocument.put("joined", "2019-01-24T10:42:99.000Z");
+        exampleDocument.put("joined", "2019-01-24T10:42:59.000Z");
 
-        // Set the options to get the document out of the database if it exists
-        GetDocumentOptions documentInfoOptions =
-                new GetDocumentOptions.Builder()
-                        .db(exampleDbName)
-                        .docId(exampleDocId)
-                        .build();
-
-        // Save the document in the database
+        // Save the document in the database with "postDocument" method
         PostDocumentOptions createDocumentOptions =
-                new PostDocumentOptions.Builder()
-                        .db(exampleDbName)
-                        .document(exampleDocument)
-                        .build();
-        DocumentResult createDocumentResponse = client
-                .postDocument(createDocumentOptions)
-                .execute()
-                .getResult();
+            new PostDocumentOptions.Builder()
+                .db(exampleDbName)
+                .document(exampleDocument)
+                .build();
 
-        // Keep track of the revision number from the `example` document object
+        DocumentResult createDocumentResponse = client
+            .postDocument(createDocumentOptions)
+            .execute()
+            .getResult();
+
+        // ====================================================================
+        // Note: saving the document can also be done with the "putDocument"
+        // method. In this case `docId` is required for a CREATE operation:
+        /*
+        PutDocumentOptions createDocumentOptions =
+            new PutDocumentOptions.Builder()
+                .db(exampleDbName)
+                .docId(exampleDocId)
+                .document(exampleDocument)
+                .build();
+        DocumentResult createDocumentResponse = client
+            .putDocument(createDocumentOptions)
+            .execute()
+            .getResult();
+        */
+        // ====================================================================
+
+        // Keeping track of the revision number of the document object
+        // is necessary for further UPDATE/DELETE operations:
         exampleDocument.setRev(createDocumentResponse.getRev());
-        System.out.println("You have created the document:\n"
-                + exampleDocument);
+        System.out.println("You have created the document:\n" +
+            exampleDocument);
     }
 }
 ```
@@ -482,7 +498,12 @@ import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.DocumentResult;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
+// Uncomment import below if using "putDocument" method
+// import com.ibm.cloud.cloudant.v1.model.PutDocumentOptions;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+
+// Uncomment import below if using response byte stream
+// import java.io.InputStream;
 
 public class UpdateDoc {
     public static void main(String[] args) {
@@ -493,23 +514,25 @@ public class UpdateDoc {
         // Set the options to get the document out of the database if it exists
         String exampleDbName = "orders";
         GetDocumentOptions documentInfoOptions =
-                new GetDocumentOptions.Builder()
-                        .db(exampleDbName)
-                        .docId("example")
-                        .build();
+            new GetDocumentOptions.Builder()
+                .db(exampleDbName)
+                .docId("example")
+                .build();
 
         try {
             // Try to get the document if it previously existed in the database
             Document document = client
-                    .getDocument(documentInfoOptions)
-                    .execute()
-                    .getResult();
+                .getDocument(documentInfoOptions)
+                .execute()
+                .getResult();
 
             // Note: for response byte stream use:
-            // InputStream documentAsByteStream =
-            //        client.getDocumentAsStream(documentInfoOptions)
-            //                .execute()
-            //                .getResult();
+            /*
+            InputStream documentAsByteStream =
+                client.getDocumentAsStream(documentInfoOptions)
+                    .execute()
+                    .getResult();
+            */
 
             // Add Bob Smith's address to the document
             document.put("address", "19 Front Street, Darlington, DL5 1TY");
@@ -519,31 +542,55 @@ public class UpdateDoc {
 
             // Update the document in the database
             PostDocumentOptions updateDocumentOptions =
-                    new PostDocumentOptions.Builder()
-                            .db(exampleDbName)
-                            .document(document)
-                            .build();
+                new PostDocumentOptions.Builder()
+                    .db(exampleDbName)
+                    .document(document)
+                    .build();
 
+            // ================================================================
             // Note: for request byte stream use:
-            // PostDocumentOptions updateDocumentOptions =
-            //        new PostDocumentOptions.Builder()
-            //                .db(exampleDbName)
-            //                .contentType("application/json")
-            //                .body(documentAsByteStream)
-            //                .build();
+            /*
+            PostDocumentOptions updateDocumentOptions =
+                new PostDocumentOptions.Builder()
+                    .db(exampleDbName)
+                    .contentType("application/json")
+                    .body(documentAsByteStream)
+                    .build();
+            */
+            // ================================================================
 
             DocumentResult updateDocumentResponse = client
-                    .postDocument(updateDocumentOptions)
-                    .execute()
-                    .getResult();
+                .postDocument(updateDocumentOptions)
+                .execute()
+                .getResult();
 
-            // Keeping track with the revision number of the document object:
+            // ====================================================================
+            // Note: updating the document can also be done with the "putDocument"
+            // method. docId and rev are required for an UPDATE operation,
+            // but rev can be provided in the document object too:
+            /*
+            PutDocumentOptions updateDocumentOptions =
+                new PutDocumentOptions.Builder()
+                    .db(exampleDbName)
+                    .docId(document.getId()) // docId is a required parameter
+                    .rev(document.getRev())
+                    .document(document) // rev in the document object CAN replace above `rev` parameter
+                    .build();
+            DocumentResult updateDocumentResponse = client
+                .putDocument(updateDocumentOptions)
+                .execute()
+                .getResult();
+            */
+            // ====================================================================
+
+            // Keeping track of the latest revision number of the document object
+            // is necessary for further UPDATE/DELETE operations:
             document.setRev(updateDocumentResponse.getRev());
             System.out.println("You have updated the document:\n" + document);
         } catch (NotFoundException nfe) {
             System.out.println("Cannot update document because " +
-                    "either \"orders\" database or the \"example\" " +
-                    "document was not found.");
+                "either \"orders\" database or the \"example\" " +
+                "document was not found.");
         }
     }
 }
@@ -594,37 +641,37 @@ public class DeleteDoc {
         String exampleDbName = "orders";
         String exampleDocId = "example";
         GetDocumentOptions documentInfoOptions =
-                new GetDocumentOptions.Builder()
-                        .db(exampleDbName)
-                        .docId(exampleDocId)
-                        .build();
+            new GetDocumentOptions.Builder()
+                .db(exampleDbName)
+                .docId(exampleDocId)
+                .build();
 
         try {
             // Try to get the document if it previously existed in the database
             Document document = client
-                    .getDocument(documentInfoOptions)
-                    .execute()
-                    .getResult();
+                .getDocument(documentInfoOptions)
+                .execute()
+                .getResult();
 
             // Delete the document from the database
             DeleteDocumentOptions deleteDocumentOptions =
                     new DeleteDocumentOptions.Builder()
-                            .db(exampleDbName)
-                            .rev(document.getRev())
-                            .docId(exampleDocId)
-                            .build();
+                        .db(exampleDbName)
+                        .docId(exampleDocId)    // docId is required for DELETE
+                        .rev(document.getRev()) // rev is required for DELETE
+                        .build();
             DocumentResult deleteDocumentResponse = client
-                    .deleteDocument(deleteDocumentOptions)
-                    .execute()
-                    .getResult();
+                .deleteDocument(deleteDocumentOptions)
+                .execute()
+                .getResult();
             if (deleteDocumentResponse.isOk()) {
                 System.out.println("You have deleted the document.");
             }
 
         } catch (NotFoundException nfe) {
             System.out.println("Cannot delete document because " +
-                    "either \"orders\" database or the \"example\" " +
-                    "document was not found.");
+                "either \"orders\" database or the \"example\" " +
+                "document was not found.");
         }
     }
 }
