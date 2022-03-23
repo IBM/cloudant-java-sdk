@@ -45,10 +45,10 @@ public class PostPartitionAllDocsOptionsTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
     assertEquals(postPartitionAllDocsOptionsModel.db(), "testString");
     assertEquals(postPartitionAllDocsOptionsModel.partitionKey(), "testString");
@@ -61,10 +61,10 @@ public class PostPartitionAllDocsOptionsTest {
     assertEquals(postPartitionAllDocsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postPartitionAllDocsOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postPartitionAllDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(postPartitionAllDocsOptionsModel.endkey(), "testString");
+    assertEquals(postPartitionAllDocsOptionsModel.endKey(), "testString");
     assertEquals(postPartitionAllDocsOptionsModel.key(), "testString");
     assertEquals(postPartitionAllDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(postPartitionAllDocsOptionsModel.startkey(), "testString");
+    assertEquals(postPartitionAllDocsOptionsModel.startKey(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

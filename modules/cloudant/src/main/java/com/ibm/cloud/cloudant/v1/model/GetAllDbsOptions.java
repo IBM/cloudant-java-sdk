@@ -20,27 +20,27 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class GetAllDbsOptions extends GenericModel {
 
   protected Boolean descending;
-  protected String endkey;
+  protected String endKey;
   protected Long limit;
   protected Long skip;
-  protected String startkey;
+  protected String startKey;
 
   /**
    * Builder.
    */
   public static class Builder {
     private Boolean descending;
-    private String endkey;
+    private String endKey;
     private Long limit;
     private Long skip;
-    private String startkey;
+    private String startKey;
 
     private Builder(GetAllDbsOptions getAllDbsOptions) {
       this.descending = getAllDbsOptions.descending;
-      this.endkey = getAllDbsOptions.endkey;
+      this.endKey = getAllDbsOptions.endKey;
       this.limit = getAllDbsOptions.limit;
       this.skip = getAllDbsOptions.skip;
-      this.startkey = getAllDbsOptions.startkey;
+      this.startKey = getAllDbsOptions.startKey;
     }
 
     /**
@@ -70,13 +70,13 @@ public class GetAllDbsOptions extends GenericModel {
     }
 
     /**
-     * Set the endkey.
+     * Set the endKey.
      *
-     * @param endkey the endkey
+     * @param endKey the endKey
      * @return the GetAllDbsOptions builder
      */
-    public Builder endkey(String endkey) {
-      this.endkey = endkey;
+    public Builder endKey(String endKey) {
+      this.endKey = endKey;
       return this;
     }
 
@@ -103,23 +103,23 @@ public class GetAllDbsOptions extends GenericModel {
     }
 
     /**
-     * Set the startkey.
+     * Set the startKey.
      *
-     * @param startkey the startkey
+     * @param startKey the startKey
      * @return the GetAllDbsOptions builder
      */
-    public Builder startkey(String startkey) {
-      this.startkey = startkey;
+    public Builder startKey(String startKey) {
+      this.startKey = startKey;
       return this;
     }
   }
 
   protected GetAllDbsOptions(Builder builder) {
     descending = builder.descending;
-    endkey = builder.endkey;
+    endKey = builder.endKey;
     limit = builder.limit;
     skip = builder.skip;
-    startkey = builder.startkey;
+    startKey = builder.startKey;
   }
 
   /**
@@ -143,15 +143,15 @@ public class GetAllDbsOptions extends GenericModel {
   }
 
   /**
-   * Gets the endkey.
+   * Gets the endKey.
    *
    * Query parameter to specify to stop returning records when the specified key is reached. String representation of
    * any JSON type that matches the key type emitted by the view function.
    *
-   * @return the endkey
+   * @return the endKey
    */
-  public String endkey() {
-    return endkey;
+  public String endKey() {
+    return endKey;
   }
 
   /**
@@ -177,15 +177,15 @@ public class GetAllDbsOptions extends GenericModel {
   }
 
   /**
-   * Gets the startkey.
+   * Gets the startKey.
    *
    * Query parameter to specify to start returning records from the specified key. String representation of any JSON
    * type that matches the key type emitted by the view function.
    *
-   * @return the startkey
+   * @return the startKey
    */
-  public String startkey() {
-    return startkey;
+  public String startKey() {
+    return startKey;
   }
 }
 

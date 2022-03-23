@@ -37,5 +37,6 @@ public class SearchIndexInfoTest {
     assertNull(searchIndexInfoModel.getDocCount());
     assertNull(searchIndexInfoModel.getDocDelCount());
     assertNull(searchIndexInfoModel.getPendingSeq());
+    assertNull(searchIndexInfoModel.getSignature());
   }
 }

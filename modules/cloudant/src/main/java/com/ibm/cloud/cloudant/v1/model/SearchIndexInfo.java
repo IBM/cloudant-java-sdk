@@ -30,6 +30,7 @@ public class SearchIndexInfo extends GenericModel {
   protected Long docDelCount;
   @SerializedName("pending_seq")
   protected Long pendingSeq;
+  protected String signature;
 
   /**
    * Gets the committedSeq.
@@ -84,6 +85,17 @@ public class SearchIndexInfo extends GenericModel {
    */
   public Long getPendingSeq() {
     return pendingSeq;
+  }
+
+  /**
+   * Gets the signature.
+   *
+   * Unique signature of the search index.
+   *
+   * @return the signature
+   */
+  public String getSignature() {
+    return signature;
   }
 }
 

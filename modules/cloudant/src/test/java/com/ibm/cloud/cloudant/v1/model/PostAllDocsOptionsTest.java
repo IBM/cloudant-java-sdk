@@ -44,10 +44,10 @@ public class PostAllDocsOptionsTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
     assertEquals(postAllDocsOptionsModel.db(), "testString");
     assertEquals(postAllDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
@@ -59,10 +59,10 @@ public class PostAllDocsOptionsTest {
     assertEquals(postAllDocsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postAllDocsOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postAllDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(postAllDocsOptionsModel.endkey(), "testString");
+    assertEquals(postAllDocsOptionsModel.endKey(), "testString");
     assertEquals(postAllDocsOptionsModel.key(), "testString");
     assertEquals(postAllDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(postAllDocsOptionsModel.startkey(), "testString");
+    assertEquals(postAllDocsOptionsModel.startKey(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

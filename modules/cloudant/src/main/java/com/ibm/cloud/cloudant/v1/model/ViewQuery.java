@@ -48,9 +48,10 @@ public class ViewQuery extends GenericModel {
   protected Long skip;
   @SerializedName("update_seq")
   protected Boolean updateSeq;
-  protected Object endkey;
-  @SerializedName("endkey_docid")
-  protected String endkeyDocid;
+  @SerializedName("end_key")
+  protected Object endKey;
+  @SerializedName("end_key_doc_id")
+  protected String endKeyDocId;
   protected Boolean group;
   @SerializedName("group_level")
   protected Long groupLevel;
@@ -58,9 +59,10 @@ public class ViewQuery extends GenericModel {
   protected List<Object> keys;
   protected Boolean reduce;
   protected Boolean stable;
-  protected Object startkey;
-  @SerializedName("startkey_docid")
-  protected String startkeyDocid;
+  @SerializedName("start_key")
+  protected Object startKey;
+  @SerializedName("start_key_doc_id")
+  protected String startKeyDocId;
   protected String update;
 
   /**
@@ -76,16 +78,16 @@ public class ViewQuery extends GenericModel {
     private Long limit;
     private Long skip;
     private Boolean updateSeq;
-    private Object endkey;
-    private String endkeyDocid;
+    private Object endKey;
+    private String endKeyDocId;
     private Boolean group;
     private Long groupLevel;
     private Object key;
     private List<Object> keys;
     private Boolean reduce;
     private Boolean stable;
-    private Object startkey;
-    private String startkeyDocid;
+    private Object startKey;
+    private String startKeyDocId;
     private String update;
 
     private Builder(ViewQuery viewQuery) {
@@ -98,16 +100,16 @@ public class ViewQuery extends GenericModel {
       this.limit = viewQuery.limit;
       this.skip = viewQuery.skip;
       this.updateSeq = viewQuery.updateSeq;
-      this.endkey = viewQuery.endkey;
-      this.endkeyDocid = viewQuery.endkeyDocid;
+      this.endKey = viewQuery.endKey;
+      this.endKeyDocId = viewQuery.endKeyDocId;
       this.group = viewQuery.group;
       this.groupLevel = viewQuery.groupLevel;
       this.key = viewQuery.key;
       this.keys = viewQuery.keys;
       this.reduce = viewQuery.reduce;
       this.stable = viewQuery.stable;
-      this.startkey = viewQuery.startkey;
-      this.startkeyDocid = viewQuery.startkeyDocid;
+      this.startKey = viewQuery.startKey;
+      this.startKeyDocId = viewQuery.startKeyDocId;
       this.update = viewQuery.update;
     }
 
@@ -242,24 +244,24 @@ public class ViewQuery extends GenericModel {
     }
 
     /**
-     * Set the endkey.
+     * Set the endKey.
      *
-     * @param endkey the endkey
+     * @param endKey the endKey
      * @return the ViewQuery builder
      */
-    public Builder endkey(Object endkey) {
-      this.endkey = endkey;
+    public Builder endKey(Object endKey) {
+      this.endKey = endKey;
       return this;
     }
 
     /**
-     * Set the endkeyDocid.
+     * Set the endKeyDocId.
      *
-     * @param endkeyDocid the endkeyDocid
+     * @param endKeyDocId the endKeyDocId
      * @return the ViewQuery builder
      */
-    public Builder endkeyDocid(String endkeyDocid) {
-      this.endkeyDocid = endkeyDocid;
+    public Builder endKeyDocId(String endKeyDocId) {
+      this.endKeyDocId = endKeyDocId;
       return this;
     }
 
@@ -331,24 +333,24 @@ public class ViewQuery extends GenericModel {
     }
 
     /**
-     * Set the startkey.
+     * Set the startKey.
      *
-     * @param startkey the startkey
+     * @param startKey the startKey
      * @return the ViewQuery builder
      */
-    public Builder startkey(Object startkey) {
-      this.startkey = startkey;
+    public Builder startKey(Object startKey) {
+      this.startKey = startKey;
       return this;
     }
 
     /**
-     * Set the startkeyDocid.
+     * Set the startKeyDocId.
      *
-     * @param startkeyDocid the startkeyDocid
+     * @param startKeyDocId the startKeyDocId
      * @return the ViewQuery builder
      */
-    public Builder startkeyDocid(String startkeyDocid) {
-      this.startkeyDocid = startkeyDocid;
+    public Builder startKeyDocId(String startKeyDocId) {
+      this.startKeyDocId = startKeyDocId;
       return this;
     }
 
@@ -374,16 +376,16 @@ public class ViewQuery extends GenericModel {
     limit = builder.limit;
     skip = builder.skip;
     updateSeq = builder.updateSeq;
-    endkey = builder.endkey;
-    endkeyDocid = builder.endkeyDocid;
+    endKey = builder.endKey;
+    endKeyDocId = builder.endKeyDocId;
     group = builder.group;
     groupLevel = builder.groupLevel;
     key = builder.key;
     keys = builder.keys;
     reduce = builder.reduce;
     stable = builder.stable;
-    startkey = builder.startkey;
-    startkeyDocid = builder.startkeyDocid;
+    startKey = builder.startKey;
+    startKeyDocId = builder.startKeyDocId;
     update = builder.update;
   }
 
@@ -499,25 +501,25 @@ public class ViewQuery extends GenericModel {
   }
 
   /**
-   * Gets the endkey.
+   * Gets the endKey.
    *
    * Schema for any JSON type.
    *
-   * @return the endkey
+   * @return the endKey
    */
-  public Object endkey() {
-    return endkey;
+  public Object endKey() {
+    return endKey;
   }
 
   /**
-   * Gets the endkeyDocid.
+   * Gets the endKeyDocId.
    *
    * Schema for a document ID.
    *
-   * @return the endkeyDocid
+   * @return the endKeyDocId
    */
-  public String endkeyDocid() {
-    return endkeyDocid;
+  public String endKeyDocId() {
+    return endKeyDocId;
   }
 
   /**
@@ -590,25 +592,25 @@ public class ViewQuery extends GenericModel {
   }
 
   /**
-   * Gets the startkey.
+   * Gets the startKey.
    *
    * Schema for any JSON type.
    *
-   * @return the startkey
+   * @return the startKey
    */
-  public Object startkey() {
-    return startkey;
+  public Object startKey() {
+    return startKey;
   }
 
   /**
-   * Gets the startkeyDocid.
+   * Gets the startKeyDocId.
    *
    * Schema for a document ID.
    *
-   * @return the startkeyDocid
+   * @return the startKeyDocId
    */
-  public String startkeyDocid() {
-    return startkeyDocid;
+  public String startKeyDocId() {
+    return startKeyDocId;
   }
 
   /**

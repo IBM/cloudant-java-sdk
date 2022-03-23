@@ -33,10 +33,10 @@ public class PostPartitionAllDocsOptions extends GenericModel {
   protected Long limit;
   protected Long skip;
   protected Boolean updateSeq;
-  protected String endkey;
+  protected String endKey;
   protected String key;
   protected List<String> keys;
-  protected String startkey;
+  protected String startKey;
 
   /**
    * Builder.
@@ -53,10 +53,10 @@ public class PostPartitionAllDocsOptions extends GenericModel {
     private Long limit;
     private Long skip;
     private Boolean updateSeq;
-    private String endkey;
+    private String endKey;
     private String key;
     private List<String> keys;
-    private String startkey;
+    private String startKey;
 
     private Builder(PostPartitionAllDocsOptions postPartitionAllDocsOptions) {
       this.db = postPartitionAllDocsOptions.db;
@@ -70,10 +70,10 @@ public class PostPartitionAllDocsOptions extends GenericModel {
       this.limit = postPartitionAllDocsOptions.limit;
       this.skip = postPartitionAllDocsOptions.skip;
       this.updateSeq = postPartitionAllDocsOptions.updateSeq;
-      this.endkey = postPartitionAllDocsOptions.endkey;
+      this.endKey = postPartitionAllDocsOptions.endKey;
       this.key = postPartitionAllDocsOptions.key;
       this.keys = postPartitionAllDocsOptions.keys;
-      this.startkey = postPartitionAllDocsOptions.startkey;
+      this.startKey = postPartitionAllDocsOptions.startKey;
     }
 
     /**
@@ -240,13 +240,13 @@ public class PostPartitionAllDocsOptions extends GenericModel {
     }
 
     /**
-     * Set the endkey.
+     * Set the endKey.
      *
-     * @param endkey the endkey
+     * @param endKey the endKey
      * @return the PostPartitionAllDocsOptions builder
      */
-    public Builder endkey(String endkey) {
-      this.endkey = endkey;
+    public Builder endKey(String endKey) {
+      this.endKey = endKey;
       return this;
     }
 
@@ -274,13 +274,13 @@ public class PostPartitionAllDocsOptions extends GenericModel {
     }
 
     /**
-     * Set the startkey.
+     * Set the startKey.
      *
-     * @param startkey the startkey
+     * @param startKey the startKey
      * @return the PostPartitionAllDocsOptions builder
      */
-    public Builder startkey(String startkey) {
-      this.startkey = startkey;
+    public Builder startKey(String startKey) {
+      this.startKey = startKey;
       return this;
     }
   }
@@ -301,10 +301,10 @@ public class PostPartitionAllDocsOptions extends GenericModel {
     limit = builder.limit;
     skip = builder.skip;
     updateSeq = builder.updateSeq;
-    endkey = builder.endkey;
+    endKey = builder.endKey;
     key = builder.key;
     keys = builder.keys;
-    startkey = builder.startkey;
+    startKey = builder.startKey;
   }
 
   /**
@@ -441,14 +441,14 @@ public class PostPartitionAllDocsOptions extends GenericModel {
   }
 
   /**
-   * Gets the endkey.
+   * Gets the endKey.
    *
    * Schema for a document ID.
    *
-   * @return the endkey
+   * @return the endKey
    */
-  public String endkey() {
-    return endkey;
+  public String endKey() {
+    return endKey;
   }
 
   /**
@@ -474,14 +474,14 @@ public class PostPartitionAllDocsOptions extends GenericModel {
   }
 
   /**
-   * Gets the startkey.
+   * Gets the startKey.
    *
    * Schema for a document ID.
    *
-   * @return the startkey
+   * @return the startKey
    */
-  public String startkey() {
-    return startkey;
+  public String startKey() {
+    return startKey;
   }
 }
 

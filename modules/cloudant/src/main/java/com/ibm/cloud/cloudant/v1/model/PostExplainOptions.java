@@ -370,6 +370,11 @@ public class PostExplainOptions extends GenericModel {
    * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
    * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
    * argument.
+   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
+   * of a query. You should include at least one of these in a selector.
+   *
+   * For further reference see
+   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
    *
    * @return the selector
    */
@@ -455,7 +460,9 @@ public class PostExplainOptions extends GenericModel {
    *
    * For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
    *
-   * When sorting with multiple fields they must use the same sort direction, either all ascending or all descending.
+   * When sorting with multiple fields, ensure that there is an index already defined with all the sort fields in the
+   * same order and each object in the sort array has a single key or at least one of the sort fields is included in the
+   * selector. All sorting fields must use the same sort direction, either all ascending or all descending.
    *
    * @return the sort
    */

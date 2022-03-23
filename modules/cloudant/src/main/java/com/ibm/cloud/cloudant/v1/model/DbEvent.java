@@ -32,22 +32,10 @@ public class DbEvent extends GenericModel {
     String UPDATED = "updated";
   }
 
-  protected String account;
   @SerializedName("db_name")
   protected String dbName;
   protected String seq;
   protected String type;
-
-  /**
-   * Gets the account.
-   *
-   * Account name.
-   *
-   * @return the account
-   */
-  public String getAccount() {
-    return account;
-  }
 
   /**
    * Gets the dbName.

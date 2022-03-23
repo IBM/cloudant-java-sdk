@@ -46,16 +46,16 @@ public class PostViewOptions extends GenericModel {
   protected Long limit;
   protected Long skip;
   protected Boolean updateSeq;
-  protected Object endkey;
-  protected String endkeyDocid;
+  protected Object endKey;
+  protected String endKeyDocId;
   protected Boolean group;
   protected Long groupLevel;
   protected Object key;
   protected List<Object> keys;
   protected Boolean reduce;
   protected Boolean stable;
-  protected Object startkey;
-  protected String startkeyDocid;
+  protected Object startKey;
+  protected String startKeyDocId;
   protected String update;
 
   /**
@@ -74,16 +74,16 @@ public class PostViewOptions extends GenericModel {
     private Long limit;
     private Long skip;
     private Boolean updateSeq;
-    private Object endkey;
-    private String endkeyDocid;
+    private Object endKey;
+    private String endKeyDocId;
     private Boolean group;
     private Long groupLevel;
     private Object key;
     private List<Object> keys;
     private Boolean reduce;
     private Boolean stable;
-    private Object startkey;
-    private String startkeyDocid;
+    private Object startKey;
+    private String startKeyDocId;
     private String update;
 
     private Builder(PostViewOptions postViewOptions) {
@@ -99,16 +99,16 @@ public class PostViewOptions extends GenericModel {
       this.limit = postViewOptions.limit;
       this.skip = postViewOptions.skip;
       this.updateSeq = postViewOptions.updateSeq;
-      this.endkey = postViewOptions.endkey;
-      this.endkeyDocid = postViewOptions.endkeyDocid;
+      this.endKey = postViewOptions.endKey;
+      this.endKeyDocId = postViewOptions.endKeyDocId;
       this.group = postViewOptions.group;
       this.groupLevel = postViewOptions.groupLevel;
       this.key = postViewOptions.key;
       this.keys = postViewOptions.keys;
       this.reduce = postViewOptions.reduce;
       this.stable = postViewOptions.stable;
-      this.startkey = postViewOptions.startkey;
-      this.startkeyDocid = postViewOptions.startkeyDocid;
+      this.startKey = postViewOptions.startKey;
+      this.startKeyDocId = postViewOptions.startKeyDocId;
       this.update = postViewOptions.update;
     }
 
@@ -289,24 +289,24 @@ public class PostViewOptions extends GenericModel {
     }
 
     /**
-     * Set the endkey.
+     * Set the endKey.
      *
-     * @param endkey the endkey
+     * @param endKey the endKey
      * @return the PostViewOptions builder
      */
-    public Builder endkey(Object endkey) {
-      this.endkey = endkey;
+    public Builder endKey(Object endKey) {
+      this.endKey = endKey;
       return this;
     }
 
     /**
-     * Set the endkeyDocid.
+     * Set the endKeyDocId.
      *
-     * @param endkeyDocid the endkeyDocid
+     * @param endKeyDocId the endKeyDocId
      * @return the PostViewOptions builder
      */
-    public Builder endkeyDocid(String endkeyDocid) {
-      this.endkeyDocid = endkeyDocid;
+    public Builder endKeyDocId(String endKeyDocId) {
+      this.endKeyDocId = endKeyDocId;
       return this;
     }
 
@@ -378,24 +378,24 @@ public class PostViewOptions extends GenericModel {
     }
 
     /**
-     * Set the startkey.
+     * Set the startKey.
      *
-     * @param startkey the startkey
+     * @param startKey the startKey
      * @return the PostViewOptions builder
      */
-    public Builder startkey(Object startkey) {
-      this.startkey = startkey;
+    public Builder startKey(Object startKey) {
+      this.startKey = startKey;
       return this;
     }
 
     /**
-     * Set the startkeyDocid.
+     * Set the startKeyDocId.
      *
-     * @param startkeyDocid the startkeyDocid
+     * @param startKeyDocId the startKeyDocId
      * @return the PostViewOptions builder
      */
-    public Builder startkeyDocid(String startkeyDocid) {
-      this.startkeyDocid = startkeyDocid;
+    public Builder startKeyDocId(String startKeyDocId) {
+      this.startKeyDocId = startKeyDocId;
       return this;
     }
 
@@ -430,16 +430,16 @@ public class PostViewOptions extends GenericModel {
     limit = builder.limit;
     skip = builder.skip;
     updateSeq = builder.updateSeq;
-    endkey = builder.endkey;
-    endkeyDocid = builder.endkeyDocid;
+    endKey = builder.endKey;
+    endKeyDocId = builder.endKeyDocId;
     group = builder.group;
     groupLevel = builder.groupLevel;
     key = builder.key;
     keys = builder.keys;
     reduce = builder.reduce;
     stable = builder.stable;
-    startkey = builder.startkey;
-    startkeyDocid = builder.startkeyDocid;
+    startKey = builder.startKey;
+    startKeyDocId = builder.startKeyDocId;
     update = builder.update;
   }
 
@@ -589,25 +589,25 @@ public class PostViewOptions extends GenericModel {
   }
 
   /**
-   * Gets the endkey.
+   * Gets the endKey.
    *
    * Schema for any JSON type.
    *
-   * @return the endkey
+   * @return the endKey
    */
-  public Object endkey() {
-    return endkey;
+  public Object endKey() {
+    return endKey;
   }
 
   /**
-   * Gets the endkeyDocid.
+   * Gets the endKeyDocId.
    *
    * Schema for a document ID.
    *
-   * @return the endkeyDocid
+   * @return the endKeyDocId
    */
-  public String endkeyDocid() {
-    return endkeyDocid;
+  public String endKeyDocId() {
+    return endKeyDocId;
   }
 
   /**
@@ -680,25 +680,25 @@ public class PostViewOptions extends GenericModel {
   }
 
   /**
-   * Gets the startkey.
+   * Gets the startKey.
    *
    * Schema for any JSON type.
    *
-   * @return the startkey
+   * @return the startKey
    */
-  public Object startkey() {
-    return startkey;
+  public Object startKey() {
+    return startKey;
   }
 
   /**
-   * Gets the startkeyDocid.
+   * Gets the startKeyDocId.
    *
    * Schema for a document ID.
    *
-   * @return the startkeyDocid
+   * @return the startKeyDocId
    */
-  public String startkeyDocid() {
-    return startkeyDocid;
+  public String startKeyDocId() {
+    return startKeyDocId;
   }
 
   /**

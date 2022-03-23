@@ -33,15 +33,15 @@ public class GetAllDbsOptionsTest {
   public void testGetAllDbsOptions() throws Throwable {
     GetAllDbsOptions getAllDbsOptionsModel = new GetAllDbsOptions.Builder()
       .descending(false)
-      .endkey("testString")
+      .endKey("testString")
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .startkey("testString")
+      .startKey("testString")
       .build();
     assertEquals(getAllDbsOptionsModel.descending(), Boolean.valueOf(false));
-    assertEquals(getAllDbsOptionsModel.endkey(), "testString");
+    assertEquals(getAllDbsOptionsModel.endKey(), "testString");
     assertEquals(getAllDbsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(getAllDbsOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(getAllDbsOptionsModel.startkey(), "testString");
+    assertEquals(getAllDbsOptionsModel.startKey(), "testString");
   }
 }

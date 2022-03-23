@@ -47,16 +47,16 @@ public class PostPartitionViewOptions extends GenericModel {
   protected Long limit;
   protected Long skip;
   protected Boolean updateSeq;
-  protected Object endkey;
-  protected String endkeyDocid;
+  protected Object endKey;
+  protected String endKeyDocId;
   protected Boolean group;
   protected Long groupLevel;
   protected Object key;
   protected List<Object> keys;
   protected Boolean reduce;
   protected Boolean stable;
-  protected Object startkey;
-  protected String startkeyDocid;
+  protected Object startKey;
+  protected String startKeyDocId;
   protected String update;
 
   /**
@@ -76,16 +76,16 @@ public class PostPartitionViewOptions extends GenericModel {
     private Long limit;
     private Long skip;
     private Boolean updateSeq;
-    private Object endkey;
-    private String endkeyDocid;
+    private Object endKey;
+    private String endKeyDocId;
     private Boolean group;
     private Long groupLevel;
     private Object key;
     private List<Object> keys;
     private Boolean reduce;
     private Boolean stable;
-    private Object startkey;
-    private String startkeyDocid;
+    private Object startKey;
+    private String startKeyDocId;
     private String update;
 
     private Builder(PostPartitionViewOptions postPartitionViewOptions) {
@@ -102,16 +102,16 @@ public class PostPartitionViewOptions extends GenericModel {
       this.limit = postPartitionViewOptions.limit;
       this.skip = postPartitionViewOptions.skip;
       this.updateSeq = postPartitionViewOptions.updateSeq;
-      this.endkey = postPartitionViewOptions.endkey;
-      this.endkeyDocid = postPartitionViewOptions.endkeyDocid;
+      this.endKey = postPartitionViewOptions.endKey;
+      this.endKeyDocId = postPartitionViewOptions.endKeyDocId;
       this.group = postPartitionViewOptions.group;
       this.groupLevel = postPartitionViewOptions.groupLevel;
       this.key = postPartitionViewOptions.key;
       this.keys = postPartitionViewOptions.keys;
       this.reduce = postPartitionViewOptions.reduce;
       this.stable = postPartitionViewOptions.stable;
-      this.startkey = postPartitionViewOptions.startkey;
-      this.startkeyDocid = postPartitionViewOptions.startkeyDocid;
+      this.startKey = postPartitionViewOptions.startKey;
+      this.startKeyDocId = postPartitionViewOptions.startKeyDocId;
       this.update = postPartitionViewOptions.update;
     }
 
@@ -305,24 +305,24 @@ public class PostPartitionViewOptions extends GenericModel {
     }
 
     /**
-     * Set the endkey.
+     * Set the endKey.
      *
-     * @param endkey the endkey
+     * @param endKey the endKey
      * @return the PostPartitionViewOptions builder
      */
-    public Builder endkey(Object endkey) {
-      this.endkey = endkey;
+    public Builder endKey(Object endKey) {
+      this.endKey = endKey;
       return this;
     }
 
     /**
-     * Set the endkeyDocid.
+     * Set the endKeyDocId.
      *
-     * @param endkeyDocid the endkeyDocid
+     * @param endKeyDocId the endKeyDocId
      * @return the PostPartitionViewOptions builder
      */
-    public Builder endkeyDocid(String endkeyDocid) {
-      this.endkeyDocid = endkeyDocid;
+    public Builder endKeyDocId(String endKeyDocId) {
+      this.endKeyDocId = endKeyDocId;
       return this;
     }
 
@@ -394,24 +394,24 @@ public class PostPartitionViewOptions extends GenericModel {
     }
 
     /**
-     * Set the startkey.
+     * Set the startKey.
      *
-     * @param startkey the startkey
+     * @param startKey the startKey
      * @return the PostPartitionViewOptions builder
      */
-    public Builder startkey(Object startkey) {
-      this.startkey = startkey;
+    public Builder startKey(Object startKey) {
+      this.startKey = startKey;
       return this;
     }
 
     /**
-     * Set the startkeyDocid.
+     * Set the startKeyDocId.
      *
-     * @param startkeyDocid the startkeyDocid
+     * @param startKeyDocId the startKeyDocId
      * @return the PostPartitionViewOptions builder
      */
-    public Builder startkeyDocid(String startkeyDocid) {
-      this.startkeyDocid = startkeyDocid;
+    public Builder startKeyDocId(String startKeyDocId) {
+      this.startKeyDocId = startKeyDocId;
       return this;
     }
 
@@ -449,16 +449,16 @@ public class PostPartitionViewOptions extends GenericModel {
     limit = builder.limit;
     skip = builder.skip;
     updateSeq = builder.updateSeq;
-    endkey = builder.endkey;
-    endkeyDocid = builder.endkeyDocid;
+    endKey = builder.endKey;
+    endKeyDocId = builder.endKeyDocId;
     group = builder.group;
     groupLevel = builder.groupLevel;
     key = builder.key;
     keys = builder.keys;
     reduce = builder.reduce;
     stable = builder.stable;
-    startkey = builder.startkey;
-    startkeyDocid = builder.startkeyDocid;
+    startKey = builder.startKey;
+    startKeyDocId = builder.startKeyDocId;
     update = builder.update;
   }
 
@@ -619,25 +619,25 @@ public class PostPartitionViewOptions extends GenericModel {
   }
 
   /**
-   * Gets the endkey.
+   * Gets the endKey.
    *
    * Schema for any JSON type.
    *
-   * @return the endkey
+   * @return the endKey
    */
-  public Object endkey() {
-    return endkey;
+  public Object endKey() {
+    return endKey;
   }
 
   /**
-   * Gets the endkeyDocid.
+   * Gets the endKeyDocId.
    *
    * Schema for a document ID.
    *
-   * @return the endkeyDocid
+   * @return the endKeyDocId
    */
-  public String endkeyDocid() {
-    return endkeyDocid;
+  public String endKeyDocId() {
+    return endKeyDocId;
   }
 
   /**
@@ -710,25 +710,25 @@ public class PostPartitionViewOptions extends GenericModel {
   }
 
   /**
-   * Gets the startkey.
+   * Gets the startKey.
    *
    * Schema for any JSON type.
    *
-   * @return the startkey
+   * @return the startKey
    */
-  public Object startkey() {
-    return startkey;
+  public Object startKey() {
+    return startKey;
   }
 
   /**
-   * Gets the startkeyDocid.
+   * Gets the startKeyDocId.
    *
    * Schema for a document ID.
    *
-   * @return the startkeyDocid
+   * @return the startKeyDocId
    */
-  public String startkeyDocid() {
-    return startkeyDocid;
+  public String startKeyDocId() {
+    return startKeyDocId;
   }
 
   /**

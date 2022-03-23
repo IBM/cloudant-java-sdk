@@ -45,10 +45,10 @@ public class PostDesignDocsOptionsTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
     assertEquals(postDesignDocsOptionsModel.db(), "testString");
     assertEquals(postDesignDocsOptionsModel.accept(), "application/json");
@@ -61,10 +61,10 @@ public class PostDesignDocsOptionsTest {
     assertEquals(postDesignDocsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postDesignDocsOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postDesignDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(postDesignDocsOptionsModel.endkey(), "testString");
+    assertEquals(postDesignDocsOptionsModel.endKey(), "testString");
     assertEquals(postDesignDocsOptionsModel.key(), "testString");
     assertEquals(postDesignDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(postDesignDocsOptionsModel.startkey(), "testString");
+    assertEquals(postDesignDocsOptionsModel.startKey(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
