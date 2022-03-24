@@ -33,6 +33,7 @@ public class DesignDocumentViewIndexTest {
   @Test
   public void testDesignDocumentViewIndex() throws Throwable {
     DesignDocumentViewIndex designDocumentViewIndexModel = new DesignDocumentViewIndex();
+    assertNull(designDocumentViewIndexModel.getCollatorVersions());
     assertNull(designDocumentViewIndexModel.isCompactRunning());
     assertNull(designDocumentViewIndexModel.getLanguage());
     assertNull(designDocumentViewIndexModel.getSignature());

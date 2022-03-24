@@ -36,10 +36,12 @@ public class AllDocsQuery extends GenericModel {
   protected Long skip;
   @SerializedName("update_seq")
   protected Boolean updateSeq;
-  protected String endkey;
+  @SerializedName("end_key")
+  protected String endKey;
   protected String key;
   protected List<String> keys;
-  protected String startkey;
+  @SerializedName("start_key")
+  protected String startKey;
 
   /**
    * Builder.
@@ -54,10 +56,10 @@ public class AllDocsQuery extends GenericModel {
     private Long limit;
     private Long skip;
     private Boolean updateSeq;
-    private String endkey;
+    private String endKey;
     private String key;
     private List<String> keys;
-    private String startkey;
+    private String startKey;
 
     private Builder(AllDocsQuery allDocsQuery) {
       this.attEncodingInfo = allDocsQuery.attEncodingInfo;
@@ -69,10 +71,10 @@ public class AllDocsQuery extends GenericModel {
       this.limit = allDocsQuery.limit;
       this.skip = allDocsQuery.skip;
       this.updateSeq = allDocsQuery.updateSeq;
-      this.endkey = allDocsQuery.endkey;
+      this.endKey = allDocsQuery.endKey;
       this.key = allDocsQuery.key;
       this.keys = allDocsQuery.keys;
-      this.startkey = allDocsQuery.startkey;
+      this.startKey = allDocsQuery.startKey;
     }
 
     /**
@@ -206,13 +208,13 @@ public class AllDocsQuery extends GenericModel {
     }
 
     /**
-     * Set the endkey.
+     * Set the endKey.
      *
-     * @param endkey the endkey
+     * @param endKey the endKey
      * @return the AllDocsQuery builder
      */
-    public Builder endkey(String endkey) {
-      this.endkey = endkey;
+    public Builder endKey(String endKey) {
+      this.endKey = endKey;
       return this;
     }
 
@@ -240,13 +242,13 @@ public class AllDocsQuery extends GenericModel {
     }
 
     /**
-     * Set the startkey.
+     * Set the startKey.
      *
-     * @param startkey the startkey
+     * @param startKey the startKey
      * @return the AllDocsQuery builder
      */
-    public Builder startkey(String startkey) {
-      this.startkey = startkey;
+    public Builder startKey(String startKey) {
+      this.startKey = startKey;
       return this;
     }
   }
@@ -261,10 +263,10 @@ public class AllDocsQuery extends GenericModel {
     limit = builder.limit;
     skip = builder.skip;
     updateSeq = builder.updateSeq;
-    endkey = builder.endkey;
+    endKey = builder.endKey;
     key = builder.key;
     keys = builder.keys;
-    startkey = builder.startkey;
+    startKey = builder.startKey;
   }
 
   /**
@@ -379,14 +381,14 @@ public class AllDocsQuery extends GenericModel {
   }
 
   /**
-   * Gets the endkey.
+   * Gets the endKey.
    *
    * Schema for a document ID.
    *
-   * @return the endkey
+   * @return the endKey
    */
-  public String endkey() {
-    return endkey;
+  public String endKey() {
+    return endKey;
   }
 
   /**
@@ -412,14 +414,14 @@ public class AllDocsQuery extends GenericModel {
   }
 
   /**
-   * Gets the startkey.
+   * Gets the startKey.
    *
    * Schema for a document ID.
    *
-   * @return the startkey
+   * @return the startKey
    */
-  public String startkey() {
-    return startkey;
+  public String startKey() {
+    return startKey;
   }
 }
 

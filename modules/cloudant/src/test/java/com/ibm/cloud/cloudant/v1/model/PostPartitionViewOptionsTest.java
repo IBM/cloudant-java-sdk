@@ -47,16 +47,16 @@ public class PostPartitionViewOptionsTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
     assertEquals(postPartitionViewOptionsModel.db(), "testString");
@@ -72,16 +72,16 @@ public class PostPartitionViewOptionsTest {
     assertEquals(postPartitionViewOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postPartitionViewOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postPartitionViewOptionsModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(postPartitionViewOptionsModel.endkey(), "testString");
-    assertEquals(postPartitionViewOptionsModel.endkeyDocid(), "testString");
+    assertEquals(postPartitionViewOptionsModel.endKey(), "testString");
+    assertEquals(postPartitionViewOptionsModel.endKeyDocId(), "testString");
     assertEquals(postPartitionViewOptionsModel.group(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.groupLevel(), Long.valueOf("1"));
     assertEquals(postPartitionViewOptionsModel.key(), "testString");
     assertEquals(postPartitionViewOptionsModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
     assertEquals(postPartitionViewOptionsModel.reduce(), Boolean.valueOf(true));
     assertEquals(postPartitionViewOptionsModel.stable(), Boolean.valueOf(false));
-    assertEquals(postPartitionViewOptionsModel.startkey(), "testString");
-    assertEquals(postPartitionViewOptionsModel.startkeyDocid(), "testString");
+    assertEquals(postPartitionViewOptionsModel.startKey(), "testString");
+    assertEquals(postPartitionViewOptionsModel.startKeyDocId(), "testString");
     assertEquals(postPartitionViewOptionsModel.update(), "true");
   }
 

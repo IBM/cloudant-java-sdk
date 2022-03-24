@@ -44,16 +44,16 @@ public class PostViewQueriesOptionsTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
     assertEquals(viewQueryModel.attEncodingInfo(), Boolean.valueOf(false));
@@ -65,16 +65,16 @@ public class PostViewQueriesOptionsTest {
     assertEquals(viewQueryModel.limit(), Long.valueOf("0"));
     assertEquals(viewQueryModel.skip(), Long.valueOf("0"));
     assertEquals(viewQueryModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(viewQueryModel.endkey(), "testString");
-    assertEquals(viewQueryModel.endkeyDocid(), "testString");
+    assertEquals(viewQueryModel.endKey(), "testString");
+    assertEquals(viewQueryModel.endKeyDocId(), "testString");
     assertEquals(viewQueryModel.group(), Boolean.valueOf(false));
     assertEquals(viewQueryModel.groupLevel(), Long.valueOf("1"));
     assertEquals(viewQueryModel.key(), "testString");
     assertEquals(viewQueryModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
     assertEquals(viewQueryModel.reduce(), Boolean.valueOf(true));
     assertEquals(viewQueryModel.stable(), Boolean.valueOf(false));
-    assertEquals(viewQueryModel.startkey(), "testString");
-    assertEquals(viewQueryModel.startkeyDocid(), "testString");
+    assertEquals(viewQueryModel.startKey(), "testString");
+    assertEquals(viewQueryModel.startKeyDocId(), "testString");
     assertEquals(viewQueryModel.update(), "true");
 
     PostViewQueriesOptions postViewQueriesOptionsModel = new PostViewQueriesOptions.Builder()

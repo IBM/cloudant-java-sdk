@@ -44,10 +44,10 @@ public class PostAllDocsQueriesOptionsTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
     assertEquals(allDocsQueryModel.attEncodingInfo(), Boolean.valueOf(false));
     assertEquals(allDocsQueryModel.attachments(), Boolean.valueOf(false));
@@ -58,10 +58,10 @@ public class PostAllDocsQueriesOptionsTest {
     assertEquals(allDocsQueryModel.limit(), Long.valueOf("0"));
     assertEquals(allDocsQueryModel.skip(), Long.valueOf("0"));
     assertEquals(allDocsQueryModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(allDocsQueryModel.endkey(), "testString");
+    assertEquals(allDocsQueryModel.endKey(), "testString");
     assertEquals(allDocsQueryModel.key(), "testString");
     assertEquals(allDocsQueryModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(allDocsQueryModel.startkey(), "testString");
+    assertEquals(allDocsQueryModel.startKey(), "testString");
 
     PostAllDocsQueriesOptions postAllDocsQueriesOptionsModel = new PostAllDocsQueriesOptions.Builder()
       .db("testString")

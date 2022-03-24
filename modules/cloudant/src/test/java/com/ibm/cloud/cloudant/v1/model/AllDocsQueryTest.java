@@ -43,10 +43,10 @@ public class AllDocsQueryTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
     assertEquals(allDocsQueryModel.attEncodingInfo(), Boolean.valueOf(false));
     assertEquals(allDocsQueryModel.attachments(), Boolean.valueOf(false));
@@ -57,10 +57,10 @@ public class AllDocsQueryTest {
     assertEquals(allDocsQueryModel.limit(), Long.valueOf("0"));
     assertEquals(allDocsQueryModel.skip(), Long.valueOf("0"));
     assertEquals(allDocsQueryModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(allDocsQueryModel.endkey(), "testString");
+    assertEquals(allDocsQueryModel.endKey(), "testString");
     assertEquals(allDocsQueryModel.key(), "testString");
     assertEquals(allDocsQueryModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(allDocsQueryModel.startkey(), "testString");
+    assertEquals(allDocsQueryModel.startKey(), "testString");
 
     String json = TestUtilities.serialize(allDocsQueryModel);
 
@@ -75,8 +75,8 @@ public class AllDocsQueryTest {
     assertEquals(allDocsQueryModelNew.limit(), Long.valueOf("0"));
     assertEquals(allDocsQueryModelNew.skip(), Long.valueOf("0"));
     assertEquals(allDocsQueryModelNew.updateSeq(), Boolean.valueOf(false));
-    assertEquals(allDocsQueryModelNew.endkey(), "testString");
+    assertEquals(allDocsQueryModelNew.endKey(), "testString");
     assertEquals(allDocsQueryModelNew.key(), "testString");
-    assertEquals(allDocsQueryModelNew.startkey(), "testString");
+    assertEquals(allDocsQueryModelNew.startKey(), "testString");
   }
 }

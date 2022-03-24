@@ -469,7 +469,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDbUpdatesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"results\": [{\"account\": \"account\", \"db_name\": \"dbName\", \"seq\": \"seq\", \"type\": \"created\"}]}";
+    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"results\": [{\"db_name\": \"dbName\", \"seq\": \"seq\", \"type\": \"created\"}]}";
     String getDbUpdatesPath = "/_db_updates";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -751,10 +751,10 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the GetAllDbsOptions model
     GetAllDbsOptions getAllDbsOptionsModel = new GetAllDbsOptions.Builder()
       .descending(false)
-      .endkey("testString")
+      .endKey("testString")
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Invoke getAllDbs() with a valid options model and verify the result
@@ -774,10 +774,10 @@ public class CloudantTest extends PowerMockTestCase {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
-    assertEquals(query.get("endkey"), "testString");
+    assertEquals(query.get("end_key"), "testString");
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("skip")), Long.valueOf("0"));
-    assertEquals(query.get("startkey"), "testString");
+    assertEquals(query.get("start_key"), "testString");
   }
 
   // Test the getAllDbs operation with and without retries enabled
@@ -1171,10 +1171,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Invoke postAllDocs() with a valid options model and verify the result
@@ -1235,10 +1235,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Invoke postAllDocsAsStream() with a valid options model and verify the result
@@ -1303,10 +1303,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Construct an instance of the PostAllDocsQueriesOptions model
@@ -1372,10 +1372,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Construct an instance of the PostAllDocsQueriesOptions model
@@ -2580,7 +2580,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDesignDocumentInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"updater_running\": true, \"waiting_clients\": 0, \"waiting_commit\": false}}";
+    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"updater_running\": true, \"waiting_clients\": 0, \"waiting_commit\": false}}";
     String getDesignDocumentInformationPath = "/testString/_design/testString/_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2651,10 +2651,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .accept("application/json")
       .build();
 
@@ -2715,10 +2715,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Construct an instance of the PostDesignDocsQueriesOptions model
@@ -2788,16 +2788,16 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
 
@@ -2861,16 +2861,16 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
 
@@ -2936,16 +2936,16 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
 
@@ -3014,16 +3014,16 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
 
@@ -3151,10 +3151,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Invoke postPartitionAllDocs() with a valid options model and verify the result
@@ -3216,10 +3216,10 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
+      .endKey("testString")
       .key("testString")
       .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .startkey("testString")
+      .startKey("testString")
       .build();
 
     // Invoke postPartitionAllDocsAsStream() with a valid options model and verify the result
@@ -3425,16 +3425,16 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
 
@@ -3499,16 +3499,16 @@ public class CloudantTest extends PowerMockTestCase {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
 
@@ -4270,7 +4270,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetSearchInfoWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"committed_seq\": 12, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 10}}";
+    String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"committed_seq\": 12, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 10, \"signature\": \"signature\"}}";
     String getSearchInfoPath = "/testString/_design/testString/_search_info/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")

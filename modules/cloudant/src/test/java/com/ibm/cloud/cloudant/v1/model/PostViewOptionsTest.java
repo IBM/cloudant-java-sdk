@@ -46,16 +46,16 @@ public class PostViewOptionsTest {
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
-      .endkey("testString")
-      .endkeyDocid("testString")
+      .endKey("testString")
+      .endKeyDocId("testString")
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
       .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
       .reduce(true)
       .stable(false)
-      .startkey("testString")
-      .startkeyDocid("testString")
+      .startKey("testString")
+      .startKeyDocId("testString")
       .update("true")
       .build();
     assertEquals(postViewOptionsModel.db(), "testString");
@@ -70,16 +70,16 @@ public class PostViewOptionsTest {
     assertEquals(postViewOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postViewOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postViewOptionsModel.updateSeq(), Boolean.valueOf(false));
-    assertEquals(postViewOptionsModel.endkey(), "testString");
-    assertEquals(postViewOptionsModel.endkeyDocid(), "testString");
+    assertEquals(postViewOptionsModel.endKey(), "testString");
+    assertEquals(postViewOptionsModel.endKeyDocId(), "testString");
     assertEquals(postViewOptionsModel.group(), Boolean.valueOf(false));
     assertEquals(postViewOptionsModel.groupLevel(), Long.valueOf("1"));
     assertEquals(postViewOptionsModel.key(), "testString");
     assertEquals(postViewOptionsModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
     assertEquals(postViewOptionsModel.reduce(), Boolean.valueOf(true));
     assertEquals(postViewOptionsModel.stable(), Boolean.valueOf(false));
-    assertEquals(postViewOptionsModel.startkey(), "testString");
-    assertEquals(postViewOptionsModel.startkeyDocid(), "testString");
+    assertEquals(postViewOptionsModel.startKey(), "testString");
+    assertEquals(postViewOptionsModel.startKeyDocId(), "testString");
     assertEquals(postViewOptionsModel.update(), "true");
   }
 

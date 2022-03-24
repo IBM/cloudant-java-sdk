@@ -123,6 +123,11 @@ public class ExplainResult extends GenericModel {
    * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
    * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
    * argument.
+   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
+   * of a query. You should include at least one of these in a selector.
+   *
+   * For further reference see
+   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
    *
    * @return the selector
    */

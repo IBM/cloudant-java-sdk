@@ -12,6 +12,8 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
@@ -20,6 +22,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DesignDocumentViewIndex extends GenericModel {
 
+  @SerializedName("collator_versions")
+  protected List<String> collatorVersions;
   @SerializedName("compact_running")
   protected Boolean compactRunning;
   protected String language;
@@ -31,6 +35,18 @@ public class DesignDocumentViewIndex extends GenericModel {
   protected Long waitingClients;
   @SerializedName("waiting_commit")
   protected Boolean waitingCommit;
+
+  /**
+   * Gets the collatorVersions.
+   *
+   * List of collator versions. If there are multiple entries this implies a libicu upgrade has occurred but compaction
+   * has not run yet.
+   *
+   * @return the collatorVersions
+   */
+  public List<String> getCollatorVersions() {
+    return collatorVersions;
+  }
 
   /**
    * Gets the compactRunning.
