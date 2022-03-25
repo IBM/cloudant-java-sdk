@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2022. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,9 @@ import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.util.CredentialUtils;
 import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator;
 
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -35,11 +37,10 @@ public class DelegatingAuthenticatorFactory extends ConfigBasedAuthenticatorFact
     }
 
     public static Authenticator getAuthenticator(String serviceName) {
-        return getAuthenticator(serviceName, CredentialUtils.getServiceProperties(serviceName));
+        return createAuthenticator(CredentialUtils.getServiceProperties(serviceName));
     }
 
-    static Authenticator getAuthenticator(String serviceName,
-                                                 Map<String, String> serviceProperties) {
+    protected static Authenticator createAuthenticator(Map<String, String> serviceProperties) {
         if (serviceProperties != null && !serviceProperties.isEmpty()) {
             String authType = serviceProperties.get(Authenticator.PROPNAME_AUTH_TYPE);
 
@@ -57,6 +58,20 @@ public class DelegatingAuthenticatorFactory extends ConfigBasedAuthenticatorFact
         }
 
         // For all other auth types, delegate to the core factory
-        return ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName);
+        return ConfigBasedAuthenticatorFactory.createAuthenticator(serviceProperties);
+    }
+
+    // for spring/kafka style properties
+    static Authenticator getAuthenticator(Map<String, String> dottedProperties) {
+        final String cloudantPrefix = "cloudant.";
+        return createAuthenticator(
+            dottedProperties
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().startsWith(cloudantPrefix))
+                .collect(Collectors.toMap(
+                    // remove the cloudant. prefix and then uppercase and replace . with _
+                    entry -> entry.getKey().substring(cloudantPrefix.length()).toUpperCase(Locale.ENGLISH).replace(".", "_"),
+                    entry -> entry.getValue())));
     }
 }

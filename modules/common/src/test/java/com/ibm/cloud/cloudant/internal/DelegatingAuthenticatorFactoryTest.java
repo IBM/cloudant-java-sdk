@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2022. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,7 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.fail;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -50,7 +51,7 @@ class DelegatingAuthenticatorFactoryTest {
 
     @Test
     void getAuthenticatorForSessionAuthType() {
-        Authenticator authenticator = DelegatingAuthenticatorFactory.getAuthenticator("test",
+        Authenticator authenticator = DelegatingAuthenticatorFactory.createAuthenticator(
                 getServicePropsWithAuthType(Authenticator.PROPNAME_AUTH_TYPE, "COUCHDB_SESSION"));
         assertTrue(authenticator instanceof CouchDbSessionAuthenticator, "Should return an " +
                 "instance of CouchDbSessionAuthenticator");
@@ -58,7 +59,7 @@ class DelegatingAuthenticatorFactoryTest {
 
     @Test
     void getAuthenticatorForSessionAuthTypeAlias() {
-        Authenticator authenticator = DelegatingAuthenticatorFactory.getAuthenticator("test",
+        Authenticator authenticator = DelegatingAuthenticatorFactory.createAuthenticator(
                 getServicePropsWithAuthType("AUTHTYPE", "COUCHDB_SESSION"));
         assertTrue(authenticator instanceof CouchDbSessionAuthenticator, "Should return an " +
                 "instance of CouchDbSessionAuthenticator");
@@ -66,9 +67,27 @@ class DelegatingAuthenticatorFactoryTest {
 
     @Test
     void getAuthenticatorForOtherAuthType() {
-        Authenticator authenticator = DelegatingAuthenticatorFactory.getAuthenticator("test",
+        Authenticator authenticator = DelegatingAuthenticatorFactory.createAuthenticator(
                 getServicePropsWithAuthType(Authenticator.PROPNAME_AUTH_TYPE, "BASIC"));
         assertFalse(authenticator instanceof CouchDbSessionAuthenticator, "Should not return " +
                 "an instance of CouchDbSessionAuthenticator");
     }
+
+    @Test
+    void getAuthenticatorForDotttedProperties() {
+        Map<String, String> dottedProperties = new HashMap<>();
+        dottedProperties.put("cloudant.authtype", "COUCHDB_SESSION");
+        dottedProperties.put("cloudant.username", "user");
+        dottedProperties.put("cloudant.password", "p@55w0rd");
+        Authenticator authenticator = DelegatingAuthenticatorFactory.getAuthenticator(dottedProperties);
+        assertTrue(authenticator instanceof CouchDbSessionAuthenticator, "Should return an " +
+                "instance of CouchDbSessionAuthenticator");
+        try {
+            ((CouchDbSessionAuthenticator)authenticator).validate();
+        } catch (IllegalArgumentException iae) {
+            fail("Validation should not fail - username and password should be present");
+        }
+    }
+
+
 }
