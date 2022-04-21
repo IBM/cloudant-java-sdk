@@ -105,15 +105,17 @@ project:
 
 The current version of this SDK is: 0.1.1
 
-The project artifacts are published on the following public maven repositories:
+The project artifacts are published on the
+[Maven Central](https://repo1.maven.org/maven2/com/ibm/cloud/cloudant/). 
+This is the default public repository used by *Maven* when searching for dependencies.
 
-- [JCenter](https://bintray.com/bintray/jcenter) - For information on how to use
-the public JCenter maven repository, open [this link](https://bintray.com/bintray/jcenter)
-then click the `Set Me Up!` button.
-- [Maven Central](https://repo1.maven.org/maven2/) - This is the default public repository
-used by maven when searching for dependencies.  To use this repository within your
-gradle build, please see
-[this link](https://docs.gradle.org/current/userguide/declaring_repositories.html).
+To use Maven Central within your *Gradle* build add `mavenCentral()` to the *repositories* in your `build.gradle` file:
+```groovy
+repositories {
+  // other repositories...
+  mavenCentral()
+}
+```
 
 To use the Cloudant Java SDK, define a dependency that contains the
 artifact coordinates (group id, artifact id and version) for the service, like this:
@@ -135,7 +137,7 @@ Extend *Maven dependencies* in your `pom.xml` file with the `cloudant` library.
 
 ### Gradle
 
-Add the `cloudant` library to *Gradle dependencies* in your `build.gradle` file:
+Add the `cloudant` library to the *dependencies* in your `build.gradle` file:
 
 ```groovy
 dependencies {
