@@ -71,7 +71,7 @@
     </licenses>
 
     <organization>
-        <name>IBM Cloud</name>
+        <name>IBM Corporation</name>
     </organization>
 
     <scm>
@@ -439,7 +439,6 @@
                     <show>public</show>
                     <source>1.8</source>
                     <doctitle>${project.name}, version ${project.version}</doctitle>
-                    <footer>IBM Corporation</footer>
                 </configuration>
                 <executions>
                     <execution>
