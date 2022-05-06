@@ -120,19 +120,6 @@ consult the Cloudant documentation for further information.
 <!-- ## SPLIT MARKER ## -->
 ## Cloudant SDK for Java
 
-### Authentication
-#### Reflective serializer and modularization
-* When using IAM authentication on Java 9+ a warning will be emitted:
-    ```
-    WARNING: An illegal reflective access operation has occurred
-    WARNING: Illegal reflective access by com.google.gson.internal.reflect.UnsafeReflectionAccessor (.../gson/2.8.5/f645ed69d595b24d4cf8b3fbb64cc505bede8829/gson-2.8.5.jar) to field java.lang.Throwable.detailMessage
-    ```
-
-  The warning is emitted after processing the following line in `com.ibm.cloud.sdk.core.util`:
-  ```java
-  return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, valueType);
-  ```
-
 ### Search
 #### Analyzer definitions should be in object format
 
