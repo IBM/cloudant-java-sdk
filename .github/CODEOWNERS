@@ -31,4 +31,8 @@ modules/coverage-reports/pom.xml @IBM/cloudant-sdks
 modules/examples/pom.xml @IBM/cloudant-sdks
 pom.xml @IBM/cloudant-sdks
 
+# Examples files:
+
+/examples/ @IBM/cloudant-sdks
+
 .bumpversion.cfg @IBM/cloudant-sdks
