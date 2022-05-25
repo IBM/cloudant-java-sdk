@@ -106,7 +106,7 @@ project:
 The current version of this SDK is: 0.1.2
 
 The project artifacts are published on the
-[Maven Central](https://repo1.maven.org/maven2/com/ibm/cloud/cloudant/). 
+[Maven Central](https://repo1.maven.org/maven2/com/ibm/cloud/cloudant/).
 This is the default public repository used by *Maven* when searching for dependencies.
 
 To use Maven Central within your *Gradle* build add `mavenCentral()` to the *repositories* in your `build.gradle` file:
