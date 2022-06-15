@@ -19,7 +19,7 @@
 
         <git-repository-name>cloudant-java-sdk</git-repository-name>
 
-        <testng-version>7.4.0</testng-version>
+        <testng-version>7.6.0</testng-version>
         <okhttp3-version>4.10.0</okhttp3-version>
         <surefire-version>3.0.0-M7</surefire-version>
         <jacoco-plugin-version>0.8.8</jacoco-plugin-version>
