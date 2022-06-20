@@ -114,6 +114,8 @@ public class GetAllDbsOptions extends GenericModel {
     }
   }
 
+  protected GetAllDbsOptions() { }
+
   protected GetAllDbsOptions(Builder builder) {
     descending = builder.descending;
     endKey = builder.endKey;

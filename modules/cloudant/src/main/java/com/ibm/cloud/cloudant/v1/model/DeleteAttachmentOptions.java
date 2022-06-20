@@ -150,6 +150,8 @@ public class DeleteAttachmentOptions extends GenericModel {
     }
   }
 
+  protected DeleteAttachmentOptions() { }
+
   protected DeleteAttachmentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

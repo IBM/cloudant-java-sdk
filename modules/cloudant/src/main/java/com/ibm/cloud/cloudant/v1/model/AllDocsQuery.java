@@ -253,6 +253,8 @@ public class AllDocsQuery extends GenericModel {
     }
   }
 
+  protected AllDocsQuery() { }
+
   protected AllDocsQuery(Builder builder) {
     attEncodingInfo = builder.attEncodingInfo;
     attachments = builder.attachments;

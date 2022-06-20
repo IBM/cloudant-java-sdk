@@ -58,6 +58,8 @@ public class GetUuidsOptions extends GenericModel {
     }
   }
 
+  protected GetUuidsOptions() { }
+
   protected GetUuidsOptions(Builder builder) {
     count = builder.count;
   }

@@ -103,6 +103,8 @@ public class Revisions extends GenericModel {
     }
   }
 
+  protected Revisions() { }
+
   protected Revisions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.ids,
       "ids cannot be null");

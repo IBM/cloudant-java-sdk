@@ -117,6 +117,8 @@ public class PostDesignDocsQueriesOptions extends GenericModel {
     }
   }
 
+  protected PostDesignDocsQueriesOptions() { }
+
   protected PostDesignDocsQueriesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

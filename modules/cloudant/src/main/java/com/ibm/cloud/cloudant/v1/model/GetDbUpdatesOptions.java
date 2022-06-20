@@ -114,6 +114,8 @@ public class GetDbUpdatesOptions extends GenericModel {
     }
   }
 
+  protected GetDbUpdatesOptions() { }
+
   protected GetDbUpdatesOptions(Builder builder) {
     feed = builder.feed;
     heartbeat = builder.heartbeat;

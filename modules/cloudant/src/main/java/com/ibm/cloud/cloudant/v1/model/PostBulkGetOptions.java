@@ -159,6 +159,8 @@ public class PostBulkGetOptions extends GenericModel {
     }
   }
 
+  protected PostBulkGetOptions() { }
+
   protected PostBulkGetOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

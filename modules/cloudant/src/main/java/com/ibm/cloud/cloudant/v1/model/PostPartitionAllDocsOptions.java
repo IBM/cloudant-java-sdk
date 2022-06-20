@@ -285,6 +285,8 @@ public class PostPartitionAllDocsOptions extends GenericModel {
     }
   }
 
+  protected PostPartitionAllDocsOptions() { }
+
   protected PostPartitionAllDocsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

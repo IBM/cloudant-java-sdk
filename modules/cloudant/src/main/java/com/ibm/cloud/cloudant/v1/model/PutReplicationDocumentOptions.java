@@ -148,6 +148,8 @@ public class PutReplicationDocumentOptions extends GenericModel {
     }
   }
 
+  protected PutReplicationDocumentOptions() { }
+
   protected PutReplicationDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.docId,
       "docId cannot be empty");

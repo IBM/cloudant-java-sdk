@@ -366,6 +366,8 @@ public class ViewQuery extends GenericModel {
     }
   }
 
+  protected ViewQuery() { }
+
   protected ViewQuery(Builder builder) {
     attEncodingInfo = builder.attEncodingInfo;
     attachments = builder.attachments;

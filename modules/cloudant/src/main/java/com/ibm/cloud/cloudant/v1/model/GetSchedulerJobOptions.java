@@ -67,6 +67,8 @@ public class GetSchedulerJobOptions extends GenericModel {
     }
   }
 
+  protected GetSchedulerJobOptions() { }
+
   protected GetSchedulerJobOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.jobId,
       "jobId cannot be empty");

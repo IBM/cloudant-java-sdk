@@ -117,6 +117,8 @@ public class BulkGetQueryDocument extends GenericModel {
     }
   }
 
+  protected BulkGetQueryDocument() { }
+
   protected BulkGetQueryDocument(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.id,
       "id cannot be null");

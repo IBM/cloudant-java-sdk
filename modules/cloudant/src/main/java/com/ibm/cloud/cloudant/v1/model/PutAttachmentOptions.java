@@ -177,6 +177,8 @@ public class PutAttachmentOptions extends GenericModel {
     }
   }
 
+  protected PutAttachmentOptions() { }
+
   protected PutAttachmentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

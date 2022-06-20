@@ -67,6 +67,8 @@ public class PostGeoCleanupOptions extends GenericModel {
     }
   }
 
+  protected PostGeoCleanupOptions() { }
+
   protected PostGeoCleanupOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

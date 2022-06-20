@@ -134,6 +134,8 @@ public class DeleteDesignDocumentOptions extends GenericModel {
     }
   }
 
+  protected DeleteDesignDocumentOptions() { }
+
   protected DeleteDesignDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

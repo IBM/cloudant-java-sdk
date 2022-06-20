@@ -103,6 +103,8 @@ public class BulkDocs extends GenericModel {
     }
   }
 
+  protected BulkDocs() { }
+
   protected BulkDocs(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.docs,
       "docs cannot be null");

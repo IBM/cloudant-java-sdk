@@ -169,6 +169,8 @@ public class PostSearchAnalyzeOptions extends GenericModel {
     }
   }
 
+  protected PostSearchAnalyzeOptions() { }
+
   protected PostSearchAnalyzeOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.analyzer,
       "analyzer cannot be null");

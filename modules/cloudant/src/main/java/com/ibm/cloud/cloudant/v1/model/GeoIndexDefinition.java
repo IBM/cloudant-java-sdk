@@ -67,6 +67,8 @@ public class GeoIndexDefinition extends GenericModel {
     }
   }
 
+  protected GeoIndexDefinition() { }
+
   protected GeoIndexDefinition(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.index,
       "index cannot be null");

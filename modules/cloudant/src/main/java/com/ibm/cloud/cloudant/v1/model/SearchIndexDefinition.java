@@ -81,6 +81,8 @@ public class SearchIndexDefinition extends GenericModel {
     }
   }
 
+  protected SearchIndexDefinition() { }
+
   protected SearchIndexDefinition(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.index,
       "index cannot be null");

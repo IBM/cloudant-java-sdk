@@ -81,6 +81,8 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
     }
   }
 
+  protected DesignDocumentViewsMapReduce() { }
+
   protected DesignDocumentViewsMapReduce(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.map,
       "map cannot be null");

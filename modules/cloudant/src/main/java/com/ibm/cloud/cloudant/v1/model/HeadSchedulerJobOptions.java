@@ -67,6 +67,8 @@ public class HeadSchedulerJobOptions extends GenericModel {
     }
   }
 
+  protected HeadSchedulerJobOptions() { }
+
   protected HeadSchedulerJobOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.jobId,
       "jobId cannot be empty");

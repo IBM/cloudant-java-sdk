@@ -83,6 +83,8 @@ public class ReplicationDatabaseAuthBasic extends GenericModel {
     }
   }
 
+  protected ReplicationDatabaseAuthBasic() { }
+
   protected ReplicationDatabaseAuthBasic(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.password,
       "password cannot be null");

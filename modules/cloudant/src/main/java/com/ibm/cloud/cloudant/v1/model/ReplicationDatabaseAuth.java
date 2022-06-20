@@ -72,6 +72,8 @@ public class ReplicationDatabaseAuth extends GenericModel {
     }
   }
 
+  protected ReplicationDatabaseAuth() { }
+
   protected ReplicationDatabaseAuth(Builder builder) {
     basic = builder.basic;
     iam = builder.iam;

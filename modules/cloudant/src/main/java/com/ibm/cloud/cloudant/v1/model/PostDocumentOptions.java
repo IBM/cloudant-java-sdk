@@ -150,6 +150,8 @@ public class PostDocumentOptions extends GenericModel {
     }
   }
 
+  protected PostDocumentOptions() { }
+
   protected PostDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

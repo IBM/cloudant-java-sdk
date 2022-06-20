@@ -87,6 +87,8 @@ public class PostDbsInfoOptions extends GenericModel {
     }
   }
 
+  protected PostDbsInfoOptions() { }
+
   protected PostDbsInfoOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.keys,
       "keys cannot be null");

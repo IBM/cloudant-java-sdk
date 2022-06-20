@@ -67,6 +67,8 @@ public class GetDatabaseInformationOptions extends GenericModel {
     }
   }
 
+  protected GetDatabaseInformationOptions() { }
+
   protected GetDatabaseInformationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
