@@ -83,6 +83,8 @@ public class GetDocumentShardsInfoOptions extends GenericModel {
     }
   }
 
+  protected GetDocumentShardsInfoOptions() { }
+
   protected GetDocumentShardsInfoOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

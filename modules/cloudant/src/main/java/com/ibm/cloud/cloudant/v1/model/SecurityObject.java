@@ -109,6 +109,8 @@ public class SecurityObject extends GenericModel {
     }
   }
 
+  protected SecurityObject() { }
+
   protected SecurityObject(Builder builder) {
     names = builder.names;
     roles = builder.roles;

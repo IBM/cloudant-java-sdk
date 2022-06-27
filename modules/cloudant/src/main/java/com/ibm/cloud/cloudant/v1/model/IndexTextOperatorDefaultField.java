@@ -73,6 +73,8 @@ public class IndexTextOperatorDefaultField extends GenericModel {
     }
   }
 
+  protected IndexTextOperatorDefaultField() { }
+
   protected IndexTextOperatorDefaultField(Builder builder) {
     analyzer = builder.analyzer;
     enabled = builder.enabled;

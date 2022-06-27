@@ -97,6 +97,8 @@ public class HeadDesignDocumentOptions extends GenericModel {
     }
   }
 
+  protected HeadDesignDocumentOptions() { }
+
   protected HeadDesignDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

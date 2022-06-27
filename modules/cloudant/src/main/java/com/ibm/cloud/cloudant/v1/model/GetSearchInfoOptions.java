@@ -99,6 +99,8 @@ public class GetSearchInfoOptions extends GenericModel {
     }
   }
 
+  protected GetSearchInfoOptions() { }
+
   protected GetSearchInfoOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

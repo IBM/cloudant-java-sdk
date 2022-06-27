@@ -467,6 +467,8 @@ public class PostSearchOptions extends GenericModel {
     }
   }
 
+  protected PostSearchOptions() { }
+
   protected PostSearchOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

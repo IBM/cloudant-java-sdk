@@ -81,6 +81,8 @@ public class HeadReplicationDocumentOptions extends GenericModel {
     }
   }
 
+  protected HeadReplicationDocumentOptions() { }
+
   protected HeadReplicationDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.docId,
       "docId cannot be empty");

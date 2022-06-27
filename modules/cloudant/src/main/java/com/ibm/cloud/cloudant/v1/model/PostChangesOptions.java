@@ -371,6 +371,8 @@ public class PostChangesOptions extends GenericModel {
     }
   }
 
+  protected PostChangesOptions() { }
+
   protected PostChangesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

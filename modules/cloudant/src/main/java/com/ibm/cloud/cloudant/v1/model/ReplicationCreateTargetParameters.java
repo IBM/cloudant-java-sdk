@@ -86,6 +86,8 @@ public class ReplicationCreateTargetParameters extends GenericModel {
     }
   }
 
+  protected ReplicationCreateTargetParameters() { }
+
   protected ReplicationCreateTargetParameters(Builder builder) {
     n = builder.n;
     partitioned = builder.partitioned;

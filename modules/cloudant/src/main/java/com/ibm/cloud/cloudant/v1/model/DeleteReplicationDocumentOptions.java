@@ -118,6 +118,8 @@ public class DeleteReplicationDocumentOptions extends GenericModel {
     }
   }
 
+  protected DeleteReplicationDocumentOptions() { }
+
   protected DeleteReplicationDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.docId,
       "docId cannot be empty");

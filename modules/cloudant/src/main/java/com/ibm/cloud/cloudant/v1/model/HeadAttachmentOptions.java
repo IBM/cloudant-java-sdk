@@ -141,6 +141,8 @@ public class HeadAttachmentOptions extends GenericModel {
     }
   }
 
+  protected HeadAttachmentOptions() { }
+
   protected HeadAttachmentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

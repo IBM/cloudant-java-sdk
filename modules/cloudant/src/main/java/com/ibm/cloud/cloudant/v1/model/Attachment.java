@@ -173,6 +173,8 @@ public class Attachment extends GenericModel {
     }
   }
 
+  protected Attachment() { }
+
   protected Attachment(Builder builder) {
     contentType = builder.contentType;
     data = builder.data;

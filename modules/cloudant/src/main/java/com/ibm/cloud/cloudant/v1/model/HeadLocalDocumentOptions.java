@@ -97,6 +97,8 @@ public class HeadLocalDocumentOptions extends GenericModel {
     }
   }
 
+  protected HeadLocalDocumentOptions() { }
+
   protected HeadLocalDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

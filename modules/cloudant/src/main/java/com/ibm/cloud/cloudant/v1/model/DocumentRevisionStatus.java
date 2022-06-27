@@ -96,6 +96,8 @@ public class DocumentRevisionStatus extends GenericModel {
     }
   }
 
+  protected DocumentRevisionStatus() { }
+
   protected DocumentRevisionStatus(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.rev,
       "rev cannot be null");

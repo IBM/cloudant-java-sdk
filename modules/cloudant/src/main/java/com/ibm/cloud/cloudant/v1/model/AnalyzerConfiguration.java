@@ -198,6 +198,8 @@ public class AnalyzerConfiguration extends GenericModel {
     }
   }
 
+  protected AnalyzerConfiguration() { }
+
   protected AnalyzerConfiguration(Builder builder) {
     name = builder.name;
     stopwords = builder.stopwords;

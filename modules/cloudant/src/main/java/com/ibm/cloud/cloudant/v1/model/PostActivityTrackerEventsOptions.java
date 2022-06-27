@@ -105,6 +105,8 @@ public class PostActivityTrackerEventsOptions extends GenericModel {
     }
   }
 
+  protected PostActivityTrackerEventsOptions() { }
+
   protected PostActivityTrackerEventsOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.types,
       "types cannot be null");

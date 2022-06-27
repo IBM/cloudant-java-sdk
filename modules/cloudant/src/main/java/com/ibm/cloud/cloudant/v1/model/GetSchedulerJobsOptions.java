@@ -72,6 +72,8 @@ public class GetSchedulerJobsOptions extends GenericModel {
     }
   }
 
+  protected GetSchedulerJobsOptions() { }
+
   protected GetSchedulerJobsOptions(Builder builder) {
     limit = builder.limit;
     skip = builder.skip;

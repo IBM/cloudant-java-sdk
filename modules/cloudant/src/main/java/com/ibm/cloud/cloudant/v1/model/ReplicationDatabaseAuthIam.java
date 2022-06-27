@@ -69,6 +69,8 @@ public class ReplicationDatabaseAuthIam extends GenericModel {
     }
   }
 
+  protected ReplicationDatabaseAuthIam() { }
+
   protected ReplicationDatabaseAuthIam(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.apiKey,
       "apiKey cannot be null");

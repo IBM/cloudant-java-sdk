@@ -67,6 +67,8 @@ public class GetSchedulerDocumentOptions extends GenericModel {
     }
   }
 
+  protected GetSchedulerDocumentOptions() { }
+
   protected GetSchedulerDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.docId,
       "docId cannot be empty");

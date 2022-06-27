@@ -105,6 +105,8 @@ public class Security extends GenericModel {
     }
   }
 
+  protected Security() { }
+
   protected Security(Builder builder) {
     admins = builder.admins;
     members = builder.members;

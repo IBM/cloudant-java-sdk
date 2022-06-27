@@ -67,6 +67,8 @@ public class PutCapacityThroughputConfigurationOptions extends GenericModel {
     }
   }
 
+  protected PutCapacityThroughputConfigurationOptions() { }
+
   protected PutCapacityThroughputConfigurationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.blocks,
       "blocks cannot be null");

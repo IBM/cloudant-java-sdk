@@ -67,6 +67,8 @@ public class DeleteDatabaseOptions extends GenericModel {
     }
   }
 
+  protected DeleteDatabaseOptions() { }
+
   protected DeleteDatabaseOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

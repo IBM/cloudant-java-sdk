@@ -58,6 +58,8 @@ public class DesignDocumentOptions extends GenericModel {
     }
   }
 
+  protected DesignDocumentOptions() { }
+
   protected DesignDocumentOptions(Builder builder) {
     partitioned = builder.partitioned;
   }

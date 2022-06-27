@@ -237,6 +237,8 @@ public class GetDocumentOptions extends GenericModel {
     }
   }
 
+  protected GetDocumentOptions() { }
+
   protected GetDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");

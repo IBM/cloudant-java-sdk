@@ -126,6 +126,8 @@ public class GetSchedulerDocsOptions extends GenericModel {
     }
   }
 
+  protected GetSchedulerDocsOptions() { }
+
   protected GetSchedulerDocsOptions(Builder builder) {
     limit = builder.limit;
     skip = builder.skip;

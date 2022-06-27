@@ -143,6 +143,8 @@ public class IndexDefinition extends GenericModel {
     }
   }
 
+  protected IndexDefinition() { }
+
   protected IndexDefinition(Builder builder) {
     defaultAnalyzer = builder.defaultAnalyzer;
     defaultField = builder.defaultField;

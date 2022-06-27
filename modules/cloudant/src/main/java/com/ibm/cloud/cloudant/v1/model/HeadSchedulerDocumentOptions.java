@@ -67,6 +67,8 @@ public class HeadSchedulerDocumentOptions extends GenericModel {
     }
   }
 
+  protected HeadSchedulerDocumentOptions() { }
+
   protected HeadSchedulerDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.docId,
       "docId cannot be empty");

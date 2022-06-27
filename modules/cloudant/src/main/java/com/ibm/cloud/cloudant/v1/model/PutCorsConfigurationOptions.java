@@ -115,6 +115,8 @@ public class PutCorsConfigurationOptions extends GenericModel {
     }
   }
 
+  protected PutCorsConfigurationOptions() { }
+
   protected PutCorsConfigurationOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.origins,
       "origins cannot be null");

@@ -94,6 +94,8 @@ public class ActivityTrackerEvents extends GenericModel {
     }
   }
 
+  protected ActivityTrackerEvents() { }
+
   protected ActivityTrackerEvents(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.types,
       "types cannot be null");

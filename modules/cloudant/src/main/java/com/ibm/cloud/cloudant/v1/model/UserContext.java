@@ -139,6 +139,8 @@ public class UserContext extends GenericModel {
     }
   }
 
+  protected UserContext() { }
+
   protected UserContext(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
       "name cannot be null");
