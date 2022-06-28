@@ -4753,7 +4753,7 @@ public class CloudantTest extends PowerMockTestCase {
     String deleteReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
+      .setResponseCode(200)
       .setBody(mockResponseBody));
 
     // Construct an instance of the DeleteReplicationDocumentOptions model
@@ -5645,7 +5645,7 @@ public class CloudantTest extends PowerMockTestCase {
     String deleteAttachmentPath = "/testString/testString/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
+      .setResponseCode(200)
       .setBody(mockResponseBody));
 
     // Construct an instance of the DeleteAttachmentOptions model
