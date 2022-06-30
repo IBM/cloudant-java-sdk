@@ -306,8 +306,8 @@ public class AllDocsQuery extends GenericModel {
   /**
    * Gets the conflicts.
    *
-   * Parameter to specify whether to include a list of conflicted revisions in the `_conflicts` property of the returned
-   * document. Ignored if `include_docs` isn't `true`.
+   * Parameter to specify whether to include a list of conflicted revisions in each returned document. Active only when
+   * `include_docs` is `true`.
    *
    * @return the conflicts
    */
