@@ -38,4 +38,4 @@ jobs:
       if: github.event_name == 'create' && startsWith(github.ref, 'refs/tags/')
       run: mvn versions:set -DnewVersion=${{ github.ref_name }} -DgenerateBackupPoms=false
     - name: Run tests
-      run: mvn clean verify
+      run: mvn --batch-mode verify
