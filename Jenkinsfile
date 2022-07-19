@@ -299,7 +299,7 @@ void publishPublic() {
 void publishMaven(mvnArgs='') {
   withCredentials([usernamePassword(credentialsId: 'signing-creds', passwordVariable: 'SIGNING_PSW', usernameVariable: 'SIGNING_USR'),
                    file(credentialsId: 'signing-key', variable: 'SIGNING_KEYFILE')]) {
-    sh "mvn deploy --settings build/.travis.settings.xml -DskipTests ${mvnArgs}"
+    sh "mvn deploy --settings build/publish.settings.xml -DskipTests ${mvnArgs}"
   }
 }
 
