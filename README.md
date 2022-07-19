@@ -4,6 +4,8 @@
 
 # IBM Cloudant Java SDK Version 0.2.0
 
+Trigger an automatic pull request.
+
 IBM Cloudant Java SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=java).
 
