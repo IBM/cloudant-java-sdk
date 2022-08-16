@@ -10,7 +10,7 @@ import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 Cloudant service = Cloudant.newInstance();
 
 ReplicationDatabase sourceDb = new ReplicationDatabase.Builder()
-    .url("https://examples.cloudant.com/animaldb")
+    .url("<your-source-service-url>/animaldb")
     .build();
 
 ReplicationDatabaseAuthIam targetAuthIam =
@@ -24,7 +24,7 @@ ReplicationDatabaseAuth targetAuth = new ReplicationDatabaseAuth.Builder()
 
 ReplicationDatabase targetDb = new ReplicationDatabase.Builder()
     .auth(targetAuth)
-    .url(String.join("/","<your-service-url>", "animaldb-target"))
+    .url(String.join("/","<your-target-service-url>", "animaldb-target"))
     .build();
 
 ReplicationDocument replDocument = new ReplicationDocument();
