@@ -33,7 +33,7 @@
         <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
         <maven-site-plugin-version>3.12.1</maven-site-plugin-version>
         <maven-checkstyle-plugin-version>3.1.2</maven-checkstyle-plugin-version>
-        <maven-reports-plugin-version>3.4.0</maven-reports-plugin-version>
+        <maven-reports-plugin-version>3.4.1</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.0.0-M7</maven-failsafe-plugin-version>
         <maven-buildnumber-plugin-version>3.0.0</maven-buildnumber-plugin-version>
         <powermock-version>2.0.9</powermock-version>
