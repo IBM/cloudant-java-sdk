@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -47,7 +45,7 @@ public class PostDesignDocsOptionsTest {
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
-      .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .keys(java.util.Arrays.asList("testString"))
       .startKey("testString")
       .build();
     assertEquals(postDesignDocsOptionsModel.db(), "testString");
@@ -63,7 +61,7 @@ public class PostDesignDocsOptionsTest {
     assertEquals(postDesignDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postDesignDocsOptionsModel.endKey(), "testString");
     assertEquals(postDesignDocsOptionsModel.key(), "testString");
-    assertEquals(postDesignDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postDesignDocsOptionsModel.keys(), java.util.Arrays.asList("testString"));
     assertEquals(postDesignDocsOptionsModel.startKey(), "testString");
   }
 

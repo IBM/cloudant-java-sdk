@@ -26,8 +26,6 @@ import com.ibm.cloud.cloudant.v1.model.SearchIndexDefinition;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -64,10 +62,10 @@ public class DesignDocumentTest {
     assertEquals(attachmentModel.stub(), Boolean.valueOf(true));
 
     Revisions revisionsModel = new Revisions.Builder()
-      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .ids(java.util.Arrays.asList("testString"))
       .start(Long.valueOf("1"))
       .build();
-    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(revisionsModel.ids(), java.util.Arrays.asList("testString"));
     assertEquals(revisionsModel.start(), Long.valueOf("1"));
 
     DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
@@ -79,18 +77,18 @@ public class DesignDocumentTest {
 
     Analyzer analyzerModel = new Analyzer.Builder()
       .name("classic")
-      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .stopwords(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(analyzerModel.name(), "classic");
-    assertEquals(analyzerModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(analyzerModel.stopwords(), java.util.Arrays.asList("testString"));
 
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
-      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .stopwords(java.util.Arrays.asList("testString"))
       .fields(new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } })
       .build();
     assertEquals(analyzerConfigurationModel.name(), "classic");
-    assertEquals(analyzerConfigurationModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(analyzerConfigurationModel.stopwords(), java.util.Arrays.asList("testString"));
     assertEquals(analyzerConfigurationModel.fields(), new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } });
 
     SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
@@ -119,14 +117,14 @@ public class DesignDocumentTest {
 
     DesignDocument designDocumentModel = new DesignDocument.Builder()
       .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
-      .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
-      .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .deletedConflicts(java.util.Arrays.asList("testString"))
       .id("testString")
       .localSeq("testString")
       .rev("testString")
       .revisions(revisionsModel)
-      .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
+      .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .autoupdate(true)
       .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
       .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
@@ -138,14 +136,14 @@ public class DesignDocumentTest {
       .add("foo", "testString")
       .build();
     assertEquals(designDocumentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
-    assertEquals(designDocumentModel.getConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(designDocumentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(designDocumentModel.isDeleted(), Boolean.valueOf(true));
-    assertEquals(designDocumentModel.getDeletedConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(designDocumentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(designDocumentModel.getId(), "testString");
     assertEquals(designDocumentModel.getLocalSeq(), "testString");
     assertEquals(designDocumentModel.getRev(), "testString");
     assertEquals(designDocumentModel.getRevisions(), revisionsModel);
-    assertEquals(designDocumentModel.getRevsInfo(), new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)));
+    assertEquals(designDocumentModel.getRevsInfo(), java.util.Arrays.asList(documentRevisionStatusModel));
     assertEquals(designDocumentModel.isAutoupdate(), Boolean.valueOf(true));
     assertEquals(designDocumentModel.getFilters(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
     assertEquals(designDocumentModel.getIndexes(), new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } });

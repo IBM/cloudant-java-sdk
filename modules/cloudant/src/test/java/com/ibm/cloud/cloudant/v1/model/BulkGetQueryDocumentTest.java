@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.BulkGetQueryDocument;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,11 +32,11 @@ public class BulkGetQueryDocumentTest {
   @Test
   public void testBulkGetQueryDocument() throws Throwable {
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
-      .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")))
+      .attsSince(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"))
       .id("testString")
       .rev("testString")
       .build();
-    assertEquals(bulkGetQueryDocumentModel.attsSince(), new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")));
+    assertEquals(bulkGetQueryDocumentModel.attsSince(), java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"));
     assertEquals(bulkGetQueryDocumentModel.id(), "testString");
     assertEquals(bulkGetQueryDocumentModel.rev(), "testString");
 

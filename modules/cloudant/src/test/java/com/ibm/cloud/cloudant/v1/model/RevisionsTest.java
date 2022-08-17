@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.Revisions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,10 +32,10 @@ public class RevisionsTest {
   @Test
   public void testRevisions() throws Throwable {
     Revisions revisionsModel = new Revisions.Builder()
-      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .ids(java.util.Arrays.asList("testString"))
       .start(Long.valueOf("1"))
       .build();
-    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(revisionsModel.ids(), java.util.Arrays.asList("testString"));
     assertEquals(revisionsModel.start(), Long.valueOf("1"));
 
     String json = TestUtilities.serialize(revisionsModel);

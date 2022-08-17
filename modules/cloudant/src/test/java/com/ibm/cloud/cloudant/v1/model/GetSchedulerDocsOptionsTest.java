@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocsOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -36,10 +34,10 @@ public class GetSchedulerDocsOptionsTest {
     GetSchedulerDocsOptions getSchedulerDocsOptionsModel = new GetSchedulerDocsOptions.Builder()
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .states(new java.util.ArrayList<String>(java.util.Arrays.asList("initializing")))
+      .states(java.util.Arrays.asList("initializing"))
       .build();
     assertEquals(getSchedulerDocsOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(getSchedulerDocsOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(getSchedulerDocsOptionsModel.states(), new java.util.ArrayList<String>(java.util.Arrays.asList("initializing")));
+    assertEquals(getSchedulerDocsOptionsModel.states(), java.util.Arrays.asList("initializing"));
   }
 }

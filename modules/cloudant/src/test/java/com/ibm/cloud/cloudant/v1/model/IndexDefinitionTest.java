@@ -20,8 +20,6 @@ import com.ibm.cloud.cloudant.v1.model.IndexTextOperatorDefaultField;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -38,10 +36,10 @@ public class IndexDefinitionTest {
   public void testIndexDefinition() throws Throwable {
     Analyzer analyzerModel = new Analyzer.Builder()
       .name("classic")
-      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .stopwords(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(analyzerModel.name(), "classic");
-    assertEquals(analyzerModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(analyzerModel.stopwords(), java.util.Arrays.asList("testString"));
 
     IndexTextOperatorDefaultField indexTextOperatorDefaultFieldModel = new IndexTextOperatorDefaultField.Builder()
       .analyzer(analyzerModel)
@@ -62,13 +60,13 @@ public class IndexDefinitionTest {
     IndexDefinition indexDefinitionModel = new IndexDefinition.Builder()
       .defaultAnalyzer(analyzerModel)
       .defaultField(indexTextOperatorDefaultFieldModel)
-      .fields(new java.util.ArrayList<IndexField>(java.util.Arrays.asList(indexFieldModel)))
+      .fields(java.util.Arrays.asList(indexFieldModel))
       .indexArrayLengths(true)
       .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .build();
     assertEquals(indexDefinitionModel.defaultAnalyzer(), analyzerModel);
     assertEquals(indexDefinitionModel.defaultField(), indexTextOperatorDefaultFieldModel);
-    assertEquals(indexDefinitionModel.fields(), new java.util.ArrayList<IndexField>(java.util.Arrays.asList(indexFieldModel)));
+    assertEquals(indexDefinitionModel.fields(), java.util.Arrays.asList(indexFieldModel));
     assertEquals(indexDefinitionModel.indexArrayLengths(), Boolean.valueOf(true));
     assertEquals(indexDefinitionModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
 

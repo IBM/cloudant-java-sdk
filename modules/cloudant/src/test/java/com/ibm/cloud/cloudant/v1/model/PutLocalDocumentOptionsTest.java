@@ -21,8 +21,6 @@ import com.ibm.cloud.cloudant.v1.model.Revisions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
@@ -60,10 +58,10 @@ public class PutLocalDocumentOptionsTest {
     assertEquals(attachmentModel.stub(), Boolean.valueOf(true));
 
     Revisions revisionsModel = new Revisions.Builder()
-      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .ids(java.util.Arrays.asList("testString"))
       .start(Long.valueOf("1"))
       .build();
-    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(revisionsModel.ids(), java.util.Arrays.asList("testString"));
     assertEquals(revisionsModel.start(), Long.valueOf("1"));
 
     DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
@@ -75,25 +73,25 @@ public class PutLocalDocumentOptionsTest {
 
     Document documentModel = new Document.Builder()
       .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
-      .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
-      .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .deletedConflicts(java.util.Arrays.asList("testString"))
       .id("testString")
       .localSeq("testString")
       .rev("testString")
       .revisions(revisionsModel)
-      .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
+      .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .add("foo", "testString")
       .build();
     assertEquals(documentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
-    assertEquals(documentModel.getConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(documentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(documentModel.isDeleted(), Boolean.valueOf(true));
-    assertEquals(documentModel.getDeletedConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(documentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(documentModel.getId(), "testString");
     assertEquals(documentModel.getLocalSeq(), "testString");
     assertEquals(documentModel.getRev(), "testString");
     assertEquals(documentModel.getRevisions(), revisionsModel);
-    assertEquals(documentModel.getRevsInfo(), new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)));
+    assertEquals(documentModel.getRevsInfo(), java.util.Arrays.asList(documentRevisionStatusModel));
     assertEquals(documentModel.get("foo"), "testString");
 
     PutLocalDocumentOptions putLocalDocumentOptionsModel = new PutLocalDocumentOptions.Builder()

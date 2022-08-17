@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.ViewQuery;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -48,7 +46,7 @@ public class ViewQueryTest {
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
-      .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
+      .keys(java.util.Arrays.asList("testString"))
       .reduce(true)
       .stable(false)
       .startKey("testString")
@@ -69,7 +67,7 @@ public class ViewQueryTest {
     assertEquals(viewQueryModel.group(), Boolean.valueOf(false));
     assertEquals(viewQueryModel.groupLevel(), Long.valueOf("1"));
     assertEquals(viewQueryModel.key(), "testString");
-    assertEquals(viewQueryModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
+    assertEquals(viewQueryModel.keys(), java.util.Arrays.asList("testString"));
     assertEquals(viewQueryModel.reduce(), Boolean.valueOf(true));
     assertEquals(viewQueryModel.stable(), Boolean.valueOf(false));
     assertEquals(viewQueryModel.startKey(), "testString");

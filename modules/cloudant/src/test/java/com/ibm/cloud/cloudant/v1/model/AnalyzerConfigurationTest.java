@@ -18,8 +18,6 @@ import com.ibm.cloud.cloudant.v1.model.AnalyzerConfiguration;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -36,18 +34,18 @@ public class AnalyzerConfigurationTest {
   public void testAnalyzerConfiguration() throws Throwable {
     Analyzer analyzerModel = new Analyzer.Builder()
       .name("classic")
-      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .stopwords(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(analyzerModel.name(), "classic");
-    assertEquals(analyzerModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(analyzerModel.stopwords(), java.util.Arrays.asList("testString"));
 
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
-      .stopwords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .stopwords(java.util.Arrays.asList("testString"))
       .fields(new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } })
       .build();
     assertEquals(analyzerConfigurationModel.name(), "classic");
-    assertEquals(analyzerConfigurationModel.stopwords(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(analyzerConfigurationModel.stopwords(), java.util.Arrays.asList("testString"));
     assertEquals(analyzerConfigurationModel.fields(), new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } });
 
     String json = TestUtilities.serialize(analyzerConfigurationModel);

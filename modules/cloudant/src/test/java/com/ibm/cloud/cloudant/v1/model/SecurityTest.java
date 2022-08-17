@@ -18,8 +18,6 @@ import com.ibm.cloud.cloudant.v1.model.SecurityObject;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -35,21 +33,21 @@ public class SecurityTest {
   @Test
   public void testSecurity() throws Throwable {
     SecurityObject securityObjectModel = new SecurityObject.Builder()
-      .names(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .names(java.util.Arrays.asList("testString"))
+      .roles(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(securityObjectModel.names(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(securityObjectModel.roles(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(securityObjectModel.names(), java.util.Arrays.asList("testString"));
+    assertEquals(securityObjectModel.roles(), java.util.Arrays.asList("testString"));
 
     Security securityModel = new Security.Builder()
       .admins(securityObjectModel)
       .members(securityObjectModel)
-      .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } })
+      .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", java.util.Arrays.asList("_reader")); } })
       .couchdbAuthOnly(true)
       .build();
     assertEquals(securityModel.admins(), securityObjectModel);
     assertEquals(securityModel.members(), securityObjectModel);
-    assertEquals(securityModel.cloudant(), new java.util.HashMap<String, List<String>>() { { put("foo", new java.util.ArrayList<String>(java.util.Arrays.asList("_reader"))); } });
+    assertEquals(securityModel.cloudant(), new java.util.HashMap<String, List<String>>() { { put("foo", java.util.Arrays.asList("_reader")); } });
     assertEquals(securityModel.couchdbAuthOnly(), Boolean.valueOf(true));
 
     String json = TestUtilities.serialize(securityModel);

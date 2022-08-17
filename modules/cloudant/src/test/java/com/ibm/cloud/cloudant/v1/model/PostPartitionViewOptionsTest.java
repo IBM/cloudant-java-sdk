@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -52,7 +50,7 @@ public class PostPartitionViewOptionsTest {
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
-      .keys(new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")))
+      .keys(java.util.Arrays.asList("testString"))
       .reduce(true)
       .stable(false)
       .startKey("testString")
@@ -77,7 +75,7 @@ public class PostPartitionViewOptionsTest {
     assertEquals(postPartitionViewOptionsModel.group(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.groupLevel(), Long.valueOf("1"));
     assertEquals(postPartitionViewOptionsModel.key(), "testString");
-    assertEquals(postPartitionViewOptionsModel.keys(), new java.util.ArrayList<Object>(java.util.Arrays.asList("testString")));
+    assertEquals(postPartitionViewOptionsModel.keys(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionViewOptionsModel.reduce(), Boolean.valueOf(true));
     assertEquals(postPartitionViewOptionsModel.stable(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.startKey(), "testString");
