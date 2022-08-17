@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -35,8 +33,8 @@ public class PostChangesOptionsTest {
   public void testPostChangesOptions() throws Throwable {
     PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
       .db("testString")
-      .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-      .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .docIds(java.util.Arrays.asList("testString"))
+      .fields(java.util.Arrays.asList("testString"))
       .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
       .lastEventId("testString")
       .attEncodingInfo(false)
@@ -55,8 +53,8 @@ public class PostChangesOptionsTest {
       .view("testString")
       .build();
     assertEquals(postChangesOptionsModel.db(), "testString");
-    assertEquals(postChangesOptionsModel.docIds(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(postChangesOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postChangesOptionsModel.docIds(), java.util.Arrays.asList("testString"));
+    assertEquals(postChangesOptionsModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(postChangesOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
     assertEquals(postChangesOptionsModel.lastEventId(), "testString");
     assertEquals(postChangesOptionsModel.attEncodingInfo(), Boolean.valueOf(false));

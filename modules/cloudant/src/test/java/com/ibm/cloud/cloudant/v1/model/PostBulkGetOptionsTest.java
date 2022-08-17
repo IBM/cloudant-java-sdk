@@ -18,8 +18,6 @@ import com.ibm.cloud.cloudant.v1.model.PostBulkGetOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -35,24 +33,24 @@ public class PostBulkGetOptionsTest {
   @Test
   public void testPostBulkGetOptions() throws Throwable {
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
-      .attsSince(new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")))
+      .attsSince(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"))
       .id("testString")
       .rev("testString")
       .build();
-    assertEquals(bulkGetQueryDocumentModel.attsSince(), new java.util.ArrayList<String>(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8")));
+    assertEquals(bulkGetQueryDocumentModel.attsSince(), java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"));
     assertEquals(bulkGetQueryDocumentModel.id(), "testString");
     assertEquals(bulkGetQueryDocumentModel.rev(), "testString");
 
     PostBulkGetOptions postBulkGetOptionsModel = new PostBulkGetOptions.Builder()
       .db("testString")
-      .docs(new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)))
+      .docs(java.util.Arrays.asList(bulkGetQueryDocumentModel))
       .attachments(false)
       .attEncodingInfo(false)
       .latest(false)
       .revs(false)
       .build();
     assertEquals(postBulkGetOptionsModel.db(), "testString");
-    assertEquals(postBulkGetOptionsModel.docs(), new java.util.ArrayList<BulkGetQueryDocument>(java.util.Arrays.asList(bulkGetQueryDocumentModel)));
+    assertEquals(postBulkGetOptionsModel.docs(), java.util.Arrays.asList(bulkGetQueryDocumentModel));
     assertEquals(postBulkGetOptionsModel.attachments(), Boolean.valueOf(false));
     assertEquals(postBulkGetOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
     assertEquals(postBulkGetOptionsModel.latest(), Boolean.valueOf(false));

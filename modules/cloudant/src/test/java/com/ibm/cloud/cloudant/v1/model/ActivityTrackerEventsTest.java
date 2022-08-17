@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEvents;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,9 +32,9 @@ public class ActivityTrackerEventsTest {
   @Test
   public void testActivityTrackerEvents() throws Throwable {
     ActivityTrackerEvents activityTrackerEventsModel = new ActivityTrackerEvents.Builder()
-      .types(new java.util.ArrayList<String>(java.util.Arrays.asList("management")))
+      .types(java.util.Arrays.asList("management"))
       .build();
-    assertEquals(activityTrackerEventsModel.types(), new java.util.ArrayList<String>(java.util.Arrays.asList("management")));
+    assertEquals(activityTrackerEventsModel.types(), java.util.Arrays.asList("management"));
 
     String json = TestUtilities.serialize(activityTrackerEventsModel);
 

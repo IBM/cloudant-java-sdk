@@ -27,8 +27,6 @@ import com.ibm.cloud.cloudant.v1.model.UserContext;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -65,10 +63,10 @@ public class PutReplicationDocumentOptionsTest {
     assertEquals(attachmentModel.stub(), Boolean.valueOf(true));
 
     Revisions revisionsModel = new Revisions.Builder()
-      .ids(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .ids(java.util.Arrays.asList("testString"))
       .start(Long.valueOf("1"))
       .build();
-    assertEquals(revisionsModel.ids(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(revisionsModel.ids(), java.util.Arrays.asList("testString"));
     assertEquals(revisionsModel.start(), Long.valueOf("1"));
 
     DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
@@ -118,29 +116,29 @@ public class PutReplicationDocumentOptionsTest {
     UserContext userContextModel = new UserContext.Builder()
       .db("testString")
       .name("testString")
-      .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("_reader")))
+      .roles(java.util.Arrays.asList("_reader"))
       .build();
     assertEquals(userContextModel.db(), "testString");
     assertEquals(userContextModel.name(), "testString");
-    assertEquals(userContextModel.roles(), new java.util.ArrayList<String>(java.util.Arrays.asList("_reader")));
+    assertEquals(userContextModel.roles(), java.util.Arrays.asList("_reader"));
 
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
       .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
-      .conflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
-      .deletedConflicts(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .deletedConflicts(java.util.Arrays.asList("testString"))
       .id("testString")
       .localSeq("testString")
       .rev("testString")
       .revisions(revisionsModel)
-      .revsInfo(new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)))
+      .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .cancel(true)
       .checkpointInterval(Long.valueOf("0"))
       .connectionTimeout(Long.valueOf("0"))
       .continuous(false)
       .createTarget(false)
       .createTargetParams(replicationCreateTargetParametersModel)
-      .docIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .docIds(java.util.Arrays.asList("testString"))
       .filter("testString")
       .httpConnections(Long.valueOf("1"))
       .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
@@ -159,21 +157,21 @@ public class PutReplicationDocumentOptionsTest {
       .add("foo", "testString")
       .build();
     assertEquals(replicationDocumentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
-    assertEquals(replicationDocumentModel.getConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(replicationDocumentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.isDeleted(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModel.getDeletedConflicts(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(replicationDocumentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.getId(), "testString");
     assertEquals(replicationDocumentModel.getLocalSeq(), "testString");
     assertEquals(replicationDocumentModel.getRev(), "testString");
     assertEquals(replicationDocumentModel.getRevisions(), revisionsModel);
-    assertEquals(replicationDocumentModel.getRevsInfo(), new java.util.ArrayList<DocumentRevisionStatus>(java.util.Arrays.asList(documentRevisionStatusModel)));
+    assertEquals(replicationDocumentModel.getRevsInfo(), java.util.Arrays.asList(documentRevisionStatusModel));
     assertEquals(replicationDocumentModel.isCancel(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getCheckpointInterval(), Long.valueOf("0"));
     assertEquals(replicationDocumentModel.getConnectionTimeout(), Long.valueOf("0"));
     assertEquals(replicationDocumentModel.isContinuous(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModel.isCreateTarget(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModel.getCreateTargetParams(), replicationCreateTargetParametersModel);
-    assertEquals(replicationDocumentModel.getDocIds(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(replicationDocumentModel.getDocIds(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.getFilter(), "testString");
     assertEquals(replicationDocumentModel.getHttpConnections(), Long.valueOf("1"));
     assertEquals(replicationDocumentModel.getQueryParams(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });

@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -47,7 +45,7 @@ public class PostPartitionAllDocsOptionsTest {
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
-      .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .keys(java.util.Arrays.asList("testString"))
       .startKey("testString")
       .build();
     assertEquals(postPartitionAllDocsOptionsModel.db(), "testString");
@@ -63,7 +61,7 @@ public class PostPartitionAllDocsOptionsTest {
     assertEquals(postPartitionAllDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postPartitionAllDocsOptionsModel.endKey(), "testString");
     assertEquals(postPartitionAllDocsOptionsModel.key(), "testString");
-    assertEquals(postPartitionAllDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postPartitionAllDocsOptionsModel.keys(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionAllDocsOptionsModel.startKey(), "testString");
   }
 

@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -40,15 +38,15 @@ public class PostPartitionSearchOptionsTest {
       .index("testString")
       .query("testString")
       .bookmark("testString")
-      .highlightFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .highlightFields(java.util.Arrays.asList("testString"))
       .highlightNumber(Long.valueOf("1"))
       .highlightPostTag("</em>")
       .highlightPreTag("<em>")
       .highlightSize(Long.valueOf("1"))
       .includeDocs(false)
-      .includeFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .includeFields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
-      .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .sort(java.util.Arrays.asList("testString"))
       .stale("ok")
       .build();
     assertEquals(postPartitionSearchOptionsModel.db(), "testString");
@@ -57,15 +55,15 @@ public class PostPartitionSearchOptionsTest {
     assertEquals(postPartitionSearchOptionsModel.index(), "testString");
     assertEquals(postPartitionSearchOptionsModel.query(), "testString");
     assertEquals(postPartitionSearchOptionsModel.bookmark(), "testString");
-    assertEquals(postPartitionSearchOptionsModel.highlightFields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postPartitionSearchOptionsModel.highlightFields(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionSearchOptionsModel.highlightNumber(), Long.valueOf("1"));
     assertEquals(postPartitionSearchOptionsModel.highlightPostTag(), "</em>");
     assertEquals(postPartitionSearchOptionsModel.highlightPreTag(), "<em>");
     assertEquals(postPartitionSearchOptionsModel.highlightSize(), Long.valueOf("1"));
     assertEquals(postPartitionSearchOptionsModel.includeDocs(), Boolean.valueOf(false));
-    assertEquals(postPartitionSearchOptionsModel.includeFields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postPartitionSearchOptionsModel.includeFields(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionSearchOptionsModel.limit(), Long.valueOf("0"));
-    assertEquals(postPartitionSearchOptionsModel.sort(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postPartitionSearchOptionsModel.sort(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionSearchOptionsModel.stale(), "ok");
   }
 

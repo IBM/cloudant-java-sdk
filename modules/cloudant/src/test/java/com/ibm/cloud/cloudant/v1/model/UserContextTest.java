@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.UserContext;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -36,11 +34,11 @@ public class UserContextTest {
     UserContext userContextModel = new UserContext.Builder()
       .db("testString")
       .name("testString")
-      .roles(new java.util.ArrayList<String>(java.util.Arrays.asList("_reader")))
+      .roles(java.util.Arrays.asList("_reader"))
       .build();
     assertEquals(userContextModel.db(), "testString");
     assertEquals(userContextModel.name(), "testString");
-    assertEquals(userContextModel.roles(), new java.util.ArrayList<String>(java.util.Arrays.asList("_reader")));
+    assertEquals(userContextModel.roles(), java.util.Arrays.asList("_reader"));
 
     String json = TestUtilities.serialize(userContextModel);
 

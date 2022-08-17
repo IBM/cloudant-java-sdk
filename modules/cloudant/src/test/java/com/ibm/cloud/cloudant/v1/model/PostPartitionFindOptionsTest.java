@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,13 +39,13 @@ public class PostPartitionFindOptionsTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
+      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
       .stable(true)
       .update("true")
-      .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .useIndex(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(postPartitionFindOptionsModel.db(), "testString");
     assertEquals(postPartitionFindOptionsModel.partitionKey(), "testString");
@@ -55,13 +53,13 @@ public class PostPartitionFindOptionsTest {
     assertEquals(postPartitionFindOptionsModel.bookmark(), "testString");
     assertEquals(postPartitionFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.executionStats(), Boolean.valueOf(true));
-    assertEquals(postPartitionFindOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postPartitionFindOptionsModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionFindOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postPartitionFindOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postPartitionFindOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
+    assertEquals(postPartitionFindOptionsModel.sort(), java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }));
     assertEquals(postPartitionFindOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.update(), "true");
-    assertEquals(postPartitionFindOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postPartitionFindOptionsModel.useIndex(), java.util.Arrays.asList("testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

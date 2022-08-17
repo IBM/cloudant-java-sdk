@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -46,7 +44,7 @@ public class PostAllDocsOptionsTest {
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
-      .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .keys(java.util.Arrays.asList("testString"))
       .startKey("testString")
       .build();
     assertEquals(postAllDocsOptionsModel.db(), "testString");
@@ -61,7 +59,7 @@ public class PostAllDocsOptionsTest {
     assertEquals(postAllDocsOptionsModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(postAllDocsOptionsModel.endKey(), "testString");
     assertEquals(postAllDocsOptionsModel.key(), "testString");
-    assertEquals(postAllDocsOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postAllDocsOptionsModel.keys(), java.util.Arrays.asList("testString"));
     assertEquals(postAllDocsOptionsModel.startKey(), "testString");
   }
 

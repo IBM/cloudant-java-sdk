@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,13 +38,13 @@ public class PostExplainOptionsTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })))
+      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
       .stable(true)
       .update("true")
-      .useIndex(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .useIndex(java.util.Arrays.asList("testString"))
       .r(Long.valueOf("1"))
       .build();
     assertEquals(postExplainOptionsModel.db(), "testString");
@@ -54,13 +52,13 @@ public class PostExplainOptionsTest {
     assertEquals(postExplainOptionsModel.bookmark(), "testString");
     assertEquals(postExplainOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.executionStats(), Boolean.valueOf(true));
-    assertEquals(postExplainOptionsModel.fields(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postExplainOptionsModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(postExplainOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postExplainOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postExplainOptionsModel.sort(), new java.util.ArrayList<java.util.Map<String, String>>(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } })));
+    assertEquals(postExplainOptionsModel.sort(), java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }));
     assertEquals(postExplainOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.update(), "true");
-    assertEquals(postExplainOptionsModel.useIndex(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postExplainOptionsModel.useIndex(), java.util.Arrays.asList("testString"));
     assertEquals(postExplainOptionsModel.r(), Long.valueOf("1"));
   }
 

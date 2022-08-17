@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostDbsInfoOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,9 +32,9 @@ public class PostDbsInfoOptionsTest {
   @Test
   public void testPostDbsInfoOptions() throws Throwable {
     PostDbsInfoOptions postDbsInfoOptionsModel = new PostDbsInfoOptions.Builder()
-      .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .keys(java.util.Arrays.asList("testString"))
       .build();
-    assertEquals(postDbsInfoOptionsModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(postDbsInfoOptionsModel.keys(), java.util.Arrays.asList("testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -17,8 +17,6 @@ import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -34,9 +32,9 @@ public class PostActivityTrackerEventsOptionsTest {
   @Test
   public void testPostActivityTrackerEventsOptions() throws Throwable {
     PostActivityTrackerEventsOptions postActivityTrackerEventsOptionsModel = new PostActivityTrackerEventsOptions.Builder()
-      .types(new java.util.ArrayList<String>(java.util.Arrays.asList("management")))
+      .types(java.util.Arrays.asList("management"))
       .build();
-    assertEquals(postActivityTrackerEventsOptionsModel.types(), new java.util.ArrayList<String>(java.util.Arrays.asList("management")));
+    assertEquals(postActivityTrackerEventsOptionsModel.types(), java.util.Arrays.asList("management"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

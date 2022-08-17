@@ -18,8 +18,6 @@ import com.ibm.cloud.cloudant.v1.model.PostAllDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
@@ -46,7 +44,7 @@ public class PostAllDocsQueriesOptionsTest {
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
-      .keys(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+      .keys(java.util.Arrays.asList("testString"))
       .startKey("testString")
       .build();
     assertEquals(allDocsQueryModel.attEncodingInfo(), Boolean.valueOf(false));
@@ -60,15 +58,15 @@ public class PostAllDocsQueriesOptionsTest {
     assertEquals(allDocsQueryModel.updateSeq(), Boolean.valueOf(false));
     assertEquals(allDocsQueryModel.endKey(), "testString");
     assertEquals(allDocsQueryModel.key(), "testString");
-    assertEquals(allDocsQueryModel.keys(), new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(allDocsQueryModel.keys(), java.util.Arrays.asList("testString"));
     assertEquals(allDocsQueryModel.startKey(), "testString");
 
     PostAllDocsQueriesOptions postAllDocsQueriesOptionsModel = new PostAllDocsQueriesOptions.Builder()
       .db("testString")
-      .queries(new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)))
+      .queries(java.util.Arrays.asList(allDocsQueryModel))
       .build();
     assertEquals(postAllDocsQueriesOptionsModel.db(), "testString");
-    assertEquals(postAllDocsQueriesOptionsModel.queries(), new java.util.ArrayList<AllDocsQuery>(java.util.Arrays.asList(allDocsQueryModel)));
+    assertEquals(postAllDocsQueriesOptionsModel.queries(), java.util.Arrays.asList(allDocsQueryModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
