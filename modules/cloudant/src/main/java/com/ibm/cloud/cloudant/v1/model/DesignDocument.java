@@ -58,8 +58,6 @@ public class DesignDocument extends DynamicModel<Object> {
   protected String validateDocUpdate;
   @SerializedName("views")
   protected Map<String, DesignDocumentViewsMapReduce> views;
-  @SerializedName("st_indexes")
-  protected Map<String, GeoIndexDefinition> stIndexes;
 
   public DesignDocument() {
     super(new TypeToken<Object>() { });
@@ -85,7 +83,6 @@ public class DesignDocument extends DynamicModel<Object> {
     private DesignDocumentOptions options;
     private String validateDocUpdate;
     private Map<String, DesignDocumentViewsMapReduce> views;
-    private Map<String, GeoIndexDefinition> stIndexes;
     private Map<String, Object> dynamicProperties;
 
     private Builder(DesignDocument designDocument) {
@@ -105,7 +102,6 @@ public class DesignDocument extends DynamicModel<Object> {
       this.options = designDocument.options;
       this.validateDocUpdate = designDocument.validateDocUpdate;
       this.views = designDocument.views;
-      this.stIndexes = designDocument.stIndexes;
       this.dynamicProperties = designDocument.getProperties();
     }
 
@@ -352,17 +348,6 @@ public class DesignDocument extends DynamicModel<Object> {
     }
 
     /**
-     * Set the stIndexes.
-     *
-     * @param stIndexes the stIndexes
-     * @return the DesignDocument builder
-     */
-    public Builder stIndexes(Map<String, GeoIndexDefinition> stIndexes) {
-      this.stIndexes = stIndexes;
-      return this;
-    }
-
-    /**
      * Add an arbitrary property.
      *
      * @param name the name of the property to add
@@ -397,7 +382,6 @@ public class DesignDocument extends DynamicModel<Object> {
     options = builder.options;
     validateDocUpdate = builder.validateDocUpdate;
     views = builder.views;
-    stIndexes = builder.stIndexes;
     this.setProperties(builder.dynamicProperties);
   }
 
@@ -792,25 +776,5 @@ public class DesignDocument extends DynamicModel<Object> {
    */
   public void setViews(final Map<String, DesignDocumentViewsMapReduce> views) {
     this.views = views;
-  }
-
-  /**
-   * Gets the stIndexes.
-   *
-   * Schema for geospatial index function definitions.
-   *
-   * @return the stIndexes
-   */
-  public Map<String, GeoIndexDefinition> getStIndexes() {
-    return this.stIndexes;
-  }
-
-  /**
-   * Sets the stIndexes.
-   *
-   * @param stIndexes the new stIndexes
-   */
-  public void setStIndexes(final Map<String, GeoIndexDefinition> stIndexes) {
-    this.stIndexes = stIndexes;
   }
 }

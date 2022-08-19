@@ -40,8 +40,6 @@ import com.ibm.cloud.cloudant.v1.model.DocumentResult;
 import com.ibm.cloud.cloudant.v1.model.DocumentShardInfo;
 import com.ibm.cloud.cloudant.v1.model.ExplainResult;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
-import com.ibm.cloud.cloudant.v1.model.GeoIndexInformation;
-import com.ibm.cloud.cloudant.v1.model.GeoResult;
 import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
 import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
@@ -55,8 +53,6 @@ import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentShardsInfoOptions;
-import com.ibm.cloud.cloudant.v1.model.GetGeoIndexInformationOptions;
-import com.ibm.cloud.cloudant.v1.model.GetGeoOptions;
 import com.ibm.cloud.cloudant.v1.model.GetIndexesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetMembershipInformationOptions;
@@ -100,7 +96,6 @@ import com.ibm.cloud.cloudant.v1.model.PostDesignDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
-import com.ibm.cloud.cloudant.v1.model.PostGeoCleanupOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
@@ -3162,195 +3157,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.header("Accept", "application/json");
     ResponseConverter<SearchInfoResult> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SearchInfoResult>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Query a geospatial index.
-   *
-   * Executes a query against the requested geospatial index from the specified design document.
-   *
-   * @param getGeoOptions the {@link GetGeoOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link GeoResult}
-   */
-  public ServiceCall<GeoResult> getGeo(GetGeoOptions getGeoOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getGeoOptions,
-      "getGeoOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", getGeoOptions.db());
-    pathParamsMap.put("ddoc", getGeoOptions.ddoc());
-    pathParamsMap.put("index", getGeoOptions.index());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_design/{ddoc}/_geo/{index}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getGeo");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getGeoOptions.bbox() != null) {
-      builder.query("bbox", String.valueOf(getGeoOptions.bbox()));
-    }
-    if (getGeoOptions.bookmark() != null) {
-      builder.query("bookmark", String.valueOf(getGeoOptions.bookmark()));
-    }
-    if (getGeoOptions.format() != null) {
-      builder.query("format", String.valueOf(getGeoOptions.format()));
-    }
-    if (getGeoOptions.g() != null) {
-      builder.query("g", String.valueOf(getGeoOptions.g()));
-    }
-    if (getGeoOptions.includeDocs() != null) {
-      builder.query("include_docs", String.valueOf(getGeoOptions.includeDocs()));
-    }
-    if (getGeoOptions.lat() != null) {
-      builder.query("lat", String.valueOf(getGeoOptions.lat()));
-    }
-    if (getGeoOptions.limit() != null) {
-      builder.query("limit", String.valueOf(getGeoOptions.limit()));
-    }
-    if (getGeoOptions.lon() != null) {
-      builder.query("lon", String.valueOf(getGeoOptions.lon()));
-    }
-    if (getGeoOptions.nearest() != null) {
-      builder.query("nearest", String.valueOf(getGeoOptions.nearest()));
-    }
-    if (getGeoOptions.radius() != null) {
-      builder.query("radius", String.valueOf(getGeoOptions.radius()));
-    }
-    if (getGeoOptions.rangex() != null) {
-      builder.query("rangex", String.valueOf(getGeoOptions.rangex()));
-    }
-    if (getGeoOptions.rangey() != null) {
-      builder.query("rangey", String.valueOf(getGeoOptions.rangey()));
-    }
-    if (getGeoOptions.relation() != null) {
-      builder.query("relation", String.valueOf(getGeoOptions.relation()));
-    }
-    if (getGeoOptions.skip() != null) {
-      builder.query("skip", String.valueOf(getGeoOptions.skip()));
-    }
-    if (getGeoOptions.stale() != null) {
-      builder.query("stale", String.valueOf(getGeoOptions.stale()));
-    }
-    ResponseConverter<GeoResult> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<GeoResult>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Query a geospatial index as stream.
-   *
-   * Executes a query against the requested geospatial index from the specified design document.
-   *
-   * @param getGeoOptions the {@link GetGeoOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link InputStream}
-   */
-  public ServiceCall<InputStream> getGeoAsStream(GetGeoOptions getGeoOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getGeoOptions,
-      "getGeoOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", getGeoOptions.db());
-    pathParamsMap.put("ddoc", getGeoOptions.ddoc());
-    pathParamsMap.put("index", getGeoOptions.index());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_design/{ddoc}/_geo/{index}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getGeoAsStream");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getGeoOptions.bbox() != null) {
-      builder.query("bbox", String.valueOf(getGeoOptions.bbox()));
-    }
-    if (getGeoOptions.bookmark() != null) {
-      builder.query("bookmark", String.valueOf(getGeoOptions.bookmark()));
-    }
-    if (getGeoOptions.format() != null) {
-      builder.query("format", String.valueOf(getGeoOptions.format()));
-    }
-    if (getGeoOptions.g() != null) {
-      builder.query("g", String.valueOf(getGeoOptions.g()));
-    }
-    if (getGeoOptions.includeDocs() != null) {
-      builder.query("include_docs", String.valueOf(getGeoOptions.includeDocs()));
-    }
-    if (getGeoOptions.lat() != null) {
-      builder.query("lat", String.valueOf(getGeoOptions.lat()));
-    }
-    if (getGeoOptions.limit() != null) {
-      builder.query("limit", String.valueOf(getGeoOptions.limit()));
-    }
-    if (getGeoOptions.lon() != null) {
-      builder.query("lon", String.valueOf(getGeoOptions.lon()));
-    }
-    if (getGeoOptions.nearest() != null) {
-      builder.query("nearest", String.valueOf(getGeoOptions.nearest()));
-    }
-    if (getGeoOptions.radius() != null) {
-      builder.query("radius", String.valueOf(getGeoOptions.radius()));
-    }
-    if (getGeoOptions.rangex() != null) {
-      builder.query("rangex", String.valueOf(getGeoOptions.rangex()));
-    }
-    if (getGeoOptions.rangey() != null) {
-      builder.query("rangey", String.valueOf(getGeoOptions.rangey()));
-    }
-    if (getGeoOptions.relation() != null) {
-      builder.query("relation", String.valueOf(getGeoOptions.relation()));
-    }
-    if (getGeoOptions.skip() != null) {
-      builder.query("skip", String.valueOf(getGeoOptions.skip()));
-    }
-    if (getGeoOptions.stale() != null) {
-      builder.query("stale", String.valueOf(getGeoOptions.stale()));
-    }
-    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Cleanup old geospatial indexes.
-   *
-   * Cleanup old geospatial indexes from disk that have been superseded by newer index builds.
-   *
-   * @param postGeoCleanupOptions the {@link PostGeoCleanupOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link Ok}
-   */
-  public ServiceCall<Ok> postGeoCleanup(PostGeoCleanupOptions postGeoCleanupOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postGeoCleanupOptions,
-      "postGeoCleanupOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", postGeoCleanupOptions.db());
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_geo_cleanup", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postGeoCleanup");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<Ok> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve information about a geospatial index.
-   *
-   * @param getGeoIndexInformationOptions the {@link GetGeoIndexInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link GeoIndexInformation}
-   */
-  public ServiceCall<GeoIndexInformation> getGeoIndexInformation(GetGeoIndexInformationOptions getGeoIndexInformationOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getGeoIndexInformationOptions,
-      "getGeoIndexInformationOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", getGeoIndexInformationOptions.db());
-    pathParamsMap.put("ddoc", getGeoIndexInformationOptions.ddoc());
-    pathParamsMap.put("index", getGeoIndexInformationOptions.index());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_design/{ddoc}/_geo_info/{index}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getGeoIndexInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<GeoIndexInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<GeoIndexInformation>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

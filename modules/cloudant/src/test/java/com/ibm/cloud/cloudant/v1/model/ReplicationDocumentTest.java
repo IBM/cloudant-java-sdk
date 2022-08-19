@@ -151,6 +151,7 @@ public class ReplicationDocumentTest {
       .targetProxy("testString")
       .useCheckpoints(true)
       .userCtx(userContextModel)
+      .winningRevsOnly(false)
       .workerBatchSize(Long.valueOf("1"))
       .workerProcesses(Long.valueOf("1"))
       .add("foo", "testString")
@@ -184,6 +185,7 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.getTargetProxy(), "testString");
     assertEquals(replicationDocumentModel.isUseCheckpoints(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getUserCtx(), userContextModel);
+    assertEquals(replicationDocumentModel.isWinningRevsOnly(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModel.getWorkerBatchSize(), Long.valueOf("1"));
     assertEquals(replicationDocumentModel.getWorkerProcesses(), Long.valueOf("1"));
     assertEquals(replicationDocumentModel.get("foo"), "testString");
@@ -214,6 +216,7 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModelNew.getTargetProxy(), "testString");
     assertEquals(replicationDocumentModelNew.isUseCheckpoints(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModelNew.getUserCtx().toString(), userContextModel.toString());
+    assertEquals(replicationDocumentModelNew.isWinningRevsOnly(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModelNew.getWorkerBatchSize(), Long.valueOf("1"));
     assertEquals(replicationDocumentModelNew.getWorkerProcesses(), Long.valueOf("1"));
     assertEquals(replicationDocumentModelNew.get("foo"), "testString");

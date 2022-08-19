@@ -20,7 +20,6 @@ import com.ibm.cloud.cloudant.v1.model.DesignDocument;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
 import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
-import com.ibm.cloud.cloudant.v1.model.GeoIndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.PutDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexDefinition;
@@ -111,11 +110,6 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentViewsMapReduceModel.map(), "testString");
     assertEquals(designDocumentViewsMapReduceModel.reduce(), "testString");
 
-    GeoIndexDefinition geoIndexDefinitionModel = new GeoIndexDefinition.Builder()
-      .index("testString")
-      .build();
-    assertEquals(geoIndexDefinitionModel.index(), "testString");
-
     DesignDocument designDocumentModel = new DesignDocument.Builder()
       .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
       .conflicts(java.util.Arrays.asList("testString"))
@@ -133,7 +127,6 @@ public class PutDesignDocumentOptionsTest {
       .options(designDocumentOptionsModel)
       .validateDocUpdate("testString")
       .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
-      .stIndexes(new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } })
       .add("foo", "testString")
       .build();
     assertEquals(designDocumentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
@@ -152,7 +145,6 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentModel.getOptions(), designDocumentOptionsModel);
     assertEquals(designDocumentModel.getValidateDocUpdate(), "testString");
     assertEquals(designDocumentModel.getViews(), new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } });
-    assertEquals(designDocumentModel.getStIndexes(), new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } });
     assertEquals(designDocumentModel.get("foo"), "testString");
 
     PutDesignDocumentOptions putDesignDocumentOptionsModel = new PutDesignDocumentOptions.Builder()
