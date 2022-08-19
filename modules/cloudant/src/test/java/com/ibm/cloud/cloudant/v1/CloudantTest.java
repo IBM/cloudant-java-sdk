@@ -65,15 +65,6 @@ import com.ibm.cloud.cloudant.v1.model.ExecutionStats;
 import com.ibm.cloud.cloudant.v1.model.ExplainResult;
 import com.ibm.cloud.cloudant.v1.model.ExplainResultRange;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
-import com.ibm.cloud.cloudant.v1.model.GeoIndexDefinition;
-import com.ibm.cloud.cloudant.v1.model.GeoIndexInformation;
-import com.ibm.cloud.cloudant.v1.model.GeoIndexStats;
-import com.ibm.cloud.cloudant.v1.model.GeoJsonFeature;
-import com.ibm.cloud.cloudant.v1.model.GeoJsonGeometry;
-import com.ibm.cloud.cloudant.v1.model.GeoJsonGeometryCollection;
-import com.ibm.cloud.cloudant.v1.model.GeoJsonGeometryObject;
-import com.ibm.cloud.cloudant.v1.model.GeoResult;
-import com.ibm.cloud.cloudant.v1.model.GeoResultRow;
 import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
 import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
@@ -87,8 +78,6 @@ import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentShardsInfoOptions;
-import com.ibm.cloud.cloudant.v1.model.GetGeoIndexInformationOptions;
-import com.ibm.cloud.cloudant.v1.model.GetGeoOptions;
 import com.ibm.cloud.cloudant.v1.model.GetIndexesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetMembershipInformationOptions;
@@ -139,7 +128,6 @@ import com.ibm.cloud.cloudant.v1.model.PostDesignDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
-import com.ibm.cloud.cloudant.v1.model.PostGeoCleanupOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
@@ -2363,7 +2351,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetDesignDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}, \"st_indexes\": {\"mapKey\": {\"index\": \"index\"}}}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}}";
     String getDesignDocumentPath = "/testString/_design/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2498,11 +2486,6 @@ public class CloudantTest extends PowerMockTestCase {
       .reduce("testString")
       .build();
 
-    // Construct an instance of the GeoIndexDefinition model
-    GeoIndexDefinition geoIndexDefinitionModel = new GeoIndexDefinition.Builder()
-      .index("testString")
-      .build();
-
     // Construct an instance of the DesignDocument model
     DesignDocument designDocumentModel = new DesignDocument.Builder()
       .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
@@ -2521,7 +2504,6 @@ public class CloudantTest extends PowerMockTestCase {
       .options(designDocumentOptionsModel)
       .validateDocUpdate("testString")
       .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
-      .stIndexes(new java.util.HashMap<String, GeoIndexDefinition>() { { put("foo", geoIndexDefinitionModel); } })
       .add("foo", "testString")
       .build();
 
@@ -4317,281 +4299,6 @@ public class CloudantTest extends PowerMockTestCase {
     cloudantService.getSearchInfo(null).execute();
   }
 
-  // Test the getGeo operation with a valid options model parameter
-  @Test
-  public void testGetGeoWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"bookmark\": \"bookmark\", \"features\": [{\"_id\": \"id\", \"_rev\": \"rev\", \"bbox\": [4], \"geometry\": {\"type\": \"Point\", \"coordinates\": [\"anyValue\"]}, \"properties\": {\"mapKey\": \"anyValue\"}, \"type\": \"Feature\"}], \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"geometry\": {\"type\": \"Point\", \"coordinates\": [\"anyValue\"]}, \"id\": \"id\", \"rev\": \"rev\"}], \"type\": \"FeatureCollection\"}";
-    String getGeoPath = "/testString/_design/testString/_geo/testString";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetGeoOptions model
-    GetGeoOptions getGeoOptionsModel = new GetGeoOptions.Builder()
-      .db("testString")
-      .ddoc("testString")
-      .index("testString")
-      .bbox("testString")
-      .bookmark("testString")
-      .format("view")
-      .g("testString")
-      .includeDocs(false)
-      .lat(Double.valueOf("-90"))
-      .limit(Long.valueOf("0"))
-      .lon(Double.valueOf("-180"))
-      .nearest(false)
-      .radius(Double.valueOf("0"))
-      .rangex(Double.valueOf("0"))
-      .rangey(Double.valueOf("0"))
-      .relation("intersects")
-      .skip(Long.valueOf("0"))
-      .stale("ok")
-      .build();
-
-    // Invoke getGeo() with a valid options model and verify the result
-    Response<GeoResult> response = cloudantService.getGeo(getGeoOptionsModel).execute();
-    assertNotNull(response);
-    GeoResult responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getGeoPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("bbox"), "testString");
-    assertEquals(query.get("bookmark"), "testString");
-    assertEquals(query.get("format"), "view");
-    assertEquals(query.get("g"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
-    assertEquals(Double.valueOf(query.get("lat")), Double.valueOf("-90"));
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
-    assertEquals(Double.valueOf(query.get("lon")), Double.valueOf("-180"));
-    assertEquals(Boolean.valueOf(query.get("nearest")), Boolean.valueOf(false));
-    assertEquals(Double.valueOf(query.get("radius")), Double.valueOf("0"));
-    assertEquals(Double.valueOf(query.get("rangex")), Double.valueOf("0"));
-    assertEquals(Double.valueOf(query.get("rangey")), Double.valueOf("0"));
-    assertEquals(query.get("relation"), "intersects");
-    assertEquals(Long.valueOf(query.get("skip")), Long.valueOf("0"));
-    assertEquals(query.get("stale"), "ok");
-  }
-
-  // Test the getGeo operation with and without retries enabled
-  @Test
-  public void testGetGeoWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetGeoWOptions();
-
-    cloudantService.disableRetries();
-    testGetGeoWOptions();
-  }
-
-  // Test the getGeo operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetGeoNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    cloudantService.getGeo(null).execute();
-  }
-
-  // Test the getGeoAsStream operation with a valid options model parameter
-  @Test
-  public void testGetGeoAsStreamWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"foo\": \"this is a mock response for JSON streaming\"}";
-    String getGeoAsStreamPath = "/testString/_design/testString/_geo/testString";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetGeoOptions model
-    GetGeoOptions getGeoOptionsModel = new GetGeoOptions.Builder()
-      .db("testString")
-      .ddoc("testString")
-      .index("testString")
-      .bbox("testString")
-      .bookmark("testString")
-      .format("view")
-      .g("testString")
-      .includeDocs(false)
-      .lat(Double.valueOf("-90"))
-      .limit(Long.valueOf("0"))
-      .lon(Double.valueOf("-180"))
-      .nearest(false)
-      .radius(Double.valueOf("0"))
-      .rangex(Double.valueOf("0"))
-      .rangey(Double.valueOf("0"))
-      .relation("intersects")
-      .skip(Long.valueOf("0"))
-      .stale("ok")
-      .build();
-
-    // Invoke getGeoAsStream() with a valid options model and verify the result
-    Response<InputStream> response = cloudantService.getGeoAsStream(getGeoOptionsModel).execute();
-    assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getGeoAsStreamPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("bbox"), "testString");
-    assertEquals(query.get("bookmark"), "testString");
-    assertEquals(query.get("format"), "view");
-    assertEquals(query.get("g"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
-    assertEquals(Double.valueOf(query.get("lat")), Double.valueOf("-90"));
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
-    assertEquals(Double.valueOf(query.get("lon")), Double.valueOf("-180"));
-    assertEquals(Boolean.valueOf(query.get("nearest")), Boolean.valueOf(false));
-    assertEquals(Double.valueOf(query.get("radius")), Double.valueOf("0"));
-    assertEquals(Double.valueOf(query.get("rangex")), Double.valueOf("0"));
-    assertEquals(Double.valueOf(query.get("rangey")), Double.valueOf("0"));
-    assertEquals(query.get("relation"), "intersects");
-    assertEquals(Long.valueOf(query.get("skip")), Long.valueOf("0"));
-    assertEquals(query.get("stale"), "ok");
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
-  }
-
-  // Test the getGeoAsStream operation with and without retries enabled
-  @Test
-  public void testGetGeoAsStreamWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetGeoAsStreamWOptions();
-
-    cloudantService.disableRetries();
-    testGetGeoAsStreamWOptions();
-  }
-
-  // Test the getGeoAsStream operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetGeoAsStreamNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    cloudantService.getGeoAsStream(null).execute();
-  }
-
-  // Test the postGeoCleanup operation with a valid options model parameter
-  @Test
-  public void testPostGeoCleanupWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"ok\": true}";
-    String postGeoCleanupPath = "/testString/_geo_cleanup";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(202)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the PostGeoCleanupOptions model
-    PostGeoCleanupOptions postGeoCleanupOptionsModel = new PostGeoCleanupOptions.Builder()
-      .db("testString")
-      .build();
-
-    // Invoke postGeoCleanup() with a valid options model and verify the result
-    Response<Ok> response = cloudantService.postGeoCleanup(postGeoCleanupOptionsModel).execute();
-    assertNotNull(response);
-    Ok responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postGeoCleanupPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the postGeoCleanup operation with and without retries enabled
-  @Test
-  public void testPostGeoCleanupWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testPostGeoCleanupWOptions();
-
-    cloudantService.disableRetries();
-    testPostGeoCleanupWOptions();
-  }
-
-  // Test the postGeoCleanup operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostGeoCleanupNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    cloudantService.postGeoCleanup(null).execute();
-  }
-
-  // Test the getGeoIndexInformation operation with a valid options model parameter
-  @Test
-  public void testGetGeoIndexInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"geo_index\": {\"data_size\": 0, \"disk_size\": 0, \"doc_count\": 0}, \"name\": \"name\"}";
-    String getGeoIndexInformationPath = "/testString/_design/testString/_geo_info/testString";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetGeoIndexInformationOptions model
-    GetGeoIndexInformationOptions getGeoIndexInformationOptionsModel = new GetGeoIndexInformationOptions.Builder()
-      .db("testString")
-      .ddoc("testString")
-      .index("testString")
-      .build();
-
-    // Invoke getGeoIndexInformation() with a valid options model and verify the result
-    Response<GeoIndexInformation> response = cloudantService.getGeoIndexInformation(getGeoIndexInformationOptionsModel).execute();
-    assertNotNull(response);
-    GeoIndexInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getGeoIndexInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getGeoIndexInformation operation with and without retries enabled
-  @Test
-  public void testGetGeoIndexInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetGeoIndexInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetGeoIndexInformationWOptions();
-  }
-
-  // Test the getGeoIndexInformation operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetGeoIndexInformationNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    cloudantService.getGeoIndexInformation(null).execute();
-  }
-
   // Test the headReplicationDocument operation with a valid options model parameter
   @Test
   public void testHeadReplicationDocumentWOptions() throws Throwable {
@@ -4803,7 +4510,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"worker_batch_size\": 1, \"worker_processes\": 1}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 1, \"worker_processes\": 1}";
     String getReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4976,6 +4683,7 @@ public class CloudantTest extends PowerMockTestCase {
       .targetProxy("testString")
       .useCheckpoints(true)
       .userCtx(userContextModel)
+      .winningRevsOnly(false)
       .workerBatchSize(Long.valueOf("1"))
       .workerProcesses(Long.valueOf("1"))
       .add("foo", "testString")
