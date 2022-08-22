@@ -1,5 +1,5 @@
 Server Version: 2.1.1
-Document count in "animaldb" database is 11.
+Document count in "orders" database is 1.
 Document retrieved from database:
 {
   "_id": "example",
