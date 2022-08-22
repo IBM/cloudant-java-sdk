@@ -20,8 +20,8 @@ import com.ibm.cloud.cloudant.v1.model.ServerInformation;
 
 public class GetInfoFromExistingDatabase {
     public static void main(String[] args) {
-        // 1. Create a Cloudant client with "EXAMPLES" service name ===========
-        Cloudant client = Cloudant.newInstance("EXAMPLES");
+        // 1. Create a client with `CLOUDANT` default service name ============
+        Cloudant client = Cloudant.newInstance();
 
         // 2. Get server information ==========================================
         ServerInformation serverInformation = client
@@ -32,8 +32,8 @@ public class GetInfoFromExistingDatabase {
         System.out.println("Server Version: " +
             serverInformation.getVersion());
 
-        // 3. Get database information for "animaldb" =========================
-        String dbName = "animaldb";
+        // 3. Get database information for "orders" =========================
+        String dbName = "orders";
 
         GetDatabaseInformationOptions dbInformationOptions =
             new GetDatabaseInformationOptions.Builder(dbName).build();
@@ -51,18 +51,18 @@ public class GetInfoFromExistingDatabase {
             "\" database is " + documentCount +
             ".");
 
-        // 5. Get zebra document out of the database by document id ===========
+        // 5. Get "example" document out of the database by document id ===========
         GetDocumentOptions getDocOptions = new GetDocumentOptions.Builder()
             .db(dbName)
-            .docId("zebra")
+            .docId("example")
             .build();
 
-        Document documentAboutZebra = client
+        Document documentExample = client
             .getDocument(getDocOptions)
             .execute()
             .getResult();
 
         System.out.println("Document retrieved from database:\n" +
-            documentAboutZebra);
+            documentExample);
     }
 }
