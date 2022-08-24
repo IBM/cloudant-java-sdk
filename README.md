@@ -44,8 +44,8 @@ to avoid surprises.
 - [Using the SDK](#using-the-sdk)
   * [Request timeout configuration](#request-timeout-configuration)
   * [Code examples](#code-examples)
-    + [1. Retrieve information from an existing database](#1-retrieve-information-from-an-existing-database)
-    + [2. Create your own database and add a document](#2-create-your-own-database-and-add-a-document)
+    + [1. Create a database and add a document](#1-create-a-database-and-add-a-document)
+    + [2. Retrieve information from an existing database](#2-retrieve-information-from-an-existing-database)
     + [3. Update your previously created document](#3-update-your-previously-created-document)
     + [4. Delete your previously created document](#4-delete-your-previously-created-document)
     + [Further code examples](#further-code-examples)
@@ -262,16 +262,14 @@ The [request timeout](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/READ
 The following code examples
 [authenticate with the environment variables](#authenticate-with-environment-variables).
 
-#### 1. Retrieve information from an existing database
+#### 1. Create a database and add a document
 
-**Note:** This example code assumes that `animaldb` database does not exist in your account.
+**Note:** This example code assumes that `orders` database does not exist in your account.
 
-This example code gathers information about an existing database hosted on
-the https://examples.cloudant.com/ service `url`. To connect, you must
-extend your environment variables with the *service url* and *authentication
-type* to use `NOAUTH` authentication while you connect to the `animaldb` database.
-This step is necessary for the SDK to distinguish the `EXAMPLES` custom service
-name from the default service name which is `CLOUDANT`.
+This example code creates `orders` database and adds a new document "example"
+into it. To connect, you must set your environment variables with 
+the *service url*, *authentication type* and *authentication credentials*
+of your Cloudant service. 
 
 Cloudant environment variable naming starts with a *service name* prefix that identifies your service.
 By default this is `CLOUDANT`, see the settings in the
@@ -279,103 +277,8 @@ By default this is `CLOUDANT`, see the settings in the
 
 If you would like to rename your Cloudant service from `CLOUDANT`,
 you must use your defined service name as the prefix for all Cloudant related environment variables.
-The code block below provides an example of instantiating a user-defined `EXAMPLES` service name.
-
-```bash
-EXAMPLES_URL=https://examples.cloudant.com
-EXAMPLES_AUTH_TYPE=NOAUTH
-```
 
 Once the environment variables are set, you can try out the code examples.
-
-[embedmd]:# (modules/examples/src/main/java/GetInfoFromExistingDatabase.java /import com./ $)
-```java
-import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
-import com.ibm.cloud.cloudant.v1.model.Document;
-import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
-import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
-import com.ibm.cloud.cloudant.v1.model.ServerInformation;
-
-public class GetInfoFromExistingDatabase {
-    public static void main(String[] args) {
-        // 1. Create a Cloudant client with "EXAMPLES" service name ===========
-        Cloudant client = Cloudant.newInstance("EXAMPLES");
-
-        // 2. Get server information ==========================================
-        ServerInformation serverInformation = client
-            .getServerInformation()
-            .execute()
-            .getResult();
-
-        System.out.println("Server Version: " +
-            serverInformation.getVersion());
-
-        // 3. Get database information for "animaldb" =========================
-        String dbName = "animaldb";
-
-        GetDatabaseInformationOptions dbInformationOptions =
-            new GetDatabaseInformationOptions.Builder(dbName).build();
-
-        DatabaseInformation dbInformationResponse = client
-            .getDatabaseInformation(dbInformationOptions)
-            .execute()
-            .getResult();
-
-        // 4. Show document count in database =================================
-        Long documentCount = dbInformationResponse.getDocCount();
-
-        System.out.println("Document count in \"" +
-            dbInformationResponse.getDbName() +
-            "\" database is " + documentCount +
-            ".");
-
-        // 5. Get zebra document out of the database by document id ===========
-        GetDocumentOptions getDocOptions = new GetDocumentOptions.Builder()
-            .db(dbName)
-            .docId("zebra")
-            .build();
-
-        Document documentAboutZebra = client
-            .getDocument(getDocOptions)
-            .execute()
-            .getResult();
-
-        System.out.println("Document retrieved from database:\n" +
-            documentAboutZebra);
-    }
-}
-```
-
-When you run the code, you see a result similar to the following output.
-
-[embedmd]:# (modules/examples/output/GetInfoFromExistingDatabase.txt)
-```txt
-Server Version: 2.1.1
-Document count in "animaldb" database is 11.
-Document retrieved from database:
-{
-  "_id": "zebra",
-  "_rev": "3-750dac460a6cc41e6999f8943b8e603e",
-  "max_weight": 387,
-  "min_length": 2,
-  "diet": "herbivore",
-  "min_weight": 175,
-  "class": "mammal",
-  "wiki_page": "http://en.wikipedia.org/wiki/Plains_zebra",
-  "max_length": 2.5
-}
-```
-
-#### 2. Create your own database and add a document
-
-**Note:** This example code assumes that `orders` database does not exist in your account.
-
-Now comes the exciting part, you create your own `orders` database and add a document about *Bob Smith* with your own [IAM](#iam-authentication) or
-[Basic](#basic-authentication) service credentials.
-
-<details>
-<summary>Create code example</summary>
 
 [embedmd]:# (modules/examples/src/main/java/CreateDbAndDoc.java /import com./ $)
 ```java
@@ -468,8 +371,6 @@ public class CreateDbAndDoc {
 }
 ```
 
-
-</details>
 When you run the code, you see a result similar to the following output.
 
 [embedmd]:# (modules/examples/output/CreateDbAndDoc.txt)
@@ -484,11 +385,98 @@ You have created the document:
 }
 ```
 
+#### 2. Retrieve information from an existing database
+
+**Note**: This example code assumes that you have created both the `orders`
+database and the `example` document by
+[running the previous example code](#1-create-a-database-and-add-a-document)
+successfully. Otherwise, the following error message occurs, "Cannot delete document because either 'orders'
+database or 'example' document was not found."
+
+<details>
+<summary>Gather database information example</summary>
+
+[embedmd]:# (modules/examples/src/main/java/GetInfoFromExistingDatabase.java /import com./ $)
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.ServerInformation;
+
+public class GetInfoFromExistingDatabase {
+    public static void main(String[] args) {
+        // 1. Create a client with `CLOUDANT` default service name ============
+        Cloudant client = Cloudant.newInstance();
+
+        // 2. Get server information ==========================================
+        ServerInformation serverInformation = client
+            .getServerInformation()
+            .execute()
+            .getResult();
+
+        System.out.println("Server Version: " +
+            serverInformation.getVersion());
+
+        // 3. Get database information for "orders" =========================
+        String dbName = "orders";
+
+        GetDatabaseInformationOptions dbInformationOptions =
+            new GetDatabaseInformationOptions.Builder(dbName).build();
+
+        DatabaseInformation dbInformationResponse = client
+            .getDatabaseInformation(dbInformationOptions)
+            .execute()
+            .getResult();
+
+        // 4. Show document count in database =================================
+        Long documentCount = dbInformationResponse.getDocCount();
+
+        System.out.println("Document count in \"" +
+            dbInformationResponse.getDbName() +
+            "\" database is " + documentCount +
+            ".");
+
+        // 5. Get "example" document out of the database by document id ===========
+        GetDocumentOptions getDocOptions = new GetDocumentOptions.Builder()
+            .db(dbName)
+            .docId("example")
+            .build();
+
+        Document documentExample = client
+            .getDocument(getDocOptions)
+            .execute()
+            .getResult();
+
+        System.out.println("Document retrieved from database:\n" +
+            documentExample);
+    }
+}
+```
+
+
+</details>
+When you run the code, you see a result similar to the following output.
+
+[embedmd]:# (modules/examples/output/GetInfoFromExistingDatabase.txt)
+```txt
+Server Version: 2.1.1
+Document count in "orders" database is 1.
+Document retrieved from database:
+{
+  "_id": "example",
+  "_rev": "1-1b403633540686aa32d013fda9041a5d",
+  "name": "Bob Smith",
+  "joined": "2019-01-24T10:42:99.000Z"
+}
+```
+
 #### 3. Update your previously created document
 
 **Note**: This example code assumes that you have created both the `orders`
 database and the `example` document by
-[running the previous example code](#2-create-your-own-database-and-add-a-document)
+[running the previous example code](#1-create-a-database-and-add-a-document)
 successfully. Otherwise, the following error message occurs, "Cannot update document because either 'orders'
 database or 'example' document was not found."
 
@@ -619,7 +607,7 @@ You have updated the document:
 
 **Note**: This example code assumes that you have created both the `orders`
 database and the `example` document by
-[running the previous example code](#2-create-your-own-database-and-add-a-document)
+[running the previous example code](#1-create-a-database-and-add-a-document)
 successfully. Otherwise, the following error message occurs, "Cannot delete document because either 'orders'
 database or 'example' document was not found."
 
