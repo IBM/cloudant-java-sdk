@@ -299,8 +299,8 @@ import com.ibm.cloud.cloudant.v1.model.ServerInformation;
 
 public class GetInfoFromExistingDatabase {
     public static void main(String[] args) {
-        // 1. Create a Cloudant client with "EXAMPLES" service name ===========
-        Cloudant client = Cloudant.newInstance("EXAMPLES");
+        // 1. Create a client with `CLOUDANT` default service name ============
+        Cloudant client = Cloudant.newInstance();
 
         // 2. Get server information ==========================================
         ServerInformation serverInformation = client
@@ -311,8 +311,8 @@ public class GetInfoFromExistingDatabase {
         System.out.println("Server Version: " +
             serverInformation.getVersion());
 
-        // 3. Get database information for "animaldb" =========================
-        String dbName = "animaldb";
+        // 3. Get database information for "orders" =========================
+        String dbName = "orders";
 
         GetDatabaseInformationOptions dbInformationOptions =
             new GetDatabaseInformationOptions.Builder(dbName).build();
@@ -330,19 +330,19 @@ public class GetInfoFromExistingDatabase {
             "\" database is " + documentCount +
             ".");
 
-        // 5. Get zebra document out of the database by document id ===========
+        // 5. Get "example" document out of the database by document id ===========
         GetDocumentOptions getDocOptions = new GetDocumentOptions.Builder()
             .db(dbName)
-            .docId("zebra")
+            .docId("example")
             .build();
 
-        Document documentAboutZebra = client
+        Document documentExample = client
             .getDocument(getDocOptions)
             .execute()
             .getResult();
 
         System.out.println("Document retrieved from database:\n" +
-            documentAboutZebra);
+            documentExample);
     }
 }
 ```
@@ -352,18 +352,13 @@ When you run the code, you see a result similar to the following output.
 [embedmd]:# (modules/examples/output/GetInfoFromExistingDatabase.txt)
 ```txt
 Server Version: 2.1.1
-Document count in "animaldb" database is 11.
+Document count in "orders" database is 1.
 Document retrieved from database:
 {
-  "_id": "zebra",
-  "_rev": "3-750dac460a6cc41e6999f8943b8e603e",
-  "max_weight": 387,
-  "min_length": 2,
-  "diet": "herbivore",
-  "min_weight": 175,
-  "class": "mammal",
-  "wiki_page": "http://en.wikipedia.org/wiki/Plains_zebra",
-  "max_length": 2.5
+  "_id": "example",
+  "_rev": "1-1b403633540686aa32d013fda9041a5d",
+  "name": "Bob Smith",
+  "joined": "2019-01-24T10:42:99.000Z"
 }
 ```
 
