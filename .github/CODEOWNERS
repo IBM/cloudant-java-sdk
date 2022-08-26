@@ -16,6 +16,7 @@ scripts/javadoc/publish-doc.sh @IBM/cloudant-sdks
 scripts/publish_buildinfo.sh @IBM/cloudant-sdks
 scripts/setup_couch.sh @IBM/cloudant-sdks
 scripts/setup_wiremock.sh @IBM/cloudant-sdks
+stubs/gen-its-mappings.json @IBM/cloudant-sdks
 stubs/mappings.json @IBM/cloudant-sdks
 
 # Generated code files:
