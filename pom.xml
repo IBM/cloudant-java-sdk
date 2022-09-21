@@ -38,7 +38,7 @@
         <maven-buildnumber-plugin-version>3.0.0</maven-buildnumber-plugin-version>
         <powermock-version>2.0.9</powermock-version>
         <mockito-version>3.2.4</mockito-version>
-        <slf4j-version>2.0.1</slf4j-version>
+        <slf4j-version>2.0.2</slf4j-version>
 
         <!-- Till https://github.com/powermock/powermock/issues/1094 -->
         <surefire.options/>
