@@ -42,6 +42,11 @@ public class DocumentRevisionStatus extends GenericModel {
     private String rev;
     private String status;
 
+    /**
+     * Instantiates a new Builder from an existing DocumentRevisionStatus instance.
+     *
+     * @param documentRevisionStatus the instance to initialize the Builder with
+     */
     private Builder(DocumentRevisionStatus documentRevisionStatus) {
       this.rev = documentRevisionStatus.rev;
       this.status = documentRevisionStatus.status;

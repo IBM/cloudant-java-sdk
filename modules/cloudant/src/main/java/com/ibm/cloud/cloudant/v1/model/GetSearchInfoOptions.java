@@ -31,6 +31,11 @@ public class GetSearchInfoOptions extends GenericModel {
     private String ddoc;
     private String index;
 
+    /**
+     * Instantiates a new Builder from an existing GetSearchInfoOptions instance.
+     *
+     * @param getSearchInfoOptions the instance to initialize the Builder with
+     */
     private Builder(GetSearchInfoOptions getSearchInfoOptions) {
       this.db = getSearchInfoOptions.db;
       this.ddoc = getSearchInfoOptions.ddoc;

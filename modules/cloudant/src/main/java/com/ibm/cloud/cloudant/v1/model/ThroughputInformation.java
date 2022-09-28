@@ -24,6 +24,8 @@ public class ThroughputInformation extends GenericModel {
   protected Long read;
   protected Long write;
 
+  protected ThroughputInformation() { }
+
   /**
    * Gets the blocks.
    *

@@ -25,6 +25,8 @@ public class ShardsInformation extends GenericModel {
 
   protected Map<String, List<String>> shards;
 
+  protected ShardsInformation() { }
+
   /**
    * Gets the shards.
    *

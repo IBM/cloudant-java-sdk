@@ -32,6 +32,8 @@ public class SearchResult extends GenericModel {
   protected List<SearchResultRow> rows;
   protected List<SearchResultProperties> groups;
 
+  protected SearchResult() { }
+
   /**
    * Gets the totalRows.
    *

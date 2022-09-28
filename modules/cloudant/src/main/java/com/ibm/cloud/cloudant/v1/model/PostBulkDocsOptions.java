@@ -36,6 +36,11 @@ public class PostBulkDocsOptions extends GenericModel {
     private BulkDocs bulkDocs;
     private InputStream body;
 
+    /**
+     * Instantiates a new Builder from an existing PostBulkDocsOptions instance.
+     *
+     * @param postBulkDocsOptions the instance to initialize the Builder with
+     */
     private Builder(PostBulkDocsOptions postBulkDocsOptions) {
       this.db = postBulkDocsOptions.db;
       this.bulkDocs = postBulkDocsOptions.bulkDocs;

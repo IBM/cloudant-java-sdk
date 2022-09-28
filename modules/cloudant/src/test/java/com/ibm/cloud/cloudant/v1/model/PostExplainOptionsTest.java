@@ -34,28 +34,28 @@ public class PostExplainOptionsTest {
   public void testPostExplainOptions() throws Throwable {
     PostExplainOptions postExplainOptionsModel = new PostExplainOptions.Builder()
       .db("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
       .r(Long.valueOf("1"))
       .build();
     assertEquals(postExplainOptionsModel.db(), "testString");
-    assertEquals(postExplainOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(postExplainOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(postExplainOptionsModel.bookmark(), "testString");
     assertEquals(postExplainOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(postExplainOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postExplainOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postExplainOptionsModel.sort(), java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }));
+    assertEquals(postExplainOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")));
     assertEquals(postExplainOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.update(), "true");
     assertEquals(postExplainOptionsModel.useIndex(), java.util.Arrays.asList("testString"));

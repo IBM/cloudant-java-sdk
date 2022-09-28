@@ -64,6 +64,11 @@ public class Document extends DynamicModel<Object> {
     private List<DocumentRevisionStatus> revsInfo;
     private Map<String, Object> dynamicProperties;
 
+    /**
+     * Instantiates a new Builder from an existing Document instance.
+     *
+     * @param document the instance to initialize the Builder with
+     */
     private Builder(Document document) {
       this.attachments = document.attachments;
       this.conflicts = document.conflicts;

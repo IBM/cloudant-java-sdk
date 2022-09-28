@@ -28,6 +28,8 @@ public class SessionAuthentication extends GenericModel {
   @SerializedName("authentication_handlers")
   protected List<String> authenticationHandlers;
 
+  protected SessionAuthentication() { }
+
   /**
    * Gets the authenticated.
    *

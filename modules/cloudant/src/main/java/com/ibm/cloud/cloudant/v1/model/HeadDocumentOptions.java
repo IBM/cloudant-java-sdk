@@ -35,6 +35,11 @@ public class HeadDocumentOptions extends GenericModel {
     private Boolean latest;
     private String rev;
 
+    /**
+     * Instantiates a new Builder from an existing HeadDocumentOptions instance.
+     *
+     * @param headDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(HeadDocumentOptions headDocumentOptions) {
       this.db = headDocumentOptions.db;
       this.docId = headDocumentOptions.docId;

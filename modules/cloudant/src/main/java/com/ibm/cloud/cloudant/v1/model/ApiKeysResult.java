@@ -23,6 +23,8 @@ public class ApiKeysResult extends GenericModel {
   protected String key;
   protected String password;
 
+  protected ApiKeysResult() { }
+
   /**
    * Gets the ok.
    *

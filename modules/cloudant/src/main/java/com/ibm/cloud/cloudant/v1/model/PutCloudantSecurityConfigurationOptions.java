@@ -38,6 +38,11 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
     private SecurityObject members;
     private Boolean couchdbAuthOnly;
 
+    /**
+     * Instantiates a new Builder from an existing PutCloudantSecurityConfigurationOptions instance.
+     *
+     * @param putCloudantSecurityConfigurationOptions the instance to initialize the Builder with
+     */
     private Builder(PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptions) {
       this.db = putCloudantSecurityConfigurationOptions.db;
       this.cloudant = putCloudantSecurityConfigurationOptions.cloudant;

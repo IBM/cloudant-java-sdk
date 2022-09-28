@@ -518,7 +518,7 @@ public class CloudantTest extends PowerMockTestCase {
       .db("testString")
       .docIds(java.util.Arrays.asList("testString"))
       .fields(java.util.Arrays.asList("testString"))
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .lastEventId("testString")
       .attEncodingInfo(false)
       .attachments(false)
@@ -601,7 +601,7 @@ public class CloudantTest extends PowerMockTestCase {
       .db("testString")
       .docIds(java.util.Arrays.asList("testString"))
       .fields(java.util.Arrays.asList("testString"))
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .lastEventId("testString")
       .attEncodingInfo(false)
       .attachments(false)
@@ -1078,7 +1078,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -1448,7 +1448,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2176,7 +2176,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2466,7 +2466,7 @@ public class CloudantTest extends PowerMockTestCase {
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
       .stopwords(java.util.Arrays.asList("testString"))
-      .fields(new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } })
+      .fields(java.util.Collections.singletonMap("foo", analyzerModel))
       .build();
 
     // Construct an instance of the SearchIndexDefinition model
@@ -2488,7 +2488,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the DesignDocument model
     DesignDocument designDocumentModel = new DesignDocument.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2498,12 +2498,12 @@ public class CloudantTest extends PowerMockTestCase {
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .autoupdate(true)
-      .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-      .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
+      .filters(java.util.Collections.singletonMap("foo", "testString"))
+      .indexes(java.util.Collections.singletonMap("foo", searchIndexDefinitionModel))
       .language("javascript")
       .options(designDocumentOptionsModel)
       .validateDocUpdate("testString")
-      .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
+      .views(java.util.Collections.singletonMap("foo", designDocumentViewsMapReduceModel))
       .add("foo", "testString")
       .build();
 
@@ -3246,7 +3246,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostPartitionSearchWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}], \"groups\": [{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}]}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"anyKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}], \"groups\": [{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"anyKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}]}]}";
     String postPartitionSearchPath = "/testString/_partition/testString/_design/testString/_search/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3547,14 +3547,14 @@ public class CloudantTest extends PowerMockTestCase {
     PostPartitionFindOptions postPartitionFindOptionsModel = new PostPartitionFindOptions.Builder()
       .db("testString")
       .partitionKey("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3610,14 +3610,14 @@ public class CloudantTest extends PowerMockTestCase {
     PostPartitionFindOptions postPartitionFindOptionsModel = new PostPartitionFindOptions.Builder()
       .db("testString")
       .partitionKey("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3667,7 +3667,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"mapKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"mapKey\": \"anyValue\"}, \"skip\": 0}";
+    String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"anyKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3677,14 +3677,14 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostExplainOptions model
     PostExplainOptions postExplainOptionsModel = new PostExplainOptions.Builder()
       .db("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3740,14 +3740,14 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostFindOptions model
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
       .db("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3803,14 +3803,14 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostFindOptions model
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
       .db("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3861,7 +3861,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetIndexesInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"mapKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}]}";
     String getIndexesInformationPath = "/testString/_index";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3944,7 +3944,7 @@ public class CloudantTest extends PowerMockTestCase {
       .defaultField(indexTextOperatorDefaultFieldModel)
       .fields(java.util.Arrays.asList(indexFieldModel))
       .indexArrayLengths(true)
-      .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .partialFilterSelector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .build();
 
     // Construct an instance of the PostIndexOptions model
@@ -4103,7 +4103,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testPostSearchWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}], \"groups\": [{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"mapKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}]}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"anyKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}], \"groups\": [{\"total_rows\": 0, \"bookmark\": \"bookmark\", \"by\": \"by\", \"counts\": {\"mapKey\": {\"mapKey\": 0}}, \"ranges\": {\"mapKey\": {\"mapKey\": 0}}, \"rows\": [{\"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"fields\": {\"anyKey\": \"anyValue\"}, \"highlights\": {\"mapKey\": [\"inner\"]}, \"id\": \"id\"}]}]}";
     String postSearchPath = "/testString/_design/testString/_search/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4132,7 +4132,7 @@ public class CloudantTest extends PowerMockTestCase {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } })
+      .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
       .build();
 
     // Invoke postSearch() with a valid options model and verify the result
@@ -4203,7 +4203,7 @@ public class CloudantTest extends PowerMockTestCase {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } })
+      .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
       .build();
 
     // Invoke postSearchAsStream() with a valid options model and verify the result
@@ -4510,7 +4510,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"mapKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 1, \"worker_processes\": 1}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"anyKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 1, \"worker_processes\": 1}";
     String getReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4641,7 +4641,7 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the ReplicationDatabase model
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
-      .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .headers(java.util.Collections.singletonMap("foo", "testString"))
       .url("testString")
       .build();
 
@@ -4654,7 +4654,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the ReplicationDocument model
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -4672,9 +4672,9 @@ public class CloudantTest extends PowerMockTestCase {
       .docIds(java.util.Arrays.asList("testString"))
       .filter("testString")
       .httpConnections(Long.valueOf("1"))
-      .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .queryParams(java.util.Collections.singletonMap("foo", "testString"))
       .retriesPerRequest(Long.valueOf("0"))
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .sinceSeq("testString")
       .socketOptions("testString")
       .source(replicationDatabaseModel)
@@ -5050,7 +5050,7 @@ public class CloudantTest extends PowerMockTestCase {
       .db("testString")
       .admins(securityObjectModel)
       .members(securityObjectModel)
-      .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", java.util.Arrays.asList("_reader")); } })
+      .cloudant(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")))
       .couchdbAuthOnly(true)
       .build();
 
@@ -5151,7 +5151,7 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PutCloudantSecurityConfigurationOptions model
     PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
       .db("testString")
-      .cloudant(new java.util.HashMap<String, List<String>>() { { put("foo", java.util.Arrays.asList("_reader")); } })
+      .cloudant(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")))
       .admins(securityObjectModel)
       .members(securityObjectModel)
       .couchdbAuthOnly(true)
@@ -5725,7 +5725,7 @@ public class CloudantTest extends PowerMockTestCase {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -5796,7 +5796,7 @@ public class CloudantTest extends PowerMockTestCase {
     // Construct an instance of the PostRevsDiffOptions model
     PostRevsDiffOptions postRevsDiffOptionsModel = new PostRevsDiffOptions.Builder()
       .db("testString")
-      .documentRevisions(new java.util.HashMap<String, List<String>>() { { put("foo", java.util.Arrays.asList("testString")); } })
+      .documentRevisions(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("testString")))
       .build();
 
     // Invoke postRevsDiff() with a valid options model and verify the result
@@ -6024,7 +6024,7 @@ public class CloudantTest extends PowerMockTestCase {
   @Test
   public void testGetUpInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"seeds\": {\"mapKey\": \"anyValue\"}, \"status\": \"maintenance_mode\"}";
+    String mockResponseBody = "{\"seeds\": {\"anyKey\": \"anyValue\"}, \"status\": \"maintenance_mode\"}";
     String getUpInformationPath = "/_up";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")

@@ -54,6 +54,11 @@ public class GetSchedulerDocsOptions extends GenericModel {
     private Long skip;
     private List<String> states;
 
+    /**
+     * Instantiates a new Builder from an existing GetSchedulerDocsOptions instance.
+     *
+     * @param getSchedulerDocsOptions the instance to initialize the Builder with
+     */
     private Builder(GetSchedulerDocsOptions getSchedulerDocsOptions) {
       this.limit = getSchedulerDocsOptions.limit;
       this.skip = getSchedulerDocsOptions.skip;

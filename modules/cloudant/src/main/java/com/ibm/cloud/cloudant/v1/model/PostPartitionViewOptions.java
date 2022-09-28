@@ -92,6 +92,11 @@ public class PostPartitionViewOptions extends GenericModel {
     private String startKeyDocId;
     private String update;
 
+    /**
+     * Instantiates a new Builder from an existing PostPartitionViewOptions instance.
+     *
+     * @param postPartitionViewOptions the instance to initialize the Builder with
+     */
     private Builder(PostPartitionViewOptions postPartitionViewOptions) {
       this.db = postPartitionViewOptions.db;
       this.partitionKey = postPartitionViewOptions.partitionKey;

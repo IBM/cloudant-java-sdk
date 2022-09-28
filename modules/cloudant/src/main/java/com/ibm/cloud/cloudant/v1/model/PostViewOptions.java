@@ -90,6 +90,11 @@ public class PostViewOptions extends GenericModel {
     private String startKeyDocId;
     private String update;
 
+    /**
+     * Instantiates a new Builder from an existing PostViewOptions instance.
+     *
+     * @param postViewOptions the instance to initialize the Builder with
+     */
     private Builder(PostViewOptions postViewOptions) {
       this.db = postViewOptions.db;
       this.ddoc = postViewOptions.ddoc;

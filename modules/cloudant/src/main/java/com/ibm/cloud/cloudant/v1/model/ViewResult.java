@@ -28,6 +28,8 @@ public class ViewResult extends GenericModel {
   protected String updateSeq;
   protected List<ViewResultRow> rows;
 
+  protected ViewResult() { }
+
   /**
    * Gets the totalRows.
    *

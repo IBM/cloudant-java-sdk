@@ -37,6 +37,8 @@ public class SchedulerJob extends GenericModel {
   protected String target;
   protected String user;
 
+  protected SchedulerJob() { }
+
   /**
    * Gets the database.
    *

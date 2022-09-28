@@ -49,6 +49,11 @@ public class PostDocumentOptions extends GenericModel {
     private String contentType;
     private String batch;
 
+    /**
+     * Instantiates a new Builder from an existing PostDocumentOptions instance.
+     *
+     * @param postDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(PostDocumentOptions postDocumentOptions) {
       this.db = postDocumentOptions.db;
       this.document = postDocumentOptions.document;

@@ -19,5 +19,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class HeadUpInformationOptions extends GenericModel {
 
+  /**
+   * Construct a new instance of HeadUpInformationOptions.
+   */
+  public HeadUpInformationOptions() {
+  }
 }
 

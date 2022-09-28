@@ -21,6 +21,8 @@ public class Ok extends GenericModel {
 
   protected Boolean ok;
 
+  protected Ok() { }
+
   /**
    * Gets the ok.
    *

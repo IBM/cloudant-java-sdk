@@ -36,6 +36,11 @@ public class BulkGetQueryDocument extends GenericModel {
     private String id;
     private String rev;
 
+    /**
+     * Instantiates a new Builder from an existing BulkGetQueryDocument instance.
+     *
+     * @param bulkGetQueryDocument the instance to initialize the Builder with
+     */
     private Builder(BulkGetQueryDocument bulkGetQueryDocument) {
       this.attsSince = bulkGetQueryDocument.attsSince;
       this.id = bulkGetQueryDocument.id;

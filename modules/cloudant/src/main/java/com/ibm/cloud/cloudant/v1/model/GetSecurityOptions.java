@@ -27,6 +27,11 @@ public class GetSecurityOptions extends GenericModel {
   public static class Builder {
     private String db;
 
+    /**
+     * Instantiates a new Builder from an existing GetSecurityOptions instance.
+     *
+     * @param getSecurityOptions the instance to initialize the Builder with
+     */
     private Builder(GetSecurityOptions getSecurityOptions) {
       this.db = getSecurityOptions.db;
     }

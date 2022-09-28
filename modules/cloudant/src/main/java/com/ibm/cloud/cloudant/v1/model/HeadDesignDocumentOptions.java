@@ -31,6 +31,11 @@ public class HeadDesignDocumentOptions extends GenericModel {
     private String ddoc;
     private String ifNoneMatch;
 
+    /**
+     * Instantiates a new Builder from an existing HeadDesignDocumentOptions instance.
+     *
+     * @param headDesignDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(HeadDesignDocumentOptions headDesignDocumentOptions) {
       this.db = headDesignDocumentOptions.db;
       this.ddoc = headDesignDocumentOptions.ddoc;

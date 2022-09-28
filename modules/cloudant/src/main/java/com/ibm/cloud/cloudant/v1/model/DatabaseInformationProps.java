@@ -21,6 +21,8 @@ public class DatabaseInformationProps extends GenericModel {
 
   protected Boolean partitioned;
 
+  protected DatabaseInformationProps() { }
+
   /**
    * Gets the partitioned.
    *

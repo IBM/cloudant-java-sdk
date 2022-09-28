@@ -29,6 +29,8 @@ public class DocsResultRow extends GenericModel {
   protected String key;
   protected DocsResultRowValue value;
 
+  protected DocsResultRow() { }
+
   /**
    * Gets the causedBy.
    *

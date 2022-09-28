@@ -35,6 +35,11 @@ public class GetAllDbsOptions extends GenericModel {
     private Long skip;
     private String startKey;
 
+    /**
+     * Instantiates a new Builder from an existing GetAllDbsOptions instance.
+     *
+     * @param getAllDbsOptions the instance to initialize the Builder with
+     */
     private Builder(GetAllDbsOptions getAllDbsOptions) {
       this.descending = getAllDbsOptions.descending;
       this.endKey = getAllDbsOptions.endKey;

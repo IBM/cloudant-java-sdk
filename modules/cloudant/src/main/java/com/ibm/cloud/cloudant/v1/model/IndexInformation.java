@@ -36,6 +36,8 @@ public class IndexInformation extends GenericModel {
   protected String name;
   protected String type;
 
+  protected IndexInformation() { }
+
   /**
    * Gets the ddoc.
    *

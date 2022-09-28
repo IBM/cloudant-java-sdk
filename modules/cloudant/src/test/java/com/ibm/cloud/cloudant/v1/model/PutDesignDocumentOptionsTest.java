@@ -85,11 +85,11 @@ public class PutDesignDocumentOptionsTest {
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
       .stopwords(java.util.Arrays.asList("testString"))
-      .fields(new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } })
+      .fields(java.util.Collections.singletonMap("foo", analyzerModel))
       .build();
     assertEquals(analyzerConfigurationModel.name(), "classic");
     assertEquals(analyzerConfigurationModel.stopwords(), java.util.Arrays.asList("testString"));
-    assertEquals(analyzerConfigurationModel.fields(), new java.util.HashMap<String, Analyzer>() { { put("foo", analyzerModel); } });
+    assertEquals(analyzerConfigurationModel.fields(), java.util.Collections.singletonMap("foo", analyzerModel));
 
     SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
       .analyzer(analyzerConfigurationModel)
@@ -111,7 +111,7 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentViewsMapReduceModel.reduce(), "testString");
 
     DesignDocument designDocumentModel = new DesignDocument.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -121,15 +121,15 @@ public class PutDesignDocumentOptionsTest {
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .autoupdate(true)
-      .filters(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
-      .indexes(new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } })
+      .filters(java.util.Collections.singletonMap("foo", "testString"))
+      .indexes(java.util.Collections.singletonMap("foo", searchIndexDefinitionModel))
       .language("javascript")
       .options(designDocumentOptionsModel)
       .validateDocUpdate("testString")
-      .views(new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } })
+      .views(java.util.Collections.singletonMap("foo", designDocumentViewsMapReduceModel))
       .add("foo", "testString")
       .build();
-    assertEquals(designDocumentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
+    assertEquals(designDocumentModel.getAttachments(), java.util.Collections.singletonMap("foo", attachmentModel));
     assertEquals(designDocumentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(designDocumentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(designDocumentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));
@@ -139,12 +139,12 @@ public class PutDesignDocumentOptionsTest {
     assertEquals(designDocumentModel.getRevisions(), revisionsModel);
     assertEquals(designDocumentModel.getRevsInfo(), java.util.Arrays.asList(documentRevisionStatusModel));
     assertEquals(designDocumentModel.isAutoupdate(), Boolean.valueOf(true));
-    assertEquals(designDocumentModel.getFilters(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
-    assertEquals(designDocumentModel.getIndexes(), new java.util.HashMap<String, SearchIndexDefinition>() { { put("foo", searchIndexDefinitionModel); } });
+    assertEquals(designDocumentModel.getFilters(), java.util.Collections.singletonMap("foo", "testString"));
+    assertEquals(designDocumentModel.getIndexes(), java.util.Collections.singletonMap("foo", searchIndexDefinitionModel));
     assertEquals(designDocumentModel.getLanguage(), "javascript");
     assertEquals(designDocumentModel.getOptions(), designDocumentOptionsModel);
     assertEquals(designDocumentModel.getValidateDocUpdate(), "testString");
-    assertEquals(designDocumentModel.getViews(), new java.util.HashMap<String, DesignDocumentViewsMapReduce>() { { put("foo", designDocumentViewsMapReduceModel); } });
+    assertEquals(designDocumentModel.getViews(), java.util.Collections.singletonMap("foo", designDocumentViewsMapReduceModel));
     assertEquals(designDocumentModel.get("foo"), "testString");
 
     PutDesignDocumentOptions putDesignDocumentOptionsModel = new PutDesignDocumentOptions.Builder()

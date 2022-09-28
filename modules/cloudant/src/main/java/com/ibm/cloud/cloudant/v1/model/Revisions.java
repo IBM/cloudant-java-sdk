@@ -32,6 +32,11 @@ public class Revisions extends GenericModel {
     private List<String> ids;
     private Long start;
 
+    /**
+     * Instantiates a new Builder from an existing Revisions instance.
+     *
+     * @param revisions the instance to initialize the Builder with
+     */
     private Builder(Revisions revisions) {
       this.ids = revisions.ids;
       this.start = revisions.start;

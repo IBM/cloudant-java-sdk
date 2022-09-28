@@ -94,6 +94,11 @@ public class ViewQuery extends GenericModel {
     private String startKeyDocId;
     private String update;
 
+    /**
+     * Instantiates a new Builder from an existing ViewQuery instance.
+     *
+     * @param viewQuery the instance to initialize the Builder with
+     */
     private Builder(ViewQuery viewQuery) {
       this.attEncodingInfo = viewQuery.attEncodingInfo;
       this.attachments = viewQuery.attachments;

@@ -51,6 +51,11 @@ public class GetDocumentOptions extends GenericModel {
     private Boolean revs;
     private Boolean revsInfo;
 
+    /**
+     * Instantiates a new Builder from an existing GetDocumentOptions instance.
+     *
+     * @param getDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(GetDocumentOptions getDocumentOptions) {
       this.db = getDocumentOptions.db;
       this.docId = getDocumentOptions.docId;

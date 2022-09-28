@@ -42,6 +42,8 @@ public class DatabaseInformation extends GenericModel {
   protected String updateSeq;
   protected String uuid;
 
+  protected DatabaseInformation() { }
+
   /**
    * Gets the cluster.
    *

@@ -32,6 +32,11 @@ public class PostAllDocsQueriesOptions extends GenericModel {
     private String db;
     private List<AllDocsQuery> queries;
 
+    /**
+     * Instantiates a new Builder from an existing PostAllDocsQueriesOptions instance.
+     *
+     * @param postAllDocsQueriesOptions the instance to initialize the Builder with
+     */
     private Builder(PostAllDocsQueriesOptions postAllDocsQueriesOptions) {
       this.db = postAllDocsQueriesOptions.db;
       this.queries = postAllDocsQueriesOptions.queries;

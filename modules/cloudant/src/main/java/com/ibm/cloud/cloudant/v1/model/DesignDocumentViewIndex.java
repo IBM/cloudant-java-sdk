@@ -36,6 +36,8 @@ public class DesignDocumentViewIndex extends GenericModel {
   @SerializedName("waiting_commit")
   protected Boolean waitingCommit;
 
+  protected DesignDocumentViewIndex() { }
+
   /**
    * Gets the collatorVersions.
    *

@@ -68,6 +68,11 @@ public class PostPartitionSearchOptions extends GenericModel {
     private List<String> sort;
     private String stale;
 
+    /**
+     * Instantiates a new Builder from an existing PostPartitionSearchOptions instance.
+     *
+     * @param postPartitionSearchOptions the instance to initialize the Builder with
+     */
     private Builder(PostPartitionSearchOptions postPartitionSearchOptions) {
       this.db = postPartitionSearchOptions.db;
       this.partitionKey = postPartitionSearchOptions.partitionKey;

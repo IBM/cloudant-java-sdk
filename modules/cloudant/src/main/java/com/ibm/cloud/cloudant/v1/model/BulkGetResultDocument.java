@@ -22,6 +22,8 @@ public class BulkGetResultDocument extends GenericModel {
   protected DocumentResult error;
   protected Document ok;
 
+  protected BulkGetResultDocument() { }
+
   /**
    * Gets the error.
    *

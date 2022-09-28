@@ -23,6 +23,8 @@ public class ServerVendor extends GenericModel {
   protected String variant;
   protected String version;
 
+  protected ServerVendor() { }
+
   /**
    * Gets the name.
    *

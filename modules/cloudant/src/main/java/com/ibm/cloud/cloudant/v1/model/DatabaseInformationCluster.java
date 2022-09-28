@@ -24,6 +24,8 @@ public class DatabaseInformationCluster extends GenericModel {
   protected Long r;
   protected Long w;
 
+  protected DatabaseInformationCluster() { }
+
   /**
    * Gets the n.
    *

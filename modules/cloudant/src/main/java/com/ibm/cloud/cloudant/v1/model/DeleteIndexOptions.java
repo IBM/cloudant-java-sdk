@@ -45,6 +45,11 @@ public class DeleteIndexOptions extends GenericModel {
     private String type;
     private String index;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteIndexOptions instance.
+     *
+     * @param deleteIndexOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteIndexOptions deleteIndexOptions) {
       this.db = deleteIndexOptions.db;
       this.ddoc = deleteIndexOptions.ddoc;

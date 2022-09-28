@@ -26,6 +26,8 @@ public class SchedulerDocsResult extends GenericModel {
   protected Long totalRows;
   protected List<SchedulerDocument> docs;
 
+  protected SchedulerDocsResult() { }
+
   /**
    * Gets the totalRows.
    *

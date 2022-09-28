@@ -25,6 +25,8 @@ public class SchedulerJobEvent extends GenericModel {
   protected Date timestamp;
   protected String type;
 
+  protected SchedulerJobEvent() { }
+
   /**
    * Gets the reason.
    *

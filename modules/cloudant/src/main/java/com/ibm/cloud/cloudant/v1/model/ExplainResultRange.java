@@ -27,6 +27,8 @@ public class ExplainResultRange extends GenericModel {
   @SerializedName("start_key")
   protected List<Object> startKey;
 
+  protected ExplainResultRange() { }
+
   /**
    * Gets the endKey.
    *

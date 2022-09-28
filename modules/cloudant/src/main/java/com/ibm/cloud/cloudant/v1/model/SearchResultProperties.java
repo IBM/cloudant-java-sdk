@@ -31,6 +31,8 @@ public class SearchResultProperties extends GenericModel {
   protected Map<String, Map<String, Long>> ranges;
   protected List<SearchResultRow> rows;
 
+  protected SearchResultProperties() { }
+
   /**
    * Gets the totalRows.
    *

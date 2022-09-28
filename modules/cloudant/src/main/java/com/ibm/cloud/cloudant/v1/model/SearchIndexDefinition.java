@@ -29,6 +29,11 @@ public class SearchIndexDefinition extends GenericModel {
     private AnalyzerConfiguration analyzer;
     private String index;
 
+    /**
+     * Instantiates a new Builder from an existing SearchIndexDefinition instance.
+     *
+     * @param searchIndexDefinition the instance to initialize the Builder with
+     */
     private Builder(SearchIndexDefinition searchIndexDefinition) {
       this.analyzer = searchIndexDefinition.analyzer;
       this.index = searchIndexDefinition.index;

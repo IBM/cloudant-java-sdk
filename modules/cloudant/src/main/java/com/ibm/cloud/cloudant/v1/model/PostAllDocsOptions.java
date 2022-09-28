@@ -56,6 +56,11 @@ public class PostAllDocsOptions extends GenericModel {
     private List<String> keys;
     private String startKey;
 
+    /**
+     * Instantiates a new Builder from an existing PostAllDocsOptions instance.
+     *
+     * @param postAllDocsOptions the instance to initialize the Builder with
+     */
     private Builder(PostAllDocsOptions postAllDocsOptions) {
       this.db = postAllDocsOptions.db;
       this.attEncodingInfo = postAllDocsOptions.attEncodingInfo;

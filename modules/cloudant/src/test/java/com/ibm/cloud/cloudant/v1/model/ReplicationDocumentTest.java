@@ -105,11 +105,11 @@ public class ReplicationDocumentTest {
 
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
-      .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .headers(java.util.Collections.singletonMap("foo", "testString"))
       .url("testString")
       .build();
     assertEquals(replicationDatabaseModel.auth(), replicationDatabaseAuthModel);
-    assertEquals(replicationDatabaseModel.headers(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(replicationDatabaseModel.headers(), java.util.Collections.singletonMap("foo", "testString"));
     assertEquals(replicationDatabaseModel.url(), "testString");
 
     UserContext userContextModel = new UserContext.Builder()
@@ -122,7 +122,7 @@ public class ReplicationDocumentTest {
     assertEquals(userContextModel.roles(), java.util.Arrays.asList("_reader"));
 
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -140,9 +140,9 @@ public class ReplicationDocumentTest {
       .docIds(java.util.Arrays.asList("testString"))
       .filter("testString")
       .httpConnections(Long.valueOf("1"))
-      .queryParams(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .queryParams(java.util.Collections.singletonMap("foo", "testString"))
       .retriesPerRequest(Long.valueOf("0"))
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .sinceSeq("testString")
       .socketOptions("testString")
       .source(replicationDatabaseModel)
@@ -156,7 +156,7 @@ public class ReplicationDocumentTest {
       .workerProcesses(Long.valueOf("1"))
       .add("foo", "testString")
       .build();
-    assertEquals(replicationDocumentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
+    assertEquals(replicationDocumentModel.getAttachments(), java.util.Collections.singletonMap("foo", attachmentModel));
     assertEquals(replicationDocumentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));
@@ -174,9 +174,9 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.getDocIds(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.getFilter(), "testString");
     assertEquals(replicationDocumentModel.getHttpConnections(), Long.valueOf("1"));
-    assertEquals(replicationDocumentModel.getQueryParams(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(replicationDocumentModel.getQueryParams(), java.util.Collections.singletonMap("foo", "testString"));
     assertEquals(replicationDocumentModel.getRetriesPerRequest(), Long.valueOf("0"));
-    assertEquals(replicationDocumentModel.getSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(replicationDocumentModel.getSelector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(replicationDocumentModel.getSinceSeq(), "testString");
     assertEquals(replicationDocumentModel.getSocketOptions(), "testString");
     assertEquals(replicationDocumentModel.getSource(), replicationDatabaseModel);
@@ -208,6 +208,7 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModelNew.getFilter(), "testString");
     assertEquals(replicationDocumentModelNew.getHttpConnections(), Long.valueOf("1"));
     assertEquals(replicationDocumentModelNew.getRetriesPerRequest(), Long.valueOf("0"));
+    assertEquals(replicationDocumentModelNew.getSelector().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(replicationDocumentModelNew.getSinceSeq(), "testString");
     assertEquals(replicationDocumentModelNew.getSocketOptions(), "testString");
     assertEquals(replicationDocumentModelNew.getSource().toString(), replicationDatabaseModel.toString());

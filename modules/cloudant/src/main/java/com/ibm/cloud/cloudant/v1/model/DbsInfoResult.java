@@ -23,6 +23,8 @@ public class DbsInfoResult extends GenericModel {
   protected DatabaseInformation info;
   protected String key;
 
+  protected DbsInfoResult() { }
+
   /**
    * Gets the error.
    *

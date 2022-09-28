@@ -63,13 +63,13 @@ public class PostIndexOptionsTest {
       .defaultField(indexTextOperatorDefaultFieldModel)
       .fields(java.util.Arrays.asList(indexFieldModel))
       .indexArrayLengths(true)
-      .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .partialFilterSelector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .build();
     assertEquals(indexDefinitionModel.defaultAnalyzer(), analyzerModel);
     assertEquals(indexDefinitionModel.defaultField(), indexTextOperatorDefaultFieldModel);
     assertEquals(indexDefinitionModel.fields(), java.util.Arrays.asList(indexFieldModel));
     assertEquals(indexDefinitionModel.indexArrayLengths(), Boolean.valueOf(true));
-    assertEquals(indexDefinitionModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(indexDefinitionModel.partialFilterSelector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
 
     PostIndexOptions postIndexOptionsModel = new PostIndexOptions.Builder()
       .db("testString")

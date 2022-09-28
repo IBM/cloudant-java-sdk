@@ -27,6 +27,8 @@ public class ChangesResultItem extends GenericModel {
   protected String id;
   protected String seq;
 
+  protected ChangesResultItem() { }
+
   /**
    * Gets the changes.
    *

@@ -23,6 +23,8 @@ public class SearchAnalyzeResult extends GenericModel {
 
   protected List<String> tokens;
 
+  protected SearchAnalyzeResult() { }
+
   /**
    * Gets the tokens.
    *

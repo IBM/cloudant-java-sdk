@@ -40,6 +40,11 @@ public class DeleteLocalDocumentOptions extends GenericModel {
     private String docId;
     private String batch;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteLocalDocumentOptions instance.
+     *
+     * @param deleteLocalDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteLocalDocumentOptions deleteLocalDocumentOptions) {
       this.db = deleteLocalDocumentOptions.db;
       this.docId = deleteLocalDocumentOptions.docId;

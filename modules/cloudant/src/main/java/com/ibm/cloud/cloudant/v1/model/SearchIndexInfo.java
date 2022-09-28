@@ -32,6 +32,8 @@ public class SearchIndexInfo extends GenericModel {
   protected Long pendingSeq;
   protected String signature;
 
+  protected SearchIndexInfo() { }
+
   /**
    * Gets the committedSeq.
    *

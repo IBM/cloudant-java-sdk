@@ -53,7 +53,7 @@ public class PostSearchOptionsTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } })
+      .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
       .build();
     assertEquals(postSearchOptionsModel.db(), "testString");
     assertEquals(postSearchOptionsModel.ddoc(), "testString");
@@ -75,7 +75,7 @@ public class PostSearchOptionsTest {
     assertEquals(postSearchOptionsModel.groupField(), "testString");
     assertEquals(postSearchOptionsModel.groupLimit(), Long.valueOf("1"));
     assertEquals(postSearchOptionsModel.groupSort(), java.util.Arrays.asList("testString"));
-    assertEquals(postSearchOptionsModel.ranges(), new java.util.HashMap<String, Map<String, Map<String, String>>>() { { put("foo", new java.util.HashMap<String, Map<String, String>>() { { put("foo", new java.util.HashMap<String, String>() { { put("foo", "testString"); } }); } }); } });
+    assertEquals(postSearchOptionsModel.ranges(), java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

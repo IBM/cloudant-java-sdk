@@ -58,6 +58,11 @@ public class PostPartitionAllDocsOptions extends GenericModel {
     private List<String> keys;
     private String startKey;
 
+    /**
+     * Instantiates a new Builder from an existing PostPartitionAllDocsOptions instance.
+     *
+     * @param postPartitionAllDocsOptions the instance to initialize the Builder with
+     */
     private Builder(PostPartitionAllDocsOptions postPartitionAllDocsOptions) {
       this.db = postPartitionAllDocsOptions.db;
       this.partitionKey = postPartitionAllDocsOptions.partitionKey;

@@ -27,6 +27,11 @@ public class GetDatabaseInformationOptions extends GenericModel {
   public static class Builder {
     private String db;
 
+    /**
+     * Instantiates a new Builder from an existing GetDatabaseInformationOptions instance.
+     *
+     * @param getDatabaseInformationOptions the instance to initialize the Builder with
+     */
     private Builder(GetDatabaseInformationOptions getDatabaseInformationOptions) {
       this.db = getDatabaseInformationOptions.db;
     }

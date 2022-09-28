@@ -19,5 +19,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class GetCapacityThroughputInformationOptions extends GenericModel {
 
+  /**
+   * Construct a new instance of GetCapacityThroughputInformationOptions.
+   */
+  public GetCapacityThroughputInformationOptions() {
+  }
 }
 

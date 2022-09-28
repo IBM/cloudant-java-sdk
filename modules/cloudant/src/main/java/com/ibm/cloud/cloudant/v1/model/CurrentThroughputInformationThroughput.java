@@ -23,6 +23,8 @@ public class CurrentThroughputInformationThroughput extends GenericModel {
   protected Long read;
   protected Long write;
 
+  protected CurrentThroughputInformationThroughput() { }
+
   /**
    * Gets the query.
    *

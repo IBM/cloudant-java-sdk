@@ -21,6 +21,8 @@ public class Change extends GenericModel {
 
   protected String rev;
 
+  protected Change() { }
+
   /**
    * Gets the rev.
    *

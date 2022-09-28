@@ -41,6 +41,8 @@ public class SchedulerInfo extends GenericModel {
   @SerializedName("through_seq")
   protected String throughSeq;
 
+  protected SchedulerInfo() { }
+
   /**
    * Gets the changesPending.
    *

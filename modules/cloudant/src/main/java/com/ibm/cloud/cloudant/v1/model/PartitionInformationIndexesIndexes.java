@@ -22,6 +22,8 @@ public class PartitionInformationIndexesIndexes extends GenericModel {
   protected Long search;
   protected Long view;
 
+  protected PartitionInformationIndexesIndexes() { }
+
   /**
    * Gets the search.
    *

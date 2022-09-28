@@ -126,6 +126,11 @@ public class AnalyzerConfiguration extends GenericModel {
     private List<String> stopwords;
     private Map<String, Analyzer> fields;
 
+    /**
+     * Instantiates a new Builder from an existing AnalyzerConfiguration instance.
+     *
+     * @param analyzerConfiguration the instance to initialize the Builder with
+     */
     private Builder(AnalyzerConfiguration analyzerConfiguration) {
       this.name = analyzerConfiguration.name;
       this.stopwords = analyzerConfiguration.stopwords;

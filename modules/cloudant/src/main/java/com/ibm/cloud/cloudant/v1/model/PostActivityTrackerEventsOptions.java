@@ -37,6 +37,11 @@ public class PostActivityTrackerEventsOptions extends GenericModel {
   public static class Builder {
     private List<String> types;
 
+    /**
+     * Instantiates a new Builder from an existing PostActivityTrackerEventsOptions instance.
+     *
+     * @param postActivityTrackerEventsOptions the instance to initialize the Builder with
+     */
     private Builder(PostActivityTrackerEventsOptions postActivityTrackerEventsOptions) {
       this.types = postActivityTrackerEventsOptions.types;
     }

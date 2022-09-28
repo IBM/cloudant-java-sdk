@@ -62,6 +62,8 @@ public class SchedulerDocument extends GenericModel {
   @SerializedName("target_proxy")
   protected String targetProxy;
 
+  protected SchedulerDocument() { }
+
   /**
    * Gets the database.
    *

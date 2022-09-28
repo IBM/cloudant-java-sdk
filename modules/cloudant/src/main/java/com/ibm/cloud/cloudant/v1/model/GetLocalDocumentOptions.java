@@ -39,6 +39,11 @@ public class GetLocalDocumentOptions extends GenericModel {
     private Boolean attEncodingInfo;
     private Boolean localSeq;
 
+    /**
+     * Instantiates a new Builder from an existing GetLocalDocumentOptions instance.
+     *
+     * @param getLocalDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(GetLocalDocumentOptions getLocalDocumentOptions) {
       this.db = getLocalDocumentOptions.db;
       this.docId = getLocalDocumentOptions.docId;

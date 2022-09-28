@@ -31,6 +31,11 @@ public class HeadLocalDocumentOptions extends GenericModel {
     private String docId;
     private String ifNoneMatch;
 
+    /**
+     * Instantiates a new Builder from an existing HeadLocalDocumentOptions instance.
+     *
+     * @param headLocalDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(HeadLocalDocumentOptions headLocalDocumentOptions) {
       this.db = headLocalDocumentOptions.db;
       this.docId = headLocalDocumentOptions.docId;

@@ -79,6 +79,11 @@ public class PostSearchOptions extends GenericModel {
     private List<String> groupSort;
     private Map<String, Map<String, Map<String, String>>> ranges;
 
+    /**
+     * Instantiates a new Builder from an existing PostSearchOptions instance.
+     *
+     * @param postSearchOptions the instance to initialize the Builder with
+     */
     private Builder(PostSearchOptions postSearchOptions) {
       this.db = postSearchOptions.db;
       this.ddoc = postSearchOptions.ddoc;

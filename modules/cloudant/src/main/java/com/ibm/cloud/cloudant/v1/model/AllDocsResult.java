@@ -28,6 +28,8 @@ public class AllDocsResult extends GenericModel {
   @SerializedName("update_seq")
   protected String updateSeq;
 
+  protected AllDocsResult() { }
+
   /**
    * Gets the totalRows.
    *

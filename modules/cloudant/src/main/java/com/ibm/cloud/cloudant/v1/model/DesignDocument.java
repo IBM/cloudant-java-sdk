@@ -85,6 +85,11 @@ public class DesignDocument extends DynamicModel<Object> {
     private Map<String, DesignDocumentViewsMapReduce> views;
     private Map<String, Object> dynamicProperties;
 
+    /**
+     * Instantiates a new Builder from an existing DesignDocument instance.
+     *
+     * @param designDocument the instance to initialize the Builder with
+     */
     private Builder(DesignDocument designDocument) {
       this.attachments = designDocument.attachments;
       this.conflicts = designDocument.conflicts;

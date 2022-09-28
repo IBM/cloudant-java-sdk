@@ -23,6 +23,8 @@ public class PartitionInformationIndexes extends GenericModel {
   protected PartitionInformationIndexesIndexes indexes;
   protected Long limit;
 
+  protected PartitionInformationIndexes() { }
+
   /**
    * Gets the count.
    *

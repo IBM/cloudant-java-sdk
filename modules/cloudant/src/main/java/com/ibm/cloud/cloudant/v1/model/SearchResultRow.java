@@ -27,6 +27,8 @@ public class SearchResultRow extends GenericModel {
   protected Map<String, List<String>> highlights;
   protected String id;
 
+  protected SearchResultRow() { }
+
   /**
    * Gets the doc.
    *

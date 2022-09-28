@@ -22,6 +22,8 @@ public class PartitionInformationSizes extends GenericModel {
   protected Long active;
   protected Long external;
 
+  protected PartitionInformationSizes() { }
+
   /**
    * Gets the active.
    *

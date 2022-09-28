@@ -26,6 +26,8 @@ public class RevsDiff extends GenericModel {
   @SerializedName("possible_ancestors")
   protected List<String> possibleAncestors;
 
+  protected RevsDiff() { }
+
   /**
    * Gets the missing.
    *

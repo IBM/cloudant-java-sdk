@@ -21,6 +21,8 @@ public class CapacityThroughputInformationCurrent extends GenericModel {
 
   protected ThroughputInformation throughput;
 
+  protected CapacityThroughputInformationCurrent() { }
+
   /**
    * Gets the throughput.
    *

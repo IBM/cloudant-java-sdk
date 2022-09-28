@@ -29,6 +29,11 @@ public class ReplicationDatabaseAuthIam extends GenericModel {
   public static class Builder {
     private String apiKey;
 
+    /**
+     * Instantiates a new Builder from an existing ReplicationDatabaseAuthIam instance.
+     *
+     * @param replicationDatabaseAuthIam the instance to initialize the Builder with
+     */
     private Builder(ReplicationDatabaseAuthIam replicationDatabaseAuthIam) {
       this.apiKey = replicationDatabaseAuthIam.apiKey;
     }

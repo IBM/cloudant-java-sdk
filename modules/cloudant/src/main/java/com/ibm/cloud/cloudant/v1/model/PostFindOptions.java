@@ -67,6 +67,11 @@ public class PostFindOptions extends GenericModel {
     private List<String> useIndex;
     private Long r;
 
+    /**
+     * Instantiates a new Builder from an existing PostFindOptions instance.
+     *
+     * @param postFindOptions the instance to initialize the Builder with
+     */
     private Builder(PostFindOptions postFindOptions) {
       this.db = postFindOptions.db;
       this.selector = postFindOptions.selector;

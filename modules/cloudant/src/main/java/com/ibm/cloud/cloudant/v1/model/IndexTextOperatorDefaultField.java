@@ -30,6 +30,11 @@ public class IndexTextOperatorDefaultField extends GenericModel {
     private Analyzer analyzer;
     private Boolean enabled;
 
+    /**
+     * Instantiates a new Builder from an existing IndexTextOperatorDefaultField instance.
+     *
+     * @param indexTextOperatorDefaultField the instance to initialize the Builder with
+     */
     private Builder(IndexTextOperatorDefaultField indexTextOperatorDefaultField) {
       this.analyzer = indexTextOperatorDefaultField.analyzer;
       this.enabled = indexTextOperatorDefaultField.enabled;

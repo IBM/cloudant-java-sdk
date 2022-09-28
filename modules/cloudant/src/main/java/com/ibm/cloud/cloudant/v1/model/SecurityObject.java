@@ -32,6 +32,11 @@ public class SecurityObject extends GenericModel {
     private List<String> names;
     private List<String> roles;
 
+    /**
+     * Instantiates a new Builder from an existing SecurityObject instance.
+     *
+     * @param securityObject the instance to initialize the Builder with
+     */
     private Builder(SecurityObject securityObject) {
       this.names = securityObject.names;
       this.roles = securityObject.roles;

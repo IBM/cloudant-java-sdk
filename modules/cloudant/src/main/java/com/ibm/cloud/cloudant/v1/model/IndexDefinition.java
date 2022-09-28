@@ -47,6 +47,11 @@ public class IndexDefinition extends GenericModel {
     private Boolean indexArrayLengths;
     private Map<String, Object> partialFilterSelector;
 
+    /**
+     * Instantiates a new Builder from an existing IndexDefinition instance.
+     *
+     * @param indexDefinition the instance to initialize the Builder with
+     */
     private Builder(IndexDefinition indexDefinition) {
       this.defaultAnalyzer = indexDefinition.defaultAnalyzer;
       this.defaultField = indexDefinition.defaultField;

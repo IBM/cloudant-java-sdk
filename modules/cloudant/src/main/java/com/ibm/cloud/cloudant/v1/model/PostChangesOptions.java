@@ -81,6 +81,11 @@ public class PostChangesOptions extends GenericModel {
     private Long timeout;
     private String view;
 
+    /**
+     * Instantiates a new Builder from an existing PostChangesOptions instance.
+     *
+     * @param postChangesOptions the instance to initialize the Builder with
+     */
     private Builder(PostChangesOptions postChangesOptions) {
       this.db = postChangesOptions.db;
       this.docIds = postChangesOptions.docIds;

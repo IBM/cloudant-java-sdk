@@ -46,6 +46,11 @@ public class Attachment extends GenericModel {
     private Long revpos;
     private Boolean stub;
 
+    /**
+     * Instantiates a new Builder from an existing Attachment instance.
+     *
+     * @param attachment the instance to initialize the Builder with
+     */
     private Builder(Attachment attachment) {
       this.contentType = attachment.contentType;
       this.data = attachment.data;

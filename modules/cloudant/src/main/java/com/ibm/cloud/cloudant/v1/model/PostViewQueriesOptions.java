@@ -36,6 +36,11 @@ public class PostViewQueriesOptions extends GenericModel {
     private String view;
     private List<ViewQuery> queries;
 
+    /**
+     * Instantiates a new Builder from an existing PostViewQueriesOptions instance.
+     *
+     * @param postViewQueriesOptions the instance to initialize the Builder with
+     */
     private Builder(PostViewQueriesOptions postViewQueriesOptions) {
       this.db = postViewQueriesOptions.db;
       this.ddoc = postViewQueriesOptions.ddoc;

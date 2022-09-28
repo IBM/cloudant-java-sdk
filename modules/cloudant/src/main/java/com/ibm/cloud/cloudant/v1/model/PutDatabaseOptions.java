@@ -31,6 +31,11 @@ public class PutDatabaseOptions extends GenericModel {
     private Boolean partitioned;
     private Long q;
 
+    /**
+     * Instantiates a new Builder from an existing PutDatabaseOptions instance.
+     *
+     * @param putDatabaseOptions the instance to initialize the Builder with
+     */
     private Builder(PutDatabaseOptions putDatabaseOptions) {
       this.db = putDatabaseOptions.db;
       this.partitioned = putDatabaseOptions.partitioned;

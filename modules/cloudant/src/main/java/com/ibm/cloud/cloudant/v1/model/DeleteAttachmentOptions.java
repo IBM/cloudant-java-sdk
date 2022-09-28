@@ -46,6 +46,11 @@ public class DeleteAttachmentOptions extends GenericModel {
     private String rev;
     private String batch;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteAttachmentOptions instance.
+     *
+     * @param deleteAttachmentOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteAttachmentOptions deleteAttachmentOptions) {
       this.db = deleteAttachmentOptions.db;
       this.docId = deleteAttachmentOptions.docId;

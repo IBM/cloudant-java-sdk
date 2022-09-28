@@ -47,6 +47,11 @@ public class GetDbUpdatesOptions extends GenericModel {
     private Long timeout;
     private String since;
 
+    /**
+     * Instantiates a new Builder from an existing GetDbUpdatesOptions instance.
+     *
+     * @param getDbUpdatesOptions the instance to initialize the Builder with
+     */
     private Builder(GetDbUpdatesOptions getDbUpdatesOptions) {
       this.feed = getDbUpdatesOptions.feed;
       this.heartbeat = getDbUpdatesOptions.heartbeat;

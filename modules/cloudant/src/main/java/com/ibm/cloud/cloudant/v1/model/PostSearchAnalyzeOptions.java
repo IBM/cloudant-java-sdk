@@ -115,6 +115,11 @@ public class PostSearchAnalyzeOptions extends GenericModel {
     private String analyzer;
     private String text;
 
+    /**
+     * Instantiates a new Builder from an existing PostSearchAnalyzeOptions instance.
+     *
+     * @param postSearchAnalyzeOptions the instance to initialize the Builder with
+     */
     private Builder(PostSearchAnalyzeOptions postSearchAnalyzeOptions) {
       this.analyzer = postSearchAnalyzeOptions.analyzer;
       this.text = postSearchAnalyzeOptions.text;

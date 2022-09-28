@@ -29,6 +29,8 @@ public class ViewResultRow extends GenericModel {
   protected Object key;
   protected Object value;
 
+  protected ViewResultRow() { }
+
   /**
    * Gets the causedBy.
    *

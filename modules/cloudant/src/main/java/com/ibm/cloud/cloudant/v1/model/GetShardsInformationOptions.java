@@ -27,6 +27,11 @@ public class GetShardsInformationOptions extends GenericModel {
   public static class Builder {
     private String db;
 
+    /**
+     * Instantiates a new Builder from an existing GetShardsInformationOptions instance.
+     *
+     * @param getShardsInformationOptions the instance to initialize the Builder with
+     */
     private Builder(GetShardsInformationOptions getShardsInformationOptions) {
       this.db = getShardsInformationOptions.db;
     }

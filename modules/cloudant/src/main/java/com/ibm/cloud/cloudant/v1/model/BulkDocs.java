@@ -34,6 +34,11 @@ public class BulkDocs extends GenericModel {
     private List<Document> docs;
     private Boolean newEdits;
 
+    /**
+     * Instantiates a new Builder from an existing BulkDocs instance.
+     *
+     * @param bulkDocs the instance to initialize the Builder with
+     */
     private Builder(BulkDocs bulkDocs) {
       this.docs = bulkDocs.docs;
       this.newEdits = bulkDocs.newEdits;
