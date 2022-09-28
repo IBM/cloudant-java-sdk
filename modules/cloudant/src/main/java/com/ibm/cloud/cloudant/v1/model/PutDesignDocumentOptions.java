@@ -48,6 +48,11 @@ public class PutDesignDocumentOptions extends GenericModel {
     private Boolean newEdits;
     private String rev;
 
+    /**
+     * Instantiates a new Builder from an existing PutDesignDocumentOptions instance.
+     *
+     * @param putDesignDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(PutDesignDocumentOptions putDesignDocumentOptions) {
       this.db = putDesignDocumentOptions.db;
       this.ddoc = putDesignDocumentOptions.ddoc;

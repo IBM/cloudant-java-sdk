@@ -37,6 +37,11 @@ public class ActivityTrackerEvents extends GenericModel {
   public static class Builder {
     private List<String> types;
 
+    /**
+     * Instantiates a new Builder from an existing ActivityTrackerEvents instance.
+     *
+     * @param activityTrackerEvents the instance to initialize the Builder with
+     */
     private Builder(ActivityTrackerEvents activityTrackerEvents) {
       this.types = activityTrackerEvents.types;
     }

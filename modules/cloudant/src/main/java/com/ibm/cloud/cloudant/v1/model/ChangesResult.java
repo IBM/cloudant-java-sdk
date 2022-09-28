@@ -27,6 +27,8 @@ public class ChangesResult extends GenericModel {
   protected Long pending;
   protected List<ChangesResultItem> results;
 
+  protected ChangesResult() { }
+
   /**
    * Gets the lastSeq.
    *

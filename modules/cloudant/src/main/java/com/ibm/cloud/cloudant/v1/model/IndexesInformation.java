@@ -26,6 +26,8 @@ public class IndexesInformation extends GenericModel {
   protected Long totalRows;
   protected List<IndexInformation> indexes;
 
+  protected IndexesInformation() { }
+
   /**
    * Gets the totalRows.
    *

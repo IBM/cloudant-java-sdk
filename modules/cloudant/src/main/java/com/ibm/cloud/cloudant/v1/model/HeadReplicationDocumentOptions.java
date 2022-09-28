@@ -29,6 +29,11 @@ public class HeadReplicationDocumentOptions extends GenericModel {
     private String docId;
     private String ifNoneMatch;
 
+    /**
+     * Instantiates a new Builder from an existing HeadReplicationDocumentOptions instance.
+     *
+     * @param headReplicationDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(HeadReplicationDocumentOptions headReplicationDocumentOptions) {
       this.docId = headReplicationDocumentOptions.docId;
       this.ifNoneMatch = headReplicationDocumentOptions.ifNoneMatch;

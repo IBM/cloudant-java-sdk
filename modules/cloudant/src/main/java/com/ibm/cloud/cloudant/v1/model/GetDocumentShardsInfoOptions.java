@@ -29,6 +29,11 @@ public class GetDocumentShardsInfoOptions extends GenericModel {
     private String db;
     private String docId;
 
+    /**
+     * Instantiates a new Builder from an existing GetDocumentShardsInfoOptions instance.
+     *
+     * @param getDocumentShardsInfoOptions the instance to initialize the Builder with
+     */
     private Builder(GetDocumentShardsInfoOptions getDocumentShardsInfoOptions) {
       this.db = getDocumentShardsInfoOptions.db;
       this.docId = getDocumentShardsInfoOptions.docId;

@@ -23,6 +23,8 @@ public class AllDocsQueriesResult extends GenericModel {
 
   protected List<AllDocsResult> results;
 
+  protected AllDocsQueriesResult() { }
+
   /**
    * Gets the results.
    *

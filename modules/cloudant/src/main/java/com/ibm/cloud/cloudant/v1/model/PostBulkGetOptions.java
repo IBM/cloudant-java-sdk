@@ -40,6 +40,11 @@ public class PostBulkGetOptions extends GenericModel {
     private Boolean latest;
     private Boolean revs;
 
+    /**
+     * Instantiates a new Builder from an existing PostBulkGetOptions instance.
+     *
+     * @param postBulkGetOptions the instance to initialize the Builder with
+     */
     private Builder(PostBulkGetOptions postBulkGetOptions) {
       this.db = postBulkGetOptions.db;
       this.docs = postBulkGetOptions.docs;

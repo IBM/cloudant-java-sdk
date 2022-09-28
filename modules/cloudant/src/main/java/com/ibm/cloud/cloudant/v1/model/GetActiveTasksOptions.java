@@ -19,5 +19,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class GetActiveTasksOptions extends GenericModel {
 
+  /**
+   * Construct a new instance of GetActiveTasksOptions.
+   */
+  public GetActiveTasksOptions() {
+  }
 }
 

@@ -27,6 +27,8 @@ public class MembershipInformation extends GenericModel {
   @SerializedName("cluster_nodes")
   protected List<String> clusterNodes;
 
+  protected MembershipInformation() { }
+
   /**
    * Gets the allNodes.
    *

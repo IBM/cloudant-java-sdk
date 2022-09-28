@@ -51,6 +51,11 @@ public class PostIndexOptions extends GenericModel {
     private Boolean partitioned;
     private String type;
 
+    /**
+     * Instantiates a new Builder from an existing PostIndexOptions instance.
+     *
+     * @param postIndexOptions the instance to initialize the Builder with
+     */
     private Builder(PostIndexOptions postIndexOptions) {
       this.db = postIndexOptions.db;
       this.index = postIndexOptions.index;

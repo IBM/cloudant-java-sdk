@@ -34,28 +34,28 @@ public class PostFindOptionsTest {
   public void testPostFindOptions() throws Throwable {
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
       .db("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
       .r(Long.valueOf("1"))
       .build();
     assertEquals(postFindOptionsModel.db(), "testString");
-    assertEquals(postFindOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(postFindOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(postFindOptionsModel.bookmark(), "testString");
     assertEquals(postFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(postFindOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postFindOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postFindOptionsModel.sort(), java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }));
+    assertEquals(postFindOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")));
     assertEquals(postFindOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.update(), "true");
     assertEquals(postFindOptionsModel.useIndex(), java.util.Arrays.asList("testString"));

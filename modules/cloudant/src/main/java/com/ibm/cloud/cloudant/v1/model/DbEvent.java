@@ -37,6 +37,8 @@ public class DbEvent extends GenericModel {
   protected String seq;
   protected String type;
 
+  protected DbEvent() { }
+
   /**
    * Gets the dbName.
    *

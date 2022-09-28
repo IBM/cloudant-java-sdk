@@ -29,6 +29,11 @@ public class GetDesignDocumentInformationOptions extends GenericModel {
     private String db;
     private String ddoc;
 
+    /**
+     * Instantiates a new Builder from an existing GetDesignDocumentInformationOptions instance.
+     *
+     * @param getDesignDocumentInformationOptions the instance to initialize the Builder with
+     */
     private Builder(GetDesignDocumentInformationOptions getDesignDocumentInformationOptions) {
       this.db = getDesignDocumentInformationOptions.db;
       this.ddoc = getDesignDocumentInformationOptions.ddoc;

@@ -58,6 +58,11 @@ public class PostDesignDocsOptions extends GenericModel {
     private List<String> keys;
     private String startKey;
 
+    /**
+     * Instantiates a new Builder from an existing PostDesignDocsOptions instance.
+     *
+     * @param postDesignDocsOptions the instance to initialize the Builder with
+     */
     private Builder(PostDesignDocsOptions postDesignDocsOptions) {
       this.db = postDesignDocsOptions.db;
       this.accept = postDesignDocsOptions.accept;

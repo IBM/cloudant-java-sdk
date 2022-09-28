@@ -24,6 +24,8 @@ public class BulkGetResultItem extends GenericModel {
   protected List<BulkGetResultDocument> docs;
   protected String id;
 
+  protected BulkGetResultItem() { }
+
   /**
    * Gets the docs.
    *

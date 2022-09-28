@@ -35,28 +35,28 @@ public class PostPartitionFindOptionsTest {
     PostPartitionFindOptions postPartitionFindOptionsModel = new PostPartitionFindOptions.Builder()
       .db("testString")
       .partitionKey("testString")
-      .selector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
       .build();
     assertEquals(postPartitionFindOptionsModel.db(), "testString");
     assertEquals(postPartitionFindOptionsModel.partitionKey(), "testString");
-    assertEquals(postPartitionFindOptionsModel.selector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(postPartitionFindOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(postPartitionFindOptionsModel.bookmark(), "testString");
     assertEquals(postPartitionFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionFindOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postPartitionFindOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postPartitionFindOptionsModel.sort(), java.util.Arrays.asList(new java.util.HashMap<String, String>() { { put("foo", "asc"); } }));
+    assertEquals(postPartitionFindOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")));
     assertEquals(postPartitionFindOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.update(), "true");
     assertEquals(postPartitionFindOptionsModel.useIndex(), java.util.Arrays.asList("testString"));

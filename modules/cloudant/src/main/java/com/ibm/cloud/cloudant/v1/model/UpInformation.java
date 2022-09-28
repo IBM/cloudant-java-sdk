@@ -36,6 +36,8 @@ public class UpInformation extends GenericModel {
   protected Map<String, Object> seeds;
   protected String status;
 
+  protected UpInformation() { }
+
   /**
    * Gets the seeds.
    *

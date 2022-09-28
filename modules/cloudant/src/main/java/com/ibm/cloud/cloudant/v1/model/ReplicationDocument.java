@@ -133,6 +133,11 @@ public class ReplicationDocument extends DynamicModel<Object> {
     private Long workerProcesses;
     private Map<String, Object> dynamicProperties;
 
+    /**
+     * Instantiates a new Builder from an existing ReplicationDocument instance.
+     *
+     * @param replicationDocument the instance to initialize the Builder with
+     */
     private Builder(ReplicationDocument replicationDocument) {
       this.attachments = replicationDocument.attachments;
       this.conflicts = replicationDocument.conflicts;

@@ -123,6 +123,11 @@ public class Analyzer extends GenericModel {
     private String name;
     private List<String> stopwords;
 
+    /**
+     * Instantiates a new Builder from an existing Analyzer instance.
+     *
+     * @param analyzer the instance to initialize the Builder with
+     */
     private Builder(Analyzer analyzer) {
       this.name = analyzer.name;
       this.stopwords = analyzer.stopwords;

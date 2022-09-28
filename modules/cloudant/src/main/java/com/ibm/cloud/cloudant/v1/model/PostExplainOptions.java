@@ -67,6 +67,11 @@ public class PostExplainOptions extends GenericModel {
     private List<String> useIndex;
     private Long r;
 
+    /**
+     * Instantiates a new Builder from an existing PostExplainOptions instance.
+     *
+     * @param postExplainOptions the instance to initialize the Builder with
+     */
     private Builder(PostExplainOptions postExplainOptions) {
       this.db = postExplainOptions.db;
       this.selector = postExplainOptions.selector;

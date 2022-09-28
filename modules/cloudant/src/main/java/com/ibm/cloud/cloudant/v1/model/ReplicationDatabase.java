@@ -33,6 +33,11 @@ public class ReplicationDatabase extends GenericModel {
     private Map<String, String> headers;
     private String url;
 
+    /**
+     * Instantiates a new Builder from an existing ReplicationDatabase instance.
+     *
+     * @param replicationDatabase the instance to initialize the Builder with
+     */
     private Builder(ReplicationDatabase replicationDatabase) {
       this.auth = replicationDatabase.auth;
       this.headers = replicationDatabase.headers;

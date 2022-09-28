@@ -29,6 +29,8 @@ public class ServerInformation extends GenericModel {
   @SerializedName("features_flags")
   protected List<String> featuresFlags;
 
+  protected ServerInformation() { }
+
   /**
    * Gets the couchdb.
    *

@@ -36,6 +36,8 @@ public class ActiveTask extends GenericModel {
   @SerializedName("updated_on")
   protected Long updatedOn;
 
+  protected ActiveTask() { }
+
   /**
    * Gets the changesDone.
    *

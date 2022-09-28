@@ -55,11 +55,11 @@ public class ReplicationDatabaseTest {
 
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
-      .headers(new java.util.HashMap<String, String>() { { put("foo", "testString"); } })
+      .headers(java.util.Collections.singletonMap("foo", "testString"))
       .url("testString")
       .build();
     assertEquals(replicationDatabaseModel.auth(), replicationDatabaseAuthModel);
-    assertEquals(replicationDatabaseModel.headers(), new java.util.HashMap<String, String>() { { put("foo", "testString"); } });
+    assertEquals(replicationDatabaseModel.headers(), java.util.Collections.singletonMap("foo", "testString"));
     assertEquals(replicationDatabaseModel.url(), "testString");
 
     String json = TestUtilities.serialize(replicationDatabaseModel);

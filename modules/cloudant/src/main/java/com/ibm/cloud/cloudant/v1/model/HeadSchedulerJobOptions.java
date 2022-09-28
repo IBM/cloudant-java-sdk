@@ -27,6 +27,11 @@ public class HeadSchedulerJobOptions extends GenericModel {
   public static class Builder {
     private String jobId;
 
+    /**
+     * Instantiates a new Builder from an existing HeadSchedulerJobOptions instance.
+     *
+     * @param headSchedulerJobOptions the instance to initialize the Builder with
+     */
     private Builder(HeadSchedulerJobOptions headSchedulerJobOptions) {
       this.jobId = headSchedulerJobOptions.jobId;
     }

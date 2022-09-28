@@ -61,6 +61,11 @@ public class AllDocsQuery extends GenericModel {
     private List<String> keys;
     private String startKey;
 
+    /**
+     * Instantiates a new Builder from an existing AllDocsQuery instance.
+     *
+     * @param allDocsQuery the instance to initialize the Builder with
+     */
     private Builder(AllDocsQuery allDocsQuery) {
       this.attEncodingInfo = allDocsQuery.attEncodingInfo;
       this.attachments = allDocsQuery.attachments;

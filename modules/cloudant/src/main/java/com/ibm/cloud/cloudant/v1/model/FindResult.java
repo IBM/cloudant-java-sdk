@@ -28,6 +28,8 @@ public class FindResult extends GenericModel {
   protected ExecutionStats executionStats;
   protected String warning;
 
+  protected FindResult() { }
+
   /**
    * Gets the bookmark.
    *

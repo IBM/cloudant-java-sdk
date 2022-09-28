@@ -23,6 +23,8 @@ public class BulkGetResult extends GenericModel {
 
   protected List<BulkGetResultItem> results;
 
+  protected BulkGetResult() { }
+
   /**
    * Gets the results.
    *

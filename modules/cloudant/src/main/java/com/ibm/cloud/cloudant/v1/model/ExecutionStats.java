@@ -31,6 +31,8 @@ public class ExecutionStats extends GenericModel {
   @SerializedName("total_quorum_docs_examined")
   protected Long totalQuorumDocsExamined;
 
+  protected ExecutionStats() { }
+
   /**
    * Gets the executionTimeMs.
    *

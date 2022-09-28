@@ -34,6 +34,11 @@ public class PutCorsConfigurationOptions extends GenericModel {
     private Boolean allowCredentials;
     private Boolean enableCors;
 
+    /**
+     * Instantiates a new Builder from an existing PutCorsConfigurationOptions instance.
+     *
+     * @param putCorsConfigurationOptions the instance to initialize the Builder with
+     */
     private Builder(PutCorsConfigurationOptions putCorsConfigurationOptions) {
       this.origins = putCorsConfigurationOptions.origins;
       this.allowCredentials = putCorsConfigurationOptions.allowCredentials;

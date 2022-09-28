@@ -24,6 +24,8 @@ public class DocumentShardInfo extends GenericModel {
   protected List<String> nodes;
   protected String range;
 
+  protected DocumentShardInfo() { }
+
   /**
    * Gets the nodes.
    *

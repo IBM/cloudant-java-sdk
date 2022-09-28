@@ -41,6 +41,11 @@ public class GetAttachmentOptions extends GenericModel {
     private String range;
     private String rev;
 
+    /**
+     * Instantiates a new Builder from an existing GetAttachmentOptions instance.
+     *
+     * @param getAttachmentOptions the instance to initialize the Builder with
+     */
     private Builder(GetAttachmentOptions getAttachmentOptions) {
       this.db = getAttachmentOptions.db;
       this.docId = getAttachmentOptions.docId;

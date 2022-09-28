@@ -28,6 +28,8 @@ public class DocumentResult extends GenericModel {
   protected String error;
   protected String reason;
 
+  protected DocumentResult() { }
+
   /**
    * Gets the id.
    *

@@ -23,6 +23,8 @@ public class ViewQueriesResult extends GenericModel {
 
   protected List<ViewResult> results;
 
+  protected ViewQueriesResult() { }
+
   /**
    * Gets the results.
    *

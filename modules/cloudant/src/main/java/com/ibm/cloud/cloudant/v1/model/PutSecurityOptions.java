@@ -38,6 +38,11 @@ public class PutSecurityOptions extends GenericModel {
     private Map<String, List<String>> cloudant;
     private Boolean couchdbAuthOnly;
 
+    /**
+     * Instantiates a new Builder from an existing PutSecurityOptions instance.
+     *
+     * @param putSecurityOptions the instance to initialize the Builder with
+     */
     private Builder(PutSecurityOptions putSecurityOptions) {
       this.db = putSecurityOptions.db;
       this.admins = putSecurityOptions.admins;

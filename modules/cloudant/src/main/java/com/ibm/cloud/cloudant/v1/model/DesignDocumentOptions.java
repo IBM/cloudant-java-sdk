@@ -27,6 +27,11 @@ public class DesignDocumentOptions extends GenericModel {
   public static class Builder {
     private Boolean partitioned;
 
+    /**
+     * Instantiates a new Builder from an existing DesignDocumentOptions instance.
+     *
+     * @param designDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(DesignDocumentOptions designDocumentOptions) {
       this.partitioned = designDocumentOptions.partitioned;
     }

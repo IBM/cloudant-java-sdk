@@ -49,6 +49,11 @@ public class GetReplicationDocumentOptions extends GenericModel {
     private Boolean revs;
     private Boolean revsInfo;
 
+    /**
+     * Instantiates a new Builder from an existing GetReplicationDocumentOptions instance.
+     *
+     * @param getReplicationDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(GetReplicationDocumentOptions getReplicationDocumentOptions) {
       this.docId = getReplicationDocumentOptions.docId;
       this.ifNoneMatch = getReplicationDocumentOptions.ifNoneMatch;

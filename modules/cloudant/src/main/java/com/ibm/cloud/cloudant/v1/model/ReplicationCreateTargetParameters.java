@@ -31,6 +31,11 @@ public class ReplicationCreateTargetParameters extends GenericModel {
     private Boolean partitioned;
     private Long q;
 
+    /**
+     * Instantiates a new Builder from an existing ReplicationCreateTargetParameters instance.
+     *
+     * @param replicationCreateTargetParameters the instance to initialize the Builder with
+     */
     private Builder(ReplicationCreateTargetParameters replicationCreateTargetParameters) {
       this.n = replicationCreateTargetParameters.n;
       this.partitioned = replicationCreateTargetParameters.partitioned;

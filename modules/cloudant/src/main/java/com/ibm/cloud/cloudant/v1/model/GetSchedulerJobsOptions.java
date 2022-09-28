@@ -29,6 +29,11 @@ public class GetSchedulerJobsOptions extends GenericModel {
     private Long limit;
     private Long skip;
 
+    /**
+     * Instantiates a new Builder from an existing GetSchedulerJobsOptions instance.
+     *
+     * @param getSchedulerJobsOptions the instance to initialize the Builder with
+     */
     private Builder(GetSchedulerJobsOptions getSchedulerJobsOptions) {
       this.limit = getSchedulerJobsOptions.limit;
       this.skip = getSchedulerJobsOptions.skip;

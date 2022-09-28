@@ -31,6 +31,8 @@ public class PartitionInformation extends GenericModel {
   protected PartitionInformationIndexes partitionedIndexes;
   protected PartitionInformationSizes sizes;
 
+  protected PartitionInformation() { }
+
   /**
    * Gets the dbName.
    *

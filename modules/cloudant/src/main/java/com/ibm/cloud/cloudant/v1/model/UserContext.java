@@ -56,6 +56,11 @@ public class UserContext extends GenericModel {
     private String name;
     private List<String> roles;
 
+    /**
+     * Instantiates a new Builder from an existing UserContext instance.
+     *
+     * @param userContext the instance to initialize the Builder with
+     */
     private Builder(UserContext userContext) {
       this.db = userContext.db;
       this.name = userContext.name;

@@ -38,6 +38,11 @@ public class Security extends GenericModel {
     private Map<String, List<String>> cloudant;
     private Boolean couchdbAuthOnly;
 
+    /**
+     * Instantiates a new Builder from an existing Security instance.
+     *
+     * @param security the instance to initialize the Builder with
+     */
     private Builder(Security security) {
       this.admins = security.admins;
       this.members = security.members;

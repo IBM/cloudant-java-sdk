@@ -33,6 +33,8 @@ public class IndexResult extends GenericModel {
   protected String name;
   protected String result;
 
+  protected IndexResult() { }
+
   /**
    * Gets the id.
    *

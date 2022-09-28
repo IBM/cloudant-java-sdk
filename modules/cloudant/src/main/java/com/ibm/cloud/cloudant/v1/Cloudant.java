@@ -155,8 +155,14 @@ import java.util.Map.Entry;
  */
 public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseService {
 
+  /**
+   * Default service name used when configuring the `Cloudant` client.
+   */
   public static final String DEFAULT_SERVICE_NAME = "cloudant";
 
+  /**
+   * Default service endpoint URL.
+   */
   public static final String DEFAULT_SERVICE_URL = "http://localhost:5984";
 
  /**

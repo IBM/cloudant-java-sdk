@@ -28,6 +28,8 @@ public class CorsInformation extends GenericModel {
   protected Boolean enableCors;
   protected List<String> origins;
 
+  protected CorsInformation() { }
+
   /**
    * Gets the allowCredentials.
    *

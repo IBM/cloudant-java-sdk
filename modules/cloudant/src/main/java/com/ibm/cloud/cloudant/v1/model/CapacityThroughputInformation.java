@@ -22,6 +22,8 @@ public class CapacityThroughputInformation extends GenericModel {
   protected CapacityThroughputInformationCurrent current;
   protected CapacityThroughputInformationTarget target;
 
+  protected CapacityThroughputInformation() { }
+
   /**
    * Gets the current.
    *

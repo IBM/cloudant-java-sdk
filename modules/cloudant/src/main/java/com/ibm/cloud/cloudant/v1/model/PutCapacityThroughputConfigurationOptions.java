@@ -27,6 +27,11 @@ public class PutCapacityThroughputConfigurationOptions extends GenericModel {
   public static class Builder {
     private Long blocks;
 
+    /**
+     * Instantiates a new Builder from an existing PutCapacityThroughputConfigurationOptions instance.
+     *
+     * @param putCapacityThroughputConfigurationOptions the instance to initialize the Builder with
+     */
     private Builder(PutCapacityThroughputConfigurationOptions putCapacityThroughputConfigurationOptions) {
       this.blocks = putCapacityThroughputConfigurationOptions.blocks;
     }

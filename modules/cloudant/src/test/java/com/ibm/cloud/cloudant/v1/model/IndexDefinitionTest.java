@@ -62,13 +62,13 @@ public class IndexDefinitionTest {
       .defaultField(indexTextOperatorDefaultFieldModel)
       .fields(java.util.Arrays.asList(indexFieldModel))
       .indexArrayLengths(true)
-      .partialFilterSelector(new java.util.HashMap<String, Object>() { { put("foo", "testString"); } })
+      .partialFilterSelector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .build();
     assertEquals(indexDefinitionModel.defaultAnalyzer(), analyzerModel);
     assertEquals(indexDefinitionModel.defaultField(), indexTextOperatorDefaultFieldModel);
     assertEquals(indexDefinitionModel.fields(), java.util.Arrays.asList(indexFieldModel));
     assertEquals(indexDefinitionModel.indexArrayLengths(), Boolean.valueOf(true));
-    assertEquals(indexDefinitionModel.partialFilterSelector(), new java.util.HashMap<String, Object>() { { put("foo", "testString"); } });
+    assertEquals(indexDefinitionModel.partialFilterSelector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
 
     String json = TestUtilities.serialize(indexDefinitionModel);
 
@@ -77,5 +77,6 @@ public class IndexDefinitionTest {
     assertEquals(indexDefinitionModelNew.defaultAnalyzer().toString(), analyzerModel.toString());
     assertEquals(indexDefinitionModelNew.defaultField().toString(), indexTextOperatorDefaultFieldModel.toString());
     assertEquals(indexDefinitionModelNew.indexArrayLengths(), Boolean.valueOf(true));
+    assertEquals(indexDefinitionModelNew.partialFilterSelector().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
   }
 }

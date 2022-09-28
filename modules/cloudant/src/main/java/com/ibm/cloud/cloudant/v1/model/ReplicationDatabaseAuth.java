@@ -29,6 +29,11 @@ public class ReplicationDatabaseAuth extends GenericModel {
     private ReplicationDatabaseAuthBasic basic;
     private ReplicationDatabaseAuthIam iam;
 
+    /**
+     * Instantiates a new Builder from an existing ReplicationDatabaseAuth instance.
+     *
+     * @param replicationDatabaseAuth the instance to initialize the Builder with
+     */
     private Builder(ReplicationDatabaseAuth replicationDatabaseAuth) {
       this.basic = replicationDatabaseAuth.basic;
       this.iam = replicationDatabaseAuth.iam;

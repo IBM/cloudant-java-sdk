@@ -21,6 +21,8 @@ public class DocsResultRowValue extends GenericModel {
 
   protected String rev;
 
+  protected DocsResultRowValue() { }
+
   /**
    * Gets the rev.
    *

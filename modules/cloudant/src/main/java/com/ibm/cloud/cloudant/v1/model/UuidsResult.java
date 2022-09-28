@@ -23,6 +23,8 @@ public class UuidsResult extends GenericModel {
 
   protected List<String> uuids;
 
+  protected UuidsResult() { }
+
   /**
    * Gets the uuids.
    *

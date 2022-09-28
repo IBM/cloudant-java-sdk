@@ -27,6 +27,11 @@ public class HeadDatabaseOptions extends GenericModel {
   public static class Builder {
     private String db;
 
+    /**
+     * Instantiates a new Builder from an existing HeadDatabaseOptions instance.
+     *
+     * @param headDatabaseOptions the instance to initialize the Builder with
+     */
     private Builder(HeadDatabaseOptions headDatabaseOptions) {
       this.db = headDatabaseOptions.db;
     }

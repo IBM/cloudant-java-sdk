@@ -46,6 +46,11 @@ public class PutReplicationDocumentOptions extends GenericModel {
     private Boolean newEdits;
     private String rev;
 
+    /**
+     * Instantiates a new Builder from an existing PutReplicationDocumentOptions instance.
+     *
+     * @param putReplicationDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(PutReplicationDocumentOptions putReplicationDocumentOptions) {
       this.docId = putReplicationDocumentOptions.docId;
       this.replicationDocument = putReplicationDocumentOptions.replicationDocument;

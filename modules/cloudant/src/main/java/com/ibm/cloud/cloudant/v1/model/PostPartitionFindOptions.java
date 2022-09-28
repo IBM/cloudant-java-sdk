@@ -67,6 +67,11 @@ public class PostPartitionFindOptions extends GenericModel {
     private String update;
     private List<String> useIndex;
 
+    /**
+     * Instantiates a new Builder from an existing PostPartitionFindOptions instance.
+     *
+     * @param postPartitionFindOptions the instance to initialize the Builder with
+     */
     private Builder(PostPartitionFindOptions postPartitionFindOptions) {
       this.db = postPartitionFindOptions.db;
       this.partitionKey = postPartitionFindOptions.partitionKey;

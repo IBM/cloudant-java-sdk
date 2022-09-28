@@ -23,6 +23,8 @@ public class SessionInformation extends GenericModel {
   protected SessionAuthentication info;
   protected UserContext userCtx;
 
+  protected SessionInformation() { }
+
   /**
    * Gets the ok.
    *

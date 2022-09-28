@@ -44,6 +44,11 @@ public class PutAttachmentOptions extends GenericModel {
     private String ifMatch;
     private String rev;
 
+    /**
+     * Instantiates a new Builder from an existing PutAttachmentOptions instance.
+     *
+     * @param putAttachmentOptions the instance to initialize the Builder with
+     */
     private Builder(PutAttachmentOptions putAttachmentOptions) {
       this.db = putAttachmentOptions.db;
       this.docId = putAttachmentOptions.docId;

@@ -24,6 +24,8 @@ public class SearchInfoResult extends GenericModel {
   @SerializedName("search_index")
   protected SearchIndexInfo searchIndex;
 
+  protected SearchInfoResult() { }
+
   /**
    * Gets the name.
    *

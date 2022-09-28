@@ -29,6 +29,11 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
     private String map;
     private String reduce;
 
+    /**
+     * Instantiates a new Builder from an existing DesignDocumentViewsMapReduce instance.
+     *
+     * @param designDocumentViewsMapReduce the instance to initialize the Builder with
+     */
     private Builder(DesignDocumentViewsMapReduce designDocumentViewsMapReduce) {
       this.map = designDocumentViewsMapReduce.map;
       this.reduce = designDocumentViewsMapReduce.reduce;

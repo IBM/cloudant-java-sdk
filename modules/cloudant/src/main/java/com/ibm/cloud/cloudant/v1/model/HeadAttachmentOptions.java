@@ -37,6 +37,11 @@ public class HeadAttachmentOptions extends GenericModel {
     private String ifNoneMatch;
     private String rev;
 
+    /**
+     * Instantiates a new Builder from an existing HeadAttachmentOptions instance.
+     *
+     * @param headAttachmentOptions the instance to initialize the Builder with
+     */
     private Builder(HeadAttachmentOptions headAttachmentOptions) {
       this.db = headAttachmentOptions.db;
       this.docId = headAttachmentOptions.docId;

@@ -26,6 +26,8 @@ public class DbUpdates extends GenericModel {
   protected String lastSeq;
   protected List<DbEvent> results;
 
+  protected DbUpdates() { }
+
   /**
    * Gets the lastSeq.
    *

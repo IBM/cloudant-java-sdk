@@ -31,6 +31,8 @@ public class ExplainResult extends GenericModel {
   protected Map<String, Object> selector;
   protected Long skip;
 
+  protected ExplainResult() { }
+
   /**
    * Gets the dbname.
    *

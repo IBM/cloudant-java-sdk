@@ -51,6 +51,11 @@ public class PutLocalDocumentOptions extends GenericModel {
     private String contentType;
     private String batch;
 
+    /**
+     * Instantiates a new Builder from an existing PutLocalDocumentOptions instance.
+     *
+     * @param putLocalDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(PutLocalDocumentOptions putLocalDocumentOptions) {
       this.db = putLocalDocumentOptions.db;
       this.docId = putLocalDocumentOptions.docId;

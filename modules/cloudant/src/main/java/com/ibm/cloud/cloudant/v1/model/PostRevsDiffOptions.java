@@ -32,6 +32,11 @@ public class PostRevsDiffOptions extends GenericModel {
     private String db;
     private Map<String, List<String>> documentRevisions;
 
+    /**
+     * Instantiates a new Builder from an existing PostRevsDiffOptions instance.
+     *
+     * @param postRevsDiffOptions the instance to initialize the Builder with
+     */
     private Builder(PostRevsDiffOptions postRevsDiffOptions) {
       this.db = postRevsDiffOptions.db;
       this.documentRevisions = postRevsDiffOptions.documentRevisions;

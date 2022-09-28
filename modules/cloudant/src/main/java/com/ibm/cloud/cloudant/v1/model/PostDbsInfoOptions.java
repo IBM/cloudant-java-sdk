@@ -30,6 +30,11 @@ public class PostDbsInfoOptions extends GenericModel {
   public static class Builder {
     private List<String> keys;
 
+    /**
+     * Instantiates a new Builder from an existing PostDbsInfoOptions instance.
+     *
+     * @param postDbsInfoOptions the instance to initialize the Builder with
+     */
     private Builder(PostDbsInfoOptions postDbsInfoOptions) {
       this.keys = postDbsInfoOptions.keys;
     }

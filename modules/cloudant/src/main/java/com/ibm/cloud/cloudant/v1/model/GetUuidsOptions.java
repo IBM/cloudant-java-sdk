@@ -27,6 +27,11 @@ public class GetUuidsOptions extends GenericModel {
   public static class Builder {
     private Long count;
 
+    /**
+     * Instantiates a new Builder from an existing GetUuidsOptions instance.
+     *
+     * @param getUuidsOptions the instance to initialize the Builder with
+     */
     private Builder(GetUuidsOptions getUuidsOptions) {
       this.count = getUuidsOptions.count;
     }

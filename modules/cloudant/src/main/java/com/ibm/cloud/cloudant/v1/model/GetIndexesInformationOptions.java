@@ -27,6 +27,11 @@ public class GetIndexesInformationOptions extends GenericModel {
   public static class Builder {
     private String db;
 
+    /**
+     * Instantiates a new Builder from an existing GetIndexesInformationOptions instance.
+     *
+     * @param getIndexesInformationOptions the instance to initialize the Builder with
+     */
     private Builder(GetIndexesInformationOptions getIndexesInformationOptions) {
       this.db = getIndexesInformationOptions.db;
     }

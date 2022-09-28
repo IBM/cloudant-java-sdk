@@ -29,6 +29,11 @@ public class GetPartitionInformationOptions extends GenericModel {
     private String db;
     private String partitionKey;
 
+    /**
+     * Instantiates a new Builder from an existing GetPartitionInformationOptions instance.
+     *
+     * @param getPartitionInformationOptions the instance to initialize the Builder with
+     */
     private Builder(GetPartitionInformationOptions getPartitionInformationOptions) {
       this.db = getPartitionInformationOptions.db;
       this.partitionKey = getPartitionInformationOptions.partitionKey;

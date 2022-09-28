@@ -53,6 +53,11 @@ public class IndexField extends DynamicModel<String> {
     private String type;
     private Map<String, String> dynamicProperties;
 
+    /**
+     * Instantiates a new Builder from an existing IndexField instance.
+     *
+     * @param indexField the instance to initialize the Builder with
+     */
     private Builder(IndexField indexField) {
       this.name = indexField.name;
       this.type = indexField.type;

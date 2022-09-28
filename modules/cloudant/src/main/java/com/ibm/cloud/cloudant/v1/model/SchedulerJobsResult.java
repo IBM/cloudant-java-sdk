@@ -26,6 +26,8 @@ public class SchedulerJobsResult extends GenericModel {
   protected Long totalRows;
   protected List<SchedulerJob> jobs;
 
+  protected SchedulerJobsResult() { }
+
   /**
    * Gets the totalRows.
    *

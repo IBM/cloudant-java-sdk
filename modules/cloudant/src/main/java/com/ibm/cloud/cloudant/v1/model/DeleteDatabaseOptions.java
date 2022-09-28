@@ -27,6 +27,11 @@ public class DeleteDatabaseOptions extends GenericModel {
   public static class Builder {
     private String db;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteDatabaseOptions instance.
+     *
+     * @param deleteDatabaseOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteDatabaseOptions deleteDatabaseOptions) {
       this.db = deleteDatabaseOptions.db;
     }

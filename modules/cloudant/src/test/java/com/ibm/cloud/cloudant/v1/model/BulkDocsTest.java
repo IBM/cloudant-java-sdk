@@ -71,7 +71,7 @@ public class BulkDocsTest {
     assertEquals(documentRevisionStatusModel.status(), "available");
 
     Document documentModel = new Document.Builder()
-      .attachments(new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } })
+      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -82,7 +82,7 @@ public class BulkDocsTest {
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .add("foo", "testString")
       .build();
-    assertEquals(documentModel.getAttachments(), new java.util.HashMap<String, Attachment>() { { put("foo", attachmentModel); } });
+    assertEquals(documentModel.getAttachments(), java.util.Collections.singletonMap("foo", attachmentModel));
     assertEquals(documentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(documentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(documentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));

@@ -27,6 +27,11 @@ public class GetSchedulerDocumentOptions extends GenericModel {
   public static class Builder {
     private String docId;
 
+    /**
+     * Instantiates a new Builder from an existing GetSchedulerDocumentOptions instance.
+     *
+     * @param getSchedulerDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(GetSchedulerDocumentOptions getSchedulerDocumentOptions) {
       this.docId = getSchedulerDocumentOptions.docId;
     }

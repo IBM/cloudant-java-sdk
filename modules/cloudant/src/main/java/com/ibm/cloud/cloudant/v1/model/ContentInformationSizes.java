@@ -23,6 +23,8 @@ public class ContentInformationSizes extends GenericModel {
   protected Long external;
   protected Long file;
 
+  protected ContentInformationSizes() { }
+
   /**
    * Gets the active.
    *

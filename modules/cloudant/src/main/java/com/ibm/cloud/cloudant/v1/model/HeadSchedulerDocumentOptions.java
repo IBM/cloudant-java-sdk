@@ -27,6 +27,11 @@ public class HeadSchedulerDocumentOptions extends GenericModel {
   public static class Builder {
     private String docId;
 
+    /**
+     * Instantiates a new Builder from an existing HeadSchedulerDocumentOptions instance.
+     *
+     * @param headSchedulerDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(HeadSchedulerDocumentOptions headSchedulerDocumentOptions) {
       this.docId = headSchedulerDocumentOptions.docId;
     }

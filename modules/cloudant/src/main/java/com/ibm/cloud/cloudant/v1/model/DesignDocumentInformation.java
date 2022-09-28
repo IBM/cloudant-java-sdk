@@ -24,6 +24,8 @@ public class DesignDocumentInformation extends GenericModel {
   @SerializedName("view_index")
   protected DesignDocumentViewIndex viewIndex;
 
+  protected DesignDocumentInformation() { }
+
   /**
    * Gets the name.
    *
