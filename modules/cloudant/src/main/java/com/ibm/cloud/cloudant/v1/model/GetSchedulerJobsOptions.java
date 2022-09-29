@@ -96,7 +96,7 @@ public class GetSchedulerJobsOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Query parameter to specify the number of returned documents to limit the result to.
+   * Query parameter to specify the number of returned jobs to limit the result to.
    *
    * @return the limit
    */
