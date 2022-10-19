@@ -108,6 +108,9 @@ public abstract class CloudantBaseService extends BaseService {
             Arrays.asList(
                 "deleteDocument",
                 "getDocument",
+                "getDocumentAsMixed",
+                "getDocumentAsRelated",
+                "getDocumentAsStream",
                 "headDocument",
                 "putDocument",
                 "deleteAttachment",

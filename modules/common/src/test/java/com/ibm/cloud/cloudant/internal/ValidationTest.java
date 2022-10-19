@@ -42,6 +42,20 @@ public class ValidationTest {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = ".+_testDocument.+")
+    void validatesDocumentIdWithAsStreamOperation() {
+        CloudantBaseService cloudantBaseService = new CloudantBaseService(null, new NoAuthAuthenticator()) {
+        };
+        cloudantBaseService.setServiceUrl("https://cloudant.example");
+        HttpUrl requestUrl =  HttpUrl.parse(cloudantBaseService.getServiceUrl()).newBuilder().addPathSegment(dbName).addPathSegment(docId).build();
+        Request.Builder rb = new Request.Builder().url(requestUrl).get();
+        Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getDocumentAsStream");
+        for (Entry<String, String> header : sdkHeaders.entrySet()) {
+            rb.header(header.getKey(), header.getValue());
+        }
+        cloudantBaseService.createServiceCall(rb.build(), null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = ".+_testDocument.+")
     void validatesDocumentIdAtLongServicePath() {
         CloudantBaseService cloudantBaseService = new CloudantBaseService(null, new NoAuthAuthenticator()) {
         };
