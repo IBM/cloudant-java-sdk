@@ -19,9 +19,21 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class DocsResultRowValue extends GenericModel {
 
+  protected Boolean deleted;
   protected String rev;
 
   protected DocsResultRowValue() { }
+
+  /**
+   * Gets the deleted.
+   *
+   * If `true` then the document is deleted. Not present for undeleted documents.
+   *
+   * @return the deleted
+   */
+  public Boolean isDeleted() {
+    return deleted;
+  }
 
   /**
    * Gets the rev.

@@ -80,6 +80,8 @@ public class ReplicationDocument extends DynamicModel<Object> {
   protected ReplicationDatabase target;
   @SerializedName("target_proxy")
   protected String targetProxy;
+  @SerializedName("use_bulk_get")
+  protected Boolean useBulkGet;
   @SerializedName("use_checkpoints")
   protected Boolean useCheckpoints;
   @SerializedName("user_ctx")
@@ -126,6 +128,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
     private String sourceProxy;
     private ReplicationDatabase target;
     private String targetProxy;
+    private Boolean useBulkGet;
     private Boolean useCheckpoints;
     private UserContext userCtx;
     private Boolean winningRevsOnly;
@@ -166,6 +169,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
       this.sourceProxy = replicationDocument.sourceProxy;
       this.target = replicationDocument.target;
       this.targetProxy = replicationDocument.targetProxy;
+      this.useBulkGet = replicationDocument.useBulkGet;
       this.useCheckpoints = replicationDocument.useCheckpoints;
       this.userCtx = replicationDocument.userCtx;
       this.winningRevsOnly = replicationDocument.winningRevsOnly;
@@ -566,6 +570,17 @@ public class ReplicationDocument extends DynamicModel<Object> {
     }
 
     /**
+     * Set the useBulkGet.
+     *
+     * @param useBulkGet the useBulkGet
+     * @return the ReplicationDocument builder
+     */
+    public Builder useBulkGet(Boolean useBulkGet) {
+      this.useBulkGet = useBulkGet;
+      return this;
+    }
+
+    /**
      * Set the useCheckpoints.
      *
      * @param useCheckpoints the useCheckpoints
@@ -670,6 +685,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
     sourceProxy = builder.sourceProxy;
     target = builder.target;
     targetProxy = builder.targetProxy;
+    useBulkGet = builder.useBulkGet;
     useCheckpoints = builder.useCheckpoints;
     userCtx = builder.userCtx;
     winningRevsOnly = builder.winningRevsOnly;
@@ -1258,6 +1274,27 @@ public class ReplicationDocument extends DynamicModel<Object> {
    */
   public void setTargetProxy(final String targetProxy) {
     this.targetProxy = targetProxy;
+  }
+
+  /**
+   * Gets the useBulkGet.
+   *
+   * Specify whether to use _bulk_get for fetching documents from the source. If unset, the server configured default
+   * will be used.
+   *
+   * @return the useBulkGet
+   */
+  public Boolean isUseBulkGet() {
+    return this.useBulkGet;
+  }
+
+  /**
+   * Sets the useBulkGet.
+   *
+   * @param useBulkGet the new useBulkGet
+   */
+  public void setUseBulkGet(final Boolean useBulkGet) {
+    this.useBulkGet = useBulkGet;
   }
 
   /**

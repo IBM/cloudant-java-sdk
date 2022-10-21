@@ -32,6 +32,7 @@ public class DocsResultRowValueTest {
   @Test
   public void testDocsResultRowValue() throws Throwable {
     DocsResultRowValue docsResultRowValueModel = new DocsResultRowValue();
+    assertNull(docsResultRowValueModel.isDeleted());
     assertNull(docsResultRowValueModel.getRev());
   }
 }
