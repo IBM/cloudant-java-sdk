@@ -432,7 +432,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * Before using the changes feed we recommend reading the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed) to understand the limitations and
-   * appropriate use cases.".
+   * appropriate use cases.
    *
    * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ChangesResult}
@@ -519,7 +519,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * Before using the changes feed we recommend reading the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed) to understand the limitations and
-   * appropriate use cases.".
+   * appropriate use cases.
    *
    * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link InputStream}

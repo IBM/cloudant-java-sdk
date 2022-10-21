@@ -150,6 +150,7 @@ public class PutReplicationDocumentOptionsTest {
       .sourceProxy("testString")
       .target(replicationDatabaseModel)
       .targetProxy("testString")
+      .useBulkGet(true)
       .useCheckpoints(true)
       .userCtx(userContextModel)
       .winningRevsOnly(false)
@@ -184,6 +185,7 @@ public class PutReplicationDocumentOptionsTest {
     assertEquals(replicationDocumentModel.getSourceProxy(), "testString");
     assertEquals(replicationDocumentModel.getTarget(), replicationDatabaseModel);
     assertEquals(replicationDocumentModel.getTargetProxy(), "testString");
+    assertEquals(replicationDocumentModel.isUseBulkGet(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.isUseCheckpoints(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getUserCtx(), userContextModel);
     assertEquals(replicationDocumentModel.isWinningRevsOnly(), Boolean.valueOf(false));

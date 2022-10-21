@@ -149,6 +149,7 @@ public class ReplicationDocumentTest {
       .sourceProxy("testString")
       .target(replicationDatabaseModel)
       .targetProxy("testString")
+      .useBulkGet(true)
       .useCheckpoints(true)
       .userCtx(userContextModel)
       .winningRevsOnly(false)
@@ -183,6 +184,7 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.getSourceProxy(), "testString");
     assertEquals(replicationDocumentModel.getTarget(), replicationDatabaseModel);
     assertEquals(replicationDocumentModel.getTargetProxy(), "testString");
+    assertEquals(replicationDocumentModel.isUseBulkGet(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.isUseCheckpoints(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getUserCtx(), userContextModel);
     assertEquals(replicationDocumentModel.isWinningRevsOnly(), Boolean.valueOf(false));
@@ -215,6 +217,7 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModelNew.getSourceProxy(), "testString");
     assertEquals(replicationDocumentModelNew.getTarget().toString(), replicationDatabaseModel.toString());
     assertEquals(replicationDocumentModelNew.getTargetProxy(), "testString");
+    assertEquals(replicationDocumentModelNew.isUseBulkGet(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModelNew.isUseCheckpoints(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModelNew.getUserCtx().toString(), userContextModel.toString());
     assertEquals(replicationDocumentModelNew.isWinningRevsOnly(), Boolean.valueOf(false));
