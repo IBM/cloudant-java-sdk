@@ -2,464 +2,2610 @@
 
 ## getServerInformation
 
-### get `/`
+_GET `/`_
 
-- [Example request](./getServerInformation/example_request.java)
+### [Example request](./snippets/getServerInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ServerInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+ServerInformation response =
+    service.getServerInformation().execute().getResult();
+
+System.out.println(response);
+```
 
 ## getActiveTasks
 
-### get `/_active_tasks`
+_GET `/_active_tasks`_
 
-- [Example request](./getActiveTasks/example_request.java)
+### [Example request](./snippets/getActiveTasks/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ActiveTask;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+List<ActiveTask> response =
+    service.getActiveTasks().execute().getResult();
+
+System.out.println(response);
+```
 
 ## getAllDbs
 
-### get `/_all_dbs`
+_GET `/_all_dbs`_
 
-- [Example request](./getAllDbs/example_request.java)
+### [Example request](./snippets/getAllDbs/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
+
+import java.util.List;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+List<String> response =
+    service.getAllDbs().execute().getResult();
+
+System.out.println(response);
+```
 
 ## postApiKeys
 
-### post `/_api/v2/api_keys`
+_POST `/_api/v2/api_keys`_
 
-- [Example request](./postApiKeys/example_request.java)
+### [Example request](./snippets/postApiKeys/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ApiKeysResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+ApiKeysResult response =
+    service.postApiKeys().execute().getResult();
+
+System.out.println(response);
+```
 
 ## putCloudantSecurity
 
-### put `/_api/v2/db/{db}/_security`
+_PUT `/_api/v2/db/{db}/_security`_
 
-- [Example request](./putCloudantSecurity/example_request.java)
+### [Example request](./snippets/putCloudantSecurity/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Ok;
+import com.ibm.cloud.cloudant.v1.model.PutCloudantSecurityConfigurationOptions;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Map<String, List<String>> securityObject = new HashMap<>();
+securityObject.put("nobody", Arrays.asList("_reader"));
+
+PutCloudantSecurityConfigurationOptions securityOptions =
+    new PutCloudantSecurityConfigurationOptions.Builder()
+        .db("products")
+        .cloudant(securityObject)
+        .build();
+
+Ok response =
+    service.putCloudantSecurityConfiguration(securityOptions)
+        .execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to read data from a database, but didn't identify itself, the task can continue only if the `nobody` user has the role `_reader`.
+
+If instead of using Cloudant's security model for managing permissions you opt to use the Apache CouchDB `_users` database (that is using legacy credentials _and_ the `couchdb_auth_only:true` option) then be aware that the user must already exist in `_users` database before adding permissions. For information on the `_users` database, see <a href="https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#using-the-users-database-with-cloudant-nosql-db" target="_blank">Using the `_users` database with Cloudant</a>.
 
 ## getActivityTrackerEvents
 
-### get `/_api/v2/user/activity_tracker/events`
+_GET `/_api/v2/user/activity_tracker/events`_
 
-- [Example request](./getActivityTrackerEvents/example_request.java)
+### [Example request](./snippets/getActivityTrackerEvents/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ActivityTrackerEvents;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+ActivityTrackerEvents response =
+    service.getActivityTrackerEvents().execute().getResult();
+
+System.out.println(response);
+```
 
 ## postActivityTrackerEvents
 
-### post `/_api/v2/user/activity_tracker/events`
+_POST `/_api/v2/user/activity_tracker/events`_
 
-- [Example request](./postActivityTrackerEvents/example_request.java)
+### [Example request](./snippets/postActivityTrackerEvents/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Ok;
+import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostActivityTrackerEventsOptions options =
+    new PostActivityTrackerEventsOptions.Builder()
+        .addTypes("management")
+        .build();
+
+Ok response =
+    service.postActivityTrackerEvents(options).execute().getResult();
+
+System.out.println(response);
+```
 
 ## getCapacityThroughputInformation
 
-### get `/_api/v2/user/capacity/throughput`
+_GET `/_api/v2/user/capacity/throughput`_
 
-- [Example request](./getCapacityThroughputInformation/example_request.java)
+### [Example request](./snippets/getCapacityThroughputInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+CapacityThroughputInformation response =
+    service.getCapacityThroughputInformation().execute().getResult();
+
+System.out.println(response);
+```
 
 ## putCapacityThroughputConfiguration
 
-### put `/_api/v2/user/capacity/throughput`
+_PUT `/_api/v2/user/capacity/throughput`_
 
-- [Example request](./putCapacityThroughputConfiguration/example_request.java)
+### [Example request](./snippets/putCapacityThroughputConfiguration/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformation;
+import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputConfigurationOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PutCapacityThroughputConfigurationOptions options =
+    new PutCapacityThroughputConfigurationOptions.Builder()
+        .blocks(1)
+        .build();
+
+CapacityThroughputInformation response =
+    service.putCapacityThroughputConfiguration(options).execute().getResult();
+
+System.out.println(response);
+```
 
 ## getCorsInformation
 
-### get `/_api/v2/user/config/cors`
+_GET `/_api/v2/user/config/cors`_
 
-- [Example request](./getCorsInformation/example_request.java)
+### [Example request](./snippets/getCorsInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.CorsConfiguration;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+CorsConfiguration response =
+    service.getCorsInformation().execute().getResult();
+
+System.out.println(response);
+```
 
 ## putCorsConfiguration
 
-### put `/_api/v2/user/config/cors`
+_PUT `/_api/v2/user/config/cors`_
 
-- [Example request](./putCorsConfiguration/example_request.java)
+### [Example request](./snippets/putCorsConfiguration/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.CorsConfiguration;
+import com.ibm.cloud.cloudant.v1.model.Ok;
+import com.ibm.cloud.cloudant.v1.model.PutCorsConfigurationOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+CorsConfiguration configuration = new CorsConfiguration.Builder()
+    .addOrigins("https://example.com")
+    .enableCors(true)
+    .build();
+
+PutCorsConfigurationOptions configurationOptions =
+    new PutCorsConfigurationOptions.Builder()
+        .corsConfiguration(configuration)
+        .build();
+
+Ok response =
+    service.putCorsConfiguration(configurationOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getCurrentThroughputInformation
 
-### get `/_api/v2/user/current/throughput`
+_GET `/_api/v2/user/current/throughput`_
 
-- [Example request](./getCurrentThroughputInformation/example_request.java)
+### [Example request](./snippets/getCurrentThroughputInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+CurrentThroughputInformation response =
+    service.getCurrentThroughputInformation().execute().getResult();
+
+System.out.println(response);
+```
 
 ## getDbUpdates
 
-### get `/_db_updates`
+_GET `/_db_updates`_
 
-- [Example request](./getDbUpdates/example_request.java)
+### [Example request](./snippets/getDbUpdates/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DbUpdates;
+import com.ibm.cloud.cloudant.v1.model.GetDbUpdatesOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetDbUpdatesOptions dbUpdatesOptions = new GetDbUpdatesOptions.Builder()
+    .feed("normal")
+    .heartbeat(10000)
+    .since("now")
+    .build();
+
+DbUpdates response =
+    service.getDbUpdates(dbUpdatesOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This request requires `server_admin` access.
 
 ## postDbsInfo
 
-### post `/_dbs_info`
+_POST `/_dbs_info`_
 
-- [Example request](./postDbsInfo/example_request.java)
+### [Example request](./snippets/postDbsInfo/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DbsInfoResult;
+import com.ibm.cloud.cloudant.v1.model.PostDbsInfoOptions;
+
+import java.util.Arrays;
+import java.util.List;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostDbsInfoOptions dbsInfoOptions =
+    new PostDbsInfoOptions.Builder()
+        .keys(Arrays.asList("products", "users", "orders"))
+        .build();
+
+List<DbsInfoResult> response =
+    service.postDbsInfo(dbsInfoOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getMembershipInformation
 
-### get `/_membership`
+_GET `/_membership`_
 
-- [Example request](./getMembershipInformation/example_request.java)
+### [Example request](./snippets/getMembershipInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.MembershipInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+MembershipInformation response =
+    service.getMembershipInformation().execute().getResult();
+
+System.out.println(response);
+```
 
 ## deleteReplicationDocument
 
-### delete `/_replicator/{doc_id}`
+_DELETE `/_replicator/{doc_id}`_
 
-- [Example request](./deleteReplicationDocument/example_request.java)
+### [Example request](./snippets/deleteReplicationDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DeleteReplicationDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DeleteReplicationDocumentOptions replicationDocOptions =
+    new DeleteReplicationDocumentOptions.Builder()
+        .docId("repldoc-example")
+        .rev("3-a0ccbdc6fe95b4184f9031d086034d85")
+        .build();
+
+DocumentResult response =
+    service.deleteReplicationDocument(replicationDocOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getReplicationDocument
 
-### get `/_replicator/{doc_id}`
+_GET `/_replicator/{doc_id}`_
 
-- [Example request](./getReplicationDocument/example_request.java)
+### [Example request](./snippets/getReplicationDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetReplicationDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetReplicationDocumentOptions replicationDocOptions =
+    new GetReplicationDocumentOptions.Builder()
+        .docId("repldoc-example")
+        .build();
+
+ReplicationDocument response =
+    service.getReplicationDocument(replicationDocOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## headReplicationDocument
 
-### head `/_replicator/{doc_id}`
+_HEAD `/_replicator/{doc_id}`_
 
-- [Example request](./headReplicationDocument/example_request.java)
+### [Example request](./snippets/headReplicationDocument/example_request.java)
+
+```java
+import com.ibm.cloud.sdk.core.http.Headers;
+
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.HeadReplicationDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+HeadReplicationDocumentOptions replicationDocOptions =
+    new HeadReplicationDocumentOptions.Builder()
+        .docId("repldoc-example")
+        .build();
+
+int statusCode =
+    service.headReplicationDocument(replicationDocOptions).execute().getStatusCode();
+
+Headers headers =
+    service.headReplicationDocument(replicationDocOptions).execute().getHeaders();
+
+System.out.println(statusCode);
+System.out.println(headers.values("ETag"));
+```
 
 ## putReplicationDocument
 
-### put `/_replicator/{doc_id}`
+_PUT `/_replicator/{doc_id}`_
 
-- [Example request](./putReplicationDocument/example_request.java)
+### [Example request](./snippets/putReplicationDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PutReplicationDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+ReplicationDatabase sourceDb = new ReplicationDatabase.Builder()
+    .url("<your-source-service-url>/animaldb")
+    .build();
+
+ReplicationDatabaseAuthIam targetAuthIam =
+    new ReplicationDatabaseAuthIam.Builder()
+        .apiKey("<your-iam-api-key>")
+        .build();
+
+ReplicationDatabaseAuth targetAuth = new ReplicationDatabaseAuth.Builder()
+    .iam(targetAuthIam)
+    .build();
+
+ReplicationDatabase targetDb = new ReplicationDatabase.Builder()
+    .auth(targetAuth)
+    .url(String.join("/","<your-target-service-url>", "animaldb-target"))
+    .build();
+
+ReplicationDocument replDocument = new ReplicationDocument();
+replDocument.setCreateTarget(true);
+replDocument.setSource(sourceDb);
+replDocument.setTarget(targetDb);
+
+PutReplicationDocumentOptions replicationDocumentOptions =
+    new PutReplicationDocumentOptions.Builder()
+        .docId("repldoc-example")
+        .replicationDocument(replDocument)
+        .build();
+
+DocumentResult response =
+    service.putReplicationDocument(replicationDocumentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getSchedulerDocs
 
-### get `/_scheduler/docs`
+_GET `/_scheduler/docs`_
 
-- [Example request](./getSchedulerDocs/example_request.java)
+### [Example request](./snippets/getSchedulerDocs/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocsOptions;
+import com.ibm.cloud.cloudant.v1.model.SchedulerDocsResult;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetSchedulerDocsOptions schedulerDocsOptions = new GetSchedulerDocsOptions.Builder()
+    .limit(100)
+    .states(Arrays.asList("completed"))
+    .build();
+
+SchedulerDocsResult response =
+    service.getSchedulerDocs(schedulerDocsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getSchedulerDocument
 
-### get `/_scheduler/docs/_replicator/{doc_id}`
+_GET `/_scheduler/docs/_replicator/{doc_id}`_
 
-- [Example request](./getSchedulerDocument/example_request.java)
+### [Example request](./snippets/getSchedulerDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.SchedulerDocument;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetSchedulerDocumentOptions schedulerDocumentOptions =
+    new GetSchedulerDocumentOptions.Builder()
+        .docId("repldoc-example")
+        .build();
+
+SchedulerDocument response =
+    service.getSchedulerDocument(schedulerDocumentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getSchedulerJobs
 
-### get `/_scheduler/jobs`
+_GET `/_scheduler/jobs`_
 
-- [Example request](./getSchedulerJobs/example_request.java)
+### [Example request](./snippets/getSchedulerJobs/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobsOptions;
+import com.ibm.cloud.cloudant.v1.model.SchedulerJobsResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetSchedulerJobsOptions schedulerJobsOptions =
+    new GetSchedulerJobsOptions.Builder()
+        .limit(100)
+        .build();
+
+SchedulerJobsResult response =
+    service.getSchedulerJobs(schedulerJobsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getSchedulerJob
 
-### get `/_scheduler/jobs/{job_id}`
+_GET `/_scheduler/jobs/{job_id}`_
 
-- [Example request](./getSchedulerJob/example_request.java)
+### [Example request](./snippets/getSchedulerJob/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobOptions;
+import com.ibm.cloud.cloudant.v1.model.SchedulerJob;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetSchedulerJobOptions schedulerJobOptions =
+    new GetSchedulerJobOptions.Builder()
+        .jobId("7b94915cd8c4a0173c77c55cd0443939+continuous")
+        .build();
+
+SchedulerJob response =
+    service.getSchedulerJob(schedulerJobOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## headSchedulerJob
 
-### head `/_scheduler/jobs/{job_id}`
+_HEAD `/_scheduler/jobs/{job_id}`_
 
-- [Example request](./headSchedulerJob/example_request.java)
+### [Example request](./snippets/headSchedulerJob/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.HeadSchedulerJobOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+HeadSchedulerJobOptions schedulerJobOptions =
+    new HeadSchedulerJobOptions.Builder()
+        .jobId("7b94915cd8c4a0173c77c55cd0443939+continuous")
+        .build();
+
+int statusCode =
+    service.headSchedulerJob(schedulerJobOptions).execute()
+        .getStatusCode();
+
+System.out.println(statusCode);
+```
 
 ## postSearchAnalyze
 
-### post `/_search_analyze`
+_POST `/_search_analyze`_
 
-- [Example request](./postSearchAnalyze/example_request.java)
+### [Example request](./snippets/postSearchAnalyze/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
+import com.ibm.cloud.cloudant.v1.model.SearchAnalyzeResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostSearchAnalyzeOptions searchAnalyzerOptions =
+    new PostSearchAnalyzeOptions.Builder()
+        .analyzer("english")
+        .text("running is fun")
+        .build();
+
+SearchAnalyzeResult response =
+    service.postSearchAnalyze(searchAnalyzerOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getSessionInformation
 
-### get `/_session`
+_GET `/_session`_
 
-- [Example request](./getSessionInformation/example_request.java)
+### [Example request](./snippets/getSessionInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.SessionInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+SessionInformation response =
+    service.getSessionInformation().execute().getResult();
+
+System.out.println(response);
+```
+
+For more details on Session Authentication, see [Authentication.](#authentication)
 
 ## getUpInformation
 
-### get `/_up`
+_GET `/_up`_
 
-- [Example request](./getUpInformation/example_request.java)
+### [Example request](./snippets/getUpInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.UpInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+UpInformation response =
+    service.getUpInformation().execute().getResult();
+
+System.out.println(response);
+```
 
 ## getUuids
 
-### get `/_uuids`
+_GET `/_uuids`_
 
-- [Example request](./getUuids/example_request.java)
+### [Example request](./snippets/getUuids/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.UuidsResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetUuidsOptions uuidsOptions = new GetUuidsOptions.Builder()
+    .count(10)
+    .build();
+
+UuidsResult response =
+    service.getUuids(uuidsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## deleteDatabase
 
-### delete `/{db}`
+_DELETE `/{db}`_
 
-- [Example request](./deleteDatabase/example_request.java)
+### [Example request](./snippets/deleteDatabase/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DeleteDatabaseOptions;
+import com.ibm.cloud.cloudant.v1.model.Ok;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DeleteDatabaseOptions databaseOptions =
+    new DeleteDatabaseOptions.Builder()
+        .db("<db-name>")
+        .build();
+
+Ok response =
+    service.deleteDatabase(databaseOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getDatabaseInformation
 
-### get `/{db}`
+_GET `/{db}`_
 
-- [Example request](./getDatabaseInformation/example_request.java)
+### [Example request](./snippets/getDatabaseInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
+import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetDatabaseInformationOptions databaseInfoOptions =
+    new GetDatabaseInformationOptions.Builder()
+        .db("products")
+        .build();
+
+DatabaseInformation response =
+    service.getDatabaseInformation(databaseInfoOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## headDatabase
 
-### head `/{db}`
+_HEAD `/{db}`_
 
-- [Example request](./headDatabase/example_request.java)
+### [Example request](./snippets/headDatabase/example_request.java)
+
+```java
+import com.ibm.cloud.sdk.core.http.Headers;
+
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.HeadDatabaseOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+HeadDatabaseOptions databaseOptions =
+    new HeadDatabaseOptions.Builder()
+        .db("products")
+        .build();
+
+int statusCode =
+    service.headDatabase(databaseOptions).execute().getStatusCode();
+
+System.out.println(statusCode);
+```
 
 ## postDocument
 
-### post `/{db}`
+_POST `/{db}`_
 
-- [Example request](./postDocument/example_request.java)
+### [Example request](./snippets/postDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Document productsDocument = new Document();
+productsDocument.setId("small-appliances:1000042");
+productsDocument.put("type", "product");
+productsDocument.put("productid", "1000042");
+productsDocument.put("brand", "Salter");
+productsDocument.put("name", "Digital Kitchen Scales");
+productsDocument.put("description", "Slim Colourful Design Electronic"
+    + "Cooking Appliance for Home/Kitchen, Weigh up to 5kg + Aquatronic"
+    + "for Liquids ml + fl. oz. 15Yr Guarantee - Green");
+productsDocument.put("price", 14.99);
+productsDocument.put("image", "assets/img/0gmsnghhew.jpg");
+
+PostDocumentOptions documentOptions =
+    new PostDocumentOptions.Builder()
+        .db("products")
+        .document(productsDocument)
+        .build();
+
+DocumentResult response =
+    service.postDocument(documentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## putDatabase
 
-### put `/{db}`
+_PUT `/{db}`_
 
-- [Example request](./putDatabase/example_request.java)
+### [Example request](./snippets/putDatabase/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Ok;
+import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PutDatabaseOptions databaseOptions = new PutDatabaseOptions.Builder()
+    .db("products")
+    .partitioned(true)
+    .build();
+
+Ok response =
+    service.putDatabase(databaseOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postAllDocs
 
-### post `/{db}/_all_docs`
+_POST `/{db}/_all_docs`_
 
-- [Example request](./postAllDocs/example_request.java)
-- [Example request as a stream](./postAllDocs/example_request_as_a_stream.java)
+### [Example request](./snippets/postAllDocs/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
+import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostAllDocsOptions docsOptions =
+    new PostAllDocsOptions.Builder()
+        .db("orders")
+        .includeDocs(true)
+        .startKey("abc")
+        .limit(10)
+        .build();
+
+AllDocsResult response =
+    service.postAllDocs(docsOptions).execute().getResult();
+
+System.out.println(response);
+```
+
+### [Example request as a stream](./snippets/postAllDocs/example_request_as_a_stream.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
+
+import java.io.InputStream;
+import java.io.File;
+import java.nio.file.StandardCopyOption;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostAllDocsOptions docsOptions =
+    new PostAllDocsOptions.Builder()
+        .db("orders")
+        .includeDocs(true)
+        .startKey("abc")
+        .limit(10)
+        .build();
+
+File file = new File("result.json");
+
+try (InputStream response =
+        service.postAllDocsAsStream(docsOptions).execute()
+            .getResult()) {
+    java.nio.file.Files.copy(
+        response,
+        file.toPath(),
+        StandardCopyOption.REPLACE_EXISTING);
+}
+```
 
 ## postAllDocsQueries
 
-### post `/{db}/_all_docs/queries`
+_POST `/{db}/_all_docs/queries`_
 
-- [Example request](./postAllDocsQueries/example_request.java)
+### [Example request](./snippets/postAllDocsQueries/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.AllDocsQuery;
+import com.ibm.cloud.cloudant.v1.model.AllDocsQueriesResult;
+import com.ibm.cloud.cloudant.v1.model.PostAllDocsQueriesOptions;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+AllDocsQuery query1 = new AllDocsQuery.Builder()
+    .keys(Arrays.asList("small-appliances:1000042",
+        "small-appliances:1000043"))
+    .build();
+
+AllDocsQuery query2 = new AllDocsQuery.Builder()
+    .limit(3)
+    .skip(2)
+    .build();
+
+PostAllDocsQueriesOptions queriesOptions =
+    new PostAllDocsQueriesOptions.Builder()
+        .queries(Arrays.asList(query1, query2))
+        .db("products")
+        .build();
+
+AllDocsQueriesResult response =
+    service.postAllDocsQueries(queriesOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postBulkDocs
 
-### post `/{db}/_bulk_docs`
+_POST `/{db}/_bulk_docs`_
 
-- [Example request: create documents](./postBulkDocs/example_request_create_documents.java)
-- [Example request: delete documents](./postBulkDocs/example_request_delete_documents.java)
-- [Example request as a stream](./postBulkDocs/example_request_as_a_stream.java)
+### [Example request: create documents](./snippets/postBulkDocs/example_request_create_documents.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.BulkDocs;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PostBulkDocsOptions;
+
+import java.util.Arrays;
+import java.util.List;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Document eventDoc1 = new Document();
+eventDoc1.setId("0007241142412418284");
+eventDoc1.put("type", "event");
+eventDoc1.put("userid", "abc123");
+eventDoc1.put("eventType", "addedToBasket");
+eventDoc1.put("productId", "1000042");
+eventDoc1.put("date", "2019-01-28T10:44:22.000Z");
+
+Document eventDoc2 = new Document();
+eventDoc2.setId("0007241142412418285");
+eventDoc2.put("type", "event");
+eventDoc2.put("userid", "abc234");
+eventDoc2.put("eventType", "addedToBasket");
+eventDoc2.put("productId", "1000050");
+eventDoc2.put("date", "2019-01-28T10:44:22.000Z");
+
+BulkDocs bulkDocs = new BulkDocs.Builder()
+    .docs(Arrays.asList(eventDoc1, eventDoc2))
+    .build();
+
+PostBulkDocsOptions bulkDocsOptions = new PostBulkDocsOptions.Builder()
+    .db("events")
+    .bulkDocs(bulkDocs)
+    .build();
+
+List<DocumentResult> response =
+    service.postBulkDocs(bulkDocsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+### [Example request: delete documents](./snippets/postBulkDocs/example_request_delete_documents.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.BulkDocs;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PostBulkDocsOptions;
+
+import java.util.Arrays;
+import java.util.List;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Document eventDoc1 = new Document();
+eventDoc1.setId("0007241142412418284");
+eventDoc1.setRev("1-5005d65514fe9e90f8eccf174af5dd64");
+eventDoc1.setDeleted(true);
+
+Document eventDoc2 = new Document();
+eventDoc2.setId("0007241142412418285");
+eventDoc1.setRev("1-2d7810b054babeda4812b3924428d6d6");
+eventDoc1.setDeleted(true);
+
+BulkDocs bulkDocs = new BulkDocs.Builder()
+    .docs(Arrays.asList(eventDoc1, eventDoc2))
+    .build();
+
+PostBulkDocsOptions bulkDocsOptions = new PostBulkDocsOptions.Builder()
+    .db("events")
+    .bulkDocs(bulkDocs)
+    .build();
+
+List<DocumentResult> response =
+    service.postBulkDocs(bulkDocsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+### [Example request as a stream](./snippets/postBulkDocs/example_request_as_a_stream.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PostBulkDocsOptions;
+
+import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+File file = new File("upload.json");
+FileInputStream inputStream = new FileInputStream(file);
+
+PostBulkDocsOptions bulkDocsOptions = new PostBulkDocsOptions.Builder()
+    .db("events")
+    .body(inputStream)
+    .build();
+
+List<DocumentResult> response =
+    service.postBulkDocs(bulkDocsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+Content of upload.json
+```java
+{
+  "docs": [
+    {
+      "_id": "0007241142412418284",
+      "type": "event",
+      "userid": "abc123",
+      "eventType": "addedToBasket",
+      "productId": "1000042",
+      "date": "2019-01-28T10:44:22.000Z"
+    },
+    {
+      "_id": "0007241142412418285",
+      "type": "event",
+      "userid": "abc123",
+      "eventType": "addedToBasket",
+      "productId": "1000050",
+      "date": "2019-01-25T20:00:00.000Z"
+    }
+  ]
+}
+```
 
 ## postBulkGet
 
-### post `/{db}/_bulk_get`
+_POST `/{db}/_bulk_get`_
 
-- [Example request](./postBulkGet/example_request.java)
-- [Alternative example request for `open_revs=all`](./postBulkGet/alternative_example_request_for_open_revs_all.java)
-- [Alternative example request for `atts_since`](./postBulkGet/alternative_example_request_for_atts_since.java)
+### [Example request](./snippets/postBulkGet/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.BulkGetQueryDocument;
+import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
+import com.ibm.cloud.cloudant.v1.model.PostBulkGetOptions;
+
+import java.util.ArrayList;
+import java.util.List;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+String docId = "order00067";
+List<BulkGetQueryDocument> bulkGetDocs = new ArrayList<>();
+
+bulkGetDocs.add(
+    new BulkGetQueryDocument.Builder()
+        .id(docId)
+        .rev("3-917fa2381192822767f010b95b45325b")
+        .build());
+bulkGetDocs.add(
+    new BulkGetQueryDocument.Builder()
+        .id(docId)
+        .rev("4-a5be949eeb7296747cc271766e9a498b")
+        .build());
+
+PostBulkGetOptions bulkGetOptions = new PostBulkGetOptions.Builder()
+    .db("orders")
+    .docs(bulkGetDocs)
+    .build();
+
+BulkGetResult response =
+    service.postBulkGet(bulkGetOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+### [Alternative example request for `open_revs=all`](./snippets/postBulkGet/alternative_example_request_for_open_revs_all.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.BulkGetQueryDocument;
+import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
+import com.ibm.cloud.cloudant.v1.model.PostBulkGetOptions;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+BulkGetQueryDocument bulkGetDoc =
+    new BulkGetQueryDocument.Builder()
+        .id("order00067")
+        .build();
+
+PostBulkGetOptions postBulkGetOptions =
+    new PostBulkGetOptions.Builder()
+        .db("orders")
+        .docs(Arrays.asList(bulkGetDoc))
+        .build();
+
+BulkGetResult response =
+    service.postBulkGet(postBulkGetOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+### [Alternative example request for `atts_since`](./snippets/postBulkGet/alternative_example_request_for_atts_since.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.BulkGetQueryDocument;
+import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
+import com.ibm.cloud.cloudant.v1.model.PostBulkGetOptions;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+BulkGetQueryDocument bulkGetQueryDocument =
+    new BulkGetQueryDocument.Builder()
+        .id("order00058")
+        .addAttsSince("1-99b02e08da151943c2dcb40090160bb8")
+        .build();
+
+PostBulkGetOptions postBulkGetOptions =
+    new PostBulkGetOptions.Builder()
+        .db("orders")
+        .docs(Arrays.asList(bulkGetQueryDocument)).build();
+
+BulkGetResult response =
+    service.postBulkGet(postBulkGetOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postChanges
 
-### post `/{db}/_changes`
+_POST `/{db}/_changes`_
 
-- [Example request](./postChanges/example_request.java)
-- [Example request as a stream](./postChanges/example_request_as_a_stream.java)
+### [Example request](./snippets/postChanges/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ChangesResult;
+import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostChangesOptions changesOptions = new PostChangesOptions.Builder()
+    .db("orders")
+    .build();
+
+ChangesResult response =
+    service.postChanges(changesOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+### [Example request as a stream](./snippets/postChanges/example_request_as_a_stream.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ChangesResult;
+import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
+
+import java.io.InputStream;
+import java.io.File;
+import java.nio.file.StandardCopyOption;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostChangesOptions changesOptions = new PostChangesOptions.Builder()
+    .db("orders")
+    .build();
+
+File file = new File("result.json");
+
+try (InputStream response =
+        service.postChangesAsStream(changesOptions).execute()
+            .getResult()) {
+    java.nio.file.Files.copy(
+        response,
+        file.toPath(),
+        StandardCopyOption.REPLACE_EXISTING);
+}
+```
 
 ## deleteDesignDocument
 
-### delete `/{db}/_design/{ddoc}`
+_DELETE `/{db}/_design/{ddoc}`_
 
-- [Example request](./deleteDesignDocument/example_request.java)
+### [Example request](./snippets/deleteDesignDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DeleteDesignDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DeleteDesignDocumentOptions designDocumentOptions =
+    new DeleteDesignDocumentOptions.Builder()
+        .db("products")
+        .ddoc("appliances")
+        .rev("1-98e6a25b3b45df62e7d47095ac15b16a")
+        .build();
+
+DocumentResult response =
+    service.deleteDesignDocument(designDocumentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getDesignDocument
 
-### get `/{db}/_design/{ddoc}`
+_GET `/{db}/_design/{ddoc}`_
 
-- [Example request](./getDesignDocument/example_request.java)
+### [Example request](./snippets/getDesignDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DesignDocument;
+import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetDesignDocumentOptions designDocumentOptions = new GetDesignDocumentOptions.Builder()
+    .db("products")
+    .ddoc("appliances")
+    .latest(true)
+    .build();
+
+DesignDocument response =
+    service.getDesignDocument(designDocumentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## headDesignDocument
 
-### head `/{db}/_design/{ddoc}`
+_HEAD `/{db}/_design/{ddoc}`_
 
-- [Example request](./headDesignDocument/example_request.java)
+### [Example request](./snippets/headDesignDocument/example_request.java)
+
+```java
+import com.ibm.cloud.sdk.core.http.Headers;
+
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.HeadDesignDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+HeadDesignDocumentOptions designDocumentOptions =
+    new HeadDesignDocumentOptions.Builder()
+        .db("products")
+        .ddoc("appliances")
+        .build();
+
+int statusCode =
+    service.headDesignDocument(designDocumentOptions).execute()
+        .getStatusCode();
+
+Headers headers =
+    service.headDesignDocument(designDocumentOptions).execute()
+        .getHeaders();
+
+System.out.println(statusCode);
+System.out.println(headers.values("ETag"));
+```
 
 ## putDesignDocument
 
-### put `/{db}/_design/{ddoc}`
+_PUT `/{db}/_design/{ddoc}`_
 
-- [Example request](./putDesignDocument/example_request.java)
+### [Example request](./snippets/putDesignDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DesignDocument;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PutDesignDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.SearchIndexDefinition;
+
+import java.util.Collections;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DesignDocumentViewsMapReduce emailViewMapReduce =
+    new DesignDocumentViewsMapReduce.Builder()
+        .map("function(doc) { if(doc.email_verified  === true){\n  emit(doc.email, [doc.name, doc.email_verified, doc.joined]) }}")
+        .build();
+
+SearchIndexDefinition usersIndex =
+    new SearchIndexDefinition.Builder()
+        .index("function (doc) {\n  index(\"name\", doc.name);\n  index(\"active\", doc.active);\n}")
+        .build();
+
+DesignDocument designDocument = new DesignDocument();
+designDocument.setViews(
+    Collections.singletonMap("getVerifiedEmails", emailViewMapReduce));
+designDocument.setIndexes(
+    Collections.singletonMap("activeUsers", usersIndex));
+
+PutDesignDocumentOptions designDocumentOptions =
+    new PutDesignDocumentOptions.Builder()
+        .db("users")
+        .designDocument(designDocument)
+        .ddoc("allusers")
+        .build();
+
+DocumentResult response =
+    service.putDesignDocument(designDocumentOptions).execute()
+        .getResult();
+
+DesignDocumentViewsMapReduce applianceView =
+    new DesignDocumentViewsMapReduce.Builder()
+        .map("function(doc) { emit(doc.productid, [doc.brand, doc.name, doc.description]) }")
+        .build();
+
+SearchIndexDefinition priceIndex =
+    new SearchIndexDefinition.Builder()
+        .index("function (doc) {  index(\"price\", doc.price);}")
+        .build();
+
+DesignDocument partitionedDesignDocument = new DesignDocument();
+partitionedDesignDocument.setViews(
+    Collections.singletonMap("byApplianceProdId", applianceView));
+partitionedDesignDocument.setIndexes(
+    Collections.singletonMap("findByPrice", priceIndex));
+
+PutDesignDocumentOptions partitionedDesignDocumentOptions =
+    new PutDesignDocumentOptions.Builder()
+        .db("products")
+        .designDocument(partitionedDesignDocument)
+        .ddoc("appliances")
+        .build();
+
+DocumentResult response =
+    service.putDesignDocument(partitionedDesignDocumentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
 
 ## getDesignDocumentInformation
 
-### get `/{db}/_design/{ddoc}/_info`
+_GET `/{db}/_design/{ddoc}/_info`_
 
-- [Example request](./getDesignDocumentInformation/example_request.java)
+### [Example request](./snippets/getDesignDocumentInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformation;
+import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentInformationOptions;
+
+
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetDesignDocumentInformationOptions informationOptions =
+    new GetDesignDocumentInformationOptions.Builder()
+        .db("stores")
+        .ddoc("appliances")
+        .build();
+
+DesignDocumentInformation response =
+    service.getDesignDocumentInformation(informationOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postSearch
 
-### post `/{db}/_design/{ddoc}/_search/{index}`
+_POST `/{db}/_design/{ddoc}/_search/{index}`_
 
-- [Example request](./postSearch/example_request.java)
+### [Example request](./snippets/postSearch/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
+import com.ibm.cloud.cloudant.v1.model.SearchResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostSearchOptions searchOptions = new PostSearchOptions.Builder()
+    .db("users")
+    .ddoc("allusers")
+    .index("activeUsers")
+    .query("name:Jane* AND active:True")
+    .build();
+
+SearchResult response =
+    service.postSearch(searchOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `activeUsers` Cloudant Search index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 
 ## getSearchInfo
 
-### get `/{db}/_design/{ddoc}/_search_info/{index}`
+_GET `/{db}/_design/{ddoc}/_search_info/{index}`_
 
-- [Example request](./getSearchInfo/example_request.java)
+### [Example request](./snippets/getSearchInfo/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetSearchInfoOptions;
+import com.ibm.cloud.cloudant.v1.model.SearchInfoResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetSearchInfoOptions infoOptions =
+    new GetSearchInfoOptions.Builder()
+        .db("products")
+        .ddoc("appliances")
+        .index("findByPrice")
+        .build();
+
+SearchInfoResult response =
+    service.getSearchInfo(infoOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 
 ## postView
 
-### post `/{db}/_design/{ddoc}/_view/{view}`
+_POST `/{db}/_design/{ddoc}/_view/{view}`_
 
-- [Example request](./postView/example_request.java)
+### [Example request](./snippets/postView/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
+import com.ibm.cloud.cloudant.v1.model.ViewResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostViewOptions viewOptions = new PostViewOptions.Builder()
+    .db("users")
+    .ddoc("allusers")
+    .view("getVerifiedEmails")
+    .build();
+
+ViewResult response =
+    service.postView(viewOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `getVerifiedEmails` view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 
 ## postViewQueries
 
-### post `/{db}/_design/{ddoc}/_view/{view}/queries`
+_POST `/{db}/_design/{ddoc}/_view/{view}/queries`_
 
-- [Example request](./postViewQueries/example_request.java)
+### [Example request](./snippets/postViewQueries/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.PostViewQueriesOptions;
+import com.ibm.cloud.cloudant.v1.model.ViewQueriesResult;
+import com.ibm.cloud.cloudant.v1.model.ViewQuery;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+ViewQuery query1 = new ViewQuery.Builder()
+    .includeDocs(true)
+    .limit(5)
+    .build();
+
+ViewQuery query2 = new ViewQuery.Builder()
+    .descending(true)
+    .skip(1)
+    .build();
+
+PostViewQueriesOptions queriesOptions =
+    new PostViewQueriesOptions.Builder()
+        .db("users")
+        .ddoc("allusers")
+        .queries(Arrays.asList(query1, query2))
+        .view("getVerifiedEmails")
+        .build();
+
+ViewQueriesResult response =
+    service.postViewQueries(queriesOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `getVerifiedEmails` view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 
 ## postDesignDocs
 
-### post `/{db}/_design_docs`
+_POST `/{db}/_design_docs`_
 
-- [Example request](./postDesignDocs/example_request.java)
+### [Example request](./snippets/postDesignDocs/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
+import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostDesignDocsOptions docsOptions =
+    new PostDesignDocsOptions.Builder()
+        .attachments(true)
+        .db("users")
+        .build();
+
+AllDocsResult response =
+    service.postDesignDocs(docsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postDesignDocsQueries
 
-### post `/{db}/_design_docs/queries`
+_POST `/{db}/_design_docs/queries`_
 
-- [Example request](./postDesignDocsQueries/example_request.java)
+### [Example request](./snippets/postDesignDocsQueries/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.AllDocsQueriesResult;
+import com.ibm.cloud.cloudant.v1.model.AllDocsQuery;
+import com.ibm.cloud.cloudant.v1.model.PostDesignDocsQueriesOptions;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+AllDocsQuery query1 = new AllDocsQuery.Builder()
+    .descending(true)
+    .includeDocs(true)
+    .limit(10)
+    .build();
+AllDocsQuery query2 = new AllDocsQuery.Builder()
+    .inclusiveEnd(true)
+    .key("_design/allusers")
+    .skip(1)
+    .build();
+
+PostDesignDocsQueriesOptions queriesOptions =
+    new PostDesignDocsQueriesOptions.Builder()
+        .db("users")
+        .queries(Arrays.asList(query1, query2))
+        .build();
+
+AllDocsQueriesResult response =
+    service.postDesignDocsQueries(queriesOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postExplain
 
-### post `/{db}/_explain`
+_POST `/{db}/_explain`_
 
-- [Example request](./postExplain/example_request.java)
+### [Example request](./snippets/postExplain/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ExplainResult;
+import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
+import com.ibm.cloud.cloudant.v1.model.Selector;
+
+import java.util.HashMap;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Selector selector = new Selector();
+selector.put("type", new HashMap<>().put("$eq", "user"));
+
+PostExplainOptions explainOptions =
+    new PostExplainOptions.Builder()
+        .db("users")
+        .executionStats(true)
+        .limit(10)
+        .selector(selector)
+        .build();
+
+ExplainResult response =
+    service.postExplain(explainOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postFind
 
-### post `/{db}/_find`
+_POST `/{db}/_find`_
 
-- [Example request for "json" index type](./postFind/example_request_for_json_index_type.java)
-- [Example request for "text" index type](./postFind/example_request_for_text_index_type.java)
+### [Example request for "json" index type](./snippets/postFind/example_request_for_json_index_type.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.FindResult;
+import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Map<String, Object> selector = Collections.singletonMap(
+    "email_verified",
+    Collections.singletonMap("$eq", true));
+
+Map<String, String> fieldSort = Collections.singletonMap("email", "desc");
+
+PostFindOptions findOptions = new PostFindOptions.Builder()
+    .db("users")
+    .selector(selector)
+    .fields(Arrays.asList("_id", "type", "name", "email"))
+    .addSort(fieldSort)
+    .limit(3)
+    .build();
+
+FindResult response =
+    service.postFind(findOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `getUserByEmail` Cloudant Query "json" index to exist. To create the index, see [Create a new index on a database.](#postindex)
+
+### [Example request for "text" index type](./snippets/postFind/example_request_for_text_index_type.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.FindResult;
+import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Map<String, Object> selector = Collections.singletonMap(
+    "address",
+    Collections.singletonMap("$regex", "Street"));
+
+PostFindOptions findOptions = new PostFindOptions.Builder()
+    .db("users")
+    .selector(selector)
+    .fields(Arrays.asList("_id", "type", "name", "email", "address"))
+    .limit(3)
+    .build();
+
+FindResult response =
+    service.postFind(findOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `getUserByAddress` Cloudant Query "text" index to exist. To create the index, see [Create a new index on a database.](#postindex)
 
 ## getIndexesInformation
 
-### get `/{db}/_index`
+_GET `/{db}/_index`_
 
-- [Example request](./getIndexesInformation/example_request.java)
+### [Example request](./snippets/getIndexesInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetIndexesInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.IndexesInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetIndexesInformationOptions indexesInformationOptions =
+    new GetIndexesInformationOptions.Builder()
+        .db("users")
+        .build();
+
+IndexesInformation response =
+    service.getIndexesInformation(indexesInformationOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postIndex
 
-### post `/{db}/_index`
+_POST `/{db}/_index`_
 
-- [Example request using "json" type index](./postIndex/example_request_using_json_type_index.java)
-- [Example request using "text" type index](./postIndex/example_request_using_text_type_index.java)
+### [Example request using "json" type index](./snippets/postIndex/example_request_using_json_type_index.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
+import com.ibm.cloud.cloudant.v1.model.IndexField;
+import com.ibm.cloud.cloudant.v1.model.IndexResult;
+import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+// Type "json" index fields require an object that maps the name of a field to a sort direction.
+
+IndexField field = new IndexField.Builder()
+    .add("email", "asc")
+    .build();
+
+IndexDefinition indexDefinition = new IndexDefinition.Builder()
+    .addFields(field)
+    .build();
+
+PostIndexOptions indexOptions = new PostIndexOptions.Builder()
+    .db("users")
+    .ddoc("json-index")
+    .index(indexDefinition)
+    .name("getUserByEmail")
+    .type("json")
+    .build();
+
+IndexResult response =
+    service.postIndex(indexOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+### [Example request using "text" type index](./snippets/postIndex/example_request_using_text_type_index.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
+import com.ibm.cloud.cloudant.v1.model.IndexField;
+import com.ibm.cloud.cloudant.v1.model.IndexResult;
+import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+// Type "text" index fields require an object with a name and type properties for the field.
+IndexField field = new IndexField.Builder()
+    .add("name", "address")
+    .add("type", "string")
+    .build();
+
+IndexDefinition indexDefinition = new IndexDefinition.Builder()
+    .addFields(field)
+    .build();
+
+PostIndexOptions indexOptions = new PostIndexOptions.Builder()
+    .db("users")
+    .ddoc("text-index")
+    .index(indexDefinition)
+    .name("getUserByAddress")
+    .type("text")
+    .build();
+
+IndexResult response =
+    service.postIndex(indexOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## deleteIndex
 
-### delete `/{db}/_index/_design/{ddoc}/{type}/{index}`
+_DELETE `/{db}/_index/_design/{ddoc}/{type}/{index}`_
 
-- [Example request](./deleteIndex/example_request.java)
+### [Example request](./snippets/deleteIndex/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DeleteIndexOptions;
+import com.ibm.cloud.cloudant.v1.model.Ok;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DeleteIndexOptions indexOptions = new DeleteIndexOptions.Builder()
+    .db("users")
+    .ddoc("json-index")
+    .index("getUserByName")
+    .type("json")
+    .build();
+
+Ok response =
+    service.deleteIndex(indexOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example will fail if `getUserByName` index doesn't exist. To create the index, see [Create a new index on a database.](#postindex)
 
 ## deleteLocalDocument
 
-### delete `/{db}/_local/{doc_id}`
+_DELETE `/{db}/_local/{doc_id}`_
 
-- [Example request](./deleteLocalDocument/example_request.java)
+### [Example request](./snippets/deleteLocalDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DeleteLocalDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DeleteLocalDocumentOptions documentOptions =
+    new DeleteLocalDocumentOptions.Builder()
+        .db("orders")
+        .docId("local-0007741142412418284")
+        .build();
+
+DocumentResult response =
+    service.deleteLocalDocument(documentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getLocalDocument
 
-### get `/{db}/_local/{doc_id}`
+_GET `/{db}/_local/{doc_id}`_
 
-- [Example request](./getLocalDocument/example_request.java)
+### [Example request](./snippets/getLocalDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.GetLocalDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetLocalDocumentOptions documentOptions =
+    new GetLocalDocumentOptions.Builder()
+        .db("orders")
+        .docId("local-0007741142412418284")
+        .build();
+
+Document response =
+    service.getLocalDocument(documentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## putLocalDocument
 
-### put `/{db}/_local/{doc_id}`
+_PUT `/{db}/_local/{doc_id}`_
 
-- [Example request](./putLocalDocument/example_request.java)
+### [Example request](./snippets/putLocalDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PutLocalDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Document orderDocument = new Document();
+orderDocument.put("type", "order");
+orderDocument.put("user", "Bob Smith");
+orderDocument.put("orderid", "0007741142412418284");
+orderDocument.put("userid", "abc123");
+orderDocument.put("total", 214.98);
+orderDocument.put("deliveryAddress", "19 Front Street, Darlington, DL5 1TY");
+orderDocument.put("delivered", true);
+orderDocument.put("courier", "UPS");
+orderDocument.put("courierid", "15125425151261289");
+orderDocument.put("date", "2019-01-28T10:44:22.000Z");
+
+PutLocalDocumentOptions documentOptions =
+    new PutLocalDocumentOptions.Builder()
+        .db("orders")
+        .docId("local-0007741142412418284")
+        .document(orderDocument)
+        .build();
+
+DocumentResult response =
+    service.putLocalDocument(documentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postMissingRevs
 
-### post `/{db}/_missing_revs`
+_POST `/{db}/_missing_revs`_
 
-- [Example request](./postMissingRevs/example_request.java)
+### [Example request](./snippets/postMissingRevs/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DocumentRevisions;
+import com.ibm.cloud.cloudant.v1.model.MissingRevsResult;
+import com.ibm.cloud.cloudant.v1.model.PostMissingRevsOptions;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DocumentRevisions revs = new DocumentRevisions();
+revs.put(
+  "order00077",
+  Arrays.asList("<order00077-existing-revision>", "<2-missing-revision>")
+);
+
+PostMissingRevsOptions missingRevsOptions =
+    new PostMissingRevsOptions.Builder()
+        .db("orders")
+        .missingRevs(revs)
+        .build();
+
+MissingRevsResult response =
+    service.postMissingRevs(missingRevsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getPartitionInformation
 
-### get `/{db}/_partition/{partition_key}`
+_GET `/{db}/_partition/{partition_key}`_
 
-- [Example request](./getPartitionInformation/example_request.java)
+### [Example request](./snippets/getPartitionInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.model.GetPartitionInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetPartitionInformationOptions informationOptions =
+    new GetPartitionInformationOptions.Builder()
+        .db("products")
+        .partitionKey("small-appliances")
+        .build();
+
+PartitionInformation response =
+    service.getPartitionInformation(informationOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postPartitionAllDocs
 
-### post `/{db}/_partition/{partition_key}/_all_docs`
+_POST `/{db}/_partition/{partition_key}/_all_docs`_
 
-- [Example request](./postPartitionAllDocs/example_request.java)
+### [Example request](./snippets/postPartitionAllDocs/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostPartitionAllDocsOptions allDocsOptions =
+    new PostPartitionAllDocsOptions.Builder()
+        .db("products")
+        .partitionKey("small-appliances")
+        .includeDocs(true)
+        .build();
+
+AllDocsResult response =
+    service.postPartitionAllDocs(allDocsOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postPartitionSearch
 
-### post `/{db}/_partition/{partition_key}/_design/{ddoc}/_search/{index}`
+_POST `/{db}/_partition/{partition_key}/_design/{ddoc}/_search/{index}`_
 
-- [Example request](./postPartitionSearch/example_request.java)
+### [Example request](./snippets/postPartitionSearch/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
+import com.ibm.cloud.cloudant.v1.model.SearchResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostPartitionSearchOptions searchOptions =
+    new PostPartitionSearchOptions.Builder()
+        .db("products")
+        .partitionKey("small-appliances")
+        .ddoc("appliances")
+        .index("findByPrice")
+        .query("price:[14 TO 20]")
+        .build();
+
+SearchResult response =
+    service.postPartitionSearch(searchOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 
 ## postPartitionView
 
-### post `/{db}/_partition/{partition_key}/_design/{ddoc}/_view/{view}`
+_POST `/{db}/_partition/{partition_key}/_design/{ddoc}/_view/{view}`_
 
-- [Example request](./postPartitionView/example_request.java)
+### [Example request](./snippets/postPartitionView/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
+import com.ibm.cloud.cloudant.v1.model.ViewResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostPartitionViewOptions viewOptions =
+    new PostPartitionViewOptions.Builder()
+        .db("products")
+        .ddoc("appliances")
+        .includeDocs(true)
+        .limit(10)
+        .partitionKey("small-appliances")
+        .view("byApplianceProdId")
+        .build();
+
+ViewResult response =
+    service.postPartitionView(viewOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `byApplianceProdId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 
 ## postPartitionFind
 
-### post `/{db}/_partition/{partition_key}/_find`
+_POST `/{db}/_partition/{partition_key}/_find`_
 
-- [Example request](./postPartitionFind/example_request.java)
+### [Example request](./snippets/postPartitionFind/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.FindResult;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
+import com.ibm.cloud.cloudant.v1.model.Selector;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Map typeEqualsProduct = new HashMap<>();
+typeEqualsProduct.put("$eq", "product");
+
+Selector selector = new Selector();
+selector.put("type", typeEqualsProduct);
+
+PostPartitionFindOptions findOptions =
+    new PostPartitionFindOptions.Builder()
+        .db("products")
+        .partitionKey("small-appliances")
+        .fields(Arrays.asList("productid", "name", "description"))
+        .selector(selector)
+        .build();
+
+FindResult response =
+    service.postPartitionFind(findOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## postRevsDiff
 
-### post `/{db}/_revs_diff`
+_POST `/{db}/_revs_diff`_
 
-- [Example request](./postRevsDiff/example_request.java)
+### [Example request](./snippets/postRevsDiff/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DocumentRevisions;
+import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
+import com.ibm.cloud.cloudant.v1.model.RevsDiffResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DocumentRevisions revsDiff = new DocumentRevisions();
+revsDiff.put("order00077", Arrays.asList("<1-missing-revision>",
+  "<2-missing-revision>", "<3-possible-ancestor-revision>"));
+
+PostRevsDiffOptions revsDiffOptions =
+    new PostRevsDiffOptions.Builder()
+        .db("orders")
+        .revsDiffRequest(revsDiff)
+        .build();
+
+RevsDiffResult response =
+    service.postRevsDiff(revsDiffOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getSecurity
 
-### get `/{db}/_security`
+_GET `/{db}/_security`_
 
-- [Example request](./getSecurity/example_request.java)
+### [Example request](./snippets/getSecurity/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetSecurityOptions;
+import com.ibm.cloud.cloudant.v1.model.Security;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetSecurityOptions securityOptions =
+    new GetSecurityOptions.Builder()
+        .db("products")
+        .build();
+
+Security response =
+    service.getSecurity(securityOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## putSecurity
 
-### put `/{db}/_security`
+_PUT `/{db}/_security`_
 
-- [Example request](./putSecurity/example_request.java)
+### [Example request](./snippets/putSecurity/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Ok;
+import com.ibm.cloud.cloudant.v1.model.PutSecurityOptions;
+import com.ibm.cloud.cloudant.v1.model.SecurityObject;
+
+import java.util.Arrays;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+SecurityObject members = new SecurityObject.Builder()
+    .names(Arrays.asList("user1", "user2"))
+    .roles(Arrays.asList("developers"))
+    .build();
+
+PutSecurityOptions securityOptions =
+    new PutSecurityOptions.Builder()
+        .db("products")
+        .members(members)
+        .build();
+
+Ok response =
+    service.putSecurity(securityOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to read data from a database, but didn't identify itself, the task can continue only if the `nobody` user has the role `_reader`.
+
+If instead of using Cloudant's security model for managing permissions you opt to use the Apache CouchDB `_users` database (that is using legacy credentials _and_ the `couchdb_auth_only:true` option) then be aware that the user must already exist in `_users` database before adding permissions. For information on the `_users` database, see <a href="https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-work-with-your-account#using-the-users-database-with-cloudant-nosql-db" target="_blank">Using the `_users` database with Cloudant</a>.
 
 ## getShardsInformation
 
-### get `/{db}/_shards`
+_GET `/{db}/_shards`_
 
-- [Example request](./getShardsInformation/example_request.java)
+### [Example request](./snippets/getShardsInformation/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetShardsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.ShardsInformation;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetShardsInformationOptions shardsInformationOptions =
+    new GetShardsInformationOptions.Builder()
+        .db("products")
+        .build();
+
+ShardsInformation response =
+    service.getShardsInformation(shardsInformationOptions)
+        .execute().getResult();
+
+System.out.println(response);
+```
 
 ## getDocumentShardsInfo
 
-### get `/{db}/_shards/{doc_id}`
+_GET `/{db}/_shards/{doc_id}`_
 
-- [Example request](./getDocumentShardsInfo/example_request.java)
+### [Example request](./snippets/getDocumentShardsInfo/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DocumentShardInfo;
+import com.ibm.cloud.cloudant.v1.model.GetDocumentShardsInfoOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetDocumentShardsInfoOptions shardsInfoOptions =
+    new GetDocumentShardsInfoOptions.Builder()
+        .db("products")
+        .docId("small-appliances:1000042")
+        .build();
+
+DocumentShardInfo response =
+    service.getDocumentShardsInfo(shardsInfoOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## deleteDocument
 
-### delete `/{db}/{doc_id}`
+_DELETE `/{db}/{doc_id}`_
 
-- [Example request](./deleteDocument/example_request.java)
+### [Example request](./snippets/deleteDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DeleteDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DeleteDocumentOptions documentOptions =
+    new DeleteDocumentOptions.Builder()
+        .db("events")
+        .docId("0007241142412418284")
+        .rev("2-9a0d1cd9f40472509e9aac6461837367")
+        .build();
+
+DocumentResult response =
+    service.deleteDocument(documentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## getDocument
 
-### get `/{db}/{doc_id}`
+_GET `/{db}/{doc_id}`_
 
-- [Example request](./getDocument/example_request.java)
+### [Example request](./snippets/getDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetDocumentOptions documentOptions =
+    new GetDocumentOptions.Builder()
+        .db("products")
+        .docId("small-appliances:1000042")
+        .build();
+
+Document response =
+    service.getDocument(documentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## headDocument
 
-### head `/{db}/{doc_id}`
+_HEAD `/{db}/{doc_id}`_
 
-- [Example request](./headDocument/example_request.java)
+### [Example request](./snippets/headDocument/example_request.java)
+
+```java
+import com.ibm.cloud.sdk.core.http.Headers;
+
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+HeadDocumentOptions documentOptions =
+    new HeadDocumentOptions.Builder()
+        .db("events")
+        .docId("0007741142412418284")
+        .build();
+
+int statusCode =
+    service.headDocument(documentOptions).execute()
+        .getStatusCode();
+Headers headers =
+    service.headDocument(documentOptions).execute()
+        .getHeaders();
+
+System.out.println(statusCode);
+System.out.println(headers.values("ETag"));
+```
 
 ## putDocument
 
-### put `/{db}/{doc_id}`
+_PUT `/{db}/{doc_id}`_
 
-- [Example request](./putDocument/example_request.java)
+### [Example request](./snippets/putDocument/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PutDocumentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+Document eventDoc = new Document();
+eventDoc.put("type", "event");
+eventDoc.put("userid", "abc123");
+eventDoc.put("eventType", "addedToBasket");
+eventDoc.put("productId", "1000042");
+eventDoc.put("date", "2019-01-28T10:44:22.000Z");
+
+PutDocumentOptions documentOptions =
+    new PutDocumentOptions.Builder()
+        .db("events")
+        .docId("0007241142412418284")
+        .document(eventDoc)
+        .build();
+
+DocumentResult response =
+    service.putDocument(documentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
 
 ## deleteAttachment
 
-### delete `/{db}/{doc_id}/{attachment_name}`
+_DELETE `/{db}/{doc_id}/{attachment_name}`_
 
-- [Example request](./deleteAttachment/example_request.java)
+### [Example request](./snippets/deleteAttachment/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DeleteAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+DeleteAttachmentOptions attachmentOptions =
+    new DeleteAttachmentOptions.Builder()
+        .db("products")
+        .docId("small-appliances:100001")
+        .attachmentName("product_details.txt")
+        .rev("4-1a0d1cd6f40472509e9aac646183736a")
+        .build();
+
+DocumentResult response =
+    service.deleteAttachment(attachmentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 
 ## getAttachment
 
-### get `/{db}/{doc_id}/{attachment_name}`
+_GET `/{db}/{doc_id}/{attachment_name}`_
 
-- [Example request](./getAttachment/example_request.java)
+### [Example request](./snippets/getAttachment/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetAttachmentOptions;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+GetAttachmentOptions attachmentOptions =
+    new GetAttachmentOptions.Builder()
+        .db("products")
+        .docId("small-appliances:100001")
+        .attachmentName("product_details.txt")
+        .build();
+
+InputStream streamResult =
+    service.getAttachment(attachmentOptions).execute()
+        .getResult();
+
+String response =
+    new BufferedReader(new InputStreamReader(streamResult))
+        .lines().collect(Collectors.joining("\n"));
+
+System.out.println(response);
+```
+
+This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 
 ## headAttachment
 
-### head `/{db}/{doc_id}/{attachment_name}`
+_HEAD `/{db}/{doc_id}/{attachment_name}`_
 
-- [Example request](./headAttachment/example_request.java)
+### [Example request](./snippets/headAttachment/example_request.java)
+
+```java
+import com.ibm.cloud.sdk.core.http.Headers;
+
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.HeadAttachmentOptions;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+HeadAttachmentOptions attachmentOptions =
+    new HeadAttachmentOptions.Builder()
+        .db("products")
+        .docId("small-appliances:100001")
+        .attachmentName("product_details.txt")
+        .build();
+
+int statusCode =
+    service.headAttachment(attachmentOptions).execute()
+        .getStatusCode();
+
+Headers headers =
+    service.headAttachment(attachmentOptions).execute()
+        .getHeaders();
+
+System.out.println(statusCode);
+System.out.println(headers.values("Content-Length"));
+System.out.println(headers.values("Content-Type"));
+```
+
+This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 
 ## putAttachment
 
-### put `/{db}/{doc_id}/{attachment_name}`
+_PUT `/{db}/{doc_id}/{attachment_name}`_
 
-- [Example request](./putAttachment/example_request.java)
+### [Example request](./snippets/putAttachment/example_request.java)
+
+```java
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.DocumentResult;
+import com.ibm.cloud.cloudant.v1.model.PutAttachmentOptions;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+```
+```java
+Cloudant service = Cloudant.newInstance();
+
+String detailedDescription = "This appliance includes...";
+
+InputStream detailedDescriptionStream =
+    new ByteArrayInputStream(detailedDescription
+        .getBytes(StandardCharsets.UTF_8));
+
+PutAttachmentOptions attachmentOptions =
+    new PutAttachmentOptions.Builder()
+        .db("products")
+        .docId("small-appliances:100001")
+        .attachmentName("product_details.txt")
+        .attachment(detailedDescriptionStream)
+        .contentType("text/plain")
+        .build();
+
+DocumentResult response =
+    service.putAttachment(attachmentOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
