@@ -820,6 +820,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   public ServiceCall<DocumentResult> postDocument(PostDocumentOptions postDocumentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(postDocumentOptions,
       "postDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((postDocumentOptions.document() != null) || (postDocumentOptions.body() != null),
+      "One of [postDocumentOptions.document(), postDocumentOptions.body()] must be specified");
 
     if (postDocumentOptions.document() != null && postDocumentOptions.contentType() == null) {
       postDocumentOptions = postDocumentOptions.newBuilder().contentType("application/json").build();
@@ -1050,6 +1052,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   public ServiceCall<List<DocumentResult>> postBulkDocs(PostBulkDocsOptions postBulkDocsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(postBulkDocsOptions,
       "postBulkDocsOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((postBulkDocsOptions.bulkDocs() != null) || (postBulkDocsOptions.body() != null),
+      "One of [postBulkDocsOptions.bulkDocs(), postBulkDocsOptions.body()] must be specified");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("db", postBulkDocsOptions.db());
     RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_bulk_docs", pathParamsMap));
@@ -1502,6 +1506,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   public ServiceCall<DocumentResult> putDocument(PutDocumentOptions putDocumentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(putDocumentOptions,
       "putDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((putDocumentOptions.document() != null) || (putDocumentOptions.body() != null),
+      "One of [putDocumentOptions.document(), putDocumentOptions.body()] must be specified");
 
     if (putDocumentOptions.document() != null && putDocumentOptions.contentType() == null) {
       putDocumentOptions = putDocumentOptions.newBuilder().contentType("application/json").build();
@@ -4018,6 +4024,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   public ServiceCall<DocumentResult> putLocalDocument(PutLocalDocumentOptions putLocalDocumentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(putLocalDocumentOptions,
       "putLocalDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue((putLocalDocumentOptions.document() != null) || (putLocalDocumentOptions.body() != null),
+      "One of [putLocalDocumentOptions.document(), putLocalDocumentOptions.body()] must be specified");
 
     if (putLocalDocumentOptions.document() != null && putLocalDocumentOptions.contentType() == null) {
       putLocalDocumentOptions = putLocalDocumentOptions.newBuilder().contentType("application/json").build();
