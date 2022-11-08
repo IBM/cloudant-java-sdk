@@ -277,25 +277,27 @@ void applyCustomizations() {
 }
 
 void runTests() {
-  sh 'mvn test'
+  withCredentials([usernamePassword(credentialsId: 'artifactory', passwordVariable: 'ARTIFACTORY_APIKEY', usernameVariable: 'ARTIFACTORY_USER')]) {
+    sh 'mvn -P staging-and-test test --settings build/jenkins.settings.xml'
+  }
 }
 
 void publishStaging() {
   withCredentials([usernamePassword(credentialsId: 'artifactory', passwordVariable: 'ARTIFACTORY_APIKEY', usernameVariable: 'ARTIFACTORY_USER')]) {
-    publishMaven('-P artifactory')
+    publishMaven('-P staging-and-test')
   }
 }
 
 void publishPublic() {
   withCredentials([usernamePassword(credentialsId: 'ossrh', passwordVariable: 'OSSRH_PSW', usernameVariable: 'OSSRH_USR')]) {
-    publishMaven('-P central')
+    publishMaven('-P public')
   }
 }
 
 void publishMaven(mvnArgs='') {
   withCredentials([usernamePassword(credentialsId: 'signing-creds', passwordVariable: 'SIGNING_PSW', usernameVariable: 'SIGNING_USR'),
                    file(credentialsId: 'signing-key', variable: 'SIGNING_KEYFILE')]) {
-    sh "mvn deploy --settings build/publish.settings.xml -DskipTests ${mvnArgs}"
+    sh "mvn deploy --settings build/jenkins.settings.xml -DskipTests ${mvnArgs}"
   }
 }
 

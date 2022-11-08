@@ -45,6 +45,10 @@
 
         <!-- Set UTF-8 encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <na-artifactory-base-url>https://na.artifactory.swg-devops.com:443/artifactory/cloudant-sdks-maven</na-artifactory-base-url>
+        <na-artifactory-virtual-url>${na-artifactory-base-url}-virtual</na-artifactory-virtual-url>
+        <na-artifactory-local-url>${na-artifactory-base-url}-local</na-artifactory-local-url>
     </properties>
 
     <modules>
@@ -92,12 +96,28 @@
 
     <profiles>
         <profile>
-            <!-- "central" is used to deploy artifacts on maven central -->
-            <id>central</id>
-
-            <!-- For this profile, we'll get dependencies from maven central -->
-            <repositories></repositories>
-
+            <!-- "public" is used to deploy public artifacts on maven central -->
+            <id>public</id>
+            <!-- override central with artifactory -->
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>${na-artifactory-virtual-url}</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases><enabled>true</enabled></releases>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>${na-artifactory-virtual-url}</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
             <distributionManagement>
                 <snapshotRepository>
                     <!-- We don't deploy snapshot releases -->
@@ -108,7 +128,6 @@
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
-
             <build>
                 <plugins>
                     <!-- Disable default maven-deploy-plugin -->
@@ -134,12 +153,35 @@
                 </plugins>
             </build>
         </profile>
+        
+        <!-- use the artifactory repo to publish snapshots to -->
         <profile>
-            <id>artifactory</id>
+            <id>staging-and-test</id>
+            <!-- override central with artifactory -->
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>${na-artifactory-virtual-url}</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <releases><enabled>true</enabled></releases>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>${na-artifactory-virtual-url}</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+            <!-- publish to artifactory -->
             <distributionManagement>
                 <repository>
                     <id>na-artifactory</id>
-                    <url>https://na.artifactory.swg-devops.com:443/artifactory/cloudant-sdks-maven-local/</url>
+                    <url>${na-artifactory-local-url}</url>
                 </repository>
             </distributionManagement>
         </profile>
