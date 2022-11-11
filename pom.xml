@@ -92,12 +92,8 @@
 
     <profiles>
         <profile>
-            <!-- "central" is used to deploy artifacts on maven central -->
-            <id>central</id>
-
-            <!-- For this profile, we'll get dependencies from maven central -->
-            <repositories></repositories>
-
+            <!-- "public" is used to deploy public artifacts on maven central -->
+            <id>public</id>
             <distributionManagement>
                 <snapshotRepository>
                     <!-- We don't deploy snapshot releases -->
@@ -108,7 +104,6 @@
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
-
             <build>
                 <plugins>
                     <!-- Disable default maven-deploy-plugin -->
@@ -133,15 +128,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>artifactory</id>
-            <distributionManagement>
-                <repository>
-                    <id>na-artifactory</id>
-                    <url>https://na.artifactory.swg-devops.com:443/artifactory/cloudant-sdks-maven-local/</url>
-                </repository>
-            </distributionManagement>
         </profile>
         <profile>
             <id>signing</id>
