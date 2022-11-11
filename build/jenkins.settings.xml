@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <profiles>      
+        <!-- use the artifactory repo to publish snapshots to -->
+        <profile>
+            <id>staging</id>
+            <!-- publish to artifactory -->
+            <properties>
+                <altDeploymentRepository>artifactory::${env.ARTIFACTORY_URL_UP}/cloudant-sdks-maven-virtual</altDeploymentRepository>
+            </properties>
+        </profile>
+    </profiles>
+    <servers>
+        <server>
+            <id>ossrh</id>
+            <username>${env.OSSRH_USR}</username>
+            <password>${env.OSSRH_PSW}</password>
+        </server>
+        <server>
+            <id>artifactory</id>
+            <username>${env.ARTIFACTORY_CREDS_USR}</username>
+            <password>${env.ARTIFACTORY_CREDS_PSW}</password>
+        </server>
+    </servers>
+    <mirrors>
+        <mirror>
+          <id>artifactory</id>
+          <mirrorOf>*</mirrorOf>
+          <url>${env.ARTIFACTORY_URL_DOWN}/cloudant-sdks-maven-virtual</url>
+          <name>Artifactory</name>
+        </mirror>
+    </mirrors>
+</settings>
