@@ -36,12 +36,8 @@
         <maven-reports-plugin-version>3.4.2</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.0.0-M8</maven-failsafe-plugin-version>
         <maven-buildnumber-plugin-version>3.0.0</maven-buildnumber-plugin-version>
-        <powermock-version>2.0.9</powermock-version>
-        <mockito-version>3.2.4</mockito-version>
+        <mockito-version>4.11.0</mockito-version>
         <slf4j-version>2.0.6</slf4j-version>
-
-        <!-- Till https://github.com/powermock/powermock/issues/1094 -->
-        <surefire.options/>
 
         <!-- Set UTF-8 encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -168,16 +164,6 @@
                 <skip.unit.tests>${skipTests}</skip.unit.tests>
             </properties>
         </profile>
-        <!-- Till https://github.com/powermock/powermock/issues/1094 -->
-        <profile>
-            <id>java16+</id>
-            <activation>
-                <jdk>[16,)</jdk>
-            </activation>
-            <properties>
-                <surefire.options>--add-exports java.base/java.lang=ALL-UNNAMED --add-exports java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</surefire.options>
-            </properties>
-        </profile>
         <!-- Checkstyle 10+ requires Java 11+ -->
         <profile>
             <id>checkstyle-jdk11+</id>
@@ -244,16 +230,16 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito2</artifactId>
-                <version>${powermock-version}</version>
-                <scope>test</scope>
+              <groupId>org.mockito</groupId>
+              <artifactId>mockito-core</artifactId>
+              <version>${mockito-version}</version>
+              <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-module-testng</artifactId>
-                <version>${powermock-version}</version>
-                <scope>test</scope>
+              <groupId>org.mockito</groupId>
+              <artifactId>mockito-inline</artifactId>
+              <version>${mockito-version}</version>
+              <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -470,8 +456,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-version}</version>
                 <configuration>
-                    <!-- Till https://github.com/powermock/powermock/issues/1094 -->
-                    <argLine>${surefire.options}</argLine>
                     <skipTests>${skip.unit.tests}</skipTests>
                 </configuration>
             </plugin>
