@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020. All Rights Reserved.
+ * (C) Copyright IBM Corp. 2020.  All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,22 +15,14 @@ package com.ibm.cloud.cloudant;
 
 import java.io.File;
 
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.testng.PowerMockTestCase;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import com.ibm.cloud.sdk.core.util.EnvironmentUtils;
-
 /**
  * This class provides common functionality used by integration tests.
  */
-@PrepareForTest({ EnvironmentUtils.class })
-@PowerMockIgnore({"javax.net.ssl.*", "okhttp3.*"})
-public abstract class SdkIntegrationTestBase extends PowerMockTestCase {
+public abstract class SdkIntegrationTestBase {
 
     // Default behavior is to skip tests, unless we have a valid config file.
     protected boolean skipTests = true;
@@ -65,19 +57,19 @@ public abstract class SdkIntegrationTestBase extends PowerMockTestCase {
      */
     @BeforeClass
     public void setUpConfig() throws Exception, InterruptedException {
-        // Allow the java core to "see" the config file if/when the testcase asks the core to load it.
-        PowerMockito.spy(EnvironmentUtils.class);
-        PowerMockito.when(EnvironmentUtils.getenv("IBM_CREDENTIALS_FILE")).thenReturn(getConfigFilename());
-
-        // Next, determine if the tests within the subclass should be skipped,
+        // Determine if the tests within the subclass should be skipped,
         // based on whether or not the config file exists.
         configFile = new File(getConfigFilename());
         if (!configFile.exists()) {
             skipTests = true;
             System.out.println(
-                    String.format(">>> Configuration file %s not found, skipping tests.", configFile.getCanonicalPath()));
+                    String.format(">>> Configuration file %s not found, skipping tests.",
+                            configFile.getCanonicalPath()));
         } else {
             skipTests = false;
+
+            // Set the system property to point to the config file.
+            System.setProperty("IBM_CREDENTIALS_FILE", getConfigFilename());
         }
     }
 
