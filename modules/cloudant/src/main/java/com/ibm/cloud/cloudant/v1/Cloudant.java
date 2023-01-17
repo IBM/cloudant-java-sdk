@@ -209,6 +209,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * includes a JSON structure that contains information about the server, including a welcome message and the server's
    * version.
    *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
    * @param getServerInformationOptions the {@link GetServerInformationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ServerInformation}
    */
@@ -230,6 +232,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * When you access the root of an instance, IBM Cloudant returns meta-information about the instance. The response
    * includes a JSON structure that contains information about the server, including a welcome message and the server's
    * version.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
    *
    * @return a {@link ServiceCall} with a result of type {@link ServerInformation}
    */
@@ -278,6 +282,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The response is a JSON object that
    * provides a list of UUIDs.
    *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
    * @param getUuidsOptions the {@link GetUuidsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link UuidsResult}
    */
@@ -304,6 +310,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The response is a JSON object that
    * provides a list of UUIDs.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
    *
    * @return a {@link ServiceCall} with a result of type {@link UuidsResult}
    */
@@ -4199,6 +4207,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
    * `nolb`, the endpoint returns a 404 response.
    *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
    * @param getUpInformationOptions the {@link GetUpInformationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link UpInformation}
    */
@@ -4219,6 +4229,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
    * `nolb`, the endpoint returns a 404 response.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
    *
    * @return a {@link ServiceCall} with a result of type {@link UpInformation}
    */
