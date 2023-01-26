@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.cloud.cloudant;
+package com.ibm.cloud.test;
 
 import java.io.File;
 
