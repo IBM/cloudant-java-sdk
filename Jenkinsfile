@@ -276,7 +276,7 @@ void applyCustomizations() {
 }
 
 void runTests() {
-  sh 'mvn test --settings build/jenkins.settings.xml'
+  sh 'mvn verify --settings build/jenkins.settings.xml'
 }
 
 void publishStaging() {
