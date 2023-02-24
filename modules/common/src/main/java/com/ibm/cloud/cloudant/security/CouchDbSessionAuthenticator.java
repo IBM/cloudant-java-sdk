@@ -55,7 +55,7 @@ public class CouchDbSessionAuthenticator
     private HttpUrl sessionUrl = null;
     private HttpConfigOptions options = null;
     private Headers headers = null;
-    private OkHttpClient client = null;
+    private OkHttpClient sessionAuthClient = null;
 
     /**
      * Get a new Authenticator instance for the supplied service URL and credentials that provides
@@ -168,15 +168,15 @@ public class CouchDbSessionAuthenticator
 
         try {
             // Build the client if we need to
-            if (client == null) {
-                client = HttpClientSingleton
+            if (sessionAuthClient == null) {
+                sessionAuthClient = HttpClientSingleton
                         .getInstance()
                         .configureClient(options)
                         .newBuilder()
                         .cookieJar(cookieJar)
                         .build();
             }
-            try (Response response = client.newCall(postSessionbuilder.build()).execute()) {
+            try (Response response = sessionAuthClient.newCall(postSessionbuilder.build()).execute()) {
                 if (response.isSuccessful()) {
                     List<Cookie> cookies = Cookie.parseAll(sessionUrl, response.headers());
                     for (Cookie cookie : cookies) {

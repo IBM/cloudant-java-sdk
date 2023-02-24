@@ -162,7 +162,7 @@ public class SdkTimeoutTest {
             assertEquals(TimeUnit.MILLISECONDS.toSeconds(testRequestCall.getClient().readTimeoutMillis()), testCases[i]);
 
             CouchDbSessionAuthenticator auth = (CouchDbSessionAuthenticator) myService.getAuthenticator();
-            Field clientField = auth.getClass().getDeclaredField("client");
+            Field clientField = auth.getClass().getDeclaredField("sessionAuthClient");
             clientField.setAccessible(true);
             OkHttpClient c = (OkHttpClient) clientField.get(auth);
             assertEquals(TimeUnit.MILLISECONDS.toSeconds(c.readTimeoutMillis()), authenticationTimeoutValue);
