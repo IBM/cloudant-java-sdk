@@ -2443,9 +2443,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (postPartitionViewOptions.reduce() != null) {
       contentJson.addProperty("reduce", postPartitionViewOptions.reduce());
     }
-    if (postPartitionViewOptions.stable() != null) {
-      contentJson.addProperty("stable", postPartitionViewOptions.stable());
-    }
     if (postPartitionViewOptions.startKey() != null) {
       contentJson.add("start_key", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionViewOptions.startKey()));
     }
@@ -2534,9 +2531,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     if (postPartitionViewOptions.reduce() != null) {
       contentJson.addProperty("reduce", postPartitionViewOptions.reduce());
-    }
-    if (postPartitionViewOptions.stable() != null) {
-      contentJson.addProperty("stable", postPartitionViewOptions.stable());
     }
     if (postPartitionViewOptions.startKey() != null) {
       contentJson.add("start_key", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionViewOptions.startKey()));

@@ -58,7 +58,6 @@ public class PostPartitionViewOptions extends GenericModel {
   protected Object key;
   protected List<Object> keys;
   protected Boolean reduce;
-  protected Boolean stable;
   protected Object startKey;
   protected String startKeyDocId;
   protected String update;
@@ -87,7 +86,6 @@ public class PostPartitionViewOptions extends GenericModel {
     private Object key;
     private List<Object> keys;
     private Boolean reduce;
-    private Boolean stable;
     private Object startKey;
     private String startKeyDocId;
     private String update;
@@ -118,7 +116,6 @@ public class PostPartitionViewOptions extends GenericModel {
       this.key = postPartitionViewOptions.key;
       this.keys = postPartitionViewOptions.keys;
       this.reduce = postPartitionViewOptions.reduce;
-      this.stable = postPartitionViewOptions.stable;
       this.startKey = postPartitionViewOptions.startKey;
       this.startKeyDocId = postPartitionViewOptions.startKeyDocId;
       this.update = postPartitionViewOptions.update;
@@ -392,17 +389,6 @@ public class PostPartitionViewOptions extends GenericModel {
     }
 
     /**
-     * Set the stable.
-     *
-     * @param stable the stable
-     * @return the PostPartitionViewOptions builder
-     */
-    public Builder stable(Boolean stable) {
-      this.stable = stable;
-      return this;
-    }
-
-    /**
      * Set the startKey.
      *
      * @param startKey the startKey
@@ -467,7 +453,6 @@ public class PostPartitionViewOptions extends GenericModel {
     key = builder.key;
     keys = builder.keys;
     reduce = builder.reduce;
-    stable = builder.stable;
     startKey = builder.startKey;
     startKeyDocId = builder.startKeyDocId;
     update = builder.update;
@@ -710,22 +695,6 @@ public class PostPartitionViewOptions extends GenericModel {
    */
   public Boolean reduce() {
     return reduce;
-  }
-
-  /**
-   * Gets the stable.
-   *
-   * Query parameter to specify whether use the same replica of  the index on each request. The default value `false`
-   * contacts all  replicas and returns the result from the first, fastest, responder. Setting it to `true` when used in
-   * conjunction with `update=false`  may improve consistency at the expense of increased latency and decreased
-   * throughput if the selected replica is not the fastest of the available  replicas.
-   *
-   * **Note:** In general setting `true` is discouraged and is strictly not recommended when using `update=true`.
-   *
-   * @return the stable
-   */
-  public Boolean stable() {
-    return stable;
   }
 
   /**

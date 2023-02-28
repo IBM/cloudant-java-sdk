@@ -3405,7 +3405,6 @@ public class CloudantTest {
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
       .reduce(true)
-      .stable(false)
       .startKey("testString")
       .startKeyDocId("testString")
       .update("true")
@@ -3479,7 +3478,6 @@ public class CloudantTest {
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
       .reduce(true)
-      .stable(false)
       .startKey("testString")
       .startKeyDocId("testString")
       .update("true")
@@ -5976,7 +5974,7 @@ public class CloudantTest {
   @Test
   public void testGetActiveTasksWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "[{\"changes_done\": 0, \"database\": \"database\", \"node\": \"node\", \"pid\": \"pid\", \"progress\": 0, \"started_on\": 0, \"status\": \"status\", \"task\": \"task\", \"total_changes\": 0, \"type\": \"type\", \"updated_on\": 0}]";
+    String mockResponseBody = "[{\"bulk_get_attempts\": 0, \"bulk_get_docs\": 0, \"changes_done\": 0, \"changes_pending\": 0, \"checkpoint_interval\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"continuous\": false, \"database\": \"database\", \"design_document\": \"designDocument\", \"doc_id\": \"docId\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"index\": \"index\", \"indexer_pid\": \"indexerPid\", \"missing_revisions_found\": 0, \"node\": \"node\", \"phase\": \"docid_sort\", \"pid\": \"pid\", \"process_status\": \"exiting\", \"progress\": 0, \"replication_id\": \"replicationId\", \"retry\": false, \"revisions_checked\": 0, \"source\": \"source\", \"source_seq\": \"sourceSeq\", \"started_on\": 0, \"target\": \"target\", \"through_seq\": \"throughSeq\", \"total_changes\": 0, \"type\": \"database_compaction\", \"updated_on\": 0, \"user\": \"user\", \"view\": 0}]";
     String getActiveTasksPath = "/_active_tasks";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
