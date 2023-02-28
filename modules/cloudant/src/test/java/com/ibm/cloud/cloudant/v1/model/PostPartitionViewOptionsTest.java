@@ -52,7 +52,6 @@ public class PostPartitionViewOptionsTest {
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
       .reduce(true)
-      .stable(false)
       .startKey("testString")
       .startKeyDocId("testString")
       .update("true")
@@ -77,7 +76,6 @@ public class PostPartitionViewOptionsTest {
     assertEquals(postPartitionViewOptionsModel.key(), "testString");
     assertEquals(postPartitionViewOptionsModel.keys(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionViewOptionsModel.reduce(), Boolean.valueOf(true));
-    assertEquals(postPartitionViewOptionsModel.stable(), Boolean.valueOf(false));
     assertEquals(postPartitionViewOptionsModel.startKey(), "testString");
     assertEquals(postPartitionViewOptionsModel.startKeyDocId(), "testString");
     assertEquals(postPartitionViewOptionsModel.update(), "true");

@@ -32,16 +32,39 @@ public class ActiveTaskTest {
   @Test
   public void testActiveTask() throws Throwable {
     ActiveTask activeTaskModel = new ActiveTask();
+    assertNull(activeTaskModel.getBulkGetAttempts());
+    assertNull(activeTaskModel.getBulkGetDocs());
     assertNull(activeTaskModel.getChangesDone());
+    assertNull(activeTaskModel.getChangesPending());
+    assertNull(activeTaskModel.getCheckpointInterval());
+    assertNull(activeTaskModel.getCheckpointedSourceSeq());
+    assertNull(activeTaskModel.isContinuous());
     assertNull(activeTaskModel.getDatabase());
+    assertNull(activeTaskModel.getDesignDocument());
+    assertNull(activeTaskModel.getDocId());
+    assertNull(activeTaskModel.getDocWriteFailures());
+    assertNull(activeTaskModel.getDocsRead());
+    assertNull(activeTaskModel.getDocsWritten());
+    assertNull(activeTaskModel.getIndex());
+    assertNull(activeTaskModel.getIndexerPid());
+    assertNull(activeTaskModel.getMissingRevisionsFound());
     assertNull(activeTaskModel.getNode());
+    assertNull(activeTaskModel.getPhase());
     assertNull(activeTaskModel.getPid());
+    assertNull(activeTaskModel.getProcessStatus());
     assertNull(activeTaskModel.getProgress());
+    assertNull(activeTaskModel.getReplicationId());
+    assertNull(activeTaskModel.isRetry());
+    assertNull(activeTaskModel.getRevisionsChecked());
+    assertNull(activeTaskModel.getSource());
+    assertNull(activeTaskModel.getSourceSeq());
     assertNull(activeTaskModel.getStartedOn());
-    assertNull(activeTaskModel.getStatus());
-    assertNull(activeTaskModel.getTask());
+    assertNull(activeTaskModel.getTarget());
+    assertNull(activeTaskModel.getThroughSeq());
     assertNull(activeTaskModel.getTotalChanges());
     assertNull(activeTaskModel.getType());
     assertNull(activeTaskModel.getUpdatedOn());
+    assertNull(activeTaskModel.getUser());
+    assertNull(activeTaskModel.getView());
   }
 }
