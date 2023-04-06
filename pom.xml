@@ -26,7 +26,7 @@
         <maven-deploy-plugin-version>3.1.1</maven-deploy-plugin-version>
         <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
         <nexus-staging-plugin-version>1.6.13</nexus-staging-plugin-version>
-        <pgp-maven-plugin-version>1.1</pgp-maven-plugin-version>
+        <maven-jarsigner-plugin-version>3.0.0</maven-jarsigner-plugin-version>
         <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
         <maven-jar-plugin-version>3.3.0</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>3.5.0</maven-javadoc-plugin-version>
@@ -130,14 +130,14 @@
             <!-- configure for signing artifacts when the SIGNING_KEYFILE env var is set -->
             <activation>
                 <property>
-                    <name>env.SIGNING_KEYFILE</name>
+                    <name>env.CODE_SIGNING_PFX_FILE</name>
                 </property>
             </activation>
             <build>
                 <plugins>
                   <plugin>
-                      <groupId>org.kohsuke</groupId>
-                      <artifactId>pgp-maven-plugin</artifactId>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-jarsigner-plugin</artifactId>
                       <executions>
                           <execution>
                               <goals>
@@ -146,8 +146,13 @@
                           </execution>
                       </executions>
                       <configuration>
-                          <secretkey>keyfile:${env.SIGNING_KEYFILE}</secretkey>
-                          <passphrase>literal:${env.SIGNING_PSW}</passphrase>
+                          <tsa>http://timestamp.digicert.com</tsa>
+                          <storetype>PKCS11</storetype>
+                          <keystore>NONE</keystore>
+                          <storepass>null</storepass>
+                          <providerClass>sun.security.pkcs11.SunPKCS11</providerClass>
+                          <providerArg>/home/jenkins/garasignconfig.txt</providerArg>
+                          <alias>PRD0002797key</alias>
                       </configuration>
                     </plugin>
                 </plugins>
@@ -258,9 +263,9 @@
                     <version>${nexus-staging-plugin-version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.kohsuke</groupId>
-                    <artifactId>pgp-maven-plugin</artifactId>
-                    <version>${pgp-maven-plugin-version}</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jarsigner-plugin</artifactId>
+                    <version>${maven-jarsigner-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
