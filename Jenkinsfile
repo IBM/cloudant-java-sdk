@@ -328,11 +328,11 @@ void publishMaven(mvnArgs='') {
         GrsGPGLoader
 
         # Place config in an expected location
-        cat << EOF > /home/jenkins/garasignconfig.txt
-name = GaraSign
-library = /usr/local/lib/Garantir/GRS/libgrsp11.so
-slotListIndex = 0
-EOF
+        cat <<- EOF > /home/jenkins/garasignconfig.txt
+          name = GaraSign
+          library = /usr/local/lib/Garantir/GRS/libgrsp11.so
+          slotListIndex = 0
+        EOF
       '''
       sh "mvn deploy --settings build/jenkins.settings.xml -DskipTests ${mvnArgs}"
     }
