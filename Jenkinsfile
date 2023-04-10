@@ -317,9 +317,26 @@ void publishPublic() {
 }
 
 void publishMaven(mvnArgs='') {
-  withCredentials([usernamePassword(credentialsId: 'signing-creds', passwordVariable: 'SIGNING_PSW', usernameVariable: 'SIGNING_USR'),
-                   file(credentialsId: 'signing-key', variable: 'SIGNING_KEYFILE')]) {
-    sh "mvn deploy --settings build/jenkins.settings.xml -DskipTests ${mvnArgs}"
+  container('signing') {
+    withCredentials([certificate(credentialsId: 'cldtsdks-ciso-signing', keystoreVariable: 'CODE_SIGNING_PFX_FILE', passwordVariable: 'CODE_SIGNING_P12_PASSWORD')]) {
+      sh '''
+        #!/bin/bash -e
+        # Configure the client
+        setup-garasign-client
+
+        # Load GPG key from the server
+        GrsGPGLoader
+
+        # Place config in an expected location
+        # warning: don't change EOF indentation!
+        awk '$1=$1' << EOF > /home/jenkins/garasignconfig.txt
+          name = GaraSign
+          library = /usr/local/lib/Garantir/GRS/libgrsp11.so
+          slotListIndex = 0
+EOF
+      '''
+      sh "mvn deploy --settings build/jenkins.settings.xml -DskipTests ${mvnArgs}"
+    }
   }
 }
 
