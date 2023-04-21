@@ -26,7 +26,7 @@
         <maven-deploy-plugin-version>3.1.1</maven-deploy-plugin-version>
         <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
         <nexus-staging-plugin-version>1.6.13</nexus-staging-plugin-version>
-        <maven-jarsigner-plugin-version>3.0.0</maven-jarsigner-plugin-version>
+        <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
         <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
         <maven-jar-plugin-version>3.3.0</maven-jar-plugin-version>
         <maven-javadoc-plugin-version>3.5.0</maven-javadoc-plugin-version>
@@ -137,7 +137,7 @@
                 <plugins>
                   <plugin>
                       <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-jarsigner-plugin</artifactId>
+                      <artifactId>maven-gpg-plugin</artifactId>
                       <executions>
                           <execution>
                               <goals>
@@ -146,13 +146,9 @@
                           </execution>
                       </executions>
                       <configuration>
-                          <tsa>http://timestamp.digicert.com</tsa>
-                          <storetype>PKCS11</storetype>
-                          <keystore>NONE</keystore>
-                          <storepass>null</storepass>
-                          <providerClass>sun.security.pkcs11.SunPKCS11</providerClass>
-                          <providerArg>/home/jenkins/garasignconfig.txt</providerArg>
-                          <alias>PRD0002797key</alias>
+                          <homedir>/home/jenkins/.gnupggrs</homedir>
+                          <keyname>${env.SIGNING_KEYID}</keyname>
+                          <useAgent>true</useAgent>
                       </configuration>
                     </plugin>
                 </plugins>
@@ -264,8 +260,8 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jarsigner-plugin</artifactId>
-                    <version>${maven-jarsigner-plugin-version}</version>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

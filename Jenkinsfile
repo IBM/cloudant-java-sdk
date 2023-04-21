@@ -324,16 +324,12 @@ void publishMaven(mvnArgs='') {
         # Configure the client
         setup-garasign-client
 
+        sudo /opt/Garantir/bin/grsgpgconfig.sh
+
         # Load GPG key from the server
         GrsGPGLoader
 
-        # Place config in an expected location
-        # warning: don't change EOF indentation!
-        awk '$1=$1' << EOF > /home/jenkins/garasignconfig.txt
-          name = GaraSign
-          library = /usr/local/lib/Garantir/GRS/libgrsp11.so
-          slotListIndex = 0
-EOF
+        export SIGNING_KEYID=$(grep 'Key ID' $HOME/.gnupggrs/keysinfo.txt | awk 'NR==1{print $5}')
       '''
       sh "mvn deploy --settings build/jenkins.settings.xml -DskipTests ${mvnArgs}"
     }
