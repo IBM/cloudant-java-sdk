@@ -31,6 +31,8 @@ public class DesignDocumentViewIndex extends GenericModel {
   protected ContentInformationSizes sizes;
   @SerializedName("updater_running")
   protected Boolean updaterRunning;
+  @SerializedName("updates_pending")
+  protected UpdatesPending updatesPending;
   @SerializedName("waiting_clients")
   protected Long waitingClients;
   @SerializedName("waiting_commit")
@@ -103,6 +105,17 @@ public class DesignDocumentViewIndex extends GenericModel {
    */
   public Boolean isUpdaterRunning() {
     return updaterRunning;
+  }
+
+  /**
+   * Gets the updatesPending.
+   *
+   * Schema for an ability to tell if view is up-to-date without querying it.
+   *
+   * @return the updatesPending
+   */
+  public UpdatesPending getUpdatesPending() {
+    return updatesPending;
   }
 
   /**
