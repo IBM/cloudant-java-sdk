@@ -178,6 +178,7 @@ import com.ibm.cloud.cloudant.v1.model.SessionInformation;
 import com.ibm.cloud.cloudant.v1.model.ShardsInformation;
 import com.ibm.cloud.cloudant.v1.model.ThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.UpInformation;
+import com.ibm.cloud.cloudant.v1.model.UpdatesPending;
 import com.ibm.cloud.cloudant.v1.model.UserContext;
 import com.ibm.cloud.cloudant.v1.model.UuidsResult;
 import com.ibm.cloud.cloudant.v1.model.ViewQueriesResult;

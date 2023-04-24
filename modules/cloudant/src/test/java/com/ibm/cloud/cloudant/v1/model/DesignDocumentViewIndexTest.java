@@ -15,6 +15,7 @@ package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
+import com.ibm.cloud.cloudant.v1.model.UpdatesPending;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -39,6 +40,7 @@ public class DesignDocumentViewIndexTest {
     assertNull(designDocumentViewIndexModel.getSignature());
     assertNull(designDocumentViewIndexModel.getSizes());
     assertNull(designDocumentViewIndexModel.isUpdaterRunning());
+    assertNull(designDocumentViewIndexModel.getUpdatesPending());
     assertNull(designDocumentViewIndexModel.getWaitingClients());
     assertNull(designDocumentViewIndexModel.isWaitingCommit());
   }

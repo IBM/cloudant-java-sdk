@@ -13,9 +13,6 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
-import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformation;
-import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
 import com.ibm.cloud.cloudant.v1.model.UpdatesPending;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -26,16 +23,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DesignDocumentInformation model.
+ * Unit test class for the UpdatesPending model.
  */
-public class DesignDocumentInformationTest {
+public class UpdatesPendingTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDesignDocumentInformation() throws Throwable {
-    DesignDocumentInformation designDocumentInformationModel = new DesignDocumentInformation();
-    assertNull(designDocumentInformationModel.getName());
-    assertNull(designDocumentInformationModel.getViewIndex());
+  public void testUpdatesPending() throws Throwable {
+    UpdatesPending updatesPendingModel = new UpdatesPending();
+    assertNull(updatesPendingModel.getMinimum());
+    assertNull(updatesPendingModel.getPreferred());
+    assertNull(updatesPendingModel.getTotal());
   }
 }

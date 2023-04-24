@@ -178,6 +178,7 @@ import com.ibm.cloud.cloudant.v1.model.SessionInformation;
 import com.ibm.cloud.cloudant.v1.model.ShardsInformation;
 import com.ibm.cloud.cloudant.v1.model.ThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.UpInformation;
+import com.ibm.cloud.cloudant.v1.model.UpdatesPending;
 import com.ibm.cloud.cloudant.v1.model.UserContext;
 import com.ibm.cloud.cloudant.v1.model.UuidsResult;
 import com.ibm.cloud.cloudant.v1.model.ViewQueriesResult;
@@ -2553,7 +2554,7 @@ public class CloudantTest {
   @Test
   public void testGetDesignDocumentInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"updater_running\": true, \"waiting_clients\": 0, \"waiting_commit\": false}}";
+    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"updater_running\": true, \"updates_pending\": {\"minimum\": 7, \"preferred\": 9, \"total\": 5}, \"waiting_clients\": 0, \"waiting_commit\": false}}";
     String getDesignDocumentInformationPath = "/testString/_design/testString/_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
