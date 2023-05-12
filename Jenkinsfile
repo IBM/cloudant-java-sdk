@@ -317,22 +317,15 @@ void publishPublic() {
 }
 
 void publishMaven(mvnArgs='') {
-  container('signing') {
-    withCredentials([certificate(credentialsId: 'cldtsdks-ciso-signing', keystoreVariable: 'CODE_SIGNING_PFX_FILE', passwordVariable: 'CODE_SIGNING_P12_PASSWORD')]) {
-      sh '''
-        #!/bin/bash -e
-        # Configure the client
-        setup-garasign-client
+  withCredentials([certificate(credentialsId: 'cldtsdks-signing-cert', keystoreVariable: 'CODE_SIGNING_PFX_FILE', passwordVariable: 'CODE_SIGNING_P12_PASSWORD')]) {
+    sh '''
+      #!/bin/bash -e
+      # Configure the client
+      setup-garasign-client
 
-        sudo /opt/Garantir/bin/grsgpgconfig.sh
-
-        # Load GPG key from the server
-        GrsGPGLoader
-
-        export SIGNING_KEYID=$(grep 'Key ID' $HOME/.gnupggrs/keysinfo.txt | awk 'NR==1{print $5}')
-      '''
-      sh "mvn deploy --settings build/jenkins.settings.xml -DskipTests ${mvnArgs}"
-    }
+      export SIGNING_KEYID=$(grep 'Key ID' $HOME/.gnupggrs/keysinfo.txt | awk 'NR==1{print $5}')
+    '''
+    sh "mvn deploy --settings build/jenkins.settings.xml -DskipTests ${mvnArgs}"
   }
 }
 
