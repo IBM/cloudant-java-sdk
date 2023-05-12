@@ -146,6 +146,7 @@
                           </execution>
                       </executions>
                       <configuration>
+                          <executable>/opt/Garantir/bin/gpg</executable>
                           <homedir>/home/jenkins/.gnupggrs</homedir>
                           <keyname>${env.SIGNING_KEYID}</keyname>
                           <useAgent>true</useAgent>
