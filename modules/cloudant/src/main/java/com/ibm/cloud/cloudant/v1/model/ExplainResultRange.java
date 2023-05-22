@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * range.
+ * Range parameters passed to the underlying view.
  */
 public class ExplainResultRange extends GenericModel {
 
@@ -32,7 +32,7 @@ public class ExplainResultRange extends GenericModel {
   /**
    * Gets the endKey.
    *
-   * end_key.
+   * End key parameter passed to the underlying view.
    *
    * @return the endKey
    */
@@ -43,7 +43,7 @@ public class ExplainResultRange extends GenericModel {
   /**
    * Gets the startKey.
    *
-   * start_key.
+   * Start key parameter passed to the underlying view.
    *
    * @return the startKey
    */
