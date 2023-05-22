@@ -38,6 +38,7 @@ public class ExplainResultTest {
   @Test
   public void testExplainResult() throws Throwable {
     ExplainResult explainResultModel = new ExplainResult();
+    assertNull(explainResultModel.isCovered());
     assertNull(explainResultModel.getDbname());
     assertNull(explainResultModel.getFields());
     assertNull(explainResultModel.getIndex());

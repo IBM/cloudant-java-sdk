@@ -3659,7 +3659,7 @@ public class CloudantTest {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"anyKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
+    String mockResponseBody = "{\"covered\": false, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"anyKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
