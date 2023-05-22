@@ -22,6 +22,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ExplainResult extends GenericModel {
 
+  protected Boolean covered;
   protected String dbname;
   protected List<String> fields;
   protected IndexInformation index;
@@ -34,9 +35,20 @@ public class ExplainResult extends GenericModel {
   protected ExplainResult() { }
 
   /**
+   * Gets the covered.
+   *
+   * When `true`, the query is answered using the index only and no documents are fetched.
+   *
+   * @return the covered
+   */
+  public Boolean isCovered() {
+    return covered;
+  }
+
+  /**
    * Gets the dbname.
    *
-   * dbname.
+   * Name of database.
    *
    * @return the dbname
    */
@@ -47,7 +59,7 @@ public class ExplainResult extends GenericModel {
   /**
    * Gets the fields.
    *
-   * fields.
+   * Fields to be returned by the query.
    *
    * @return the fields
    */
@@ -69,7 +81,7 @@ public class ExplainResult extends GenericModel {
   /**
    * Gets the limit.
    *
-   * limit.
+   * The used maximum number of results returned.
    *
    * @return the limit
    */
@@ -80,7 +92,7 @@ public class ExplainResult extends GenericModel {
   /**
    * Gets the opts.
    *
-   * opts.
+   * Query options used.
    *
    * @return the opts
    */
@@ -91,7 +103,7 @@ public class ExplainResult extends GenericModel {
   /**
    * Gets the range.
    *
-   * range.
+   * Range parameters passed to the underlying view.
    *
    * @return the range
    */
@@ -140,7 +152,7 @@ public class ExplainResult extends GenericModel {
   /**
    * Gets the skip.
    *
-   * skip.
+   * Skip parameter used.
    *
    * @return the skip
    */

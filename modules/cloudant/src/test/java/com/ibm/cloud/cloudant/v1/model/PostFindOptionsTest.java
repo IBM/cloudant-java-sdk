@@ -39,7 +39,7 @@ public class PostFindOptionsTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
@@ -53,7 +53,7 @@ public class PostFindOptionsTest {
     assertEquals(postFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.fields(), java.util.Arrays.asList("testString"));
-    assertEquals(postFindOptionsModel.limit(), Long.valueOf("0"));
+    assertEquals(postFindOptionsModel.limit(), Long.valueOf("25"));
     assertEquals(postFindOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postFindOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")));
     assertEquals(postFindOptionsModel.stable(), Boolean.valueOf(true));
