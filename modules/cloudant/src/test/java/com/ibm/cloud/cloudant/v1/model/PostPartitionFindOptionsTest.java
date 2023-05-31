@@ -40,7 +40,7 @@ public class PostPartitionFindOptionsTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
       .stable(true)
@@ -54,7 +54,7 @@ public class PostPartitionFindOptionsTest {
     assertEquals(postPartitionFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.fields(), java.util.Arrays.asList("testString"));
-    assertEquals(postPartitionFindOptionsModel.limit(), Long.valueOf("0"));
+    assertEquals(postPartitionFindOptionsModel.limit(), Long.valueOf("25"));
     assertEquals(postPartitionFindOptionsModel.skip(), Long.valueOf("0"));
     assertEquals(postPartitionFindOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")));
     assertEquals(postPartitionFindOptionsModel.stable(), Boolean.valueOf(true));

@@ -32,10 +32,10 @@ public class GetSchedulerJobsOptionsTest {
   @Test
   public void testGetSchedulerJobsOptions() throws Throwable {
     GetSchedulerJobsOptions getSchedulerJobsOptionsModel = new GetSchedulerJobsOptions.Builder()
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
       .build();
-    assertEquals(getSchedulerJobsOptionsModel.limit(), Long.valueOf("0"));
+    assertEquals(getSchedulerJobsOptionsModel.limit(), Long.valueOf("25"));
     assertEquals(getSchedulerJobsOptionsModel.skip(), Long.valueOf("0"));
   }
 }
