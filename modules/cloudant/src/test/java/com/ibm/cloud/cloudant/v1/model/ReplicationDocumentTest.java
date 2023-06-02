@@ -76,11 +76,11 @@ public class ReplicationDocumentTest {
     assertEquals(documentRevisionStatusModel.status(), "available");
 
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
-      .n(Long.valueOf("1"))
+      .n(Long.valueOf("3"))
       .partitioned(false)
       .q(Long.valueOf("26"))
       .build();
-    assertEquals(replicationCreateTargetParametersModel.n(), Long.valueOf("1"));
+    assertEquals(replicationCreateTargetParametersModel.n(), Long.valueOf("3"));
     assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(false));
     assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("26"));
 
@@ -105,11 +105,11 @@ public class ReplicationDocumentTest {
 
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
-      .headers(java.util.Collections.singletonMap("foo", "testString"))
+      .headers(java.util.Collections.singletonMap("key1", "testString"))
       .url("testString")
       .build();
     assertEquals(replicationDatabaseModel.auth(), replicationDatabaseAuthModel);
-    assertEquals(replicationDatabaseModel.headers(), java.util.Collections.singletonMap("foo", "testString"));
+    assertEquals(replicationDatabaseModel.headers(), java.util.Collections.singletonMap("key1", "testString"));
     assertEquals(replicationDatabaseModel.url(), "testString");
 
     UserContext userContextModel = new UserContext.Builder()
@@ -122,7 +122,7 @@ public class ReplicationDocumentTest {
     assertEquals(userContextModel.roles(), java.util.Arrays.asList("_reader"));
 
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -132,16 +132,16 @@ public class ReplicationDocumentTest {
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .cancel(true)
-      .checkpointInterval(Long.valueOf("0"))
-      .connectionTimeout(Long.valueOf("0"))
+      .checkpointInterval(Long.valueOf("30000"))
+      .connectionTimeout(Long.valueOf("30000"))
       .continuous(false)
       .createTarget(false)
       .createTargetParams(replicationCreateTargetParametersModel)
       .docIds(java.util.Arrays.asList("testString"))
       .filter("testString")
-      .httpConnections(Long.valueOf("1"))
-      .queryParams(java.util.Collections.singletonMap("foo", "testString"))
-      .retriesPerRequest(Long.valueOf("0"))
+      .httpConnections(Long.valueOf("20"))
+      .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+      .retriesPerRequest(Long.valueOf("5"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .sinceSeq("testString")
       .socketOptions("testString")
@@ -153,11 +153,11 @@ public class ReplicationDocumentTest {
       .useCheckpoints(true)
       .userCtx(userContextModel)
       .winningRevsOnly(false)
-      .workerBatchSize(Long.valueOf("1"))
-      .workerProcesses(Long.valueOf("1"))
+      .workerBatchSize(Long.valueOf("500"))
+      .workerProcesses(Long.valueOf("4"))
       .add("foo", "testString")
       .build();
-    assertEquals(replicationDocumentModel.getAttachments(), java.util.Collections.singletonMap("foo", attachmentModel));
+    assertEquals(replicationDocumentModel.getAttachments(), java.util.Collections.singletonMap("key1", attachmentModel));
     assertEquals(replicationDocumentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));
@@ -167,16 +167,16 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.getRevisions(), revisionsModel);
     assertEquals(replicationDocumentModel.getRevsInfo(), java.util.Arrays.asList(documentRevisionStatusModel));
     assertEquals(replicationDocumentModel.isCancel(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModel.getCheckpointInterval(), Long.valueOf("0"));
-    assertEquals(replicationDocumentModel.getConnectionTimeout(), Long.valueOf("0"));
+    assertEquals(replicationDocumentModel.getCheckpointInterval(), Long.valueOf("30000"));
+    assertEquals(replicationDocumentModel.getConnectionTimeout(), Long.valueOf("30000"));
     assertEquals(replicationDocumentModel.isContinuous(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModel.isCreateTarget(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModel.getCreateTargetParams(), replicationCreateTargetParametersModel);
     assertEquals(replicationDocumentModel.getDocIds(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.getFilter(), "testString");
-    assertEquals(replicationDocumentModel.getHttpConnections(), Long.valueOf("1"));
-    assertEquals(replicationDocumentModel.getQueryParams(), java.util.Collections.singletonMap("foo", "testString"));
-    assertEquals(replicationDocumentModel.getRetriesPerRequest(), Long.valueOf("0"));
+    assertEquals(replicationDocumentModel.getHttpConnections(), Long.valueOf("20"));
+    assertEquals(replicationDocumentModel.getQueryParams(), java.util.Collections.singletonMap("key1", "testString"));
+    assertEquals(replicationDocumentModel.getRetriesPerRequest(), Long.valueOf("5"));
     assertEquals(replicationDocumentModel.getSelector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(replicationDocumentModel.getSinceSeq(), "testString");
     assertEquals(replicationDocumentModel.getSocketOptions(), "testString");
@@ -188,8 +188,8 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.isUseCheckpoints(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModel.getUserCtx(), userContextModel);
     assertEquals(replicationDocumentModel.isWinningRevsOnly(), Boolean.valueOf(false));
-    assertEquals(replicationDocumentModel.getWorkerBatchSize(), Long.valueOf("1"));
-    assertEquals(replicationDocumentModel.getWorkerProcesses(), Long.valueOf("1"));
+    assertEquals(replicationDocumentModel.getWorkerBatchSize(), Long.valueOf("500"));
+    assertEquals(replicationDocumentModel.getWorkerProcesses(), Long.valueOf("4"));
     assertEquals(replicationDocumentModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(replicationDocumentModel);
@@ -202,14 +202,14 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModelNew.getRev(), "testString");
     assertEquals(replicationDocumentModelNew.getRevisions().toString(), revisionsModel.toString());
     assertEquals(replicationDocumentModelNew.isCancel(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModelNew.getCheckpointInterval(), Long.valueOf("0"));
-    assertEquals(replicationDocumentModelNew.getConnectionTimeout(), Long.valueOf("0"));
+    assertEquals(replicationDocumentModelNew.getCheckpointInterval(), Long.valueOf("30000"));
+    assertEquals(replicationDocumentModelNew.getConnectionTimeout(), Long.valueOf("30000"));
     assertEquals(replicationDocumentModelNew.isContinuous(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModelNew.isCreateTarget(), Boolean.valueOf(false));
     assertEquals(replicationDocumentModelNew.getCreateTargetParams().toString(), replicationCreateTargetParametersModel.toString());
     assertEquals(replicationDocumentModelNew.getFilter(), "testString");
-    assertEquals(replicationDocumentModelNew.getHttpConnections(), Long.valueOf("1"));
-    assertEquals(replicationDocumentModelNew.getRetriesPerRequest(), Long.valueOf("0"));
+    assertEquals(replicationDocumentModelNew.getHttpConnections(), Long.valueOf("20"));
+    assertEquals(replicationDocumentModelNew.getRetriesPerRequest(), Long.valueOf("5"));
     assertEquals(replicationDocumentModelNew.getSelector().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(replicationDocumentModelNew.getSinceSeq(), "testString");
     assertEquals(replicationDocumentModelNew.getSocketOptions(), "testString");
@@ -221,8 +221,8 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModelNew.isUseCheckpoints(), Boolean.valueOf(true));
     assertEquals(replicationDocumentModelNew.getUserCtx().toString(), userContextModel.toString());
     assertEquals(replicationDocumentModelNew.isWinningRevsOnly(), Boolean.valueOf(false));
-    assertEquals(replicationDocumentModelNew.getWorkerBatchSize(), Long.valueOf("1"));
-    assertEquals(replicationDocumentModelNew.getWorkerProcesses(), Long.valueOf("1"));
+    assertEquals(replicationDocumentModelNew.getWorkerBatchSize(), Long.valueOf("500"));
+    assertEquals(replicationDocumentModelNew.getWorkerProcesses(), Long.valueOf("4"));
     assertEquals(replicationDocumentModelNew.get("foo"), "testString");
   }
 

@@ -348,8 +348,8 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       GetDbUpdatesOptions getDbUpdatesOptions = new GetDbUpdatesOptions.Builder()
         .feed("normal")
-        .heartbeat(Long.valueOf("0"))
-        .timeout(Long.valueOf("0"))
+        .heartbeat(Long.valueOf("60000"))
+        .timeout(Long.valueOf("60000"))
         .since("0")
         .build();
 
@@ -383,13 +383,13 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .descending(false)
         .feed("normal")
         .filter("testString")
-        .heartbeat(Long.valueOf("0"))
+        .heartbeat(Long.valueOf("60000"))
         .includeDocs(false)
         .limit(Long.valueOf("0"))
         .seqInterval(Long.valueOf("1"))
         .since("0")
         .style("main_only")
-        .timeout(Long.valueOf("0"))
+        .timeout(Long.valueOf("60000"))
         .view("testString")
         .build();
 
@@ -423,13 +423,13 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .descending(false)
         .feed("normal")
         .filter("testString")
-        .heartbeat(Long.valueOf("0"))
+        .heartbeat(Long.valueOf("60000"))
         .includeDocs(false)
         .limit(Long.valueOf("0"))
         .seqInterval(Long.valueOf("1"))
         .since("0")
         .style("main_only")
-        .timeout(Long.valueOf("0"))
+        .timeout(Long.valueOf("60000"))
         .view("testString")
         .build();
 
@@ -608,7 +608,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       Document documentModel = new Document.Builder()
-        .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
         .conflicts(java.util.Arrays.asList("testString"))
         .deleted(true)
         .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -816,7 +816,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       Document documentModel = new Document.Builder()
-        .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
         .conflicts(java.util.Arrays.asList("testString"))
         .deleted(true)
         .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -1147,7 +1147,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       Document documentModel = new Document.Builder()
-        .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
         .conflicts(java.util.Arrays.asList("testString"))
         .deleted(true)
         .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -1272,7 +1272,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
       AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
         .name("classic")
         .stopwords(java.util.Arrays.asList("testString"))
-        .fields(java.util.Collections.singletonMap("foo", analyzerModel))
+        .fields(java.util.Collections.singletonMap("key1", analyzerModel))
         .build();
 
       SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
@@ -1290,7 +1290,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       DesignDocument designDocumentModel = new DesignDocument.Builder()
-        .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
         .conflicts(java.util.Arrays.asList("testString"))
         .deleted(true)
         .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -1300,12 +1300,12 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .revisions(revisionsModel)
         .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
         .autoupdate(true)
-        .filters(java.util.Collections.singletonMap("foo", "testString"))
-        .indexes(java.util.Collections.singletonMap("foo", searchIndexDefinitionModel))
+        .filters(java.util.Collections.singletonMap("key1", "testString"))
+        .indexes(java.util.Collections.singletonMap("key1", searchIndexDefinitionModel))
         .language("javascript")
         .options(designDocumentOptionsModel)
         .validateDocUpdate("testString")
-        .views(java.util.Collections.singletonMap("foo", designDocumentViewsMapReduceModel))
+        .views(java.util.Collections.singletonMap("key1", designDocumentViewsMapReduceModel))
         .add("foo", "testString")
         .build();
 
@@ -1726,7 +1726,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .highlightNumber(Long.valueOf("1"))
         .highlightPostTag("</em>")
         .highlightPreTag("<em>")
-        .highlightSize(Long.valueOf("1"))
+        .highlightSize(Long.valueOf("100"))
         .includeDocs(false)
         .includeFields(java.util.Arrays.asList("testString"))
         .limit(Long.valueOf("0"))
@@ -1763,7 +1763,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .highlightNumber(Long.valueOf("1"))
         .highlightPostTag("</em>")
         .highlightPreTag("<em>")
-        .highlightSize(Long.valueOf("1"))
+        .highlightSize(Long.valueOf("100"))
         .includeDocs(false)
         .includeFields(java.util.Arrays.asList("testString"))
         .limit(Long.valueOf("0"))
@@ -1885,9 +1885,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .conflicts(true)
         .executionStats(true)
         .fields(java.util.Arrays.asList("testString"))
-        .limit(Long.valueOf("0"))
+        .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
-        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
         .stable(true)
         .update("true")
         .useIndex(java.util.Arrays.asList("testString"))
@@ -1919,9 +1919,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .conflicts(true)
         .executionStats(true)
         .fields(java.util.Arrays.asList("testString"))
-        .limit(Long.valueOf("0"))
+        .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
-        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
         .stable(true)
         .update("true")
         .useIndex(java.util.Arrays.asList("testString"))
@@ -1952,9 +1952,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .conflicts(true)
         .executionStats(true)
         .fields(java.util.Arrays.asList("testString"))
-        .limit(Long.valueOf("0"))
+        .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
-        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
         .stable(true)
         .update("true")
         .useIndex(java.util.Arrays.asList("testString"))
@@ -1986,9 +1986,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .conflicts(true)
         .executionStats(true)
         .fields(java.util.Arrays.asList("testString"))
-        .limit(Long.valueOf("0"))
+        .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
-        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
         .stable(true)
         .update("true")
         .useIndex(java.util.Arrays.asList("testString"))
@@ -2020,9 +2020,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .conflicts(true)
         .executionStats(true)
         .fields(java.util.Arrays.asList("testString"))
-        .limit(Long.valueOf("0"))
+        .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
-        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
         .stable(true)
         .update("true")
         .useIndex(java.util.Arrays.asList("testString"))
@@ -2154,7 +2154,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .highlightNumber(Long.valueOf("1"))
         .highlightPostTag("</em>")
         .highlightPreTag("<em>")
-        .highlightSize(Long.valueOf("1"))
+        .highlightSize(Long.valueOf("100"))
         .includeDocs(false)
         .includeFields(java.util.Arrays.asList("testString"))
         .limit(Long.valueOf("0"))
@@ -2165,7 +2165,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .groupField("testString")
         .groupLimit(Long.valueOf("1"))
         .groupSort(java.util.Arrays.asList("testString"))
-        .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
+        .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
         .build();
 
       // Invoke operation
@@ -2196,7 +2196,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .highlightNumber(Long.valueOf("1"))
         .highlightPostTag("</em>")
         .highlightPreTag("<em>")
-        .highlightSize(Long.valueOf("1"))
+        .highlightSize(Long.valueOf("100"))
         .includeDocs(false)
         .includeFields(java.util.Arrays.asList("testString"))
         .limit(Long.valueOf("0"))
@@ -2207,7 +2207,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .groupField("testString")
         .groupLimit(Long.valueOf("1"))
         .groupSort(java.util.Arrays.asList("testString"))
-        .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
+        .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
         .build();
 
       // Invoke operation
@@ -2363,7 +2363,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
-        .n(Long.valueOf("1"))
+        .n(Long.valueOf("3"))
         .partitioned(false)
         .q(Long.valueOf("26"))
         .build();
@@ -2384,7 +2384,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
 
       ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
         .auth(replicationDatabaseAuthModel)
-        .headers(java.util.Collections.singletonMap("foo", "testString"))
+        .headers(java.util.Collections.singletonMap("key1", "testString"))
         .url("testString")
         .build();
 
@@ -2395,7 +2395,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-        .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
         .conflicts(java.util.Arrays.asList("testString"))
         .deleted(true)
         .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2405,16 +2405,16 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .revisions(revisionsModel)
         .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
         .cancel(true)
-        .checkpointInterval(Long.valueOf("0"))
-        .connectionTimeout(Long.valueOf("0"))
+        .checkpointInterval(Long.valueOf("30000"))
+        .connectionTimeout(Long.valueOf("30000"))
         .continuous(false)
         .createTarget(false)
         .createTargetParams(replicationCreateTargetParametersModel)
         .docIds(java.util.Arrays.asList("testString"))
         .filter("testString")
-        .httpConnections(Long.valueOf("1"))
-        .queryParams(java.util.Collections.singletonMap("foo", "testString"))
-        .retriesPerRequest(Long.valueOf("0"))
+        .httpConnections(Long.valueOf("20"))
+        .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+        .retriesPerRequest(Long.valueOf("5"))
         .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
         .sinceSeq("testString")
         .socketOptions("testString")
@@ -2426,8 +2426,8 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .useCheckpoints(true)
         .userCtx(userContextModel)
         .winningRevsOnly(false)
-        .workerBatchSize(Long.valueOf("1"))
-        .workerProcesses(Long.valueOf("1"))
+        .workerBatchSize(Long.valueOf("500"))
+        .workerProcesses(Long.valueOf("4"))
         .add("foo", "testString")
         .build();
 
@@ -2505,7 +2505,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
   public void testGetSchedulerJobs() throws Exception {
     try {
       GetSchedulerJobsOptions getSchedulerJobsOptions = new GetSchedulerJobsOptions.Builder()
-        .limit(Long.valueOf("0"))
+        .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
         .build();
 
@@ -2600,7 +2600,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .db("testString")
         .admins(securityObjectModel)
         .members(securityObjectModel)
-        .cloudant(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")))
+        .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
         .couchdbAuthOnly(true)
         .build();
 
@@ -2649,7 +2649,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
 
       PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptions = new PutCloudantSecurityConfigurationOptions.Builder()
         .db("testString")
-        .cloudant(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")))
+        .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
         .admins(securityObjectModel)
         .members(securityObjectModel)
         .couchdbAuthOnly(true)
@@ -2868,7 +2868,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       Document documentModel = new Document.Builder()
-        .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
         .conflicts(java.util.Arrays.asList("testString"))
         .deleted(true)
         .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2908,7 +2908,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       PostRevsDiffOptions postRevsDiffOptions = new PostRevsDiffOptions.Builder()
         .db("testString")
-        .documentRevisions(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("testString")))
+        .documentRevisions(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("testString")))
         .build();
 
       // Invoke operation

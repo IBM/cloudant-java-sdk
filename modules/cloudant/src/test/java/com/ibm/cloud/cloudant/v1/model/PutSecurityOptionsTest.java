@@ -43,13 +43,13 @@ public class PutSecurityOptionsTest {
       .db("testString")
       .admins(securityObjectModel)
       .members(securityObjectModel)
-      .cloudant(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")))
+      .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
       .couchdbAuthOnly(true)
       .build();
     assertEquals(putSecurityOptionsModel.db(), "testString");
     assertEquals(putSecurityOptionsModel.admins(), securityObjectModel);
     assertEquals(putSecurityOptionsModel.members(), securityObjectModel);
-    assertEquals(putSecurityOptionsModel.cloudant(), java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")));
+    assertEquals(putSecurityOptionsModel.cloudant(), java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")));
     assertEquals(putSecurityOptionsModel.couchdbAuthOnly(), Boolean.valueOf(true));
   }
 

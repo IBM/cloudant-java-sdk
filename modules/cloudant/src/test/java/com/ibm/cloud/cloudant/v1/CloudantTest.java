@@ -459,8 +459,8 @@ public class CloudantTest {
     // Construct an instance of the GetDbUpdatesOptions model
     GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
       .feed("normal")
-      .heartbeat(Long.valueOf("0"))
-      .timeout(Long.valueOf("0"))
+      .heartbeat(Long.valueOf("60000"))
+      .timeout(Long.valueOf("60000"))
       .since("0")
       .build();
 
@@ -481,8 +481,8 @@ public class CloudantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("feed"), "normal");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
-    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("60000"));
+    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("since"), "0");
   }
 
@@ -520,13 +520,13 @@ public class CloudantTest {
       .descending(false)
       .feed("normal")
       .filter("testString")
-      .heartbeat(Long.valueOf("0"))
+      .heartbeat(Long.valueOf("60000"))
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
       .since("0")
       .style("main_only")
-      .timeout(Long.valueOf("0"))
+      .timeout(Long.valueOf("60000"))
       .view("testString")
       .build();
 
@@ -552,13 +552,13 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("60000"));
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
     assertEquals(query.get("since"), "0");
     assertEquals(query.get("style"), "main_only");
-    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("view"), "testString");
   }
 
@@ -603,13 +603,13 @@ public class CloudantTest {
       .descending(false)
       .feed("normal")
       .filter("testString")
-      .heartbeat(Long.valueOf("0"))
+      .heartbeat(Long.valueOf("60000"))
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
       .since("0")
       .style("main_only")
-      .timeout(Long.valueOf("0"))
+      .timeout(Long.valueOf("60000"))
       .view("testString")
       .build();
 
@@ -635,13 +635,13 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("60000"));
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
     assertEquals(query.get("since"), "0");
     assertEquals(query.get("style"), "main_only");
-    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("view"), "testString");
     // Verify streamed JSON response
     java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
@@ -774,7 +774,7 @@ public class CloudantTest {
   @Test
   public void testPostDbsInfoWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 1, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}, \"key\": \"key\"}]";
+    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}, \"key\": \"key\"}]";
     String postDbsInfoPath = "/_dbs_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -876,7 +876,7 @@ public class CloudantTest {
   @Test
   public void testGetDatabaseInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"cluster\": {\"n\": 1, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}";
+    String mockResponseBody = "{\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}";
     String getDatabaseInformationPath = "/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1072,7 +1072,7 @@ public class CloudantTest {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -1442,7 +1442,7 @@ public class CloudantTest {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2170,7 +2170,7 @@ public class CloudantTest {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2460,7 +2460,7 @@ public class CloudantTest {
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
       .stopwords(java.util.Arrays.asList("testString"))
-      .fields(java.util.Collections.singletonMap("foo", analyzerModel))
+      .fields(java.util.Collections.singletonMap("key1", analyzerModel))
       .build();
 
     // Construct an instance of the SearchIndexDefinition model
@@ -2482,7 +2482,7 @@ public class CloudantTest {
 
     // Construct an instance of the DesignDocument model
     DesignDocument designDocumentModel = new DesignDocument.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -2492,12 +2492,12 @@ public class CloudantTest {
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .autoupdate(true)
-      .filters(java.util.Collections.singletonMap("foo", "testString"))
-      .indexes(java.util.Collections.singletonMap("foo", searchIndexDefinitionModel))
+      .filters(java.util.Collections.singletonMap("key1", "testString"))
+      .indexes(java.util.Collections.singletonMap("key1", searchIndexDefinitionModel))
       .language("javascript")
       .options(designDocumentOptionsModel)
       .validateDocUpdate("testString")
-      .views(java.util.Collections.singletonMap("foo", designDocumentViewsMapReduceModel))
+      .views(java.util.Collections.singletonMap("key1", designDocumentViewsMapReduceModel))
       .add("foo", "testString")
       .build();
 
@@ -3259,7 +3259,7 @@ public class CloudantTest {
       .highlightNumber(Long.valueOf("1"))
       .highlightPostTag("</em>")
       .highlightPreTag("<em>")
-      .highlightSize(Long.valueOf("1"))
+      .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
@@ -3325,7 +3325,7 @@ public class CloudantTest {
       .highlightNumber(Long.valueOf("1"))
       .highlightPostTag("</em>")
       .highlightPreTag("<em>")
-      .highlightSize(Long.valueOf("1"))
+      .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
@@ -3544,9 +3544,9 @@ public class CloudantTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3607,9 +3607,9 @@ public class CloudantTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3659,7 +3659,7 @@ public class CloudantTest {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"covered\": false, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 0, \"opts\": {\"anyKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
+    String mockResponseBody = "{\"covered\": false, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 25, \"opts\": {\"anyKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3674,9 +3674,9 @@ public class CloudantTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3737,9 +3737,9 @@ public class CloudantTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -3800,9 +3800,9 @@ public class CloudantTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -4113,7 +4113,7 @@ public class CloudantTest {
       .highlightNumber(Long.valueOf("1"))
       .highlightPostTag("</em>")
       .highlightPreTag("<em>")
-      .highlightSize(Long.valueOf("1"))
+      .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
@@ -4124,7 +4124,7 @@ public class CloudantTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
+      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
       .build();
 
     // Invoke postSearch() with a valid options model and verify the result
@@ -4184,7 +4184,7 @@ public class CloudantTest {
       .highlightNumber(Long.valueOf("1"))
       .highlightPostTag("</em>")
       .highlightPreTag("<em>")
-      .highlightSize(Long.valueOf("1"))
+      .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
@@ -4195,7 +4195,7 @@ public class CloudantTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
+      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
       .build();
 
     // Invoke postSearchAsStream() with a valid options model and verify the result
@@ -4502,7 +4502,7 @@ public class CloudantTest {
   @Test
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 0, \"connection_timeout\": 0, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 1, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 1, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 0, \"selector\": {\"anyKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_bulk_get\": true, \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 1, \"worker_processes\": 1}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhbiBlbmNvZGVkIGJ5dGUgYXJyYXku\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 30000, \"connection_timeout\": 30000, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 3, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 20, \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 5, \"selector\": {\"anyKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_bulk_get\": true, \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 500, \"worker_processes\": 4}";
     String getReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4608,7 +4608,7 @@ public class CloudantTest {
 
     // Construct an instance of the ReplicationCreateTargetParameters model
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
-      .n(Long.valueOf("1"))
+      .n(Long.valueOf("3"))
       .partitioned(false)
       .q(Long.valueOf("26"))
       .build();
@@ -4633,7 +4633,7 @@ public class CloudantTest {
     // Construct an instance of the ReplicationDatabase model
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
-      .headers(java.util.Collections.singletonMap("foo", "testString"))
+      .headers(java.util.Collections.singletonMap("key1", "testString"))
       .url("testString")
       .build();
 
@@ -4646,7 +4646,7 @@ public class CloudantTest {
 
     // Construct an instance of the ReplicationDocument model
     ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -4656,16 +4656,16 @@ public class CloudantTest {
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .cancel(true)
-      .checkpointInterval(Long.valueOf("0"))
-      .connectionTimeout(Long.valueOf("0"))
+      .checkpointInterval(Long.valueOf("30000"))
+      .connectionTimeout(Long.valueOf("30000"))
       .continuous(false)
       .createTarget(false)
       .createTargetParams(replicationCreateTargetParametersModel)
       .docIds(java.util.Arrays.asList("testString"))
       .filter("testString")
-      .httpConnections(Long.valueOf("1"))
-      .queryParams(java.util.Collections.singletonMap("foo", "testString"))
-      .retriesPerRequest(Long.valueOf("0"))
+      .httpConnections(Long.valueOf("20"))
+      .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+      .retriesPerRequest(Long.valueOf("5"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .sinceSeq("testString")
       .socketOptions("testString")
@@ -4677,8 +4677,8 @@ public class CloudantTest {
       .useCheckpoints(true)
       .userCtx(userContextModel)
       .winningRevsOnly(false)
-      .workerBatchSize(Long.valueOf("1"))
-      .workerProcesses(Long.valueOf("1"))
+      .workerBatchSize(Long.valueOf("500"))
+      .workerProcesses(Long.valueOf("4"))
       .add("foo", "testString")
       .build();
 
@@ -4843,7 +4843,7 @@ public class CloudantTest {
 
     // Construct an instance of the GetSchedulerJobsOptions model
     GetSchedulerJobsOptions getSchedulerJobsOptionsModel = new GetSchedulerJobsOptions.Builder()
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
       .build();
 
@@ -4863,7 +4863,7 @@ public class CloudantTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("25"));
     assertEquals(Long.valueOf(query.get("skip")), Long.valueOf("0"));
   }
 
@@ -5043,7 +5043,7 @@ public class CloudantTest {
       .db("testString")
       .admins(securityObjectModel)
       .members(securityObjectModel)
-      .cloudant(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")))
+      .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
       .couchdbAuthOnly(true)
       .build();
 
@@ -5144,7 +5144,7 @@ public class CloudantTest {
     // Construct an instance of the PutCloudantSecurityConfigurationOptions model
     PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
       .db("testString")
-      .cloudant(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("_reader")))
+      .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
       .admins(securityObjectModel)
       .members(securityObjectModel)
       .couchdbAuthOnly(true)
@@ -5718,7 +5718,7 @@ public class CloudantTest {
 
     // Construct an instance of the Document model
     Document documentModel = new Document.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -5789,7 +5789,7 @@ public class CloudantTest {
     // Construct an instance of the PostRevsDiffOptions model
     PostRevsDiffOptions postRevsDiffOptionsModel = new PostRevsDiffOptions.Builder()
       .db("testString")
-      .documentRevisions(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("testString")))
+      .documentRevisions(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("testString")))
       .build();
 
     // Invoke postRevsDiff() with a valid options model and verify the result
@@ -5975,7 +5975,7 @@ public class CloudantTest {
   @Test
   public void testGetActiveTasksWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "[{\"bulk_get_attempts\": 0, \"bulk_get_docs\": 0, \"changes_done\": 0, \"changes_pending\": 0, \"checkpoint_interval\": 0, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"continuous\": false, \"database\": \"database\", \"design_document\": \"designDocument\", \"doc_id\": \"docId\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"index\": \"index\", \"indexer_pid\": \"indexerPid\", \"missing_revisions_found\": 0, \"node\": \"node\", \"phase\": \"docid_sort\", \"pid\": \"pid\", \"process_status\": \"exiting\", \"progress\": 0, \"replication_id\": \"replicationId\", \"retry\": false, \"revisions_checked\": 0, \"source\": \"source\", \"source_seq\": \"sourceSeq\", \"started_on\": 0, \"target\": \"target\", \"through_seq\": \"throughSeq\", \"total_changes\": 0, \"type\": \"database_compaction\", \"updated_on\": 0, \"user\": \"user\", \"view\": 0}]";
+    String mockResponseBody = "[{\"bulk_get_attempts\": 0, \"bulk_get_docs\": 0, \"changes_done\": 0, \"changes_pending\": 0, \"checkpoint_interval\": 30000, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"continuous\": false, \"database\": \"database\", \"design_document\": \"designDocument\", \"doc_id\": \"docId\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"index\": \"index\", \"indexer_pid\": \"indexerPid\", \"missing_revisions_found\": 0, \"node\": \"node\", \"phase\": \"docid_sort\", \"pid\": \"pid\", \"process_status\": \"exiting\", \"progress\": 0, \"replication_id\": \"replicationId\", \"retry\": false, \"revisions_checked\": 0, \"source\": \"source\", \"source_seq\": \"sourceSeq\", \"started_on\": 0, \"target\": \"target\", \"through_seq\": \"throughSeq\", \"total_changes\": 0, \"type\": \"database_compaction\", \"updated_on\": 0, \"user\": \"user\", \"view\": 0}]";
     String getActiveTasksPath = "/_active_tasks";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")

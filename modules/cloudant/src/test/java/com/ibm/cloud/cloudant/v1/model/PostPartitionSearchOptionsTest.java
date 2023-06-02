@@ -42,7 +42,7 @@ public class PostPartitionSearchOptionsTest {
       .highlightNumber(Long.valueOf("1"))
       .highlightPostTag("</em>")
       .highlightPreTag("<em>")
-      .highlightSize(Long.valueOf("1"))
+      .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
@@ -59,7 +59,7 @@ public class PostPartitionSearchOptionsTest {
     assertEquals(postPartitionSearchOptionsModel.highlightNumber(), Long.valueOf("1"));
     assertEquals(postPartitionSearchOptionsModel.highlightPostTag(), "</em>");
     assertEquals(postPartitionSearchOptionsModel.highlightPreTag(), "<em>");
-    assertEquals(postPartitionSearchOptionsModel.highlightSize(), Long.valueOf("1"));
+    assertEquals(postPartitionSearchOptionsModel.highlightSize(), Long.valueOf("100"));
     assertEquals(postPartitionSearchOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postPartitionSearchOptionsModel.includeFields(), java.util.Arrays.asList("testString"));
     assertEquals(postPartitionSearchOptionsModel.limit(), Long.valueOf("0"));

@@ -84,11 +84,11 @@ public class DesignDocumentTest {
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
       .stopwords(java.util.Arrays.asList("testString"))
-      .fields(java.util.Collections.singletonMap("foo", analyzerModel))
+      .fields(java.util.Collections.singletonMap("key1", analyzerModel))
       .build();
     assertEquals(analyzerConfigurationModel.name(), "classic");
     assertEquals(analyzerConfigurationModel.stopwords(), java.util.Arrays.asList("testString"));
-    assertEquals(analyzerConfigurationModel.fields(), java.util.Collections.singletonMap("foo", analyzerModel));
+    assertEquals(analyzerConfigurationModel.fields(), java.util.Collections.singletonMap("key1", analyzerModel));
 
     SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
       .analyzer(analyzerConfigurationModel)
@@ -110,7 +110,7 @@ public class DesignDocumentTest {
     assertEquals(designDocumentViewsMapReduceModel.reduce(), "testString");
 
     DesignDocument designDocumentModel = new DesignDocument.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -120,15 +120,15 @@ public class DesignDocumentTest {
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .autoupdate(true)
-      .filters(java.util.Collections.singletonMap("foo", "testString"))
-      .indexes(java.util.Collections.singletonMap("foo", searchIndexDefinitionModel))
+      .filters(java.util.Collections.singletonMap("key1", "testString"))
+      .indexes(java.util.Collections.singletonMap("key1", searchIndexDefinitionModel))
       .language("javascript")
       .options(designDocumentOptionsModel)
       .validateDocUpdate("testString")
-      .views(java.util.Collections.singletonMap("foo", designDocumentViewsMapReduceModel))
+      .views(java.util.Collections.singletonMap("key1", designDocumentViewsMapReduceModel))
       .add("foo", "testString")
       .build();
-    assertEquals(designDocumentModel.getAttachments(), java.util.Collections.singletonMap("foo", attachmentModel));
+    assertEquals(designDocumentModel.getAttachments(), java.util.Collections.singletonMap("key1", attachmentModel));
     assertEquals(designDocumentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(designDocumentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(designDocumentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));
@@ -138,12 +138,12 @@ public class DesignDocumentTest {
     assertEquals(designDocumentModel.getRevisions(), revisionsModel);
     assertEquals(designDocumentModel.getRevsInfo(), java.util.Arrays.asList(documentRevisionStatusModel));
     assertEquals(designDocumentModel.isAutoupdate(), Boolean.valueOf(true));
-    assertEquals(designDocumentModel.getFilters(), java.util.Collections.singletonMap("foo", "testString"));
-    assertEquals(designDocumentModel.getIndexes(), java.util.Collections.singletonMap("foo", searchIndexDefinitionModel));
+    assertEquals(designDocumentModel.getFilters(), java.util.Collections.singletonMap("key1", "testString"));
+    assertEquals(designDocumentModel.getIndexes(), java.util.Collections.singletonMap("key1", searchIndexDefinitionModel));
     assertEquals(designDocumentModel.getLanguage(), "javascript");
     assertEquals(designDocumentModel.getOptions(), designDocumentOptionsModel);
     assertEquals(designDocumentModel.getValidateDocUpdate(), "testString");
-    assertEquals(designDocumentModel.getViews(), java.util.Collections.singletonMap("foo", designDocumentViewsMapReduceModel));
+    assertEquals(designDocumentModel.getViews(), java.util.Collections.singletonMap("key1", designDocumentViewsMapReduceModel));
     assertEquals(designDocumentModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(designDocumentModel);
