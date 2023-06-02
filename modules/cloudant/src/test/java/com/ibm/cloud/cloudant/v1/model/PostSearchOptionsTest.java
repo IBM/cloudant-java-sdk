@@ -42,7 +42,7 @@ public class PostSearchOptionsTest {
       .highlightNumber(Long.valueOf("1"))
       .highlightPostTag("</em>")
       .highlightPreTag("<em>")
-      .highlightSize(Long.valueOf("1"))
+      .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
       .limit(Long.valueOf("0"))
@@ -53,7 +53,7 @@ public class PostSearchOptionsTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))))
+      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
       .build();
     assertEquals(postSearchOptionsModel.db(), "testString");
     assertEquals(postSearchOptionsModel.ddoc(), "testString");
@@ -64,7 +64,7 @@ public class PostSearchOptionsTest {
     assertEquals(postSearchOptionsModel.highlightNumber(), Long.valueOf("1"));
     assertEquals(postSearchOptionsModel.highlightPostTag(), "</em>");
     assertEquals(postSearchOptionsModel.highlightPreTag(), "<em>");
-    assertEquals(postSearchOptionsModel.highlightSize(), Long.valueOf("1"));
+    assertEquals(postSearchOptionsModel.highlightSize(), Long.valueOf("100"));
     assertEquals(postSearchOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postSearchOptionsModel.includeFields(), java.util.Arrays.asList("testString"));
     assertEquals(postSearchOptionsModel.limit(), Long.valueOf("0"));
@@ -75,7 +75,7 @@ public class PostSearchOptionsTest {
     assertEquals(postSearchOptionsModel.groupField(), "testString");
     assertEquals(postSearchOptionsModel.groupLimit(), Long.valueOf("1"));
     assertEquals(postSearchOptionsModel.groupSort(), java.util.Arrays.asList("testString"));
-    assertEquals(postSearchOptionsModel.ranges(), java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", java.util.Collections.singletonMap("foo", "testString"))));
+    assertEquals(postSearchOptionsModel.ranges(), java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -39,9 +39,9 @@ public class PostExplainOptionsTest {
       .conflicts(true)
       .executionStats(true)
       .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
-      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
@@ -53,9 +53,9 @@ public class PostExplainOptionsTest {
     assertEquals(postExplainOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.executionStats(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.fields(), java.util.Arrays.asList("testString"));
-    assertEquals(postExplainOptionsModel.limit(), Long.valueOf("0"));
+    assertEquals(postExplainOptionsModel.limit(), Long.valueOf("25"));
     assertEquals(postExplainOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postExplainOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("foo", "asc")));
+    assertEquals(postExplainOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")));
     assertEquals(postExplainOptionsModel.stable(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.update(), "true");
     assertEquals(postExplainOptionsModel.useIndex(), java.util.Arrays.asList("testString"));

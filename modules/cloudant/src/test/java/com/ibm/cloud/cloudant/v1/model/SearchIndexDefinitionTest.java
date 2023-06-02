@@ -43,11 +43,11 @@ public class SearchIndexDefinitionTest {
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("classic")
       .stopwords(java.util.Arrays.asList("testString"))
-      .fields(java.util.Collections.singletonMap("foo", analyzerModel))
+      .fields(java.util.Collections.singletonMap("key1", analyzerModel))
       .build();
     assertEquals(analyzerConfigurationModel.name(), "classic");
     assertEquals(analyzerConfigurationModel.stopwords(), java.util.Arrays.asList("testString"));
-    assertEquals(analyzerConfigurationModel.fields(), java.util.Collections.singletonMap("foo", analyzerModel));
+    assertEquals(analyzerConfigurationModel.fields(), java.util.Collections.singletonMap("key1", analyzerModel));
 
     SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
       .analyzer(analyzerConfigurationModel)

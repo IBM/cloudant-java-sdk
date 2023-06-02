@@ -72,7 +72,7 @@ public class PutLocalDocumentOptionsTest {
     assertEquals(documentRevisionStatusModel.status(), "available");
 
     Document documentModel = new Document.Builder()
-      .attachments(java.util.Collections.singletonMap("foo", attachmentModel))
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
@@ -83,7 +83,7 @@ public class PutLocalDocumentOptionsTest {
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .add("foo", "testString")
       .build();
-    assertEquals(documentModel.getAttachments(), java.util.Collections.singletonMap("foo", attachmentModel));
+    assertEquals(documentModel.getAttachments(), java.util.Collections.singletonMap("key1", attachmentModel));
     assertEquals(documentModel.getConflicts(), java.util.Arrays.asList("testString"));
     assertEquals(documentModel.isDeleted(), Boolean.valueOf(true));
     assertEquals(documentModel.getDeletedConflicts(), java.util.Arrays.asList("testString"));

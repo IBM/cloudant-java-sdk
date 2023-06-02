@@ -33,10 +33,10 @@ public class PostRevsDiffOptionsTest {
   public void testPostRevsDiffOptions() throws Throwable {
     PostRevsDiffOptions postRevsDiffOptionsModel = new PostRevsDiffOptions.Builder()
       .db("testString")
-      .documentRevisions(java.util.Collections.singletonMap("foo", java.util.Arrays.asList("testString")))
+      .documentRevisions(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("testString")))
       .build();
     assertEquals(postRevsDiffOptionsModel.db(), "testString");
-    assertEquals(postRevsDiffOptionsModel.documentRevisions(), java.util.Collections.singletonMap("foo", java.util.Arrays.asList("testString")));
+    assertEquals(postRevsDiffOptionsModel.documentRevisions(), java.util.Collections.singletonMap("key1", java.util.Arrays.asList("testString")));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
