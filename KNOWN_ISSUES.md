@@ -1,14 +1,15 @@
-<!-- This section applied from common template, do not edit in language specific repository KNOWN_ISSUES file -->
 # Limitations, Restrictions, and Known Issues
 
 ## All Cloudant SDKs
 
 ### Path elements containing the `+` character
 
-Path elements containing the `+` character in the SDKs are not interoperable with Apache CouchDB and Cloudant.
-* This is because standard URL encoding libraries following the [RFC3986 URI specification](https://tools.ietf.org/html/rfc3986#section-3.3) do not encode this character in path elements.
-* Apache CouchDB violates the specification by treating the `+` in path elements as a space character (see https://github.com/apache/couchdb/issues/2235).
-* Path elements include database names, all document names, and index and view names.
+Path elements containing the `+` character in the SDKs are not interoperable with:
+* Cloudant 
+* Apache CouchDB versions older than 3.2.0
+* Apache CouchDB versions 3.2.0 or newer with the setting `decode_plus_to_space = true`
+
+This is because standard URL encoding libraries following the [RFC3986 URI specification](https://tools.ietf.org/html/rfc3986#section-3.3) do not encode the `+` character in path elements.
 * It is possible to workaround for document names with a `+` in the ID (e.g. `docidwith+char`) by using:
     * For reading: use the `post` all docs operation and the `key` or `keys` parameter with a value of the document ID including the `+`.
     * For writing: use the `post` document operation or `post` bulk docs operation with the value of the document ID including the `+`.
@@ -21,23 +22,6 @@ Path elements containing the `+` character in the SDKs are not interoperable wit
 Using JSON objects as keys (e.g. `start_key`, `end_key`, `key`, `keys`)
 can cause inconsistent results because the ordering of the members of the JSON
 object after serialization is not guaranteed.
-
-### Search
-
-#### Cannot use `drilldown` parameters
-
-Drilldown parameters cannot be used for search queries with server versions:
-* CouchDB versions < 3.2.0
-* Cloudant (Classic) <= 8158
-
-### Changes
-
-#### Terminated connections
-
-When using the `post` changes operation the connection may intermittently terminate with an early `EOF` when using
-server versions:
-* CouchDB versions < 3.2.0
-* Cloudant (Classic) <= 8169
 
 ### Documents
 
@@ -82,43 +66,18 @@ Example JSON request body:
 }
 ```
 
-### Monitoring, Authorization, and CORS
-
-The server (Cloudant (Classic) <= 8169) incorrectly processes gzip compressed request bodies for the following endpoints:
-| Endpoint                              | HTTP operation |
-|---------------------------------------|----------------|
-|`/_api/v2/user/activity_tracker/events`|`POST`          |
-|`/_api/v2/user/capacity/throughput`    |`PUT`           |
-|`/_api/v2/api_keys`                    |`POST`          |
-|`/_api/v2/db/{db}/_security`           |`PUT`           |
-|`/_api/v2/user/config/cors`            |`PUT`           |
-
-The workaround is to [disable request body compression](#disabling-request-body-compression).
-
-### Replication
-
-The server (Cloudant (Classic) <= 8169) incorrectly processes gzip compressed request bodies for `_replicate` endpoint.
-The workaround is to [disable request body compression](#disabling-request-body-compression).
-
-The `basic` property of `ReplicationDatabaseAuth` is not available in CouchDB < 3.2.0 and Cloudant <= 8914. For those versions use the `headers` property to add a header with a key of `Authorization` and a value of `Basic <base64 encoded credentials>`.
-
 ### Compression
 
 * Manually setting an `Accept-Encoding` header on requests will disable the transparent gzip decompression of response bodies from the server.
 * Manually setting a `Content-Encoding` header on requests will disable the transparent gzip compression of request bodies to the server.
 
-<!-- End common section -->
-
-<!-- Template substitution for language specific content -->
-<!-- ## SPLIT MARKER ## -->
 ## Cloudant SDK for Java
-
+<!-- KNOWN_ISSUES specific to Java -->
 ### Search
 #### Analyzer definitions should be in object format
 
-* In order to be able to deserialize a design document with a search
-  index analyzer into the model object the analyzer must be stored in the design
-  document described in object format, not string format e.g.
+In order to be able to deserialize a design document with a search index analyzer into the model
+object the analyzer must be stored in the design document described in object format, not string format e.g.
   ```json
   {
     "analyzer": {
@@ -132,42 +91,43 @@ The `basic` property of `ReplicationDatabaseAuth` is not available in CouchDB < 
     "analyzer": "keyword"
   }
   ```
-  Note that analyzers created using the Java object models will use the object
-  format. As such the issue will only manifest when trying to read a design document created from another source with this exception:
+Note that analyzers created using the Java SDK object models will use the object format.
+As such the issue will only manifest when trying to read a design document created from another source with this exception:
   ```
   Expected BEGIN_OBJECT but was STRING
   ```
+
+#### Facet counting deserialization errors in no match cases
+
+When obtaining a `SearchResult` with `counts` if there are no matches a deserialization error is encountered:
+```
+java.lang.IllegalStateException: Expected BEGIN_OBJECT but was NUMBER
+```
+
+The workaround is to use [Raw IO](/#raw-io) functions to custom deserialize the response.
+
+See [issue #211](/issues/211).
 
 ### Changes
 #### Cannot automatically use the server default heartbeat interval
 
 * It is not possible to specify `heartbeat=true` to use the server side default heartbeat interval. The workaround is to specify a numerical heartbeat interval.
 
-### Geospatial queries
-#### Legacy format responses
+### Optional booleans
 
-* When using `legacy` format responses the document ID is not available in the response model in the expected place `GeoJsonFeature#getId()`.
-    * The workaround is to use `GeoJsonFeature#getProperties().get('id')`.
+Methods named `is*` may return a `Boolean` that can be `null` when the member is omitted from a response.
+An example is `Document#isDeleted()`. As such using a method reference like `Document::isDeleted` can
+result in a `NullPointerException`. A workaround is to wrap the method call in an `Optional` e.g.
+```
+Optional.ofNullable(doc.isDeleted()).orElse(false);
+```
 
-#### Coordinates of GeoJSON geometry objects
-
-* Casting is required to unpack the `coordinates` of a `GeoJsonGeometry`.
-
-#### GeoJSON feature properties
-
-* The `properties` field of a GeoJSON feature object is accessed by using `GeoJsonFeature#getXProperties()` not `GeoJsonFeature#getProperties()` which is the set of additional properties on the GeoJSON feature object (i.e. peers of the `properties` field).
-
-#### Error if GeoJSON feature contains no properties
-
-* It is not currently possible to deserialize a GeoJSON feature that has no properties into the model classes. (`Expected BEGIN_OBJECT but was BEGIN_ARRAY`)
-    * The workaround is to request the query as a stream `Cloudant#getGeoAsStream` and use custom deserialization.
-
-### Session authentication
-
-Session authentication does not work with compressed request bodies when the server is CouchDB < 3.2.0 or Cloudant <= 8192. [Disabling gzip compression](#disabling-request-body-compression) for requests is required when using session authentication with these server versions.
-
+See [issue #152](/issues/152).
 
 ### Disabling request body compression
+
+Some issues with older server versions can be worked around by disabling
+compression of request bodies. This is an example of how to do that.
 
 ```java
 import com.ibm.cloud.cloudant.v1.Cloudant;
