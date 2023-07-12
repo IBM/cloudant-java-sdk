@@ -106,7 +106,7 @@ java.lang.IllegalStateException: Expected BEGIN_OBJECT but was NUMBER
 
 The workaround is to use [Raw IO](/#raw-io) functions to custom deserialize the response.
 
-See [issue #211](/issues/211).
+See [issue #211](https://github.com/IBM/cloudant-java-sdk/issues/211).
 
 ### Changes
 #### Cannot automatically use the server default heartbeat interval
@@ -122,7 +122,7 @@ result in a `NullPointerException`. A workaround is to wrap the method call in a
 Optional.ofNullable(doc.isDeleted()).orElse(false);
 ```
 
-See [issue #152](/issues/152).
+See [issue #152](https://github.com/IBM/cloudant-java-sdk/issues/152).
 
 ### Disabling request body compression
 
