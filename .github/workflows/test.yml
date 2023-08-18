@@ -1,7 +1,6 @@
 name: test
 on:
   push:
-    branches: ['main']
   pull_request:
     branches-ignore: ['gh-pages']
 env:
@@ -15,7 +14,7 @@ jobs:
   test:
     strategy:
       matrix:
-        java: ['11', '17']
+        java: ['21-ea']
     runs-on: ubuntu-latest
     services:
       couchdb:
