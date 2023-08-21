@@ -77,7 +77,7 @@ Example JSON request body:
 #### Analyzer definitions should be in object format
 
 In order to be able to deserialize a design document with a search index analyzer into the model
-object the analyzer must be stored in the design document described in object format, not string format e.g.
+object the analyzer must be stored in the design document described in object format, not a string format e.g.
   ```json
   {
     "analyzer": {
@@ -136,3 +136,45 @@ Cloudant client = Cloudant.newInstance("YOUR_SERVICE_NAME");
 client.enableGzipCompression(false);
 ...
 ```
+
+### Replication Documents
+
+In order to be able to deserialize a replication document into the model
+object the source and target databases must be stored in an object format, not a string format e.g.
+
+  ```json
+  {
+    "source": {
+      "url": "https://<SERVICE_URL>/animaldb",
+      "auth" : {
+        "basic": {
+          "username": "<SERVICE_USERNAME>",
+          "password": "<SERVICE_PASSWORD>"
+        }
+      }
+    },
+    "target": {
+      "url": "https://<TARGET_SERVICE_URL>/animaldb-target",
+      "auth" : {
+        "basic": {
+          "username": "<TARGET_SERVICE_USERNAME>",
+          "password": "<TARGET_SERVICE_PASSWORD>"
+        }
+      }
+    }
+  }
+  ```
+  not
+  ```json
+  {
+    "source": "https://<SERVICE_USERNAME>:<SERVICE_PASSWORD>@<SERVICE_URL>",
+    "target": "https://<TARGET_SERVICE_USERNAME>:<TARGET_SERVICE_PASSWORD>@<TARGET_SERVICE_URL>"
+  }
+  ```
+Note that replication documents created using the Java SDK object models will use the object format.
+As such the issue will only manifest when trying to read a replication document created from another source with this exception:
+  ```sh
+  java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING
+  ```
+
+If you need to read a replication document that uses string format source or target URLs the workaround is to use the `getDocumentAsStream` [Raw IO](/#raw-io) function with the `_replicator` database name and your replication document id to custom deserialize the response.
