@@ -36,7 +36,7 @@
         <maven-reports-plugin-version>3.4.5</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.1.2</maven-failsafe-plugin-version>
         <maven-buildnumber-plugin-version>3.2.0</maven-buildnumber-plugin-version>
-        <mockito-version>5.4.0</mockito-version>
+        <mockito-version>5.5.0</mockito-version>
         <slf4j-version>2.0.7</slf4j-version>
 
         <!-- Set UTF-8 encoding -->
