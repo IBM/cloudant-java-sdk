@@ -19,9 +19,9 @@ import java.util.Map;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The postPartitionFind options.
+ * The postPartitionExplain options.
  */
-public class PostPartitionFindOptions extends GenericModel {
+public class PostPartitionExplainOptions extends GenericModel {
 
   /**
    * Whether to update the index prior to returning the result.
@@ -68,24 +68,24 @@ public class PostPartitionFindOptions extends GenericModel {
     private List<String> useIndex;
 
     /**
-     * Instantiates a new Builder from an existing PostPartitionFindOptions instance.
+     * Instantiates a new Builder from an existing PostPartitionExplainOptions instance.
      *
-     * @param postPartitionFindOptions the instance to initialize the Builder with
+     * @param postPartitionExplainOptions the instance to initialize the Builder with
      */
-    private Builder(PostPartitionFindOptions postPartitionFindOptions) {
-      this.db = postPartitionFindOptions.db;
-      this.partitionKey = postPartitionFindOptions.partitionKey;
-      this.selector = postPartitionFindOptions.selector;
-      this.bookmark = postPartitionFindOptions.bookmark;
-      this.conflicts = postPartitionFindOptions.conflicts;
-      this.executionStats = postPartitionFindOptions.executionStats;
-      this.fields = postPartitionFindOptions.fields;
-      this.limit = postPartitionFindOptions.limit;
-      this.skip = postPartitionFindOptions.skip;
-      this.sort = postPartitionFindOptions.sort;
-      this.stable = postPartitionFindOptions.stable;
-      this.update = postPartitionFindOptions.update;
-      this.useIndex = postPartitionFindOptions.useIndex;
+    private Builder(PostPartitionExplainOptions postPartitionExplainOptions) {
+      this.db = postPartitionExplainOptions.db;
+      this.partitionKey = postPartitionExplainOptions.partitionKey;
+      this.selector = postPartitionExplainOptions.selector;
+      this.bookmark = postPartitionExplainOptions.bookmark;
+      this.conflicts = postPartitionExplainOptions.conflicts;
+      this.executionStats = postPartitionExplainOptions.executionStats;
+      this.fields = postPartitionExplainOptions.fields;
+      this.limit = postPartitionExplainOptions.limit;
+      this.skip = postPartitionExplainOptions.skip;
+      this.sort = postPartitionExplainOptions.sort;
+      this.stable = postPartitionExplainOptions.stable;
+      this.update = postPartitionExplainOptions.update;
+      this.useIndex = postPartitionExplainOptions.useIndex;
     }
 
     /**
@@ -108,19 +108,19 @@ public class PostPartitionFindOptions extends GenericModel {
     }
 
     /**
-     * Builds a PostPartitionFindOptions.
+     * Builds a PostPartitionExplainOptions.
      *
-     * @return the new PostPartitionFindOptions instance
+     * @return the new PostPartitionExplainOptions instance
      */
-    public PostPartitionFindOptions build() {
-      return new PostPartitionFindOptions(this);
+    public PostPartitionExplainOptions build() {
+      return new PostPartitionExplainOptions(this);
     }
 
     /**
      * Adds an fields to fields.
      *
      * @param fields the new fields
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder addFields(String fields) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(fields,
@@ -136,7 +136,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Adds an sort to sort.
      *
      * @param sort the new sort
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder addSort(Map<String, String> sort) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
@@ -152,7 +152,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Adds an useIndex to useIndex.
      *
      * @param useIndex the new useIndex
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder addUseIndex(String useIndex) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(useIndex,
@@ -168,7 +168,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the db.
      *
      * @param db the db
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder db(String db) {
       this.db = db;
@@ -179,7 +179,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the partitionKey.
      *
      * @param partitionKey the partitionKey
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder partitionKey(String partitionKey) {
       this.partitionKey = partitionKey;
@@ -190,7 +190,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the selector.
      *
      * @param selector the selector
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder selector(Map<String, Object> selector) {
       this.selector = selector;
@@ -201,7 +201,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the bookmark.
      *
      * @param bookmark the bookmark
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder bookmark(String bookmark) {
       this.bookmark = bookmark;
@@ -212,7 +212,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the conflicts.
      *
      * @param conflicts the conflicts
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder conflicts(Boolean conflicts) {
       this.conflicts = conflicts;
@@ -223,7 +223,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the executionStats.
      *
      * @param executionStats the executionStats
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder executionStats(Boolean executionStats) {
       this.executionStats = executionStats;
@@ -235,7 +235,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Existing fields will be replaced.
      *
      * @param fields the fields
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder fields(List<String> fields) {
       this.fields = fields;
@@ -246,7 +246,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the limit.
      *
      * @param limit the limit
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder limit(long limit) {
       this.limit = limit;
@@ -257,7 +257,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the skip.
      *
      * @param skip the skip
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder skip(long skip) {
       this.skip = skip;
@@ -269,7 +269,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Existing sort will be replaced.
      *
      * @param sort the sort
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder sort(List<Map<String, String>> sort) {
       this.sort = sort;
@@ -280,7 +280,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the stable.
      *
      * @param stable the stable
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder stable(Boolean stable) {
       this.stable = stable;
@@ -291,7 +291,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Set the update.
      *
      * @param update the update
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder update(String update) {
       this.update = update;
@@ -303,7 +303,7 @@ public class PostPartitionFindOptions extends GenericModel {
      * Existing useIndex will be replaced.
      *
      * @param useIndex the useIndex
-     * @return the PostPartitionFindOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder useIndex(List<String> useIndex) {
       this.useIndex = useIndex;
@@ -311,9 +311,9 @@ public class PostPartitionFindOptions extends GenericModel {
     }
   }
 
-  protected PostPartitionFindOptions() { }
+  protected PostPartitionExplainOptions() { }
 
-  protected PostPartitionFindOptions(Builder builder) {
+  protected PostPartitionExplainOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.partitionKey,
@@ -338,7 +338,7 @@ public class PostPartitionFindOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a PostPartitionFindOptions builder
+   * @return a PostPartitionExplainOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);

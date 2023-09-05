@@ -37,6 +37,7 @@ public class PostExplainOptions extends GenericModel {
 
   protected String db;
   protected Map<String, Object> selector;
+  protected String accept;
   protected String bookmark;
   protected Boolean conflicts;
   protected Boolean executionStats;
@@ -55,6 +56,7 @@ public class PostExplainOptions extends GenericModel {
   public static class Builder {
     private String db;
     private Map<String, Object> selector;
+    private String accept;
     private String bookmark;
     private Boolean conflicts;
     private Boolean executionStats;
@@ -75,6 +77,7 @@ public class PostExplainOptions extends GenericModel {
     private Builder(PostExplainOptions postExplainOptions) {
       this.db = postExplainOptions.db;
       this.selector = postExplainOptions.selector;
+      this.accept = postExplainOptions.accept;
       this.bookmark = postExplainOptions.bookmark;
       this.conflicts = postExplainOptions.conflicts;
       this.executionStats = postExplainOptions.executionStats;
@@ -181,6 +184,17 @@ public class PostExplainOptions extends GenericModel {
      */
     public Builder selector(Map<String, Object> selector) {
       this.selector = selector;
+      return this;
+    }
+
+    /**
+     * Set the accept.
+     *
+     * @param accept the accept
+     * @return the PostExplainOptions builder
+     */
+    public Builder accept(String accept) {
+      this.accept = accept;
       return this;
     }
 
@@ -318,6 +332,7 @@ public class PostExplainOptions extends GenericModel {
       "selector cannot be null");
     db = builder.db;
     selector = builder.selector;
+    accept = builder.accept;
     bookmark = builder.bookmark;
     conflicts = builder.conflicts;
     executionStats = builder.executionStats;
@@ -370,23 +385,33 @@ public class PostExplainOptions extends GenericModel {
    * Operators are identified by the use of a dollar sign `$` prefix in the name field.
    *
    * There are two core types of operators in the selector syntax:
-   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. In addition
-   * to the common boolean operators (`$and`, `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-   * `$elemMatch`, and `$allMatch`. A combination operator takes a single argument. The argument is either another
-   * selector, or an array of selectors.
+   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. A
+   * combination operator takes a single argument. The argument is either another selector, or an array of selectors.
    * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
    * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
-   * argument.
+   * argument. See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list of all
+   * available combination and conditional operators.
    * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
    * of a query. You should include at least one of these in a selector.
    *
    * For further reference see
-   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
    *
    * @return the selector
    */
   public Map<String, Object> selector() {
     return selector;
+  }
+
+  /**
+   * Gets the accept.
+   *
+   * The type of the response: application/json or application/octet-stream.
+   *
+   * @return the accept
+   */
+  public String accept() {
+    return accept;
   }
 
   /**

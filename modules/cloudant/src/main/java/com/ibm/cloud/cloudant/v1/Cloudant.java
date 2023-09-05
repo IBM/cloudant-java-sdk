@@ -98,6 +98,7 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
@@ -2547,6 +2548,123 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
+   * Retrieve information about which partition index is used for a query.
+   *
+   * Shows which index is being used by the query. Parameters are the same as the
+   * [`/{db}/_partition/{partition_key}/_find` endpoint](#postpartitionfind-queries).
+   *
+   * @param postPartitionExplainOptions the {@link PostPartitionExplainOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ExplainResult}
+   */
+  public ServiceCall<ExplainResult> postPartitionExplain(PostPartitionExplainOptions postPartitionExplainOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postPartitionExplainOptions,
+      "postPartitionExplainOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", postPartitionExplainOptions.db());
+    pathParamsMap.put("partition_key", postPartitionExplainOptions.partitionKey());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_partition/{partition_key}/_explain", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postPartitionExplain");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.selector()));
+    if (postPartitionExplainOptions.bookmark() != null) {
+      contentJson.addProperty("bookmark", postPartitionExplainOptions.bookmark());
+    }
+    if (postPartitionExplainOptions.conflicts() != null) {
+      contentJson.addProperty("conflicts", postPartitionExplainOptions.conflicts());
+    }
+    if (postPartitionExplainOptions.executionStats() != null) {
+      contentJson.addProperty("execution_stats", postPartitionExplainOptions.executionStats());
+    }
+    if (postPartitionExplainOptions.fields() != null) {
+      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.fields()));
+    }
+    if (postPartitionExplainOptions.limit() != null) {
+      contentJson.addProperty("limit", postPartitionExplainOptions.limit());
+    }
+    if (postPartitionExplainOptions.skip() != null) {
+      contentJson.addProperty("skip", postPartitionExplainOptions.skip());
+    }
+    if (postPartitionExplainOptions.sort() != null) {
+      contentJson.add("sort", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.sort()));
+    }
+    if (postPartitionExplainOptions.stable() != null) {
+      contentJson.addProperty("stable", postPartitionExplainOptions.stable());
+    }
+    if (postPartitionExplainOptions.update() != null) {
+      contentJson.addProperty("update", postPartitionExplainOptions.update());
+    }
+    if (postPartitionExplainOptions.useIndex() != null) {
+      contentJson.add("use_index", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.useIndex()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<ExplainResult> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ExplainResult>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve information about which partition index is used for a query as stream.
+   *
+   * Shows which index is being used by the query. Parameters are the same as the
+   * [`/{db}/_partition/{partition_key}/_find` endpoint](#postpartitionfind-queries).
+   *
+   * @param postPartitionExplainOptions the {@link PostPartitionExplainOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
+   */
+  public ServiceCall<InputStream> postPartitionExplainAsStream(PostPartitionExplainOptions postPartitionExplainOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postPartitionExplainOptions,
+      "postPartitionExplainOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", postPartitionExplainOptions.db());
+    pathParamsMap.put("partition_key", postPartitionExplainOptions.partitionKey());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_partition/{partition_key}/_explain", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postPartitionExplainAsStream");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.selector()));
+    if (postPartitionExplainOptions.bookmark() != null) {
+      contentJson.addProperty("bookmark", postPartitionExplainOptions.bookmark());
+    }
+    if (postPartitionExplainOptions.conflicts() != null) {
+      contentJson.addProperty("conflicts", postPartitionExplainOptions.conflicts());
+    }
+    if (postPartitionExplainOptions.executionStats() != null) {
+      contentJson.addProperty("execution_stats", postPartitionExplainOptions.executionStats());
+    }
+    if (postPartitionExplainOptions.fields() != null) {
+      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.fields()));
+    }
+    if (postPartitionExplainOptions.limit() != null) {
+      contentJson.addProperty("limit", postPartitionExplainOptions.limit());
+    }
+    if (postPartitionExplainOptions.skip() != null) {
+      contentJson.addProperty("skip", postPartitionExplainOptions.skip());
+    }
+    if (postPartitionExplainOptions.sort() != null) {
+      contentJson.add("sort", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.sort()));
+    }
+    if (postPartitionExplainOptions.stable() != null) {
+      contentJson.addProperty("stable", postPartitionExplainOptions.stable());
+    }
+    if (postPartitionExplainOptions.update() != null) {
+      contentJson.addProperty("update", postPartitionExplainOptions.update());
+    }
+    if (postPartitionExplainOptions.useIndex() != null) {
+      contentJson.add("use_index", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.useIndex()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Query a database partition index by using selector syntax.
    *
    * Query documents by using a declarative JSON querying syntax. It's best practice to create an appropriate index for
@@ -2674,8 +2792,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve information about which index is used for a query.
    *
-   * Shows which index is being used by the query. Parameters are the same as the [`_find`
-   * endpoint](#query-an-index-by-using-selector-syntax).
+   * Shows which index is being used by the query. Parameters are the same as the [`_find` endpoint](#postfind).
    *
    * @param postExplainOptions the {@link PostExplainOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ExplainResult}
@@ -2690,7 +2807,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    builder.header("Accept", "application/json");
+    if (postExplainOptions.accept() != null) {
+      builder.header("Accept", postExplainOptions.accept());
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postExplainOptions.selector()));
     if (postExplainOptions.bookmark() != null) {

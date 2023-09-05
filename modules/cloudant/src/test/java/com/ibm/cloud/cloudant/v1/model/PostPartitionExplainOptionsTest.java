@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -24,18 +24,18 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the PostExplainOptions model.
+ * Unit test class for the PostPartitionExplainOptions model.
  */
-public class PostExplainOptionsTest {
+public class PostPartitionExplainOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testPostExplainOptions() throws Throwable {
-    PostExplainOptions postExplainOptionsModel = new PostExplainOptions.Builder()
+  public void testPostPartitionExplainOptions() throws Throwable {
+    PostPartitionExplainOptions postPartitionExplainOptionsModel = new PostPartitionExplainOptions.Builder()
       .db("testString")
+      .partitionKey("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
-      .accept("application/json")
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -46,27 +46,25 @@ public class PostExplainOptionsTest {
       .stable(true)
       .update("true")
       .useIndex(java.util.Arrays.asList("testString"))
-      .r(Long.valueOf("1"))
       .build();
-    assertEquals(postExplainOptionsModel.db(), "testString");
-    assertEquals(postExplainOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
-    assertEquals(postExplainOptionsModel.accept(), "application/json");
-    assertEquals(postExplainOptionsModel.bookmark(), "testString");
-    assertEquals(postExplainOptionsModel.conflicts(), Boolean.valueOf(true));
-    assertEquals(postExplainOptionsModel.executionStats(), Boolean.valueOf(true));
-    assertEquals(postExplainOptionsModel.fields(), java.util.Arrays.asList("testString"));
-    assertEquals(postExplainOptionsModel.limit(), Long.valueOf("25"));
-    assertEquals(postExplainOptionsModel.skip(), Long.valueOf("0"));
-    assertEquals(postExplainOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")));
-    assertEquals(postExplainOptionsModel.stable(), Boolean.valueOf(true));
-    assertEquals(postExplainOptionsModel.update(), "true");
-    assertEquals(postExplainOptionsModel.useIndex(), java.util.Arrays.asList("testString"));
-    assertEquals(postExplainOptionsModel.r(), Long.valueOf("1"));
+    assertEquals(postPartitionExplainOptionsModel.db(), "testString");
+    assertEquals(postPartitionExplainOptionsModel.partitionKey(), "testString");
+    assertEquals(postPartitionExplainOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(postPartitionExplainOptionsModel.bookmark(), "testString");
+    assertEquals(postPartitionExplainOptionsModel.conflicts(), Boolean.valueOf(true));
+    assertEquals(postPartitionExplainOptionsModel.executionStats(), Boolean.valueOf(true));
+    assertEquals(postPartitionExplainOptionsModel.fields(), java.util.Arrays.asList("testString"));
+    assertEquals(postPartitionExplainOptionsModel.limit(), Long.valueOf("25"));
+    assertEquals(postPartitionExplainOptionsModel.skip(), Long.valueOf("0"));
+    assertEquals(postPartitionExplainOptionsModel.sort(), java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")));
+    assertEquals(postPartitionExplainOptionsModel.stable(), Boolean.valueOf(true));
+    assertEquals(postPartitionExplainOptionsModel.update(), "true");
+    assertEquals(postPartitionExplainOptionsModel.useIndex(), java.util.Arrays.asList("testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostExplainOptionsError() throws Throwable {
-    new PostExplainOptions.Builder().build();
+  public void testPostPartitionExplainOptionsError() throws Throwable {
+    new PostPartitionExplainOptions.Builder().build();
   }
 
 }

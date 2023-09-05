@@ -13,11 +13,6 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
-import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
-import com.ibm.cloud.cloudant.v1.model.DatabaseInformationCluster;
-import com.ibm.cloud.cloudant.v1.model.DatabaseInformationProps;
-import com.ibm.cloud.cloudant.v1.model.DbsInfoResult;
 import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
 import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesInformation;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
@@ -29,17 +24,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DbsInfoResult model.
+ * Unit test class for the PartitionedIndexesInformation model.
  */
-public class DbsInfoResultTest {
+public class PartitionedIndexesInformationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDbsInfoResult() throws Throwable {
-    DbsInfoResult dbsInfoResultModel = new DbsInfoResult();
-    assertNull(dbsInfoResultModel.getError());
-    assertNull(dbsInfoResultModel.getInfo());
-    assertNull(dbsInfoResultModel.getKey());
+  public void testPartitionedIndexesInformation() throws Throwable {
+    PartitionedIndexesInformation partitionedIndexesInformationModel = new PartitionedIndexesInformation();
+    assertNull(partitionedIndexesInformationModel.getCount());
+    assertNull(partitionedIndexesInformationModel.getIndexes());
+    assertNull(partitionedIndexesInformationModel.getLimit());
   }
 }

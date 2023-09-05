@@ -39,6 +39,7 @@ public class IndexInformationTest {
     assertNull(indexInformationModel.getDdoc());
     assertNull(indexInformationModel.getDef());
     assertNull(indexInformationModel.getName());
+    assertNull(indexInformationModel.isPartitioned());
     assertNull(indexInformationModel.getType());
   }
 }

@@ -464,18 +464,17 @@ public class PostChangesOptions extends GenericModel {
    * Operators are identified by the use of a dollar sign `$` prefix in the name field.
    *
    * There are two core types of operators in the selector syntax:
-   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. In addition
-   * to the common boolean operators (`$and`, `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-   * `$elemMatch`, and `$allMatch`. A combination operator takes a single argument. The argument is either another
-   * selector, or an array of selectors.
+   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. A
+   * combination operator takes a single argument. The argument is either another selector, or an array of selectors.
    * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
    * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
-   * argument.
+   * argument. See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list of all
+   * available combination and conditional operators.
    * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
    * of a query. You should include at least one of these in a selector.
    *
    * For further reference see
-   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
    *
    * @return the selector
    */
@@ -578,9 +577,18 @@ public class PostChangesOptions extends GenericModel {
   /**
    * Gets the heartbeat.
    *
-   * Query parameter to specify the period in milliseconds after which an empty line is sent in the results. Only
-   * applicable for longpoll, continuous, and eventsource feeds. Overrides any timeout to keep the feed alive
-   * indefinitely. May also be `true` to use default value of 60000.
+   * Query parameter to specify the period in milliseconds after which an empty line is sent in the results. Off by
+   * default and only applicable for
+   * `continuous` and `eventsource` feeds. Overrides any timeout to keep the feed alive indefinitely. May also be `true`
+   * to use a value of `60000`.
+   *
+   * **Note:** Delivery of heartbeats cannot be relied on at specific intervals. If your application runs in an
+   * environment where idle network connections may break, `heartbeat` is not suitable as a keepalive mechanism.
+   * Instead, consider one of the following options:
+   *   * Use the `timeout` parameter with a value that is compatible with your network environment.
+   *   * Switch to scheduled usage of one of the non-continuous changes feed types
+   *     (`normal` or `longpoll`).
+   *   * Use TCP keepalive.
    *
    * @return the heartbeat
    */
