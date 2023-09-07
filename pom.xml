@@ -213,18 +213,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- Temporary (direct) dependency on okio pending okhttp >4.11.0 -->
-            <dependency>
-                <groupId>com.squareup.okio</groupId>
-                <artifactId>okio</artifactId>
-                <version>3.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okio</groupId>
-                <artifactId>okio-jvm</artifactId>
-                <version>3.4.0</version>
-            </dependency>
-
             <!-- TestNG is used to run unit/integration tests -->
             <dependency>
                 <groupId>org.testng</groupId>
