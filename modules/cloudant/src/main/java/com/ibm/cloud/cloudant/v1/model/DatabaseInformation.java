@@ -41,6 +41,8 @@ public class DatabaseInformation extends GenericModel {
   @SerializedName("update_seq")
   protected String updateSeq;
   protected String uuid;
+  @SerializedName("partitioned_indexes")
+  protected PartitionedIndexesInformation partitionedIndexes;
 
   protected DatabaseInformation() { }
 
@@ -186,6 +188,17 @@ public class DatabaseInformation extends GenericModel {
    */
   public String getUuid() {
     return uuid;
+  }
+
+  /**
+   * Gets the partitionedIndexes.
+   *
+   * Information about database's partitioned indexes.
+   *
+   * @return the partitionedIndexes
+   */
+  public PartitionedIndexesInformation getPartitionedIndexes() {
+    return partitionedIndexes;
   }
 }
 

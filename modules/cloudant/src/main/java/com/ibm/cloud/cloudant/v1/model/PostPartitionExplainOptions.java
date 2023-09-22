@@ -19,9 +19,9 @@ import java.util.Map;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * The postExplain options.
+ * The postPartitionExplain options.
  */
-public class PostExplainOptions extends GenericModel {
+public class PostPartitionExplainOptions extends GenericModel {
 
   /**
    * Whether to update the index prior to returning the result.
@@ -36,6 +36,7 @@ public class PostExplainOptions extends GenericModel {
   }
 
   protected String db;
+  protected String partitionKey;
   protected Map<String, Object> selector;
   protected String bookmark;
   protected Boolean conflicts;
@@ -47,13 +48,13 @@ public class PostExplainOptions extends GenericModel {
   protected Boolean stable;
   protected String update;
   protected List<String> useIndex;
-  protected Long r;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String db;
+    private String partitionKey;
     private Map<String, Object> selector;
     private String bookmark;
     private Boolean conflicts;
@@ -65,27 +66,26 @@ public class PostExplainOptions extends GenericModel {
     private Boolean stable;
     private String update;
     private List<String> useIndex;
-    private Long r;
 
     /**
-     * Instantiates a new Builder from an existing PostExplainOptions instance.
+     * Instantiates a new Builder from an existing PostPartitionExplainOptions instance.
      *
-     * @param postExplainOptions the instance to initialize the Builder with
+     * @param postPartitionExplainOptions the instance to initialize the Builder with
      */
-    private Builder(PostExplainOptions postExplainOptions) {
-      this.db = postExplainOptions.db;
-      this.selector = postExplainOptions.selector;
-      this.bookmark = postExplainOptions.bookmark;
-      this.conflicts = postExplainOptions.conflicts;
-      this.executionStats = postExplainOptions.executionStats;
-      this.fields = postExplainOptions.fields;
-      this.limit = postExplainOptions.limit;
-      this.skip = postExplainOptions.skip;
-      this.sort = postExplainOptions.sort;
-      this.stable = postExplainOptions.stable;
-      this.update = postExplainOptions.update;
-      this.useIndex = postExplainOptions.useIndex;
-      this.r = postExplainOptions.r;
+    private Builder(PostPartitionExplainOptions postPartitionExplainOptions) {
+      this.db = postPartitionExplainOptions.db;
+      this.partitionKey = postPartitionExplainOptions.partitionKey;
+      this.selector = postPartitionExplainOptions.selector;
+      this.bookmark = postPartitionExplainOptions.bookmark;
+      this.conflicts = postPartitionExplainOptions.conflicts;
+      this.executionStats = postPartitionExplainOptions.executionStats;
+      this.fields = postPartitionExplainOptions.fields;
+      this.limit = postPartitionExplainOptions.limit;
+      this.skip = postPartitionExplainOptions.skip;
+      this.sort = postPartitionExplainOptions.sort;
+      this.stable = postPartitionExplainOptions.stable;
+      this.update = postPartitionExplainOptions.update;
+      this.useIndex = postPartitionExplainOptions.useIndex;
     }
 
     /**
@@ -98,27 +98,29 @@ public class PostExplainOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param db the db
+     * @param partitionKey the partitionKey
      * @param selector the selector
      */
-    public Builder(String db, Map<String, Object> selector) {
+    public Builder(String db, String partitionKey, Map<String, Object> selector) {
       this.db = db;
+      this.partitionKey = partitionKey;
       this.selector = selector;
     }
 
     /**
-     * Builds a PostExplainOptions.
+     * Builds a PostPartitionExplainOptions.
      *
-     * @return the new PostExplainOptions instance
+     * @return the new PostPartitionExplainOptions instance
      */
-    public PostExplainOptions build() {
-      return new PostExplainOptions(this);
+    public PostPartitionExplainOptions build() {
+      return new PostPartitionExplainOptions(this);
     }
 
     /**
      * Adds an fields to fields.
      *
      * @param fields the new fields
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder addFields(String fields) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(fields,
@@ -134,7 +136,7 @@ public class PostExplainOptions extends GenericModel {
      * Adds an sort to sort.
      *
      * @param sort the new sort
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder addSort(Map<String, String> sort) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(sort,
@@ -150,7 +152,7 @@ public class PostExplainOptions extends GenericModel {
      * Adds an useIndex to useIndex.
      *
      * @param useIndex the new useIndex
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder addUseIndex(String useIndex) {
       com.ibm.cloud.sdk.core.util.Validator.notNull(useIndex,
@@ -166,7 +168,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the db.
      *
      * @param db the db
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder db(String db) {
       this.db = db;
@@ -174,10 +176,21 @@ public class PostExplainOptions extends GenericModel {
     }
 
     /**
+     * Set the partitionKey.
+     *
+     * @param partitionKey the partitionKey
+     * @return the PostPartitionExplainOptions builder
+     */
+    public Builder partitionKey(String partitionKey) {
+      this.partitionKey = partitionKey;
+      return this;
+    }
+
+    /**
      * Set the selector.
      *
      * @param selector the selector
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder selector(Map<String, Object> selector) {
       this.selector = selector;
@@ -188,7 +201,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the bookmark.
      *
      * @param bookmark the bookmark
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder bookmark(String bookmark) {
       this.bookmark = bookmark;
@@ -199,7 +212,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the conflicts.
      *
      * @param conflicts the conflicts
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder conflicts(Boolean conflicts) {
       this.conflicts = conflicts;
@@ -210,7 +223,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the executionStats.
      *
      * @param executionStats the executionStats
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder executionStats(Boolean executionStats) {
       this.executionStats = executionStats;
@@ -222,7 +235,7 @@ public class PostExplainOptions extends GenericModel {
      * Existing fields will be replaced.
      *
      * @param fields the fields
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder fields(List<String> fields) {
       this.fields = fields;
@@ -233,7 +246,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the limit.
      *
      * @param limit the limit
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder limit(long limit) {
       this.limit = limit;
@@ -244,7 +257,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the skip.
      *
      * @param skip the skip
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder skip(long skip) {
       this.skip = skip;
@@ -256,7 +269,7 @@ public class PostExplainOptions extends GenericModel {
      * Existing sort will be replaced.
      *
      * @param sort the sort
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder sort(List<Map<String, String>> sort) {
       this.sort = sort;
@@ -267,7 +280,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the stable.
      *
      * @param stable the stable
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder stable(Boolean stable) {
       this.stable = stable;
@@ -278,7 +291,7 @@ public class PostExplainOptions extends GenericModel {
      * Set the update.
      *
      * @param update the update
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder update(String update) {
       this.update = update;
@@ -290,33 +303,25 @@ public class PostExplainOptions extends GenericModel {
      * Existing useIndex will be replaced.
      *
      * @param useIndex the useIndex
-     * @return the PostExplainOptions builder
+     * @return the PostPartitionExplainOptions builder
      */
     public Builder useIndex(List<String> useIndex) {
       this.useIndex = useIndex;
       return this;
     }
-
-    /**
-     * Set the r.
-     *
-     * @param r the r
-     * @return the PostExplainOptions builder
-     */
-    public Builder r(long r) {
-      this.r = r;
-      return this;
-    }
   }
 
-  protected PostExplainOptions() { }
+  protected PostPartitionExplainOptions() { }
 
-  protected PostExplainOptions(Builder builder) {
+  protected PostPartitionExplainOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.partitionKey,
+      "partitionKey cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.selector,
       "selector cannot be null");
     db = builder.db;
+    partitionKey = builder.partitionKey;
     selector = builder.selector;
     bookmark = builder.bookmark;
     conflicts = builder.conflicts;
@@ -328,13 +333,12 @@ public class PostExplainOptions extends GenericModel {
     stable = builder.stable;
     update = builder.update;
     useIndex = builder.useIndex;
-    r = builder.r;
   }
 
   /**
    * New builder.
    *
-   * @return a PostExplainOptions builder
+   * @return a PostPartitionExplainOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -349,6 +353,17 @@ public class PostExplainOptions extends GenericModel {
    */
   public String db() {
     return db;
+  }
+
+  /**
+   * Gets the partitionKey.
+   *
+   * Path parameter to specify the database partition key.
+   *
+   * @return the partitionKey
+   */
+  public String partitionKey() {
+    return partitionKey;
   }
 
   /**
@@ -508,20 +523,6 @@ public class PostExplainOptions extends GenericModel {
    */
   public List<String> useIndex() {
     return useIndex;
-  }
-
-  /**
-   * Gets the r.
-   *
-   * The read quorum that is needed for the result. The value defaults to 1, in which case the document that was found
-   * in the index is returned. If set to a higher value, each document is read from at least that many replicas before
-   * it is returned in the results. The request will take more time than using only the document that is stored locally
-   * with the index.
-   *
-   * @return the r
-   */
-  public Long r() {
-    return r;
   }
 }
 

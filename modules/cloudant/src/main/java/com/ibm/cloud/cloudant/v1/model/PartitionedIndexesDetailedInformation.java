@@ -12,43 +12,38 @@
  */
 package com.ibm.cloud.cloudant.v1.model;
 
-import java.util.List;
-
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Range parameters passed to the underlying view.
+ * Number of partitioned indexes by type.
  */
-public class ExplainResultRange extends GenericModel {
+public class PartitionedIndexesDetailedInformation extends GenericModel {
 
-  @SerializedName("end_key")
-  protected List<Object> endKey;
-  @SerializedName("start_key")
-  protected List<Object> startKey;
+  protected Long search;
+  protected Long view;
 
-  protected ExplainResultRange() { }
+  protected PartitionedIndexesDetailedInformation() { }
 
   /**
-   * Gets the endKey.
+   * Gets the search.
    *
-   * End key parameter passed to the underlying view.
+   * Number of partitioned indexes of search type.
    *
-   * @return the endKey
+   * @return the search
    */
-  public List<Object> getEndKey() {
-    return endKey;
+  public Long getSearch() {
+    return search;
   }
 
   /**
-   * Gets the startKey.
+   * Gets the view.
    *
-   * Start key parameter passed to the underlying view.
+   * Number of partitioned indexes of view type.
    *
-   * @return the startKey
+   * @return the view
    */
-  public List<Object> getStartKey() {
-    return startKey;
+  public Long getView() {
+    return view;
   }
 }
 
