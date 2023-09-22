@@ -13,13 +13,7 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
-import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
-import com.ibm.cloud.cloudant.v1.model.DatabaseInformationCluster;
-import com.ibm.cloud.cloudant.v1.model.DatabaseInformationProps;
-import com.ibm.cloud.cloudant.v1.model.DbsInfoResult;
-import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
-import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesInformation;
+import com.ibm.cloud.cloudant.v1.model.ExplainResultMrArgs;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -29,17 +23,24 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the DbsInfoResult model.
+ * Unit test class for the ExplainResultMrArgs model.
  */
-public class DbsInfoResultTest {
+public class ExplainResultMrArgsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDbsInfoResult() throws Throwable {
-    DbsInfoResult dbsInfoResultModel = new DbsInfoResult();
-    assertNull(dbsInfoResultModel.getError());
-    assertNull(dbsInfoResultModel.getInfo());
-    assertNull(dbsInfoResultModel.getKey());
+  public void testExplainResultMrArgs() throws Throwable {
+    ExplainResultMrArgs explainResultMrArgsModel = new ExplainResultMrArgs();
+    assertNull(explainResultMrArgsModel.getConflicts());
+    assertNull(explainResultMrArgsModel.getDirection());
+    assertNull(explainResultMrArgsModel.getEndKey());
+    assertNull(explainResultMrArgsModel.isIncludeDocs());
+    assertNull(explainResultMrArgsModel.getPartition());
+    assertNull(explainResultMrArgsModel.isReduce());
+    assertNull(explainResultMrArgsModel.isStable());
+    assertNull(explainResultMrArgsModel.getStartKey());
+    assertNull(explainResultMrArgsModel.getUpdate());
+    assertNull(explainResultMrArgsModel.getViewType());
   }
 }

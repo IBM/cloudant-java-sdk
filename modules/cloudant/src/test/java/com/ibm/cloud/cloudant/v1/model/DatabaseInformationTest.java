@@ -17,6 +17,8 @@ import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationCluster;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationProps;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesInformation;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -48,5 +50,6 @@ public class DatabaseInformationTest {
     assertNull(databaseInformationModel.getSizes());
     assertNull(databaseInformationModel.getUpdateSeq());
     assertNull(databaseInformationModel.getUuid());
+    assertNull(databaseInformationModel.getPartitionedIndexes());
   }
 }
