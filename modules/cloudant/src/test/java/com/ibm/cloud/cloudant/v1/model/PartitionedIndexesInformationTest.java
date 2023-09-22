@@ -13,7 +13,8 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.ExplainResultRange;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesInformation;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,16 +24,17 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ExplainResultRange model.
+ * Unit test class for the PartitionedIndexesInformation model.
  */
-public class ExplainResultRangeTest {
+public class PartitionedIndexesInformationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testExplainResultRange() throws Throwable {
-    ExplainResultRange explainResultRangeModel = new ExplainResultRange();
-    assertNull(explainResultRangeModel.getEndKey());
-    assertNull(explainResultRangeModel.getStartKey());
+  public void testPartitionedIndexesInformation() throws Throwable {
+    PartitionedIndexesInformation partitionedIndexesInformationModel = new PartitionedIndexesInformation();
+    assertNull(partitionedIndexesInformationModel.getCount());
+    assertNull(partitionedIndexesInformationModel.getIndexes());
+    assertNull(partitionedIndexesInformationModel.getLimit());
   }
 }

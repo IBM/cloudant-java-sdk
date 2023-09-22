@@ -34,6 +34,7 @@ public class IndexInformation extends GenericModel {
   protected String ddoc;
   protected IndexDefinition def;
   protected String name;
+  protected Boolean partitioned;
   protected String type;
 
   protected IndexInformation() { }
@@ -41,7 +42,7 @@ public class IndexInformation extends GenericModel {
   /**
    * Gets the ddoc.
    *
-   * Design document ID.
+   * Design document ID including a `_design/` prefix.
    *
    * @return the ddoc
    */
@@ -72,6 +73,17 @@ public class IndexInformation extends GenericModel {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Gets the partitioned.
+   *
+   * Indicates if index is partitioned.
+   *
+   * @return the partitioned
+   */
+  public Boolean isPartitioned() {
+    return partitioned;
   }
 
   /**

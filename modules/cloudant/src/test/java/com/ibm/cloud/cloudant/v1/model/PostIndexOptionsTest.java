@@ -75,7 +75,6 @@ public class PostIndexOptionsTest {
       .db("testString")
       .index(indexDefinitionModel)
       .ddoc("testString")
-      .def(indexDefinitionModel)
       .name("testString")
       .partitioned(true)
       .type("json")
@@ -83,7 +82,6 @@ public class PostIndexOptionsTest {
     assertEquals(postIndexOptionsModel.db(), "testString");
     assertEquals(postIndexOptionsModel.index(), indexDefinitionModel);
     assertEquals(postIndexOptionsModel.ddoc(), "testString");
-    assertEquals(postIndexOptionsModel.def(), indexDefinitionModel);
     assertEquals(postIndexOptionsModel.name(), "testString");
     assertEquals(postIndexOptionsModel.partitioned(), Boolean.valueOf(true));
     assertEquals(postIndexOptionsModel.type(), "json");

@@ -15,7 +15,8 @@ package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.Analyzer;
 import com.ibm.cloud.cloudant.v1.model.ExplainResult;
-import com.ibm.cloud.cloudant.v1.model.ExplainResultRange;
+import com.ibm.cloud.cloudant.v1.model.ExplainResultMrArgs;
+import com.ibm.cloud.cloudant.v1.model.ExplainResultOpts;
 import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.IndexField;
 import com.ibm.cloud.cloudant.v1.model.IndexInformation;
@@ -38,13 +39,14 @@ public class ExplainResultTest {
   @Test
   public void testExplainResult() throws Throwable {
     ExplainResult explainResultModel = new ExplainResult();
-    assertNull(explainResultModel.isCovered());
+    assertNull(explainResultModel.isCovering());
     assertNull(explainResultModel.getDbname());
     assertNull(explainResultModel.getFields());
     assertNull(explainResultModel.getIndex());
     assertNull(explainResultModel.getLimit());
+    assertNull(explainResultModel.getMrargs());
     assertNull(explainResultModel.getOpts());
-    assertNull(explainResultModel.getRange());
+    assertNull(explainResultModel.getPartitioned());
     assertNull(explainResultModel.getSelector());
     assertNull(explainResultModel.getSkip());
   }
