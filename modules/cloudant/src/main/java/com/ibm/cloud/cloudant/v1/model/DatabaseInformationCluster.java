@@ -29,7 +29,8 @@ public class DatabaseInformationCluster extends GenericModel {
   /**
    * Gets the n.
    *
-   * Schema for the number of replicas of a database in a cluster.
+   * Schema for the number of replicas of a database in a cluster. The cluster is using the default value and it cannot
+   * be changed by the user.
    *
    * @return the n
    */
