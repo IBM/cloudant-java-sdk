@@ -71,6 +71,37 @@ Example JSON request body:
 * Manually setting an `Accept-Encoding` header on requests will disable the transparent gzip decompression of response bodies from the server.
 * Manually setting a `Content-Encoding` header on requests will disable the transparent gzip compression of request bodies to the server.
 
+### Changes feed
+
+#### Filter functions
+
+The SDK does not support passing user-defined query or body parameters in `_changes` requests for dynamic filter functions in design documents. 
+The workaround and recommended option is to use a `selector` type filter.
+For example, if you are using a `_changes` request like `/{db}/_changes?filter=myDdoc/byName&name=Jane` with a filter function like:
+```javascript
+function(doc, req) {
+    if (doc.name !== req.query.name) {
+        return false;
+    }
+    return true; 
+}
+```
+It can be replaced with a request using a selector filter:
+```java
+Cloudant service = Cloudant.newInstance();
+
+PostChangesOptions changesOptions = new PostChangesOptions.Builder()
+        .db("example")
+        .filter("_selector")
+        .selector(Collections.singletonMap("name", "Jane"))
+        .build();
+
+ChangesResult response =
+        service.postChanges(changesOptions).execute()
+                .getResult();
+```
+
+
 ## Cloudant SDK for Java
 <!-- KNOWN_ISSUES specific to Java -->
 ### Search
