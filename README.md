@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-java-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-java-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Javadoc&message=latest&color=blue)](https://ibm.github.io/cloudant-java-sdk/)
 
-# IBM Cloudant Java SDK Version 0.7.1
+# IBM Cloudant Java SDK Version 0.8.0
 
 IBM Cloudant Java SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=java).
@@ -123,7 +123,7 @@ project:
 
 ## Installation
 
-The current version of this SDK is: 0.7.1
+The current version of this SDK is: 0.8.0
 
 The project artifacts are published on the
 [Maven Central](https://repo1.maven.org/maven2/com/ibm/cloud/cloudant/).
@@ -150,7 +150,7 @@ Extend *Maven dependencies* in your `pom.xml` file with the `cloudant` library.
   <dependency>
     <groupId>com.ibm.cloud</groupId>
       <artifactId>cloudant</artifactId>
-        <version>0.7.1</version>
+        <version>0.8.0</version>
   </dependency>
 </dependencies>
 ```
@@ -162,7 +162,7 @@ Add the `cloudant` library to the *dependencies* in your `build.gradle` file:
 ```groovy
 dependencies {
     // other dependencies...
-    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.7.1"
+    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.8.0"
 }
 ```
 
@@ -734,7 +734,7 @@ You have deleted the document.
 
 #### Further code examples
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.7.1/examples#examples-for-java).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.8.0/examples#examples-for-java).
 
 ### Error handling
 
@@ -831,7 +831,7 @@ The changes follower requires the client to have HTTP timeouts of at least 1 min
 instantiation if it is insufficient. The default client configuration has sufficiently long timeouts.
 
 For use-cases where these configuration limitations are deemed too restrictive then it is recommended to
-write code to use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.7.1/examples#postchanges) instead of the follower.
+write code to use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.8.0/examples#postchanges) instead of the follower.
 
 #### Error suppression
 
@@ -866,7 +866,7 @@ The follower is not optimized for some use cases and it is not recommended to us
 * The volume of changes is very high (if the rate of changes in the database exceeds the follower's rate of pulling them it will never catch-up).
 
 In these cases use-case specific control over the number of change requests made and the content size of the responses
-may be achieved by using the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.7.1/examples#postchanges).
+may be achieved by using the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.8.0/examples#postchanges).
 
 #### Checkpointing
 
@@ -1113,7 +1113,7 @@ If you encounter an issue with the project, you are welcome to submit a
 
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-java-sdk/issues?q=is%3Aissue) and review the
-[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.7.1/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.8.0/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-java-sdk/security/policy) before opening security related issues.
 
@@ -1143,8 +1143,8 @@ Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
-For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.7.1/CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.8.0/CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.7.1/LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.8.0/LICENSE).
