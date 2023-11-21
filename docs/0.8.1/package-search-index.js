@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.ibm.cloud.cloudant.common"},{"l":"com.ibm.cloud.cloudant.features"},{"l":"com.ibm.cloud.cloudant.internal"},{"l":"com.ibm.cloud.cloudant.security"},{"l":"com.ibm.cloud.cloudant.v1"},{"l":"com.ibm.cloud.cloudant.v1.model"},{"l":"features"}];updateSearchResults();
