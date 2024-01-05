@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -70,9 +70,9 @@ public class PutCorsConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an origins to origins.
+     * Adds a new element to origins.
      *
-     * @param origins the new origins
+     * @param origins the new element to be added
      * @return the PutCorsConfigurationOptions builder
      */
     public Builder addOrigins(String origins) {

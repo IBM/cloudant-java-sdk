@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,9 +81,9 @@ public class PostBulkGetOptions extends GenericModel {
     }
 
     /**
-     * Adds an docs to docs.
+     * Adds a new element to docs.
      *
-     * @param docs the new docs
+     * @param docs the new element to be added
      * @return the PostBulkGetOptions builder
      */
     public Builder addDocs(BulkGetQueryDocument docs) {
