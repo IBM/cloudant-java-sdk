@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -115,9 +115,9 @@ public class PostFindOptions extends GenericModel {
     }
 
     /**
-     * Adds an fields to fields.
+     * Adds a new element to fields.
      *
-     * @param fields the new fields
+     * @param fields the new element to be added
      * @return the PostFindOptions builder
      */
     public Builder addFields(String fields) {
@@ -131,9 +131,9 @@ public class PostFindOptions extends GenericModel {
     }
 
     /**
-     * Adds an sort to sort.
+     * Adds a new element to sort.
      *
-     * @param sort the new sort
+     * @param sort the new element to be added
      * @return the PostFindOptions builder
      */
     public Builder addSort(Map<String, String> sort) {
@@ -147,9 +147,9 @@ public class PostFindOptions extends GenericModel {
     }
 
     /**
-     * Adds an useIndex to useIndex.
+     * Adds a new element to useIndex.
      *
-     * @param useIndex the new useIndex
+     * @param useIndex the new element to be added
      * @return the PostFindOptions builder
      */
     public Builder addUseIndex(String useIndex) {

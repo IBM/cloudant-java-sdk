@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,9 +71,9 @@ public class PostActivityTrackerEventsOptions extends GenericModel {
     }
 
     /**
-     * Adds an types to types.
+     * Adds a new element to types.
      *
-     * @param types the new types
+     * @param types the new element to be added
      * @return the PostActivityTrackerEventsOptions builder
      */
     public Builder addTypes(String types) {

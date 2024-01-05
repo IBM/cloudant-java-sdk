@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -98,9 +98,9 @@ public class Document extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an conflicts to conflicts.
+     * Adds a new element to conflicts.
      *
-     * @param conflicts the new conflicts
+     * @param conflicts the new element to be added
      * @return the Document builder
      */
     public Builder addConflicts(String conflicts) {
@@ -114,9 +114,9 @@ public class Document extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an deletedConflicts to deletedConflicts.
+     * Adds a new element to deletedConflicts.
      *
-     * @param deletedConflicts the new deletedConflicts
+     * @param deletedConflicts the new element to be added
      * @return the Document builder
      */
     public Builder addDeletedConflicts(String deletedConflicts) {
@@ -130,9 +130,9 @@ public class Document extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an revsInfo to revsInfo.
+     * Adds a new element to revsInfo.
      *
-     * @param revsInfo the new revsInfo
+     * @param revsInfo the new element to be added
      * @return the Document builder
      */
     public Builder addRevsInfo(DocumentRevisionStatus revsInfo) {
