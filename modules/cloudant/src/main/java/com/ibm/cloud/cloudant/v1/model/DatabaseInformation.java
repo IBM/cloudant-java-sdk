@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,6 +41,8 @@ public class DatabaseInformation extends GenericModel {
   @SerializedName("update_seq")
   protected String updateSeq;
   protected String uuid;
+  @SerializedName("partitioned_indexes")
+  protected PartitionedIndexesInformation partitionedIndexes;
 
   protected DatabaseInformation() { }
 
@@ -186,6 +188,17 @@ public class DatabaseInformation extends GenericModel {
    */
   public String getUuid() {
     return uuid;
+  }
+
+  /**
+   * Gets the partitionedIndexes.
+   *
+   * Information about database's partitioned indexes.
+   *
+   * @return the partitionedIndexes
+   */
+  public PartitionedIndexesInformation getPartitionedIndexes() {
+    return partitionedIndexes;
   }
 }
 

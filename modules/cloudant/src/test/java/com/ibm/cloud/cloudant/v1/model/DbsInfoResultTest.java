@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,6 +18,8 @@ import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationCluster;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationProps;
 import com.ibm.cloud.cloudant.v1.model.DbsInfoResult;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesInformation;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;

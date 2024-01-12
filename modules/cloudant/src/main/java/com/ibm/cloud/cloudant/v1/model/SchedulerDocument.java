@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -158,10 +158,14 @@ public class SchedulerDocument extends GenericModel {
   /**
    * Gets the sourceProxy.
    *
+   * Forbidden in IBM Cloudant mediated replications.
+   *
    * Address of the (http or socks5 protocol) proxy server through which replication with the source database occurs.
    *
    * @return the sourceProxy
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+  @Deprecated
   public String getSourceProxy() {
     return sourceProxy;
   }
@@ -202,10 +206,14 @@ public class SchedulerDocument extends GenericModel {
   /**
    * Gets the targetProxy.
    *
+   * Forbidden in IBM Cloudant mediated replications.
+   *
    * Address of the (http or socks5 protocol) proxy server through which replication with the target database occurs.
    *
    * @return the targetProxy
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+  @Deprecated
   public String getTargetProxy() {
     return targetProxy;
   }

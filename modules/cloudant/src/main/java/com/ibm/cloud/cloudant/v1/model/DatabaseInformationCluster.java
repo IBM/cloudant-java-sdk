@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,7 +29,8 @@ public class DatabaseInformationCluster extends GenericModel {
   /**
    * Gets the n.
    *
-   * Schema for the number of replicas of a database in a cluster.
+   * Schema for the number of replicas of a database in a cluster. The cluster is using the default value and it cannot
+   * be changed by the user.
    *
    * @return the n
    */

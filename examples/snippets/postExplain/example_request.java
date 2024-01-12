@@ -2,14 +2,15 @@
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.ExplainResult;
 import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
-import com.ibm.cloud.cloudant.v1.model.Selector;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Map;
 // section: code
 Cloudant service = Cloudant.newInstance();
 
-Selector selector = new Selector();
-selector.put("type", new HashMap<>().put("$eq", "user"));
+Map<String, Object> selector = Collections.singletonMap(
+    "type",
+    Collections.singletonMap("$eq", "user"));
 
 PostExplainOptions explainOptions =
     new PostExplainOptions.Builder()

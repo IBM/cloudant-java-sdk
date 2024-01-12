@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,7 @@ public class IndexInformation extends GenericModel {
   protected String ddoc;
   protected IndexDefinition def;
   protected String name;
+  protected Boolean partitioned;
   protected String type;
 
   protected IndexInformation() { }
@@ -41,7 +42,7 @@ public class IndexInformation extends GenericModel {
   /**
    * Gets the ddoc.
    *
-   * Design document ID.
+   * Design document ID including a `_design/` prefix.
    *
    * @return the ddoc
    */
@@ -72,6 +73,17 @@ public class IndexInformation extends GenericModel {
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Gets the partitioned.
+   *
+   * Indicates if index is partitioned.
+   *
+   * @return the partitioned
+   */
+  public Boolean isPartitioned() {
+    return partitioned;
   }
 
   /**

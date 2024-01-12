@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -151,9 +151,18 @@ public class GetDbUpdatesOptions extends GenericModel {
   /**
    * Gets the heartbeat.
    *
-   * Query parameter to specify the period in milliseconds after which an empty line is sent in the results. Only
-   * applicable for longpoll, continuous, and eventsource feeds. Overrides any timeout to keep the feed alive
-   * indefinitely. May also be `true` to use default value of 60000.
+   * Query parameter to specify the period in milliseconds after which an empty line is sent in the results. Off by
+   * default and only applicable for
+   * `continuous` and `eventsource` feeds. Overrides any timeout to keep the feed alive indefinitely. May also be `true`
+   * to use a value of `60000`.
+   *
+   * **Note:** Delivery of heartbeats cannot be relied on at specific intervals. If your application runs in an
+   * environment where idle network connections may break, `heartbeat` is not suitable as a keepalive mechanism.
+   * Instead, consider one of the following options:
+   *   * Use the `timeout` parameter with a value that is compatible with your network environment.
+   *   * Switch to scheduled usage of one of the non-continuous changes feed types
+   *     (`normal` or `longpoll`).
+   *   * Use TCP keepalive.
    *
    * @return the heartbeat
    */

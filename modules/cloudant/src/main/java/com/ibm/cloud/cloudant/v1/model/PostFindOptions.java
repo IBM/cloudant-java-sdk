@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -115,9 +115,9 @@ public class PostFindOptions extends GenericModel {
     }
 
     /**
-     * Adds an fields to fields.
+     * Adds a new element to fields.
      *
-     * @param fields the new fields
+     * @param fields the new element to be added
      * @return the PostFindOptions builder
      */
     public Builder addFields(String fields) {
@@ -131,9 +131,9 @@ public class PostFindOptions extends GenericModel {
     }
 
     /**
-     * Adds an sort to sort.
+     * Adds a new element to sort.
      *
-     * @param sort the new sort
+     * @param sort the new element to be added
      * @return the PostFindOptions builder
      */
     public Builder addSort(Map<String, String> sort) {
@@ -147,9 +147,9 @@ public class PostFindOptions extends GenericModel {
     }
 
     /**
-     * Adds an useIndex to useIndex.
+     * Adds a new element to useIndex.
      *
-     * @param useIndex the new useIndex
+     * @param useIndex the new element to be added
      * @return the PostFindOptions builder
      */
     public Builder addUseIndex(String useIndex) {
@@ -370,18 +370,17 @@ public class PostFindOptions extends GenericModel {
    * Operators are identified by the use of a dollar sign `$` prefix in the name field.
    *
    * There are two core types of operators in the selector syntax:
-   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. In addition
-   * to the common boolean operators (`$and`, `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-   * `$elemMatch`, and `$allMatch`. A combination operator takes a single argument. The argument is either another
-   * selector, or an array of selectors.
+   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. A
+   * combination operator takes a single argument. The argument is either another selector, or an array of selectors.
    * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
    * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
-   * argument.
+   * argument. See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list of all
+   * available combination and conditional operators.
    * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
    * of a query. You should include at least one of these in a selector.
    *
    * For further reference see
-   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
    *
    * @return the selector
    */
@@ -428,7 +427,7 @@ public class PostFindOptions extends GenericModel {
    * Gets the fields.
    *
    * JSON array that uses the field syntax. Use this parameter to specify which fields of a document must be returned.
-   * If it is omitted, the entire document is returned.
+   * If it is omitted or empty, the entire document is returned.
    *
    * @return the fields
    */

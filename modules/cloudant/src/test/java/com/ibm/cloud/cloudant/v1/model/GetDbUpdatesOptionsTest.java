@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,12 +33,12 @@ public class GetDbUpdatesOptionsTest {
   public void testGetDbUpdatesOptions() throws Throwable {
     GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
       .feed("normal")
-      .heartbeat(Long.valueOf("60000"))
+      .heartbeat(Long.valueOf("0"))
       .timeout(Long.valueOf("60000"))
       .since("0")
       .build();
     assertEquals(getDbUpdatesOptionsModel.feed(), "normal");
-    assertEquals(getDbUpdatesOptionsModel.heartbeat(), Long.valueOf("60000"));
+    assertEquals(getDbUpdatesOptionsModel.heartbeat(), Long.valueOf("0"));
     assertEquals(getDbUpdatesOptionsModel.timeout(), Long.valueOf("60000"));
     assertEquals(getDbUpdatesOptionsModel.since(), "0");
   }

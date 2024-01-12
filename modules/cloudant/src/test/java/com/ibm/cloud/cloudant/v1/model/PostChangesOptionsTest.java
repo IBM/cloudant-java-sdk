@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,7 +43,7 @@ public class PostChangesOptionsTest {
       .descending(false)
       .feed("normal")
       .filter("testString")
-      .heartbeat(Long.valueOf("60000"))
+      .heartbeat(Long.valueOf("0"))
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
@@ -63,7 +63,7 @@ public class PostChangesOptionsTest {
     assertEquals(postChangesOptionsModel.descending(), Boolean.valueOf(false));
     assertEquals(postChangesOptionsModel.feed(), "normal");
     assertEquals(postChangesOptionsModel.filter(), "testString");
-    assertEquals(postChangesOptionsModel.heartbeat(), Long.valueOf("60000"));
+    assertEquals(postChangesOptionsModel.heartbeat(), Long.valueOf("0"));
     assertEquals(postChangesOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postChangesOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postChangesOptionsModel.seqInterval(), Long.valueOf("1"));

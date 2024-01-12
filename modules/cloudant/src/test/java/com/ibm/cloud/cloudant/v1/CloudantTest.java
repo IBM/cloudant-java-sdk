@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,7 +63,8 @@ import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
 import com.ibm.cloud.cloudant.v1.model.DocumentShardInfo;
 import com.ibm.cloud.cloudant.v1.model.ExecutionStats;
 import com.ibm.cloud.cloudant.v1.model.ExplainResult;
-import com.ibm.cloud.cloudant.v1.model.ExplainResultRange;
+import com.ibm.cloud.cloudant.v1.model.ExplainResultMrArgs;
+import com.ibm.cloud.cloudant.v1.model.ExplainResultOpts;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
 import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
 import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
@@ -115,6 +116,8 @@ import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationIndexes;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationIndexesIndexes;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationSizes;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesInformation;
 import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsQueriesOptions;
@@ -130,6 +133,7 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
@@ -459,7 +463,7 @@ public class CloudantTest {
     // Construct an instance of the GetDbUpdatesOptions model
     GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
       .feed("normal")
-      .heartbeat(Long.valueOf("60000"))
+      .heartbeat(Long.valueOf("0"))
       .timeout(Long.valueOf("60000"))
       .since("0")
       .build();
@@ -481,7 +485,7 @@ public class CloudantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("feed"), "normal");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("60000"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("since"), "0");
   }
@@ -520,7 +524,7 @@ public class CloudantTest {
       .descending(false)
       .feed("normal")
       .filter("testString")
-      .heartbeat(Long.valueOf("60000"))
+      .heartbeat(Long.valueOf("0"))
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
@@ -552,7 +556,7 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("60000"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
@@ -603,7 +607,7 @@ public class CloudantTest {
       .descending(false)
       .feed("normal")
       .filter("testString")
-      .heartbeat(Long.valueOf("60000"))
+      .heartbeat(Long.valueOf("0"))
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
@@ -635,7 +639,7 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("60000"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
@@ -774,7 +778,7 @@ public class CloudantTest {
   @Test
   public void testPostDbsInfoWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}, \"key\": \"key\"}]";
+    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}, \"key\": \"key\"}]";
     String postDbsInfoPath = "/_dbs_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -876,7 +880,7 @@ public class CloudantTest {
   @Test
   public void testGetDatabaseInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}";
+    String mockResponseBody = "{\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}";
     String getDatabaseInformationPath = "/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3524,6 +3528,69 @@ public class CloudantTest {
     cloudantService.postPartitionViewAsStream(null).execute();
   }
 
+  // Test the postPartitionExplain operation with a valid options model parameter
+  @Test
+  public void testPostPartitionExplainWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"direction\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
+    String postPartitionExplainPath = "/testString/_partition/testString/_explain";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the PostPartitionExplainOptions model
+    PostPartitionExplainOptions postPartitionExplainOptionsModel = new PostPartitionExplainOptions.Builder()
+      .db("testString")
+      .partitionKey("testString")
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .bookmark("testString")
+      .conflicts(true)
+      .executionStats(true)
+      .fields(java.util.Arrays.asList("testString"))
+      .limit(Long.valueOf("25"))
+      .skip(Long.valueOf("0"))
+      .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
+      .stable(true)
+      .update("true")
+      .useIndex(java.util.Arrays.asList("testString"))
+      .build();
+
+    // Invoke postPartitionExplain() with a valid options model and verify the result
+    Response<ExplainResult> response = cloudantService.postPartitionExplain(postPartitionExplainOptionsModel).execute();
+    assertNotNull(response);
+    ExplainResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postPartitionExplainPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the postPartitionExplain operation with and without retries enabled
+  @Test
+  public void testPostPartitionExplainWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testPostPartitionExplainWOptions();
+
+    cloudantService.disableRetries();
+    testPostPartitionExplainWOptions();
+  }
+
+  // Test the postPartitionExplain operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostPartitionExplainNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    cloudantService.postPartitionExplain(null).execute();
+  }
+
   // Test the postPartitionFind operation with a valid options model parameter
   @Test
   public void testPostPartitionFindWOptions() throws Throwable {
@@ -3659,7 +3726,7 @@ public class CloudantTest {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"covered\": false, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}, \"limit\": 25, \"opts\": {\"anyKey\": \"anyValue\"}, \"range\": {\"end_key\": [\"anyValue\"], \"start_key\": [\"anyValue\"]}, \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
+    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"direction\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3853,7 +3920,7 @@ public class CloudantTest {
   @Test
   public void testGetIndexesInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"type\": \"json\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"indexes\": [{\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}]}";
     String getIndexesInformationPath = "/testString/_index";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3944,7 +4011,6 @@ public class CloudantTest {
       .db("testString")
       .index(indexDefinitionModel)
       .ddoc("testString")
-      .def(indexDefinitionModel)
       .name("testString")
       .partitioned(true)
       .type("json")

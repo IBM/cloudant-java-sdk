@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,7 +34,6 @@ public class PostIndexOptions extends GenericModel {
   protected String db;
   protected IndexDefinition index;
   protected String ddoc;
-  protected IndexDefinition def;
   protected String name;
   protected Boolean partitioned;
   protected String type;
@@ -46,7 +45,6 @@ public class PostIndexOptions extends GenericModel {
     private String db;
     private IndexDefinition index;
     private String ddoc;
-    private IndexDefinition def;
     private String name;
     private Boolean partitioned;
     private String type;
@@ -60,7 +58,6 @@ public class PostIndexOptions extends GenericModel {
       this.db = postIndexOptions.db;
       this.index = postIndexOptions.index;
       this.ddoc = postIndexOptions.ddoc;
-      this.def = postIndexOptions.def;
       this.name = postIndexOptions.name;
       this.partitioned = postIndexOptions.partitioned;
       this.type = postIndexOptions.type;
@@ -126,17 +123,6 @@ public class PostIndexOptions extends GenericModel {
     }
 
     /**
-     * Set the def.
-     *
-     * @param def the def
-     * @return the PostIndexOptions builder
-     */
-    public Builder def(IndexDefinition def) {
-      this.def = def;
-      return this;
-    }
-
-    /**
      * Set the name.
      *
      * @param name the name
@@ -180,7 +166,6 @@ public class PostIndexOptions extends GenericModel {
     db = builder.db;
     index = builder.index;
     ddoc = builder.ddoc;
-    def = builder.def;
     name = builder.name;
     partitioned = builder.partitioned;
     type = builder.type;
@@ -223,26 +208,13 @@ public class PostIndexOptions extends GenericModel {
   /**
    * Gets the ddoc.
    *
-   * Name of the design document in which the index will be created.
+   * Specifies the design document name in which the index will be created. The design document name is the design
+   * document ID excluding the `_design/` prefix.
    *
    * @return the ddoc
    */
   public String ddoc() {
     return ddoc;
-  }
-
-  /**
-   * Gets the def.
-   *
-   * Schema for a `json` or `text` query index definition. Indexes of type `text` have additional configuration
-   * properties that do not apply to `json` indexes, these are:
-   * * `default_analyzer` - the default text analyzer to use * `default_field` - whether to index the text in all
-   * document fields and what analyzer to use for that purpose.
-   *
-   * @return the def
-   */
-  public IndexDefinition def() {
-    return def;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,27 +22,28 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class ExplainResult extends GenericModel {
 
-  protected Boolean covered;
+  protected Boolean covering;
   protected String dbname;
   protected List<String> fields;
   protected IndexInformation index;
   protected Long limit;
-  protected Map<String, Object> opts;
-  protected ExplainResultRange range;
+  protected ExplainResultMrArgs mrargs;
+  protected ExplainResultOpts opts;
+  protected Object partitioned;
   protected Map<String, Object> selector;
   protected Long skip;
 
   protected ExplainResult() { }
 
   /**
-   * Gets the covered.
+   * Gets the covering.
    *
    * When `true`, the query is answered using the index only and no documents are fetched.
    *
-   * @return the covered
+   * @return the covering
    */
-  public Boolean isCovered() {
-    return covered;
+  public Boolean isCovering() {
+    return covering;
   }
 
   /**
@@ -59,7 +60,8 @@ public class ExplainResult extends GenericModel {
   /**
    * Gets the fields.
    *
-   * Fields to be returned by the query.
+   * Fields that were requested to be projected from the document. If no fields were requested to be projected this will
+   * be empty and all fields will be returned.
    *
    * @return the fields
    */
@@ -90,25 +92,36 @@ public class ExplainResult extends GenericModel {
   }
 
   /**
+   * Gets the mrargs.
+   *
+   * Arguments passed to the underlying view.
+   *
+   * @return the mrargs
+   */
+  public ExplainResultMrArgs getMrargs() {
+    return mrargs;
+  }
+
+  /**
    * Gets the opts.
    *
-   * Query options used.
+   * Options used for the request.
    *
    * @return the opts
    */
-  public Map<String, Object> getOpts() {
+  public ExplainResultOpts getOpts() {
     return opts;
   }
 
   /**
-   * Gets the range.
+   * Gets the partitioned.
    *
-   * Range parameters passed to the underlying view.
+   * Schema for any JSON type.
    *
-   * @return the range
+   * @return the partitioned
    */
-  public ExplainResultRange getRange() {
-    return range;
+  public Object getPartitioned() {
+    return partitioned;
   }
 
   /**
@@ -130,18 +143,17 @@ public class ExplainResult extends GenericModel {
    * Operators are identified by the use of a dollar sign `$` prefix in the name field.
    *
    * There are two core types of operators in the selector syntax:
-   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. In addition
-   * to the common boolean operators (`$and`, `$or`, `$not`, `$nor`) there are three combination operators: `$all`,
-   * `$elemMatch`, and `$allMatch`. A combination operator takes a single argument. The argument is either another
-   * selector, or an array of selectors.
+   * * Combination operators: applied at the topmost level of selection. They are used to combine selectors. A
+   * combination operator takes a single argument. The argument is either another selector, or an array of selectors.
    * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
    * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
-   * argument.
+   * argument. See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list of all
+   * available combination and conditional operators.
    * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
    * of a query. You should include at least one of these in a selector.
    *
    * For further reference see
-   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-query#selector-syntax).
+   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
    *
    * @return the selector
    */

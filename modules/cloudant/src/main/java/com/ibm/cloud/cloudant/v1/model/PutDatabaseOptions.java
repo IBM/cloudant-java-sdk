@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -144,8 +144,10 @@ public class PutDatabaseOptions extends GenericModel {
   /**
    * Gets the q.
    *
-   * The number of shards in the database. Each shard is a partition of the hash value range. Its value is set by the
-   * service. For more information about modifying database configuration, contact IBM Cloudant support.
+   * The number of shards in the database. Each shard is a partition of the hash value range. Cloudant recommends using
+   * the default value for most databases. However, if your database is expected to be larger than 250 GB or have a lot
+   * of indexes, you may need to adjust the settings. In these cases, it's best to reach out to IBM Cloudant customer
+   * support for guidance on how to meet your specific needs and requirements.
    *
    * @return the q
    */

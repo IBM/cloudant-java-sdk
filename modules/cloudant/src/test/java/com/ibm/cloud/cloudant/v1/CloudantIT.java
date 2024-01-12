@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,7 +63,8 @@ import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
 import com.ibm.cloud.cloudant.v1.model.DocumentShardInfo;
 import com.ibm.cloud.cloudant.v1.model.ExecutionStats;
 import com.ibm.cloud.cloudant.v1.model.ExplainResult;
-import com.ibm.cloud.cloudant.v1.model.ExplainResultRange;
+import com.ibm.cloud.cloudant.v1.model.ExplainResultMrArgs;
+import com.ibm.cloud.cloudant.v1.model.ExplainResultOpts;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
 import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
 import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
@@ -115,6 +116,8 @@ import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationIndexes;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationIndexesIndexes;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformationSizes;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesInformation;
 import com.ibm.cloud.cloudant.v1.model.PostActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsQueriesOptions;
@@ -130,6 +133,7 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
@@ -348,7 +352,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       GetDbUpdatesOptions getDbUpdatesOptions = new GetDbUpdatesOptions.Builder()
         .feed("normal")
-        .heartbeat(Long.valueOf("60000"))
+        .heartbeat(Long.valueOf("0"))
         .timeout(Long.valueOf("60000"))
         .since("0")
         .build();
@@ -383,7 +387,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .descending(false)
         .feed("normal")
         .filter("testString")
-        .heartbeat(Long.valueOf("60000"))
+        .heartbeat(Long.valueOf("0"))
         .includeDocs(false)
         .limit(Long.valueOf("0"))
         .seqInterval(Long.valueOf("1"))
@@ -423,7 +427,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .descending(false)
         .feed("normal")
         .filter("testString")
-        .heartbeat(Long.valueOf("60000"))
+        .heartbeat(Long.valueOf("0"))
         .includeDocs(false)
         .limit(Long.valueOf("0"))
         .seqInterval(Long.valueOf("1"))
@@ -1875,6 +1879,40 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testPostPartitionViewAsStream" })
+  public void testPostPartitionExplain() throws Exception {
+    try {
+      PostPartitionExplainOptions postPartitionExplainOptions = new PostPartitionExplainOptions.Builder()
+        .db("testString")
+        .partitionKey("testString")
+        .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+        .bookmark("testString")
+        .conflicts(true)
+        .executionStats(true)
+        .fields(java.util.Arrays.asList("testString"))
+        .limit(Long.valueOf("25"))
+        .skip(Long.valueOf("0"))
+        .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
+        .stable(true)
+        .update("true")
+        .useIndex(java.util.Arrays.asList("testString"))
+        .build();
+
+      // Invoke operation
+      Response<ExplainResult> response = service.postPartitionExplain(postPartitionExplainOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      ExplainResult explainResultResult = response.getResult();
+
+      assertNotNull(explainResultResult);
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testPostPartitionExplain" })
   public void testPostPartitionFind() throws Exception {
     try {
       PostPartitionFindOptions postPartitionFindOptions = new PostPartitionFindOptions.Builder()
@@ -2097,7 +2135,6 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .db("testString")
         .index(indexDefinitionModel)
         .ddoc("testString")
-        .def(indexDefinitionModel)
         .name("testString")
         .partitioned(true)
         .type("json")

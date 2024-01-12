@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -98,6 +98,7 @@ import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
@@ -147,6 +148,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 
 /**
  * NoSQL database based on Apache CouchDB.
@@ -154,6 +156,7 @@ import java.util.Map.Entry;
  * See: https://cloud.ibm.com/docs/services/Cloudant/
  */
 public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseService {
+  private static final Logger LOGGER = Logger.getLogger(Cloudant.class.getName());
 
   /**
    * Default service name used when configuring the `Cloudant` client.
@@ -381,15 +384,19 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve change events for all databases.
    *
+   * **This endpoint is not available in IBM Cloudant.**
+   *
    * Lists changes to databases, like a global changes feed. Types of changes include updating the database and creating
    * or deleting a database. Like the changes feed, the feed is not guaranteed to return changes in the correct order
    * and might repeat changes. Polling modes for this method work like polling modes for the changes feed.
-   * **Note: This endpoint requires _admin or _db_updates role and is only available on dedicated clusters.**.
    *
    * @param getDbUpdatesOptions the {@link GetDbUpdatesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link DbUpdates}
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+   @Deprecated
   public ServiceCall<DbUpdates> getDbUpdates(GetDbUpdatesOptions getDbUpdatesOptions) {
+    LOGGER.warning("A deprecated operation has been invoked: getDbUpdates");
     if (getDbUpdatesOptions == null) {
       getDbUpdatesOptions = new GetDbUpdatesOptions.Builder().build();
     }
@@ -419,13 +426,16 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve change events for all databases.
    *
+   * **This endpoint is not available in IBM Cloudant.**
+   *
    * Lists changes to databases, like a global changes feed. Types of changes include updating the database and creating
    * or deleting a database. Like the changes feed, the feed is not guaranteed to return changes in the correct order
    * and might repeat changes. Polling modes for this method work like polling modes for the changes feed.
-   * **Note: This endpoint requires _admin or _db_updates role and is only available on dedicated clusters.**.
    *
    * @return a {@link ServiceCall} with a result of type {@link DbUpdates}
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+  @Deprecated
   public ServiceCall<DbUpdates> getDbUpdates() {
     return getDbUpdates(null);
   }
@@ -2547,6 +2557,65 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
+   * Retrieve information about which partition index is used for a query.
+   *
+   * Shows which index is being used by the query. Parameters are the same as the
+   * [`/{db}/_partition/{partition_key}/_find` endpoint](#postpartitionfind-queries).
+   *
+   * @param postPartitionExplainOptions the {@link PostPartitionExplainOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ExplainResult}
+   */
+  public ServiceCall<ExplainResult> postPartitionExplain(PostPartitionExplainOptions postPartitionExplainOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postPartitionExplainOptions,
+      "postPartitionExplainOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", postPartitionExplainOptions.db());
+    pathParamsMap.put("partition_key", postPartitionExplainOptions.partitionKey());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_partition/{partition_key}/_explain", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postPartitionExplain");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.selector()));
+    if (postPartitionExplainOptions.bookmark() != null) {
+      contentJson.addProperty("bookmark", postPartitionExplainOptions.bookmark());
+    }
+    if (postPartitionExplainOptions.conflicts() != null) {
+      contentJson.addProperty("conflicts", postPartitionExplainOptions.conflicts());
+    }
+    if (postPartitionExplainOptions.executionStats() != null) {
+      contentJson.addProperty("execution_stats", postPartitionExplainOptions.executionStats());
+    }
+    if (postPartitionExplainOptions.fields() != null) {
+      contentJson.add("fields", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.fields()));
+    }
+    if (postPartitionExplainOptions.limit() != null) {
+      contentJson.addProperty("limit", postPartitionExplainOptions.limit());
+    }
+    if (postPartitionExplainOptions.skip() != null) {
+      contentJson.addProperty("skip", postPartitionExplainOptions.skip());
+    }
+    if (postPartitionExplainOptions.sort() != null) {
+      contentJson.add("sort", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.sort()));
+    }
+    if (postPartitionExplainOptions.stable() != null) {
+      contentJson.addProperty("stable", postPartitionExplainOptions.stable());
+    }
+    if (postPartitionExplainOptions.update() != null) {
+      contentJson.addProperty("update", postPartitionExplainOptions.update());
+    }
+    if (postPartitionExplainOptions.useIndex() != null) {
+      contentJson.add("use_index", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.useIndex()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<ExplainResult> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ExplainResult>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Query a database partition index by using selector syntax.
    *
    * Query documents by using a declarative JSON querying syntax. It's best practice to create an appropriate index for
@@ -2674,8 +2743,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve information about which index is used for a query.
    *
-   * Shows which index is being used by the query. Parameters are the same as the [`_find`
-   * endpoint](#query-an-index-by-using-selector-syntax).
+   * Shows which index is being used by the query. Parameters are the same as the [`_find` endpoint](#postfind).
    *
    * @param postExplainOptions the {@link PostExplainOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ExplainResult}
@@ -2910,9 +2978,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     contentJson.add("index", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postIndexOptions.index()));
     if (postIndexOptions.ddoc() != null) {
       contentJson.addProperty("ddoc", postIndexOptions.ddoc());
-    }
-    if (postIndexOptions.def() != null) {
-      contentJson.add("def", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postIndexOptions.def()));
     }
     if (postIndexOptions.name() != null) {
       contentJson.addProperty("name", postIndexOptions.name());

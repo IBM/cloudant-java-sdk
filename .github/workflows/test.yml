@@ -15,7 +15,7 @@ jobs:
   test:
     strategy:
       matrix:
-        java: ['11', '17']
+        java: ['11', '17', '21']
     runs-on: ubuntu-latest
     services:
       couchdb:

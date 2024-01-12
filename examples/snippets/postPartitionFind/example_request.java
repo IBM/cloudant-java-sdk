@@ -2,7 +2,6 @@
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
-import com.ibm.cloud.cloudant.v1.model.Selector;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,10 +9,10 @@ import java.util.Map;
 // section: code
 Cloudant service = Cloudant.newInstance();
 
-Map typeEqualsProduct = new HashMap<>();
+Map<String, String> typeEqualsProduct = new HashMap<>();
 typeEqualsProduct.put("$eq", "product");
 
-Selector selector = new Selector();
+Map<String, Object> selector = new HashMap<>();
 selector.put("type", typeEqualsProduct);
 
 PostPartitionFindOptions findOptions =

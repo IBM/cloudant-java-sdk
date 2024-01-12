@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.ExplainResultRange;
+import com.ibm.cloud.cloudant.v1.model.PartitionedIndexesDetailedInformation;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,16 +23,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ExplainResultRange model.
+ * Unit test class for the PartitionedIndexesDetailedInformation model.
  */
-public class ExplainResultRangeTest {
+public class PartitionedIndexesDetailedInformationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testExplainResultRange() throws Throwable {
-    ExplainResultRange explainResultRangeModel = new ExplainResultRange();
-    assertNull(explainResultRangeModel.getEndKey());
-    assertNull(explainResultRangeModel.getStartKey());
+  public void testPartitionedIndexesDetailedInformation() throws Throwable {
+    PartitionedIndexesDetailedInformation partitionedIndexesDetailedInformationModel = new PartitionedIndexesDetailedInformation();
+    assertNull(partitionedIndexesDetailedInformationModel.getSearch());
+    assertNull(partitionedIndexesDetailedInformationModel.getView());
   }
 }
