@@ -12,8 +12,7 @@
  */
 
 /**
- * This package contains security related API classes in addition to those provided by the
- * {@link com.ibm.cloud.sdk.core.security} package.
+ * This package contains security related API classes.
  *
  * @since 0.0
  * @version 0.0
