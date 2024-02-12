@@ -32,13 +32,17 @@ public class GetDbUpdatesOptionsTest {
   @Test
   public void testGetDbUpdatesOptions() throws Throwable {
     GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
+      .descending(false)
       .feed("normal")
       .heartbeat(Long.valueOf("0"))
+      .limit(Long.valueOf("0"))
       .timeout(Long.valueOf("60000"))
       .since("0")
       .build();
+    assertEquals(getDbUpdatesOptionsModel.descending(), Boolean.valueOf(false));
     assertEquals(getDbUpdatesOptionsModel.feed(), "normal");
     assertEquals(getDbUpdatesOptionsModel.heartbeat(), Long.valueOf("0"));
+    assertEquals(getDbUpdatesOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(getDbUpdatesOptionsModel.timeout(), Long.valueOf("60000"));
     assertEquals(getDbUpdatesOptionsModel.since(), "0");
   }

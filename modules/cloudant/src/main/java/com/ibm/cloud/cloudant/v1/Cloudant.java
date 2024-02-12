@@ -406,11 +406,17 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    if (getDbUpdatesOptions.descending() != null) {
+      builder.query("descending", String.valueOf(getDbUpdatesOptions.descending()));
+    }
     if (getDbUpdatesOptions.feed() != null) {
       builder.query("feed", String.valueOf(getDbUpdatesOptions.feed()));
     }
     if (getDbUpdatesOptions.heartbeat() != null) {
       builder.query("heartbeat", String.valueOf(getDbUpdatesOptions.heartbeat()));
+    }
+    if (getDbUpdatesOptions.limit() != null) {
+      builder.query("limit", String.valueOf(getDbUpdatesOptions.limit()));
     }
     if (getDbUpdatesOptions.timeout() != null) {
       builder.query("timeout", String.valueOf(getDbUpdatesOptions.timeout()));
