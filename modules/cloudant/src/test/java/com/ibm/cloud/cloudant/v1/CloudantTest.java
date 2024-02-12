@@ -462,8 +462,10 @@ public class CloudantTest {
 
     // Construct an instance of the GetDbUpdatesOptions model
     GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
+      .descending(false)
       .feed("normal")
       .heartbeat(Long.valueOf("0"))
+      .limit(Long.valueOf("0"))
       .timeout(Long.valueOf("60000"))
       .since("0")
       .build();
@@ -484,8 +486,10 @@ public class CloudantTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
+    assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
     assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("since"), "0");
   }

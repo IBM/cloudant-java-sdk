@@ -33,8 +33,10 @@ public class GetDbUpdatesOptions extends GenericModel {
     String NORMAL = "normal";
   }
 
+  protected Boolean descending;
   protected String feed;
   protected Long heartbeat;
+  protected Long limit;
   protected Long timeout;
   protected String since;
 
@@ -42,8 +44,10 @@ public class GetDbUpdatesOptions extends GenericModel {
    * Builder.
    */
   public static class Builder {
+    private Boolean descending;
     private String feed;
     private Long heartbeat;
+    private Long limit;
     private Long timeout;
     private String since;
 
@@ -53,8 +57,10 @@ public class GetDbUpdatesOptions extends GenericModel {
      * @param getDbUpdatesOptions the instance to initialize the Builder with
      */
     private Builder(GetDbUpdatesOptions getDbUpdatesOptions) {
+      this.descending = getDbUpdatesOptions.descending;
       this.feed = getDbUpdatesOptions.feed;
       this.heartbeat = getDbUpdatesOptions.heartbeat;
+      this.limit = getDbUpdatesOptions.limit;
       this.timeout = getDbUpdatesOptions.timeout;
       this.since = getDbUpdatesOptions.since;
     }
@@ -72,6 +78,17 @@ public class GetDbUpdatesOptions extends GenericModel {
      */
     public GetDbUpdatesOptions build() {
       return new GetDbUpdatesOptions(this);
+    }
+
+    /**
+     * Set the descending.
+     *
+     * @param descending the descending
+     * @return the GetDbUpdatesOptions builder
+     */
+    public Builder descending(Boolean descending) {
+      this.descending = descending;
+      return this;
     }
 
     /**
@@ -93,6 +110,17 @@ public class GetDbUpdatesOptions extends GenericModel {
      */
     public Builder heartbeat(long heartbeat) {
       this.heartbeat = heartbeat;
+      return this;
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the GetDbUpdatesOptions builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
       return this;
     }
 
@@ -122,8 +150,10 @@ public class GetDbUpdatesOptions extends GenericModel {
   protected GetDbUpdatesOptions() { }
 
   protected GetDbUpdatesOptions(Builder builder) {
+    descending = builder.descending;
     feed = builder.feed;
     heartbeat = builder.heartbeat;
+    limit = builder.limit;
     timeout = builder.timeout;
     since = builder.since;
   }
@@ -135,6 +165,17 @@ public class GetDbUpdatesOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the descending.
+   *
+   * Query parameter to specify whether to return the documents in descending by key order.
+   *
+   * @return the descending
+   */
+  public Boolean descending() {
+    return descending;
   }
 
   /**
@@ -168,6 +209,17 @@ public class GetDbUpdatesOptions extends GenericModel {
    */
   public Long heartbeat() {
     return heartbeat;
+  }
+
+  /**
+   * Gets the limit.
+   *
+   * Query parameter to specify the number of returned documents to limit the result to.
+   *
+   * @return the limit
+   */
+  public Long limit() {
+    return limit;
   }
 
   /**

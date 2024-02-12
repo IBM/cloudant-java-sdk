@@ -351,8 +351,10 @@ public class CloudantIT extends SdkIntegrationTestBase {
   public void testGetDbUpdates() throws Exception {
     try {
       GetDbUpdatesOptions getDbUpdatesOptions = new GetDbUpdatesOptions.Builder()
+        .descending(false)
         .feed("normal")
         .heartbeat(Long.valueOf("0"))
+        .limit(Long.valueOf("0"))
         .timeout(Long.valueOf("60000"))
         .since("0")
         .build();
