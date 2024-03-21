@@ -411,7 +411,7 @@ public class CloudantTest {
 
     // Construct an instance of the PutCapacityThroughputConfigurationOptions model
     PutCapacityThroughputConfigurationOptions putCapacityThroughputConfigurationOptionsModel = new PutCapacityThroughputConfigurationOptions.Builder()
-      .blocks(Long.valueOf("0"))
+      .blocks(Long.valueOf("10"))
       .build();
 
     // Invoke putCapacityThroughputConfiguration() with a valid options model and verify the result
@@ -518,7 +518,7 @@ public class CloudantTest {
     // Construct an instance of the PostChangesOptions model
     PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
       .db("testString")
-      .docIds(java.util.Arrays.asList("testString"))
+      .docIds(java.util.Arrays.asList("0007741142412418284"))
       .fields(java.util.Arrays.asList("testString"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .lastEventId("testString")
@@ -601,7 +601,7 @@ public class CloudantTest {
     // Construct an instance of the PostChangesOptions model
     PostChangesOptions postChangesOptionsModel = new PostChangesOptions.Builder()
       .db("testString")
-      .docIds(java.util.Arrays.asList("testString"))
+      .docIds(java.util.Arrays.asList("0007741142412418284"))
       .fields(java.util.Arrays.asList("testString"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .lastEventId("testString")
@@ -791,7 +791,7 @@ public class CloudantTest {
 
     // Construct an instance of the PostDbsInfoOptions model
     PostDbsInfoOptions postDbsInfoOptionsModel = new PostDbsInfoOptions.Builder()
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("products", "users", "orders"))
       .build();
 
     // Invoke postDbsInfo() with a valid options model and verify the result
@@ -1084,12 +1084,21 @@ public class CloudantTest {
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
-      .id("testString")
+      .id("exampleid")
       .localSeq("testString")
       .rev("testString")
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
-      .add("foo", "testString")
+      .add("brand", "Foo")
+      .add("colours", "[\"red\",\"green\",\"black\",\"blue\"]")
+      .add("description", "Slim Colourful Design Electronic Cooking Appliance for ...")
+      .add("image", "assets/img/0gmsnghhew.jpg")
+      .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
+      .add("name", "Digital Kitchen Scales")
+      .add("price", "14.99")
+      .add("productid", "1000042")
+      .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
+      .add("type", "product")
       .build();
 
     // Construct an instance of the PostDocumentOptions model
@@ -1156,13 +1165,13 @@ public class CloudantTest {
       .descending(false)
       .includeDocs(false)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
-      .startKey("testString")
+      .startKey("0007741142412418284")
       .build();
 
     // Invoke postAllDocs() with a valid options model and verify the result
@@ -1220,13 +1229,13 @@ public class CloudantTest {
       .descending(false)
       .includeDocs(false)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
-      .startKey("testString")
+      .startKey("0007741142412418284")
       .build();
 
     // Invoke postAllDocsAsStream() with a valid options model and verify the result
@@ -1293,7 +1302,7 @@ public class CloudantTest {
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("small-appliances:1000042", "small-appliances:1000043"))
       .startKey("testString")
       .build();
 
@@ -1362,7 +1371,7 @@ public class CloudantTest {
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("small-appliances:1000042", "small-appliances:1000043"))
       .startKey("testString")
       .build();
 
@@ -1454,12 +1463,16 @@ public class CloudantTest {
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
-      .id("testString")
+      .id("0007241142412418284")
       .localSeq("testString")
       .rev("testString")
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
-      .add("foo", "testString")
+      .add("date", "2019-01-28T10:44:22.000Z")
+      .add("eventType", "addedToBasket")
+      .add("productId", "1000042")
+      .add("type", "event")
+      .add("userid", "abc123")
       .build();
 
     // Construct an instance of the BulkDocs model
@@ -1523,8 +1536,8 @@ public class CloudantTest {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
       .attsSince(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"))
-      .id("testString")
-      .rev("testString")
+      .id("order00067")
+      .rev("3-917fa2381192822767f010b95b45325b")
       .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -1590,8 +1603,8 @@ public class CloudantTest {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
       .attsSince(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"))
-      .id("testString")
-      .rev("testString")
+      .id("order00067")
+      .rev("3-917fa2381192822767f010b95b45325b")
       .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -1658,8 +1671,8 @@ public class CloudantTest {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
       .attsSince(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"))
-      .id("testString")
-      .rev("testString")
+      .id("order00067")
+      .rev("3-917fa2381192822767f010b95b45325b")
       .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -1726,8 +1739,8 @@ public class CloudantTest {
     // Construct an instance of the BulkGetQueryDocument model
     BulkGetQueryDocument bulkGetQueryDocumentModel = new BulkGetQueryDocument.Builder()
       .attsSince(java.util.Arrays.asList("1-99b02e08da151943c2dcb40090160bb8"))
-      .id("testString")
-      .rev("testString")
+      .id("order00067")
+      .rev("3-917fa2381192822767f010b95b45325b")
       .build();
 
     // Construct an instance of the PostBulkGetOptions model
@@ -2182,12 +2195,21 @@ public class CloudantTest {
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
-      .id("testString")
+      .id("exampleid")
       .localSeq("testString")
       .rev("testString")
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
-      .add("foo", "testString")
+      .add("brand", "Foo")
+      .add("colours", "[\"red\",\"green\",\"black\",\"blue\"]")
+      .add("description", "Slim Colourful Design Electronic Cooking Appliance for ...")
+      .add("image", "assets/img/0gmsnghhew.jpg")
+      .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
+      .add("name", "Digital Kitchen Scales")
+      .add("price", "14.99")
+      .add("productid", "1000042")
+      .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
+      .add("type", "product")
       .build();
 
     // Construct an instance of the PutDocumentOptions model
@@ -2466,7 +2488,7 @@ public class CloudantTest {
 
     // Construct an instance of the AnalyzerConfiguration model
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
-      .name("classic")
+      .name("standard")
       .stopwords(java.util.Arrays.asList("testString"))
       .fields(java.util.Collections.singletonMap("key1", analyzerModel))
       .build();
@@ -2474,7 +2496,7 @@ public class CloudantTest {
     // Construct an instance of the SearchIndexDefinition model
     SearchIndexDefinition searchIndexDefinitionModel = new SearchIndexDefinition.Builder()
       .analyzer(analyzerConfigurationModel)
-      .index("testString")
+      .index("function (doc) {\n  index(\"price\", doc.price);\n}")
       .build();
 
     // Construct an instance of the DesignDocumentOptions model
@@ -2484,7 +2506,7 @@ public class CloudantTest {
 
     // Construct an instance of the DesignDocumentViewsMapReduce model
     DesignDocumentViewsMapReduce designDocumentViewsMapReduceModel = new DesignDocumentViewsMapReduce.Builder()
-      .map("testString")
+      .map("function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}")
       .reduce("testString")
       .build();
 
@@ -2494,9 +2516,9 @@ public class CloudantTest {
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
-      .id("testString")
+      .id("_design/appliances")
       .localSeq("testString")
-      .rev("testString")
+      .rev("8-7e2537e5989294471061e0cfd7292725")
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
       .autoupdate(true)
@@ -2630,13 +2652,13 @@ public class CloudantTest {
       .descending(false)
       .includeDocs(false)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
-      .startKey("testString")
+      .startKey("0007741142412418284")
       .accept("application/json")
       .build();
 
@@ -2699,7 +2721,7 @@ public class CloudantTest {
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("small-appliances:1000042", "small-appliances:1000043"))
       .startKey("testString")
       .build();
 
@@ -2765,9 +2787,9 @@ public class CloudantTest {
       .attachments(false)
       .conflicts(false)
       .descending(false)
-      .includeDocs(false)
+      .includeDocs(true)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
@@ -2775,7 +2797,7 @@ public class CloudantTest {
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("examplekey"))
       .reduce(true)
       .stable(false)
       .startKey("testString")
@@ -2838,9 +2860,9 @@ public class CloudantTest {
       .attachments(false)
       .conflicts(false)
       .descending(false)
-      .includeDocs(false)
+      .includeDocs(true)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
@@ -2848,7 +2870,7 @@ public class CloudantTest {
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("examplekey"))
       .reduce(true)
       .stable(false)
       .startKey("testString")
@@ -2913,9 +2935,9 @@ public class CloudantTest {
       .attachments(false)
       .conflicts(false)
       .descending(false)
-      .includeDocs(false)
+      .includeDocs(true)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("5"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
@@ -2991,9 +3013,9 @@ public class CloudantTest {
       .attachments(false)
       .conflicts(false)
       .descending(false)
-      .includeDocs(false)
+      .includeDocs(true)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("5"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
@@ -3130,13 +3152,13 @@ public class CloudantTest {
       .descending(false)
       .includeDocs(false)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
-      .startKey("testString")
+      .startKey("0007741142412418284")
       .build();
 
     // Invoke postPartitionAllDocs() with a valid options model and verify the result
@@ -3195,13 +3217,13 @@ public class CloudantTest {
       .descending(false)
       .includeDocs(false)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
       .key("testString")
       .keys(java.util.Arrays.asList("testString"))
-      .startKey("testString")
+      .startKey("0007741142412418284")
       .build();
 
     // Invoke postPartitionAllDocsAsStream() with a valid options model and verify the result
@@ -3270,7 +3292,7 @@ public class CloudantTest {
       .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("3"))
       .sort(java.util.Arrays.asList("testString"))
       .stale("ok")
       .build();
@@ -3336,7 +3358,7 @@ public class CloudantTest {
       .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("3"))
       .sort(java.util.Arrays.asList("testString"))
       .stale("ok")
       .build();
@@ -3402,9 +3424,9 @@ public class CloudantTest {
       .attachments(false)
       .conflicts(false)
       .descending(false)
-      .includeDocs(false)
+      .includeDocs(true)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
@@ -3412,7 +3434,7 @@ public class CloudantTest {
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("examplekey"))
       .reduce(true)
       .startKey("testString")
       .startKeyDocId("testString")
@@ -3475,9 +3497,9 @@ public class CloudantTest {
       .attachments(false)
       .conflicts(false)
       .descending(false)
-      .includeDocs(false)
+      .includeDocs(true)
       .inclusiveEnd(true)
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("10"))
       .skip(Long.valueOf("0"))
       .updateSeq(false)
       .endKey("testString")
@@ -3485,7 +3507,7 @@ public class CloudantTest {
       .group(false)
       .groupLevel(Long.valueOf("1"))
       .key("testString")
-      .keys(java.util.Arrays.asList("testString"))
+      .keys(java.util.Arrays.asList("examplekey"))
       .reduce(true)
       .startKey("testString")
       .startKeyDocId("testString")
@@ -3551,7 +3573,7 @@ public class CloudantTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(java.util.Arrays.asList("testString"))
+      .fields(java.util.Arrays.asList("productid", "name", "description"))
       .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
@@ -3614,7 +3636,7 @@ public class CloudantTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(java.util.Arrays.asList("testString"))
+      .fields(java.util.Arrays.asList("productid", "name", "description"))
       .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
@@ -3677,7 +3699,7 @@ public class CloudantTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(java.util.Arrays.asList("testString"))
+      .fields(java.util.Arrays.asList("productid", "name", "description"))
       .limit(Long.valueOf("25"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
@@ -3744,8 +3766,8 @@ public class CloudantTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("25"))
+      .fields(java.util.Arrays.asList("_id", "type", "name", "email"))
+      .limit(Long.valueOf("3"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
@@ -3807,8 +3829,8 @@ public class CloudantTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("25"))
+      .fields(java.util.Arrays.asList("_id", "type", "name", "email"))
+      .limit(Long.valueOf("3"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
@@ -3870,8 +3892,8 @@ public class CloudantTest {
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
-      .fields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("25"))
+      .fields(java.util.Arrays.asList("_id", "type", "name", "email"))
+      .limit(Long.valueOf("3"))
       .skip(Long.valueOf("0"))
       .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
       .stable(true)
@@ -3996,7 +4018,7 @@ public class CloudantTest {
 
     // Construct an instance of the IndexField model
     IndexField indexFieldModel = new IndexField.Builder()
-      .name("testString")
+      .name("asc")
       .type("boolean")
       .add("foo", "asc")
       .build();
@@ -4014,8 +4036,8 @@ public class CloudantTest {
     PostIndexOptions postIndexOptionsModel = new PostIndexOptions.Builder()
       .db("testString")
       .index(indexDefinitionModel)
-      .ddoc("testString")
-      .name("testString")
+      .ddoc("json-index")
+      .name("getUserByName")
       .partitioned(true)
       .type("json")
       .build();
@@ -4122,8 +4144,8 @@ public class CloudantTest {
 
     // Construct an instance of the PostSearchAnalyzeOptions model
     PostSearchAnalyzeOptions postSearchAnalyzeOptionsModel = new PostSearchAnalyzeOptions.Builder()
-      .analyzer("arabic")
-      .text("testString")
+      .analyzer("english")
+      .text("running is fun")
       .build();
 
     // Invoke postSearchAnalyze() with a valid options model and verify the result
@@ -4186,7 +4208,7 @@ public class CloudantTest {
       .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("3"))
       .sort(java.util.Arrays.asList("testString"))
       .stale("ok")
       .counts(java.util.Arrays.asList("testString"))
@@ -4257,7 +4279,7 @@ public class CloudantTest {
       .highlightSize(Long.valueOf("100"))
       .includeDocs(false)
       .includeFields(java.util.Arrays.asList("testString"))
-      .limit(Long.valueOf("0"))
+      .limit(Long.valueOf("3"))
       .sort(java.util.Arrays.asList("testString"))
       .stale("ok")
       .counts(java.util.Arrays.asList("testString"))
@@ -4680,7 +4702,7 @@ public class CloudantTest {
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
       .n(Long.valueOf("3"))
       .partitioned(false)
-      .q(Long.valueOf("26"))
+      .q(Long.valueOf("1"))
       .build();
 
     // Construct an instance of the ReplicationDatabaseAuthBasic model
@@ -4704,14 +4726,14 @@ public class CloudantTest {
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
       .headers(java.util.Collections.singletonMap("key1", "testString"))
-      .url("testString")
+      .url("https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb")
       .build();
 
     // Construct an instance of the UserContext model
     UserContext userContextModel = new UserContext.Builder()
       .db("testString")
-      .name("testString")
-      .roles(java.util.Arrays.asList("_reader"))
+      .name("john")
+      .roles(java.util.Arrays.asList("researcher"))
       .build();
 
     // Construct an instance of the ReplicationDocument model
@@ -4725,30 +4747,30 @@ public class CloudantTest {
       .rev("testString")
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
-      .cancel(true)
-      .checkpointInterval(Long.valueOf("30000"))
-      .connectionTimeout(Long.valueOf("30000"))
-      .continuous(false)
-      .createTarget(false)
+      .cancel(false)
+      .checkpointInterval(Long.valueOf("4500"))
+      .connectionTimeout(Long.valueOf("15000"))
+      .continuous(true)
+      .createTarget(true)
       .createTargetParams(replicationCreateTargetParametersModel)
-      .docIds(java.util.Arrays.asList("testString"))
-      .filter("testString")
-      .httpConnections(Long.valueOf("20"))
+      .docIds(java.util.Arrays.asList("badger", "lemur", "llama"))
+      .filter("ddoc/my_filter")
+      .httpConnections(Long.valueOf("10"))
       .queryParams(java.util.Collections.singletonMap("key1", "testString"))
-      .retriesPerRequest(Long.valueOf("5"))
+      .retriesPerRequest(Long.valueOf("3"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
-      .sinceSeq("testString")
-      .socketOptions("testString")
+      .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
+      .socketOptions("[{keepalive, true}, {nodelay, false}]")
       .source(replicationDatabaseModel)
       .sourceProxy("testString")
       .target(replicationDatabaseModel)
       .targetProxy("testString")
       .useBulkGet(true)
-      .useCheckpoints(true)
+      .useCheckpoints(false)
       .userCtx(userContextModel)
       .winningRevsOnly(false)
-      .workerBatchSize(Long.valueOf("500"))
-      .workerProcesses(Long.valueOf("4"))
+      .workerBatchSize(Long.valueOf("400"))
+      .workerProcesses(Long.valueOf("3"))
       .add("foo", "testString")
       .build();
 
@@ -5104,8 +5126,8 @@ public class CloudantTest {
 
     // Construct an instance of the SecurityObject model
     SecurityObject securityObjectModel = new SecurityObject.Builder()
-      .names(java.util.Arrays.asList("testString"))
-      .roles(java.util.Arrays.asList("testString"))
+      .names(java.util.Arrays.asList("superuser"))
+      .roles(java.util.Arrays.asList("admins"))
       .build();
 
     // Construct an instance of the PutSecurityOptions model
@@ -5310,7 +5332,7 @@ public class CloudantTest {
 
     // Construct an instance of the PutCorsConfigurationOptions model
     PutCorsConfigurationOptions putCorsConfigurationOptionsModel = new PutCorsConfigurationOptions.Builder()
-      .origins(java.util.Arrays.asList("testString"))
+      .origins(java.util.Arrays.asList("https://example.com", "https://www.example.com"))
       .allowCredentials(true)
       .enableCors(true)
       .build();
@@ -5792,12 +5814,21 @@ public class CloudantTest {
       .conflicts(java.util.Arrays.asList("testString"))
       .deleted(true)
       .deletedConflicts(java.util.Arrays.asList("testString"))
-      .id("testString")
+      .id("exampleid")
       .localSeq("testString")
       .rev("testString")
       .revisions(revisionsModel)
       .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
-      .add("foo", "testString")
+      .add("brand", "Foo")
+      .add("colours", "[\"red\",\"green\",\"black\",\"blue\"]")
+      .add("description", "Slim Colourful Design Electronic Cooking Appliance for ...")
+      .add("image", "assets/img/0gmsnghhew.jpg")
+      .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
+      .add("name", "Digital Kitchen Scales")
+      .add("price", "14.99")
+      .add("productid", "1000042")
+      .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
+      .add("type", "product")
       .build();
 
     // Construct an instance of the PutLocalDocumentOptions model
@@ -6180,7 +6211,7 @@ public class CloudantTest {
 
     // Construct an instance of the PostActivityTrackerEventsOptions model
     PostActivityTrackerEventsOptions postActivityTrackerEventsOptionsModel = new PostActivityTrackerEventsOptions.Builder()
-      .types(java.util.Arrays.asList("management"))
+      .types(java.util.Arrays.asList("management", "data"))
       .build();
 
     // Invoke postActivityTrackerEvents() with a valid options model and verify the result
