@@ -502,8 +502,12 @@ public class PostFindOptions extends GenericModel {
   /**
    * Gets the useIndex.
    *
-   * Use this option to identify a specific index for query to run against, rather than by using the IBM Cloudant Query
-   * algorithm to find the best index.
+   * Use this option to identify a specific index to answer the query, rather than letting the IBM Cloudant query
+   * planner choose an index. Specified as a two element array of design document id followed by index name, for example
+   * `["my_design_doc", "my_index"]`.
+   *
+   * It’s recommended to specify indexes explicitly in your queries to prevent existing queries being affected by new
+   * indexes that might get added later.
    *
    * @return the useIndex
    */
