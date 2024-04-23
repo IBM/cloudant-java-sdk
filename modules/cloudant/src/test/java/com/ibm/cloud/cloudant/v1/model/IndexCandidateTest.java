@@ -14,9 +14,6 @@
 package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.Analyzer;
-import com.ibm.cloud.cloudant.v1.model.ExplainResult;
-import com.ibm.cloud.cloudant.v1.model.ExplainResultMrArgs;
-import com.ibm.cloud.cloudant.v1.model.ExplainResultOpts;
 import com.ibm.cloud.cloudant.v1.model.IndexAnalysis;
 import com.ibm.cloud.cloudant.v1.model.IndexAnalysisExclusionReason;
 import com.ibm.cloud.cloudant.v1.model.IndexCandidate;
@@ -24,7 +21,6 @@ import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.IndexField;
 import com.ibm.cloud.cloudant.v1.model.IndexInformation;
 import com.ibm.cloud.cloudant.v1.model.IndexTextOperatorDefaultField;
-import com.ibm.cloud.cloudant.v1.model.SelectorHint;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -34,26 +30,16 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ExplainResult model.
+ * Unit test class for the IndexCandidate model.
  */
-public class ExplainResultTest {
+public class IndexCandidateTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testExplainResult() throws Throwable {
-    ExplainResult explainResultModel = new ExplainResult();
-    assertNull(explainResultModel.isCovering());
-    assertNull(explainResultModel.getDbname());
-    assertNull(explainResultModel.getFields());
-    assertNull(explainResultModel.getIndex());
-    assertNull(explainResultModel.getIndexCandidates());
-    assertNull(explainResultModel.getLimit());
-    assertNull(explainResultModel.getMrargs());
-    assertNull(explainResultModel.getOpts());
-    assertNull(explainResultModel.getPartitioned());
-    assertNull(explainResultModel.getSelector());
-    assertNull(explainResultModel.getSelectorHints());
-    assertNull(explainResultModel.getSkip());
+  public void testIndexCandidate() throws Throwable {
+    IndexCandidate indexCandidateModel = new IndexCandidate();
+    assertNull(indexCandidateModel.getAnalysis());
+    assertNull(indexCandidateModel.getIndex());
   }
 }

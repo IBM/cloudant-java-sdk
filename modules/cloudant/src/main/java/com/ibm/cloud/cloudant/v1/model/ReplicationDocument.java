@@ -791,7 +791,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
   /**
    * Gets the id.
    *
-   * Document ID.
+   * Schema for a document ID.
    *
    * @return the id
    */

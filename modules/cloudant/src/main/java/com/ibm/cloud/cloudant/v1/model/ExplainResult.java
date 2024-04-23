@@ -16,6 +16,7 @@ package com.ibm.cloud.cloudant.v1.model;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
@@ -27,11 +28,15 @@ public class ExplainResult extends GenericModel {
   protected String dbname;
   protected List<String> fields;
   protected IndexInformation index;
+  @SerializedName("index_candidates")
+  protected List<IndexCandidate> indexCandidates;
   protected Long limit;
   protected ExplainResultMrArgs mrargs;
   protected ExplainResultOpts opts;
   protected Object partitioned;
   protected Map<String, Object> selector;
+  @SerializedName("selector_hints")
+  protected List<SelectorHint> selectorHints;
   protected Long skip;
 
   protected ExplainResult() { }
@@ -79,6 +84,17 @@ public class ExplainResult extends GenericModel {
    */
   public IndexInformation getIndex() {
     return index;
+  }
+
+  /**
+   * Gets the indexCandidates.
+   *
+   * Schema for the list of all the other indexes that were not chosen for serving the query.
+   *
+   * @return the indexCandidates
+   */
+  public List<IndexCandidate> getIndexCandidates() {
+    return indexCandidates;
   }
 
   /**
@@ -160,6 +176,17 @@ public class ExplainResult extends GenericModel {
    */
   public Map<String, Object> getSelector() {
     return selector;
+  }
+
+  /**
+   * Gets the selectorHints.
+   *
+   * Schema for a list of objects with extra information on the selector to provide insights about its usability.
+   *
+   * @return the selectorHints
+   */
+  public List<SelectorHint> getSelectorHints() {
+    return selectorHints;
   }
 
   /**

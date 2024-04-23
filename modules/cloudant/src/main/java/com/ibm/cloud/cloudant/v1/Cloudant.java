@@ -455,9 +455,13 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * ### Note
    *
-   * Before using the changes feed we recommend reading the
+   * Before using the changes feed read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed) to understand the limitations and
    * appropriate use cases.
+   *
+   * If you need to pass parameters to dynamically change the filtered content use the `_selector` filter type for
+   * better performance and compatibility. The SDKs have full support for change requests using selector filters, but
+   * don't support passing parameters to design document filters.
    *
    * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ChangesResult}
@@ -542,9 +546,13 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * ### Note
    *
-   * Before using the changes feed we recommend reading the
+   * Before using the changes feed read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-faq-using-changes-feed) to understand the limitations and
    * appropriate use cases.
+   *
+   * If you need to pass parameters to dynamically change the filtered content use the `_selector` filter type for
+   * better performance and compatibility. The SDKs have full support for change requests using selector filters, but
+   * don't support passing parameters to design document filters.
    *
    * @param postChangesOptions the {@link PostChangesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link InputStream}
