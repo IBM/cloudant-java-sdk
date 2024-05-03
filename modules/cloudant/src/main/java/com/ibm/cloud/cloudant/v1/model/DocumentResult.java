@@ -28,6 +28,7 @@ public class DocumentResult extends GenericModel {
   protected String causedBy;
   protected String error;
   protected String reason;
+  protected Long ref;
 
   protected DocumentResult() { }
 
@@ -95,6 +96,17 @@ public class DocumentResult extends GenericModel {
    */
   public String getReason() {
     return reason;
+  }
+
+  /**
+   * Gets the ref.
+   *
+   * An internal error reference (if available).
+   *
+   * @return the ref
+   */
+  public Long getRef() {
+    return ref;
   }
 }
 

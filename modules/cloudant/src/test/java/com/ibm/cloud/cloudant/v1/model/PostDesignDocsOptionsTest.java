@@ -33,7 +33,6 @@ public class PostDesignDocsOptionsTest {
   public void testPostDesignDocsOptions() throws Throwable {
     PostDesignDocsOptions postDesignDocsOptionsModel = new PostDesignDocsOptions.Builder()
       .db("testString")
-      .accept("application/json")
       .attEncodingInfo(false)
       .attachments(false)
       .conflicts(false)
@@ -49,7 +48,6 @@ public class PostDesignDocsOptionsTest {
       .startKey("testString")
       .build();
     assertEquals(postDesignDocsOptionsModel.db(), "testString");
-    assertEquals(postDesignDocsOptionsModel.accept(), "application/json");
     assertEquals(postDesignDocsOptionsModel.attEncodingInfo(), Boolean.valueOf(false));
     assertEquals(postDesignDocsOptionsModel.attachments(), Boolean.valueOf(false));
     assertEquals(postDesignDocsOptionsModel.conflicts(), Boolean.valueOf(false));

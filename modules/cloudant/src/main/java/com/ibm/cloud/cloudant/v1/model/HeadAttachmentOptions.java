@@ -209,7 +209,7 @@ public class HeadAttachmentOptions extends GenericModel {
   /**
    * Gets the ifMatch.
    *
-   * Header parameter to specify the document revision. Alternative to rev query parameter.
+   * Header parameter for a conditional HTTP request matching an ETag.
    *
    * @return the ifMatch
    */
@@ -220,7 +220,7 @@ public class HeadAttachmentOptions extends GenericModel {
   /**
    * Gets the ifNoneMatch.
    *
-   * Header parameter to specify a double quoted document revision token for cache control.
+   * Header parameter for a conditional HTTP request not matching an ETag.
    *
    * @return the ifNoneMatch
    */

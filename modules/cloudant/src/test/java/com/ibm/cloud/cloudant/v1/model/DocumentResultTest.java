@@ -38,5 +38,6 @@ public class DocumentResultTest {
     assertNull(documentResultModel.getCausedBy());
     assertNull(documentResultModel.getError());
     assertNull(documentResultModel.getReason());
+    assertNull(documentResultModel.getRef());
   }
 }
