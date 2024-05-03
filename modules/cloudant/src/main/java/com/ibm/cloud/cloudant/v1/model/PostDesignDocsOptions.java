@@ -24,7 +24,6 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class PostDesignDocsOptions extends GenericModel {
 
   protected String db;
-  protected String accept;
   protected Boolean attEncodingInfo;
   protected Boolean attachments;
   protected Boolean conflicts;
@@ -44,7 +43,6 @@ public class PostDesignDocsOptions extends GenericModel {
    */
   public static class Builder {
     private String db;
-    private String accept;
     private Boolean attEncodingInfo;
     private Boolean attachments;
     private Boolean conflicts;
@@ -66,7 +64,6 @@ public class PostDesignDocsOptions extends GenericModel {
      */
     private Builder(PostDesignDocsOptions postDesignDocsOptions) {
       this.db = postDesignDocsOptions.db;
-      this.accept = postDesignDocsOptions.accept;
       this.attEncodingInfo = postDesignDocsOptions.attEncodingInfo;
       this.attachments = postDesignDocsOptions.attachments;
       this.conflicts = postDesignDocsOptions.conflicts;
@@ -130,17 +127,6 @@ public class PostDesignDocsOptions extends GenericModel {
      */
     public Builder db(String db) {
       this.db = db;
-      return this;
-    }
-
-    /**
-     * Set the accept.
-     *
-     * @param accept the accept
-     * @return the PostDesignDocsOptions builder
-     */
-    public Builder accept(String accept) {
-      this.accept = accept;
       return this;
     }
 
@@ -295,7 +281,6 @@ public class PostDesignDocsOptions extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.db,
       "db cannot be empty");
     db = builder.db;
-    accept = builder.accept;
     attEncodingInfo = builder.attEncodingInfo;
     attachments = builder.attachments;
     conflicts = builder.conflicts;
@@ -329,17 +314,6 @@ public class PostDesignDocsOptions extends GenericModel {
    */
   public String db() {
     return db;
-  }
-
-  /**
-   * Gets the accept.
-   *
-   * The type of the response: application/json or application/octet-stream.
-   *
-   * @return the accept
-   */
-  public String accept() {
-    return accept;
   }
 
   /**

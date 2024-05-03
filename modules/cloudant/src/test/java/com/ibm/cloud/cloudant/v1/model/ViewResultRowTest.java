@@ -39,6 +39,7 @@ public class ViewResultRowTest {
     assertNull(viewResultRowModel.getCausedBy());
     assertNull(viewResultRowModel.getError());
     assertNull(viewResultRowModel.getReason());
+    assertNull(viewResultRowModel.getRef());
     assertNull(viewResultRowModel.getDoc());
     assertNull(viewResultRowModel.getId());
     assertNull(viewResultRowModel.getKey());

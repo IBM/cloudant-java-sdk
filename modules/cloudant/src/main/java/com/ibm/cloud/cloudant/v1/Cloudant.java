@@ -654,6 +654,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Query a list of all database names in the instance.
    *
+   * Query to retrieve a list of database names from the instance.
+   *
    * @param getAllDbsOptions the {@link GetAllDbsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link List}
    */
@@ -689,6 +691,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
 
   /**
    * Query a list of all database names in the instance.
+   *
+   * Query to retrieve a list of database names from the instance.
    *
    * @return a {@link ServiceCall} with a result of type {@link List}
    */
@@ -752,6 +756,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve information about a database.
    *
+   * Retrieve detailed information about the database.
+   *
    * @param getDatabaseInformationOptions the {@link GetDatabaseInformationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link DatabaseInformation}
    */
@@ -773,6 +779,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
 
   /**
    * Create a database.
+   *
+   * Create a new database with the requested properties.
    *
    * @param putDatabaseOptions the {@link PutDatabaseOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Ok}
@@ -1786,9 +1794,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    if (postDesignDocsOptions.accept() != null) {
-      builder.header("Accept", postDesignDocsOptions.accept());
-    }
+    builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     if (postDesignDocsOptions.attEncodingInfo() != null) {
       contentJson.addProperty("att_encoding_info", postDesignDocsOptions.attEncodingInfo());
@@ -3011,6 +3017,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
 
   /**
    * Delete an index.
+   *
+   * Delete the index functions from the design document and index files on the server.
    *
    * @param deleteIndexOptions the {@link DeleteIndexOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Ok}

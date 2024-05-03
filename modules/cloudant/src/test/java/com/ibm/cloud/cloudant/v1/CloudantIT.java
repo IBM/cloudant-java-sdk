@@ -1407,7 +1407,6 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .key("testString")
         .keys(java.util.Arrays.asList("testString"))
         .startKey("0007741142412418284")
-        .accept("application/json")
         .build();
 
       // Invoke operation
@@ -1752,7 +1751,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .partitionKey("testString")
         .ddoc("testString")
         .index("testString")
-        .query("testString")
+        .query("name:Jane* AND active:True")
         .bookmark("testString")
         .highlightFields(java.util.Arrays.asList("testString"))
         .highlightNumber(Long.valueOf("1"))
@@ -1789,7 +1788,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .partitionKey("testString")
         .ddoc("testString")
         .index("testString")
-        .query("testString")
+        .query("name:Jane* AND active:True")
         .bookmark("testString")
         .highlightFields(java.util.Arrays.asList("testString"))
         .highlightNumber(Long.valueOf("1"))
@@ -2213,7 +2212,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .db("testString")
         .ddoc("testString")
         .index("testString")
-        .query("testString")
+        .query("name:Jane* AND active:True")
         .bookmark("testString")
         .highlightFields(java.util.Arrays.asList("testString"))
         .highlightNumber(Long.valueOf("1"))
@@ -2255,7 +2254,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .db("testString")
         .ddoc("testString")
         .index("testString")
-        .query("testString")
+        .query("name:Jane* AND active:True")
         .bookmark("testString")
         .highlightFields(java.util.Arrays.asList("testString"))
         .highlightNumber(Long.valueOf("1"))
@@ -2456,7 +2455,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
       UserContext userContextModel = new UserContext.Builder()
         .db("testString")
         .name("john")
-        .roles(java.util.Arrays.asList("researcher"))
+        .roles(java.util.Arrays.asList("_replicator"))
         .build();
 
       ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()

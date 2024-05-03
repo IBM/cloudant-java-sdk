@@ -220,7 +220,7 @@ public class GetLocalDocumentOptions extends GenericModel {
   /**
    * Gets the ifNoneMatch.
    *
-   * Header parameter to specify a double quoted document revision token for cache control.
+   * Header parameter for a conditional HTTP request not matching an ETag.
    *
    * @return the ifNoneMatch
    */

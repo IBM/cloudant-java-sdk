@@ -189,7 +189,7 @@ public class DeleteDesignDocumentOptions extends GenericModel {
   /**
    * Gets the ifMatch.
    *
-   * Header parameter to specify the document revision. Alternative to rev query parameter.
+   * Header parameter for a conditional HTTP request matching an ETag.
    *
    * @return the ifMatch
    */

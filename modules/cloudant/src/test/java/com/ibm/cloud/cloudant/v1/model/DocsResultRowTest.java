@@ -40,6 +40,7 @@ public class DocsResultRowTest {
     assertNull(docsResultRowModel.getCausedBy());
     assertNull(docsResultRowModel.getError());
     assertNull(docsResultRowModel.getReason());
+    assertNull(docsResultRowModel.getRef());
     assertNull(docsResultRowModel.getDoc());
     assertNull(docsResultRowModel.getId());
     assertNull(docsResultRowModel.getKey());
