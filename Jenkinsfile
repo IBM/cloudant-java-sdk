@@ -298,13 +298,14 @@ void applyCustomizations() {
 
   scanCode = {
     withSonarQubeEnv(installationName: 'SonarQubeServer') {
-      sh "mvn install sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.branch.name=${env.BRANCH_NAME} -Dsonar.exclusions=examples/**"
+      sh "mvn sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.branch.name=${env.BRANCH_NAME} -Dsonar.exclusions=examples/** --settings build/jenkins.settings.xml"
     }
   }
 }
 
 void runTests() {
-  sh 'mvn verify --settings build/jenkins.settings.xml'
+  // Allow tests to run classes in parallel, but don't fork an extra JVM for it
+  sh 'mvn verify -DforkCount=0 -Dparallel=classes --settings build/jenkins.settings.xml'
 }
 
 void publishStaging() {
