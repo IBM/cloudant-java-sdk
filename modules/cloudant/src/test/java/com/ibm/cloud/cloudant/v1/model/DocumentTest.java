@@ -36,7 +36,7 @@ public class DocumentTest {
   public void testDocument() throws Throwable {
     Attachment attachmentModel = new Attachment.Builder()
       .contentType("testString")
-      .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
+      .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
       .digest("testString")
       .encodedLength(Long.valueOf("0"))
       .encoding("testString")
@@ -46,7 +46,7 @@ public class DocumentTest {
       .stub(true)
       .build();
     assertEquals(attachmentModel.contentType(), "testString");
-    assertEquals(attachmentModel.data(), TestUtilities.createMockByteArray("This is a mock byte array value."));
+    assertEquals(attachmentModel.data(), TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="));
     assertEquals(attachmentModel.digest(), "testString");
     assertEquals(attachmentModel.encodedLength(), Long.valueOf("0"));
     assertEquals(attachmentModel.encoding(), "testString");

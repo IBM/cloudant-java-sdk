@@ -13,6 +13,7 @@
 
 package com.ibm.cloud.cloudant.v1.utils;
 
+import java.util.Base64;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
@@ -116,8 +117,8 @@ public class TestUtilities {
         return list;
     }
 
-    public static byte[] createMockByteArray(String bytes) {
-        return bytes.getBytes();
+    public static byte[] createMockByteArray(String encodedString) throws Exception {
+        return Base64.getDecoder().decode(encodedString);
     }
 
     public static Date createMockDate(String date) throws Exception {
