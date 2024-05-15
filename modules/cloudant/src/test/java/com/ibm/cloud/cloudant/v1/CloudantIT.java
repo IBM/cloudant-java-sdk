@@ -597,7 +597,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       Attachment attachmentModel = new Attachment.Builder()
         .contentType("testString")
-        .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
         .digest("testString")
         .encodedLength(Long.valueOf("0"))
         .encoding("testString")
@@ -814,7 +814,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       Attachment attachmentModel = new Attachment.Builder()
         .contentType("testString")
-        .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
         .digest("testString")
         .encodedLength(Long.valueOf("0"))
         .encoding("testString")
@@ -1149,7 +1149,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       Attachment attachmentModel = new Attachment.Builder()
         .contentType("testString")
-        .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
         .digest("testString")
         .encodedLength(Long.valueOf("0"))
         .encoding("testString")
@@ -1276,7 +1276,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       Attachment attachmentModel = new Attachment.Builder()
         .contentType("testString")
-        .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
         .digest("testString")
         .encodedLength(Long.valueOf("0"))
         .encoding("testString")
@@ -2406,7 +2406,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       Attachment attachmentModel = new Attachment.Builder()
         .contentType("testString")
-        .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
         .digest("testString")
         .encodedLength(Long.valueOf("0"))
         .encoding("testString")
@@ -2911,7 +2911,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
     try {
       Attachment attachmentModel = new Attachment.Builder()
         .contentType("testString")
-        .data(TestUtilities.createMockByteArray("This is a mock byte array value."))
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
         .digest("testString")
         .encodedLength(Long.valueOf("0"))
         .encoding("testString")
