@@ -787,7 +787,7 @@ public class CloudantTest {
   @Test
   public void testPostDbsInfoWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}, \"key\": \"key\"}]";
+    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"instance_start_time\": \"instanceStartTime\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}, \"key\": \"key\"}]";
     String postDbsInfoPath = "/_dbs_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -889,7 +889,7 @@ public class CloudantTest {
   @Test
   public void testGetDatabaseInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}";
+    String mockResponseBody = "{\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"instance_start_time\": \"instanceStartTime\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}";
     String getDatabaseInformationPath = "/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")

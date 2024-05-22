@@ -46,6 +46,7 @@ public class DatabaseInformationTest {
     assertNull(databaseInformationModel.getDocCount());
     assertNull(databaseInformationModel.getDocDelCount());
     assertNull(databaseInformationModel.getEngine());
+    assertNull(databaseInformationModel.getInstanceStartTime());
     assertNull(databaseInformationModel.getProps());
     assertNull(databaseInformationModel.getSizes());
     assertNull(databaseInformationModel.getUpdateSeq());

@@ -37,6 +37,8 @@ public class DatabaseInformation extends GenericModel {
   @SerializedName("doc_del_count")
   protected Long docDelCount;
   protected String engine;
+  @SerializedName("instance_start_time")
+  protected String instanceStartTime;
   protected DatabaseInformationProps props;
   protected ContentInformationSizes sizes;
   @SerializedName("update_seq")
@@ -144,6 +146,18 @@ public class DatabaseInformation extends GenericModel {
    */
   public String getEngine() {
     return engine;
+  }
+
+  /**
+   * Gets the instanceStartTime.
+   *
+   * An opaque string to detect whether a database has been recreated. The field name is for compatibility with old
+   * replicator versions. Do not use the value to infer timing infromation. Typically only used by replicators.
+   *
+   * @return the instanceStartTime
+   */
+  public String getInstanceStartTime() {
+    return instanceStartTime;
   }
 
   /**
