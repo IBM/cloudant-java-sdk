@@ -167,7 +167,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Default service endpoint URL.
    */
-  public static final String DEFAULT_SERVICE_URL = "http://localhost:5984";
+  public static final String DEFAULT_SERVICE_URL = "https://~replace-with-cloudant-host~.cloudantnosqldb.appdomain.cloud";
 
  /**
    * Class method which constructs an instance of the `Cloudant` client.
