@@ -2953,9 +2953,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve information about all indexes.
    *
-   * When you make a GET request to `/db/_index`, you get a list of all indexes used by Cloudant Query in the database,
-   * including the primary index. In addition to the information available through this API, indexes are also stored in
-   * the `indexes` property of design documents.
+   * When you make a GET request to `/db/_index`, you get a list of all the indexes using `"language":"query"` in the
+   * database and the primary index. In addition to the information available through this API, the indexes are stored
+   * in the `indexes` property of their respective design documents.
    *
    * @param getIndexesInformationOptions the {@link GetIndexesInformationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link IndexesInformation}

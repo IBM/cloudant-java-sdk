@@ -13,18 +13,25 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * Schema for server vendor information.
  */
-public class ServerVendor extends GenericModel {
+public class ServerVendor extends DynamicModel<String> {
 
+  @SerializedName("name")
   protected String name;
+  @SerializedName("variant")
   protected String variant;
+  @SerializedName("version")
   protected String version;
 
-  protected ServerVendor() { }
+  public ServerVendor() {
+    super(new TypeToken<String>() { });
+  }
 
   /**
    * Gets the name.
@@ -34,7 +41,7 @@ public class ServerVendor extends GenericModel {
    * @return the name
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -45,7 +52,7 @@ public class ServerVendor extends GenericModel {
    * @return the variant
    */
   public String getVariant() {
-    return variant;
+    return this.variant;
   }
 
   /**
@@ -56,7 +63,6 @@ public class ServerVendor extends GenericModel {
    * @return the version
    */
   public String getVersion() {
-    return version;
+    return this.version;
   }
 }
-
