@@ -140,6 +140,7 @@ public class ReplicationDocumentTest {
       .docIds(java.util.Arrays.asList("testString"))
       .filter("testString")
       .httpConnections(Long.valueOf("20"))
+      .owner("testString")
       .queryParams(java.util.Collections.singletonMap("key1", "testString"))
       .retriesPerRequest(Long.valueOf("5"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
@@ -175,6 +176,7 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.getDocIds(), java.util.Arrays.asList("testString"));
     assertEquals(replicationDocumentModel.getFilter(), "testString");
     assertEquals(replicationDocumentModel.getHttpConnections(), Long.valueOf("20"));
+    assertEquals(replicationDocumentModel.getOwner(), "testString");
     assertEquals(replicationDocumentModel.getQueryParams(), java.util.Collections.singletonMap("key1", "testString"));
     assertEquals(replicationDocumentModel.getRetriesPerRequest(), Long.valueOf("5"));
     assertEquals(replicationDocumentModel.getSelector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
@@ -209,6 +211,7 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModelNew.getCreateTargetParams().toString(), replicationCreateTargetParametersModel.toString());
     assertEquals(replicationDocumentModelNew.getFilter(), "testString");
     assertEquals(replicationDocumentModelNew.getHttpConnections(), Long.valueOf("20"));
+    assertEquals(replicationDocumentModelNew.getOwner(), "testString");
     assertEquals(replicationDocumentModelNew.getRetriesPerRequest(), Long.valueOf("5"));
     assertEquals(replicationDocumentModelNew.getSelector().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(replicationDocumentModelNew.getSinceSeq(), "testString");

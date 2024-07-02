@@ -2477,6 +2477,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .docIds(java.util.Arrays.asList("badger", "lemur", "llama"))
         .filter("ddoc/my_filter")
         .httpConnections(Long.valueOf("10"))
+        .owner("testString")
         .queryParams(java.util.Collections.singletonMap("key1", "testString"))
         .retriesPerRequest(Long.valueOf("3"))
         .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))

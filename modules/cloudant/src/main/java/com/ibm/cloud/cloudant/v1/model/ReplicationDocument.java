@@ -63,6 +63,8 @@ public class ReplicationDocument extends DynamicModel<Object> {
   protected String filter;
   @SerializedName("http_connections")
   protected Long httpConnections;
+  @SerializedName("owner")
+  protected String owner;
   @SerializedName("query_params")
   protected Map<String, String> queryParams;
   @SerializedName("retries_per_request")
@@ -120,6 +122,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
     private List<String> docIds;
     private String filter;
     private Long httpConnections;
+    private String owner;
     private Map<String, String> queryParams;
     private Long retriesPerRequest;
     private Map<String, Object> selector;
@@ -161,6 +164,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
       this.docIds = replicationDocument.docIds;
       this.filter = replicationDocument.filter;
       this.httpConnections = replicationDocument.httpConnections;
+      this.owner = replicationDocument.owner;
       this.queryParams = replicationDocument.queryParams;
       this.retriesPerRequest = replicationDocument.retriesPerRequest;
       this.selector = replicationDocument.selector;
@@ -472,6 +476,17 @@ public class ReplicationDocument extends DynamicModel<Object> {
     }
 
     /**
+     * Set the owner.
+     *
+     * @param owner the owner
+     * @return the ReplicationDocument builder
+     */
+    public Builder owner(String owner) {
+      this.owner = owner;
+      return this;
+    }
+
+    /**
      * Set the queryParams.
      *
      * @param queryParams the queryParams
@@ -681,6 +696,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
     docIds = builder.docIds;
     filter = builder.filter;
     httpConnections = builder.httpConnections;
+    owner = builder.owner;
     queryParams = builder.queryParams;
     retriesPerRequest = builder.retriesPerRequest;
     selector = builder.selector;
@@ -1069,6 +1085,27 @@ public class ReplicationDocument extends DynamicModel<Object> {
    */
   public void setHttpConnections(final long httpConnections) {
     this.httpConnections = httpConnections;
+  }
+
+  /**
+   * Gets the owner.
+   *
+   * The replication document owner. The server sets an appropriate value if the field is unset when writing a
+   * replication document. Only administrators can modify the value to an owner other than themselves.
+   *
+   * @return the owner
+   */
+  public String getOwner() {
+    return this.owner;
+  }
+
+  /**
+   * Sets the owner.
+   *
+   * @param owner the new owner
+   */
+  public void setOwner(final String owner) {
+    this.owner = owner;
   }
 
   /**
