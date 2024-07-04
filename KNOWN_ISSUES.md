@@ -221,3 +221,13 @@ list any `fields` to project and hence the response includes `"fields": "all_fie
 
 If it is not possible to use a newer server version the workaround is to use
 [Raw IO](/#raw-io) functions to custom deserialize the response.
+
+### Design documents
+
+#### Query language design documents
+
+The type of the `map` function for `views` differs between design documents with `"language":"javascript"` (`map` function is a string) and `"language":"query"` (`map` function is an object).
+
+The SDK model for a design document expects a `javascript` design document and the [`getDesignDocument` operation](https://cloud.ibm.com/apidocs/cloudant?code=java#getdesigndocument) fails for a `query` design document with an error such as `com.ibm.cloud.sdk.core.service.exception.InvalidServiceResponseException: Error processing the HTTP response` `Caused by: com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected a string but was BEGIN_OBJECT at line 1 column 152 path $.views..map`.
+
+In general manage `query` design documents using the `_index` endpoint operations: [`postIndex`](https://cloud.ibm.com/apidocs/cloudant?code=java#postindex), [`deleteIndex`](https://cloud.ibm.com/apidocs/cloudant?code=java#deleteindex), and [`getIndexesInformation`](https://cloud.ibm.com/apidocs/cloudant?code=java#getindexesinformation). However, if you must retrieve the content of a `query` design document workaround the error by using the [`postDesignDocs` operation](https://cloud.ibm.com/apidocs/cloudant?code=java#postdesigndocs) with the `includeDocs` parameter and the `key` parameter to limit the response to a single specific design document. If a completely raw response is preferred then instead use the [`postAllDocsAsStream operation`](https://cloud.ibm.com/apidocs/cloudant?code=java#postalldocs).
