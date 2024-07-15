@@ -1,5 +1,6 @@
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetUuidsOptions;
 import com.ibm.cloud.cloudant.v1.model.UuidsResult;
 // section: code
 Cloudant service = Cloudant.newInstance();

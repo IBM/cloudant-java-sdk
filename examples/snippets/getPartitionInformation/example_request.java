@@ -1,4 +1,5 @@
 // section: code imports
+import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.GetPartitionInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
 // section: code
