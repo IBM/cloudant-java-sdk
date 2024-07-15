@@ -33,9 +33,11 @@ PutDesignDocumentOptions designDocumentOptions =
         .ddoc("allusers")
         .build();
 
-DocumentResult response =
+DocumentResult allusersResponse =
     service.putDesignDocument(designDocumentOptions).execute()
         .getResult();
+
+System.out.println(allusersResponse);
 
 DesignDocumentViewsMapReduce applianceView =
     new DesignDocumentViewsMapReduce.Builder()
@@ -60,10 +62,10 @@ PutDesignDocumentOptions partitionedDesignDocumentOptions =
         .ddoc("appliances")
         .build();
 
-DocumentResult response =
+DocumentResult appliancesResponse =
     service.putDesignDocument(partitionedDesignDocumentOptions).execute()
         .getResult();
 
-System.out.println(response);
+System.out.println(appliancesResponse);
 // section: markdown
 // This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.

@@ -1,6 +1,5 @@
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 
 import java.util.List;
 // section: code

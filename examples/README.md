@@ -50,7 +50,6 @@ _GET `/_all_dbs`_
 ```java
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 
 import java.util.List;
 // section: code
@@ -225,11 +224,11 @@ _GET `/_api/v2/user/config/cors`_
 ```java
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.CorsConfiguration;
+import com.ibm.cloud.cloudant.v1.model.CorsInformation;
 // section: code
 Cloudant service = Cloudant.newInstance();
 
-CorsConfiguration response =
+CorsInformation response =
     service.getCorsInformation().execute().getResult();
 
 System.out.println(response);
@@ -245,20 +244,15 @@ _PUT `/_api/v2/user/config/cors`_
 ```java
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.CorsConfiguration;
 import com.ibm.cloud.cloudant.v1.model.Ok;
 import com.ibm.cloud.cloudant.v1.model.PutCorsConfigurationOptions;
 // section: code
 Cloudant service = Cloudant.newInstance();
 
-CorsConfiguration configuration = new CorsConfiguration.Builder()
-    .addOrigins("https://example.com")
-    .enableCors(true)
-    .build();
-
 PutCorsConfigurationOptions configurationOptions =
     new PutCorsConfigurationOptions.Builder()
-        .corsConfiguration(configuration)
+        .addOrigins("https://example.com")
+        .enableCors(true)
         .build();
 
 Ok response =
@@ -725,6 +719,7 @@ _GET `/_uuids`_
 ```java
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.GetUuidsOptions;
 import com.ibm.cloud.cloudant.v1.model.UuidsResult;
 // section: code
 Cloudant service = Cloudant.newInstance();
@@ -803,8 +798,6 @@ _HEAD `/{db}`_
 [embedmd]:# (snippets/headDatabase/example_request.java)
 ```java
 // section: code imports
-import com.ibm.cloud.sdk.core.http.Headers;
-
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.HeadDatabaseOptions;
 // section: code
@@ -1281,7 +1274,6 @@ System.out.println(response);
 ```java
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
 
 import java.io.InputStream;
@@ -1440,9 +1432,11 @@ PutDesignDocumentOptions designDocumentOptions =
         .ddoc("allusers")
         .build();
 
-DocumentResult response =
+DocumentResult allusersResponse =
     service.putDesignDocument(designDocumentOptions).execute()
         .getResult();
+
+System.out.println(allusersResponse);
 
 DesignDocumentViewsMapReduce applianceView =
     new DesignDocumentViewsMapReduce.Builder()
@@ -1467,11 +1461,11 @@ PutDesignDocumentOptions partitionedDesignDocumentOptions =
         .ddoc("appliances")
         .build();
 
-DocumentResult response =
+DocumentResult appliancesResponse =
     service.putDesignDocument(partitionedDesignDocumentOptions).execute()
         .getResult();
 
-System.out.println(response);
+System.out.println(appliancesResponse);
 // section: markdown
 // This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
 ```
@@ -2062,43 +2056,6 @@ DocumentResult response =
 System.out.println(response);
 ```
 
-## postMissingRevs
-
-_POST `/{db}/_missing_revs`_
-
-### [Example request](snippets/postMissingRevs/example_request.java)
-
-[embedmd]:# (snippets/postMissingRevs/example_request.java)
-```java
-// section: code imports
-import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.DocumentRevisions;
-import com.ibm.cloud.cloudant.v1.model.MissingRevsResult;
-import com.ibm.cloud.cloudant.v1.model.PostMissingRevsOptions;
-
-import java.util.Arrays;
-// section: code
-Cloudant service = Cloudant.newInstance();
-
-DocumentRevisions revs = new DocumentRevisions();
-revs.put(
-  "order00077",
-  Arrays.asList("<order00077-existing-revision>", "<2-missing-revision>")
-);
-
-PostMissingRevsOptions missingRevsOptions =
-    new PostMissingRevsOptions.Builder()
-        .db("orders")
-        .missingRevs(revs)
-        .build();
-
-MissingRevsResult response =
-    service.postMissingRevs(missingRevsOptions).execute()
-        .getResult();
-
-System.out.println(response);
-```
-
 ## getPartitionInformation
 
 _GET `/{db}/_partition/{partition_key}`_
@@ -2108,6 +2065,7 @@ _GET `/{db}/_partition/{partition_key}`_
 [embedmd]:# (snippets/getPartitionInformation/example_request.java)
 ```java
 // section: code imports
+import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.GetPartitionInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.PartitionInformation;
 // section: code
@@ -2272,23 +2230,27 @@ _POST `/{db}/_revs_diff`_
 ```java
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.DocumentRevisions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
-import com.ibm.cloud.cloudant.v1.model.RevsDiffResult;
+import com.ibm.cloud.cloudant.v1.model.RevsDiff;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Arrays;
 // section: code
 Cloudant service = Cloudant.newInstance();
 
-DocumentRevisions revsDiff = new DocumentRevisions();
-revsDiff.put("order00077", Arrays.asList("<1-missing-revision>",
-  "<2-missing-revision>", "<3-possible-ancestor-revision>"));
+Map<String, List<String>> docRevisions = 
+    Collections.singletonMap("prder00077", Arrays.asList("<1-missing-revision>",
+        "<2-missing-revision>", "<3-possible-ancestor-revision>"));
 
 PostRevsDiffOptions revsDiffOptions =
     new PostRevsDiffOptions.Builder()
         .db("orders")
-        .revsDiffRequest(revsDiff)
+        .documentRevisions(docRevisions)
         .build();
 
-RevsDiffResult response =
+Map<String,RevsDiff> response =
     service.postRevsDiff(revsDiffOptions).execute()
         .getResult();
 
@@ -2601,15 +2563,16 @@ GetAttachmentOptions attachmentOptions =
         .attachmentName("product_details.txt")
         .build();
 
-InputStream streamResult =
-    service.getAttachment(attachmentOptions).execute()
-        .getResult();
+try(InputStream streamResult =
+        service.getAttachment(attachmentOptions).execute()
+            .getResult()) {        
+    String response =
+        new BufferedReader(new InputStreamReader(streamResult))
+            .lines().collect(Collectors.joining("\n"));
+    
+    System.out.println(response);
+}
 
-String response =
-    new BufferedReader(new InputStreamReader(streamResult))
-        .lines().collect(Collectors.joining("\n"));
-
-System.out.println(response);
 // section: markdown
 // This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```

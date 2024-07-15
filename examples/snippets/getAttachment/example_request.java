@@ -16,14 +16,15 @@ GetAttachmentOptions attachmentOptions =
         .attachmentName("product_details.txt")
         .build();
 
-InputStream streamResult =
-    service.getAttachment(attachmentOptions).execute()
-        .getResult();
+try(InputStream streamResult =
+        service.getAttachment(attachmentOptions).execute()
+            .getResult()) {        
+    String response =
+        new BufferedReader(new InputStreamReader(streamResult))
+            .lines().collect(Collectors.joining("\n"));
+    
+    System.out.println(response);
+}
 
-String response =
-    new BufferedReader(new InputStreamReader(streamResult))
-        .lines().collect(Collectors.joining("\n"));
-
-System.out.println(response);
 // section: markdown
 // This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)

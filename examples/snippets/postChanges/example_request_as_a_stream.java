@@ -1,6 +1,5 @@
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
 
 import java.io.InputStream;

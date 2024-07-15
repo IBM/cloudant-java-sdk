@@ -1,6 +1,4 @@
 // section: code imports
-import com.ibm.cloud.sdk.core.http.Headers;
-
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.HeadDatabaseOptions;
 // section: code
