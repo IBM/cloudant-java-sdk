@@ -299,8 +299,8 @@ void applyCustomizations() {
 }
 
 void runTests() {
-  // Allow tests to run classes in parallel, but don't fork an extra JVM for it
-  sh 'mvn verify -DforkCount=0 -Dparallel=classes --settings build/jenkins.settings.xml'
+  // Allow tests to run classes in parallel
+  sh 'mvn verify -DperCoreThreadCount=false -DthreadCount=2 -Dparallel=classes --settings build/jenkins.settings.xml'
 }
 
 void publishStaging() {
