@@ -449,11 +449,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -495,12 +493,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try {
-        List<String> resultResult = response.getResult();
+      List<String> resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -727,11 +722,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -807,11 +800,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -942,11 +933,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -977,11 +966,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1012,11 +999,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1082,11 +1067,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1118,11 +1101,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1154,11 +1135,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1564,11 +1543,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1662,11 +1639,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1759,11 +1734,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1835,11 +1808,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -1925,11 +1896,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2029,11 +1998,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2133,11 +2100,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2315,11 +2280,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream resultResult = response.getResult();) {
+      InputStream resultResult = response.getResult();
 
-        assertNotNull(resultResult);
-      } finally {
-      }
+      assertNotNull(resultResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
@@ -2859,11 +2822,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       assertNotNull(response);
       assertEquals(response.getStatusCode(), 200);
 
-      try(InputStream inputStreamResult = response.getResult();) {
+      InputStream inputStreamResult = response.getResult();
 
-        assertNotNull(inputStreamResult);
-      } finally {
-      }
+      assertNotNull(inputStreamResult);
     } catch (ServiceResponseException e) {
         fail(String.format("Service returned status code %d: %s%nError details: %s",
           e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
