@@ -22,6 +22,8 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * Schema for indexed fields for use with declarative JSON query.
+ *
+ * This type supports additional properties of type String. Schema for sort direction.
  */
 public class IndexField extends DynamicModel<String> {
 
@@ -104,6 +106,7 @@ public class IndexField extends DynamicModel<String> {
 
     /**
      * Add an arbitrary property.
+     * Schema for sort direction.
      *
      * @param name the name of the property to add
      * @param value the value of the property to add

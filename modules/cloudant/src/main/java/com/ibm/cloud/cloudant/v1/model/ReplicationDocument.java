@@ -24,6 +24,8 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * Schema for a replication document. Note that `selector`, `doc_ids`, and `filter` are incompatible with each other.
+ *
+ * This type supports additional properties of type Object.
  */
 public class ReplicationDocument extends DynamicModel<Object> {
 
