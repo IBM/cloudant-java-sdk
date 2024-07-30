@@ -19,6 +19,8 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * Schema for server vendor information.
+ *
+ * This type supports additional properties of type String.
  */
 public class ServerVendor extends DynamicModel<String> {
 

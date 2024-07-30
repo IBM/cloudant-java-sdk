@@ -24,6 +24,8 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 
 /**
  * Schema for a document.
+ *
+ * This type supports additional properties of type Object.
  */
 public class Document extends DynamicModel<Object> {
 

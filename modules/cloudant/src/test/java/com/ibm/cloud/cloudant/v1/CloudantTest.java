@@ -629,8 +629,9 @@ public class CloudantTest {
     // Invoke postChangesAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postChangesAsStream(postChangesOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -656,11 +657,6 @@ public class CloudantTest {
     assertEquals(query.get("style"), "main_only");
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("view"), "testString");
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postChangesAsStream operation with and without retries enabled
@@ -1246,8 +1242,9 @@ public class CloudantTest {
     // Invoke postAllDocsAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postAllDocsAsStream(postAllDocsOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -1259,11 +1256,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postAllDocsAsStream operation with and without retries enabled
@@ -1389,8 +1381,9 @@ public class CloudantTest {
     // Invoke postAllDocsQueriesAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postAllDocsQueriesAsStream(postAllDocsQueriesOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -1402,11 +1395,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postAllDocsQueriesAsStream operation with and without retries enabled
@@ -1625,9 +1613,9 @@ public class CloudantTest {
     // Invoke postBulkGetAsMixed() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postBulkGetAsMixed(postBulkGetOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
-    responseObj.close();
+    try (InputStream responseObj = response.getResult();) {
+      assertNotNull(responseObj);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -1693,9 +1681,9 @@ public class CloudantTest {
     // Invoke postBulkGetAsRelated() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postBulkGetAsRelated(postBulkGetOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
-    responseObj.close();
+    try (InputStream responseObj = response.getResult();) {
+      assertNotNull(responseObj);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -1761,8 +1749,9 @@ public class CloudantTest {
     // Invoke postBulkGetAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postBulkGetAsStream(postBulkGetOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -1778,11 +1767,6 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("att_encoding_info")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("latest")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postBulkGetAsStream operation with and without retries enabled
@@ -1963,9 +1947,9 @@ public class CloudantTest {
     // Invoke getDocumentAsMixed() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.getDocumentAsMixed(getDocumentOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
-    responseObj.close();
+    try (InputStream responseObj = response.getResult();) {
+      assertNotNull(responseObj);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -2037,9 +2021,9 @@ public class CloudantTest {
     // Invoke getDocumentAsRelated() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.getDocumentAsRelated(getDocumentOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
-    responseObj.close();
+    try (InputStream responseObj = response.getResult();) {
+      assertNotNull(responseObj);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -2111,8 +2095,9 @@ public class CloudantTest {
     // Invoke getDocumentAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.getDocumentAsStream(getDocumentOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -2134,11 +2119,6 @@ public class CloudantTest {
     assertEquals(query.get("rev"), "testString");
     assertEquals(Boolean.valueOf(query.get("revs")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("revs_info")), Boolean.valueOf(false));
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the getDocumentAsStream operation with and without retries enabled
@@ -2885,8 +2865,9 @@ public class CloudantTest {
     // Invoke postViewAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postViewAsStream(postViewOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -2898,11 +2879,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postViewAsStream operation with and without retries enabled
@@ -3046,8 +3022,9 @@ public class CloudantTest {
     // Invoke postViewQueriesAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postViewQueriesAsStream(postViewQueriesOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -3059,11 +3036,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postViewQueriesAsStream operation with and without retries enabled
@@ -3233,8 +3205,9 @@ public class CloudantTest {
     // Invoke postPartitionAllDocsAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postPartitionAllDocsAsStream(postPartitionAllDocsOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -3246,11 +3219,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postPartitionAllDocsAsStream operation with and without retries enabled
@@ -3370,8 +3338,9 @@ public class CloudantTest {
     // Invoke postPartitionSearchAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postPartitionSearchAsStream(postPartitionSearchOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -3383,11 +3352,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postPartitionSearchAsStream operation with and without retries enabled
@@ -3521,8 +3485,9 @@ public class CloudantTest {
     // Invoke postPartitionViewAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postPartitionViewAsStream(postPartitionViewOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -3534,11 +3499,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postPartitionViewAsStream operation with and without retries enabled
@@ -3715,8 +3675,9 @@ public class CloudantTest {
     // Invoke postPartitionFindAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postPartitionFindAsStream(postPartitionFindOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -3728,11 +3689,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postPartitionFindAsStream operation with and without retries enabled
@@ -3909,8 +3865,9 @@ public class CloudantTest {
     // Invoke postFindAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postFindAsStream(postFindOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -3922,11 +3879,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postFindAsStream operation with and without retries enabled
@@ -4297,8 +4249,9 @@ public class CloudantTest {
     // Invoke postSearchAsStream() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.postSearchAsStream(postSearchOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
+    try (InputStream responseObj = response.getResult();) {
+      assertEquals(new String(responseObj.readAllBytes()), mockResponseBody);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
@@ -4310,11 +4263,6 @@ public class CloudantTest {
     // Verify that there is no query string
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNull(query);
-    // Verify streamed JSON response
-    java.util.Scanner s = new java.util.Scanner(responseObj).useDelimiter("\\A");
-    String streamedResponseBody = s.hasNext() ? s.next() : "";
-    assertEquals(streamedResponseBody, mockResponseBody);
-    s.close();
   }
 
   // Test the postSearchAsStream operation with and without retries enabled
@@ -5517,9 +5465,9 @@ public class CloudantTest {
     // Invoke getAttachment() with a valid options model and verify the result
     Response<InputStream> response = cloudantService.getAttachment(getAttachmentOptionsModel).execute();
     assertNotNull(response);
-    InputStream responseObj = response.getResult();
-    assertNotNull(responseObj);
-    responseObj.close();
+    try (InputStream responseObj = response.getResult();) {
+      assertNotNull(responseObj);
+    }
 
     // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
