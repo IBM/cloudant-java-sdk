@@ -277,6 +277,9 @@
                     <version>${maven-javadoc-plugin-version}</version>
                     <configuration>
                         <quiet>true</quiet>
+                        <links>
+                            <link>https://ibm.github.io/java-sdk-core/docs/${sdk-core-version}/</link>
+                        </links>
                     </configuration>
                     <executions>
                         <execution>
