@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2024. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,7 +28,6 @@ import com.ibm.cloud.cloudant.common.SdkCommon;
 import okhttp3.Cookie;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -55,7 +54,6 @@ public class CouchDbSessionAuthenticator
     private HttpUrl sessionUrl = null;
     private HttpConfigOptions options = null;
     private Headers headers = null;
-    private OkHttpClient sessionAuthClient = null;
 
     /**
      * Get a new Authenticator instance for the supplied service URL and credentials that provides
@@ -166,27 +164,28 @@ public class CouchDbSessionAuthenticator
             }
         }
 
-        try {
-            // Build the client if we need to
-            if (sessionAuthClient == null) {
-                sessionAuthClient = HttpClientSingleton
-                        .getInstance()
-                        .configureClient(options)
-                        .newBuilder()
-                        .cookieJar(cookieJar)
-                        .build();
-            }
-            try (Response response = sessionAuthClient.newCall(postSessionbuilder.build()).execute()) {
-                if (response.isSuccessful()) {
-                    List<Cookie> cookies = Cookie.parseAll(sessionUrl, response.headers());
-                    for (Cookie cookie : cookies) {
-                        if ("AuthSession".equals(cookie.name())) {
-                            return new CouchDbSessionToken(cookie.expiresAt());
-                        }
+        // Build the client if we need to
+        if (getClient() == null) {
+            setClient(
+                HttpClientSingleton
+                .getInstance()
+                .configureClient(options)
+                .newBuilder()
+                .cookieJar(cookieJar)
+                .build()
+            );
+        }
+
+        try (Response response = getClient().newCall(postSessionbuilder.build()).execute()) {
+            if (response.isSuccessful()) {
+                List<Cookie> cookies = Cookie.parseAll(sessionUrl, response.headers());
+                for (Cookie cookie : cookies) {
+                    if ("AuthSession".equals(cookie.name())) {
+                        return new CouchDbSessionToken(cookie.expiresAt());
                     }
                 }
-                throw new ServiceResponseException(response.code(), response);
             }
+            throw new ServiceResponseException(response.code(), response);
         } catch (RuntimeException | IOException t) {
             return new CouchDbSessionToken(t);
         }
