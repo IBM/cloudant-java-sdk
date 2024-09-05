@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class DesignDocumentViewsMapReduce extends GenericModel {
 
   protected String map;
+  protected DesignDocumentViewsMapReduceOptions options;
   protected String reduce;
 
   /**
@@ -28,6 +29,7 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
    */
   public static class Builder {
     private String map;
+    private DesignDocumentViewsMapReduceOptions options;
     private String reduce;
 
     /**
@@ -37,6 +39,7 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
      */
     private Builder(DesignDocumentViewsMapReduce designDocumentViewsMapReduce) {
       this.map = designDocumentViewsMapReduce.map;
+      this.options = designDocumentViewsMapReduce.options;
       this.reduce = designDocumentViewsMapReduce.reduce;
     }
 
@@ -76,6 +79,17 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
     }
 
     /**
+     * Set the options.
+     *
+     * @param options the options
+     * @return the DesignDocumentViewsMapReduce builder
+     */
+    public Builder options(DesignDocumentViewsMapReduceOptions options) {
+      this.options = options;
+      return this;
+    }
+
+    /**
      * Set the reduce.
      *
      * @param reduce the reduce
@@ -93,6 +107,7 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.map,
       "map cannot be null");
     map = builder.map;
+    options = builder.options;
     reduce = builder.reduce;
   }
 
@@ -114,6 +129,17 @@ public class DesignDocumentViewsMapReduce extends GenericModel {
    */
   public String map() {
     return map;
+  }
+
+  /**
+   * Gets the options.
+   *
+   * Options of view build resuls.
+   *
+   * @return the options
+   */
+  public DesignDocumentViewsMapReduceOptions options() {
+    return options;
   }
 
   /**

@@ -390,13 +390,19 @@ public class PostPartitionExplainOptions extends GenericModel {
    * combination operator takes a single argument. The argument is either another selector, or an array of selectors.
    * * Condition operators: are specific to a field, and are used to evaluate the value stored in that field. For
    * instance, the basic `$eq` operator matches when the specified field contains a value that is equal to the supplied
-   * argument. See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list of all
-   * available combination and conditional operators.
+   * argument.
+   *
+   * It is important for query performance to use appropriate selectors:
    * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
    * of a query. You should include at least one of these in a selector.
+   * * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered from an index. For query selectors
+   * use these operators in conjunction with equality operators or create and use a partial index to reduce the number
+   * of documents that will need to be scanned.
    *
-   * For further reference see
-   * [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
+   * See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of all available
+   * combination and conditional operators.
+   *
+   * For further reference see [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).
    *
    * @return the selector
    */
@@ -523,6 +529,9 @@ public class PostPartitionExplainOptions extends GenericModel {
    *
    * It’s recommended to specify indexes explicitly in your queries to prevent existing queries being affected by new
    * indexes that might get added later.
+   *
+   * If the specified index does not exist or cannot answer the query then the value is ignored and another index or a
+   * full scan of all documents will answer the query.
    *
    * @return the useIndex
    */

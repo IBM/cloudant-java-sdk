@@ -692,6 +692,10 @@ public class PostPartitionViewOptions extends GenericModel {
    * Parameter to specify whether to use the reduce function in a map-reduce view. Default is true when a reduce
    * function is defined.
    *
+   * A default `reduce` view type can be disabled to behave like a `map` by setting `reduce=false` explicitly.
+   *
+   * Be aware that `include_docs=true` can only be used with `map` views.
+   *
    * @return the reduce
    */
   public Boolean reduce() {

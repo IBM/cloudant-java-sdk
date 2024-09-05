@@ -56,6 +56,7 @@ import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformation;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduceOptions;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRowValue;
 import com.ibm.cloud.cloudant.v1.model.Document;
@@ -274,48 +275,6 @@ public class CloudantTest {
     testGetServerInformationWOptions();
   }
 
-  // Test the getMembershipInformation operation with a valid options model parameter
-  @Test
-  public void testGetMembershipInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"all_nodes\": [\"allNodes\"], \"cluster_nodes\": [\"clusterNodes\"]}";
-    String getMembershipInformationPath = "/_membership";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetMembershipInformationOptions model
-    GetMembershipInformationOptions getMembershipInformationOptionsModel = new GetMembershipInformationOptions();
-
-    // Invoke getMembershipInformation() with a valid options model and verify the result
-    Response<MembershipInformation> response = cloudantService.getMembershipInformation(getMembershipInformationOptionsModel).execute();
-    assertNotNull(response);
-    MembershipInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getMembershipInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getMembershipInformation operation with and without retries enabled
-  @Test
-  public void testGetMembershipInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetMembershipInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetMembershipInformationWOptions();
-  }
-
   // Test the getUuids operation with a valid options model parameter
   @Test
   public void testGetUuidsWOptions() throws Throwable {
@@ -365,7 +324,7 @@ public class CloudantTest {
   @Test
   public void testGetCapacityThroughputInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"current\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}, \"target\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}}";
+    String mockResponseBody = "{\"current\": {\"throughput\": {\"blocks\": 1, \"query\": 0, \"read\": 0, \"write\": 0}}, \"target\": {\"throughput\": {\"blocks\": 1, \"query\": 0, \"read\": 0, \"write\": 0}}}";
     String getCapacityThroughputInformationPath = "/_api/v2/user/capacity/throughput";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -407,7 +366,7 @@ public class CloudantTest {
   @Test
   public void testPutCapacityThroughputConfigurationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"current\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}, \"target\": {\"throughput\": {\"blocks\": 0, \"query\": 0, \"read\": 0, \"write\": 0}}}";
+    String mockResponseBody = "{\"current\": {\"throughput\": {\"blocks\": 1, \"query\": 0, \"read\": 0, \"write\": 0}}, \"target\": {\"throughput\": {\"blocks\": 1, \"query\": 0, \"read\": 0, \"write\": 0}}}";
     String putCapacityThroughputConfigurationPath = "/_api/v2/user/capacity/throughput";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2360,7 +2319,7 @@ public class CloudantTest {
   @Test
   public void testGetDesignDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"options\": {}, \"reduce\": \"reduce\"}}}";
     String getDesignDocumentPath = "/testString/_design/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2489,9 +2448,15 @@ public class CloudantTest {
       .partitioned(true)
       .build();
 
+    // Construct an instance of the DesignDocumentViewsMapReduceOptions model
+    DesignDocumentViewsMapReduceOptions designDocumentViewsMapReduceOptionsModel = new DesignDocumentViewsMapReduceOptions.Builder()
+      .add("foo", "testString")
+      .build();
+
     // Construct an instance of the DesignDocumentViewsMapReduce model
     DesignDocumentViewsMapReduce designDocumentViewsMapReduceModel = new DesignDocumentViewsMapReduce.Builder()
       .map("function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}")
+      .options(designDocumentViewsMapReduceOptionsModel)
       .reduce("testString")
       .build();
 
@@ -6065,6 +6030,48 @@ public class CloudantTest {
 
     cloudantService.disableRetries();
     testGetActiveTasksWOptions();
+  }
+
+  // Test the getMembershipInformation operation with a valid options model parameter
+  @Test
+  public void testGetMembershipInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"all_nodes\": [\"allNodes\"], \"cluster_nodes\": [\"clusterNodes\"]}";
+    String getMembershipInformationPath = "/_membership";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetMembershipInformationOptions model
+    GetMembershipInformationOptions getMembershipInformationOptionsModel = new GetMembershipInformationOptions();
+
+    // Invoke getMembershipInformation() with a valid options model and verify the result
+    Response<MembershipInformation> response = cloudantService.getMembershipInformation(getMembershipInformationOptionsModel).execute();
+    assertNotNull(response);
+    MembershipInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getMembershipInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getMembershipInformation operation with and without retries enabled
+  @Test
+  public void testGetMembershipInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetMembershipInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetMembershipInformationWOptions();
   }
 
   // Test the getUpInformation operation with a valid options model parameter

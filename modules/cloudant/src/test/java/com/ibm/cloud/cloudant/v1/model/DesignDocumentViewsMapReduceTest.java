@@ -14,6 +14,7 @@
 package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduceOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -31,11 +32,18 @@ public class DesignDocumentViewsMapReduceTest {
 
   @Test
   public void testDesignDocumentViewsMapReduce() throws Throwable {
+    DesignDocumentViewsMapReduceOptions designDocumentViewsMapReduceOptionsModel = new DesignDocumentViewsMapReduceOptions.Builder()
+      .add("foo", "testString")
+      .build();
+    assertEquals(designDocumentViewsMapReduceOptionsModel.get("foo"), "testString");
+
     DesignDocumentViewsMapReduce designDocumentViewsMapReduceModel = new DesignDocumentViewsMapReduce.Builder()
       .map("testString")
+      .options(designDocumentViewsMapReduceOptionsModel)
       .reduce("testString")
       .build();
     assertEquals(designDocumentViewsMapReduceModel.map(), "testString");
+    assertEquals(designDocumentViewsMapReduceModel.options(), designDocumentViewsMapReduceOptionsModel);
     assertEquals(designDocumentViewsMapReduceModel.reduce(), "testString");
 
     String json = TestUtilities.serialize(designDocumentViewsMapReduceModel);
@@ -43,6 +51,7 @@ public class DesignDocumentViewsMapReduceTest {
     DesignDocumentViewsMapReduce designDocumentViewsMapReduceModelNew = TestUtilities.deserialize(json, DesignDocumentViewsMapReduce.class);
     assertTrue(designDocumentViewsMapReduceModelNew instanceof DesignDocumentViewsMapReduce);
     assertEquals(designDocumentViewsMapReduceModelNew.map(), "testString");
+    assertEquals(designDocumentViewsMapReduceModelNew.options().toString(), designDocumentViewsMapReduceOptionsModel.toString());
     assertEquals(designDocumentViewsMapReduceModelNew.reduce(), "testString");
   }
 

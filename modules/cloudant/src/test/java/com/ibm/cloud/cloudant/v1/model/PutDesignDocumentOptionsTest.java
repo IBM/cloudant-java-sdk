@@ -19,6 +19,7 @@ import com.ibm.cloud.cloudant.v1.model.Attachment;
 import com.ibm.cloud.cloudant.v1.model.DesignDocument;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduceOptions;
 import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
 import com.ibm.cloud.cloudant.v1.model.PutDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
@@ -103,11 +104,18 @@ public class PutDesignDocumentOptionsTest {
       .build();
     assertEquals(designDocumentOptionsModel.partitioned(), Boolean.valueOf(true));
 
+    DesignDocumentViewsMapReduceOptions designDocumentViewsMapReduceOptionsModel = new DesignDocumentViewsMapReduceOptions.Builder()
+      .add("foo", "testString")
+      .build();
+    assertEquals(designDocumentViewsMapReduceOptionsModel.get("foo"), "testString");
+
     DesignDocumentViewsMapReduce designDocumentViewsMapReduceModel = new DesignDocumentViewsMapReduce.Builder()
       .map("testString")
+      .options(designDocumentViewsMapReduceOptionsModel)
       .reduce("testString")
       .build();
     assertEquals(designDocumentViewsMapReduceModel.map(), "testString");
+    assertEquals(designDocumentViewsMapReduceModel.options(), designDocumentViewsMapReduceOptionsModel);
     assertEquals(designDocumentViewsMapReduceModel.reduce(), "testString");
 
     DesignDocument designDocumentModel = new DesignDocument.Builder()

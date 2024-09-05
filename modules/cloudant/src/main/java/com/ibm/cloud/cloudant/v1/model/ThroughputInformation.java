@@ -31,7 +31,7 @@ public class ThroughputInformation extends GenericModel {
    * Gets the blocks.
    *
    * A number of blocks of throughput units. A block consists of 100 reads/sec, 50 writes/sec, and 5 global queries/sec
-   * of provisioned throughput capacity.
+   * of provisioned throughput capacity. Not available for some plans.
    *
    * @return the blocks
    */
