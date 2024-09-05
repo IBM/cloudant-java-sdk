@@ -136,6 +136,10 @@ public class PutDatabaseOptions extends GenericModel {
    *
    * Query parameter to specify whether to enable database partitions when creating a database.
    *
+   * Before using read the
+   * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partitioned-databases-database-partitioning)
+   * to understand the limitations and appropriate use cases.
+   *
    * @return the partitioned
    */
   public Boolean partitioned() {

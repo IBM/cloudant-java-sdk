@@ -326,6 +326,9 @@ public class PutDocumentOptions extends GenericModel {
    * _rev must be included in the document. False is used by the replicator to insert documents into the target database
    * even if that leads to the creation of conflicts.
    *
+   * Avoid using this parameter, since this option applies document revisions without checking for conflicts, so it is
+   * very easy to accidentally end up with a large number of conflicts.
+   *
    * @return the newEdits
    */
   public Boolean newEdits() {

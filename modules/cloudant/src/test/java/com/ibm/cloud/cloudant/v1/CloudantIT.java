@@ -55,6 +55,7 @@ import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformation;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduceOptions;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRowValue;
 import com.ibm.cloud.cloudant.v1.model.Document;
@@ -268,26 +269,6 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testGetServerInformation" })
-  public void testGetMembershipInformation() throws Exception {
-    try {
-      GetMembershipInformationOptions getMembershipInformationOptions = new GetMembershipInformationOptions();
-
-      // Invoke operation
-      Response<MembershipInformation> response = service.getMembershipInformation(getMembershipInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      MembershipInformation membershipInformationResult = response.getResult();
-      assertNotNull(membershipInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetMembershipInformation" })
   public void testGetUuids() throws Exception {
     try {
       GetUuidsOptions getUuidsOptions = new GetUuidsOptions.Builder()
@@ -1325,8 +1306,13 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .partitioned(true)
         .build();
 
+      DesignDocumentViewsMapReduceOptions designDocumentViewsMapReduceOptionsModel = new DesignDocumentViewsMapReduceOptions.Builder()
+        .add("foo", "testString")
+        .build();
+
       DesignDocumentViewsMapReduce designDocumentViewsMapReduceModel = new DesignDocumentViewsMapReduce.Builder()
         .map("function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}")
+        .options(designDocumentViewsMapReduceOptionsModel)
         .reduce("testString")
         .build();
 
@@ -3100,6 +3086,26 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testGetActiveTasks" })
+  public void testGetMembershipInformation() throws Exception {
+    try {
+      GetMembershipInformationOptions getMembershipInformationOptions = new GetMembershipInformationOptions();
+
+      // Invoke operation
+      Response<MembershipInformation> response = service.getMembershipInformation(getMembershipInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      MembershipInformation membershipInformationResult = response.getResult();
+      assertNotNull(membershipInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetMembershipInformation" })
   public void testGetUpInformation() throws Exception {
     try {
       GetUpInformationOptions getUpInformationOptions = new GetUpInformationOptions();

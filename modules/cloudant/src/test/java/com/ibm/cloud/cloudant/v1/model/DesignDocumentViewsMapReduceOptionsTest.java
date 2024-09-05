@@ -13,7 +13,7 @@
 
 package com.ibm.cloud.cloudant.v1.model;
 
-import com.ibm.cloud.cloudant.v1.model.PutCapacityThroughputConfigurationOptions;
+import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduceOptions;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -23,23 +23,24 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the PutCapacityThroughputConfigurationOptions model.
+ * Unit test class for the DesignDocumentViewsMapReduceOptions model.
  */
-public class PutCapacityThroughputConfigurationOptionsTest {
+public class DesignDocumentViewsMapReduceOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testPutCapacityThroughputConfigurationOptions() throws Throwable {
-    PutCapacityThroughputConfigurationOptions putCapacityThroughputConfigurationOptionsModel = new PutCapacityThroughputConfigurationOptions.Builder()
-      .blocks(Long.valueOf("1"))
+  public void testDesignDocumentViewsMapReduceOptions() throws Throwable {
+    DesignDocumentViewsMapReduceOptions designDocumentViewsMapReduceOptionsModel = new DesignDocumentViewsMapReduceOptions.Builder()
+      .add("foo", "testString")
       .build();
-    assertEquals(putCapacityThroughputConfigurationOptionsModel.blocks(), Long.valueOf("1"));
-  }
+    assertEquals(designDocumentViewsMapReduceOptionsModel.get("foo"), "testString");
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPutCapacityThroughputConfigurationOptionsError() throws Throwable {
-    new PutCapacityThroughputConfigurationOptions.Builder().build();
-  }
+    String json = TestUtilities.serialize(designDocumentViewsMapReduceOptionsModel);
 
+    DesignDocumentViewsMapReduceOptions designDocumentViewsMapReduceOptionsModelNew = TestUtilities.deserialize(json, DesignDocumentViewsMapReduceOptions.class);
+    assertTrue(designDocumentViewsMapReduceOptionsModelNew instanceof DesignDocumentViewsMapReduceOptions);
+    assertEquals(designDocumentViewsMapReduceOptionsModelNew.get("foo"), "testString");
+    assertNotNull(designDocumentViewsMapReduceOptionsModel);
+  }
 }

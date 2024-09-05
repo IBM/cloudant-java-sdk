@@ -246,41 +246,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve cluster membership information.
-   *
-   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
-   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
-   * cluster.
-   *
-   * @param getMembershipInformationOptions the {@link GetMembershipInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
-   */
-  public ServiceCall<MembershipInformation> getMembershipInformation(GetMembershipInformationOptions getMembershipInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_membership"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getMembershipInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<MembershipInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MembershipInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve cluster membership information.
-   *
-   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
-   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
-   * cluster.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
-   */
-  public ServiceCall<MembershipInformation> getMembershipInformation() {
-    return getMembershipInformation(null);
-  }
-
-  /**
    * Retrieve one or more UUIDs.
    *
    * Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The response is a JSON object that
@@ -2278,6 +2243,10 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Lucene Query Parser Syntax. Search indexes are defined by an index function, similar to a map function in MapReduce
    * views. The index function decides what data to index and store in the index.
    *
+   * Before using read the
+   * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
+   * the limitations and appropriate use cases.
+   *
    * @param postPartitionSearchOptions the {@link PostPartitionSearchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SearchResult}
    */
@@ -2343,6 +2312,10 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Lucene Query Parser Syntax. Search indexes are defined by an index function, similar to a map function in MapReduce
    * views. The index function decides what data to index and store in the index.
    *
+   * Before using read the
+   * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
+   * the limitations and appropriate use cases.
+   *
    * @param postPartitionSearchOptions the {@link PostPartitionSearchOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link InputStream}
    */
@@ -2407,6 +2380,10 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * for accessing views, the POST method supports the specification of explicit keys to be retrieved from the view
    * results. The remainder of the POST view functionality is identical to the `GET /{db}/_design/{ddoc}/_view/{view}`
    * API.
+   *
+   * Before using read the
+   * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
+   * the limitations and appropriate use cases.
    *
    * @param postPartitionViewOptions the {@link PostPartitionViewOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ViewResult}
@@ -2496,6 +2473,10 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * for accessing views, the POST method supports the specification of explicit keys to be retrieved from the view
    * results. The remainder of the POST view functionality is identical to the `GET /{db}/_design/{ddoc}/_view/{view}`
    * API.
+   *
+   * Before using read the
+   * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
+   * the limitations and appropriate use cases.
    *
    * @param postPartitionViewOptions the {@link PostPartitionViewOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link InputStream}
@@ -2646,6 +2627,10 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * recommended because it has a noticeable performance impact causing a full scan of the partition with each request.
    * In this case the response body will include a warning field recommending that an index is created.
    *
+   * Before using read the
+   * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
+   * the limitations and appropriate use cases.
+   *
    * @param postPartitionFindOptions the {@link PostPartitionFindOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link FindResult}
    */
@@ -2708,6 +2693,10 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Queries without an appropriate backing index will fallback to using the built-in `_all_docs` index. This is not
    * recommended because it has a noticeable performance impact causing a full scan of the partition with each request.
    * In this case the response body will include a warning field recommending that an index is created.
+   *
+   * Before using read the
+   * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
+   * the limitations and appropriate use cases.
    *
    * @param postPartitionFindOptions the {@link PostPartitionFindOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link InputStream}
@@ -4281,6 +4270,41 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    */
   public ServiceCall<List<ActiveTask>> getActiveTasks() {
     return getActiveTasks(null);
+  }
+
+  /**
+   * Retrieve cluster membership information.
+   *
+   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
+   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
+   * cluster.
+   *
+   * @param getMembershipInformationOptions the {@link GetMembershipInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
+   */
+  public ServiceCall<MembershipInformation> getMembershipInformation(GetMembershipInformationOptions getMembershipInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_membership"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getMembershipInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<MembershipInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MembershipInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve cluster membership information.
+   *
+   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
+   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
+   * cluster.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
+   */
+  public ServiceCall<MembershipInformation> getMembershipInformation() {
+    return getMembershipInformation(null);
   }
 
   /**

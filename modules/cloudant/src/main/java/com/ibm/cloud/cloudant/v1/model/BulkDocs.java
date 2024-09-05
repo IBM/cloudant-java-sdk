@@ -143,6 +143,9 @@ public class BulkDocs extends GenericModel {
    *
    * If `false`, prevents the database from assigning them new revision IDs. Default is `true`.
    *
+   * Avoid using this parameter, since this option applies document revisions without checking for conflicts, so it is
+   * very easy to accidentally end up with a large number of conflicts.
+   *
    * @return the newEdits
    */
   public Boolean newEdits() {
