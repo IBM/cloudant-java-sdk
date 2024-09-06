@@ -55,7 +55,6 @@ import com.ibm.cloud.cloudant.v1.model.DesignDocumentInformation;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewIndex;
 import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduce;
-import com.ibm.cloud.cloudant.v1.model.DesignDocumentViewsMapReduceOptions;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRowValue;
 import com.ibm.cloud.cloudant.v1.model.Document;
@@ -1306,13 +1305,8 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .partitioned(true)
         .build();
 
-      DesignDocumentViewsMapReduceOptions designDocumentViewsMapReduceOptionsModel = new DesignDocumentViewsMapReduceOptions.Builder()
-        .add("foo", "testString")
-        .build();
-
       DesignDocumentViewsMapReduce designDocumentViewsMapReduceModel = new DesignDocumentViewsMapReduce.Builder()
         .map("function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}")
-        .options(designDocumentViewsMapReduceOptionsModel)
         .reduce("testString")
         .build();
 
