@@ -14,7 +14,6 @@
 package com.ibm.cloud.cloudant.internal;
 
 import com.ibm.cloud.cloudant.common.SdkCommon;
-import com.ibm.cloud.cloudant.internal.CloudantBaseService;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ResponseConverter;
 import com.ibm.cloud.sdk.core.http.ServiceCall;

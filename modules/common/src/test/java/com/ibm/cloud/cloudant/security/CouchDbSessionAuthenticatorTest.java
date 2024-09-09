@@ -97,7 +97,7 @@ public class CouchDbSessionAuthenticatorTest {
 
     @Test
     void authenticationType() {
-        assertEquals("COUCHDB_SESSION", testAuthenticator.authenticationType(), "Authentication " +
+        assertEquals(testAuthenticator.authenticationType(), "COUCHDB_SESSION", "Authentication " +
                 "type should be COUCHDB_SESSION");
     }
 
@@ -253,14 +253,11 @@ public class CouchDbSessionAuthenticatorTest {
         TestCloudantService testCloudantService = new TestCloudantService("test", a);
         testCloudantService.setDefaultHeaders(customHeaders);
 
-        // Verify the setter was called
-        Mockito.verify(a).setHeaders(customHeaders);
-
         // Assert that the headers are the custom header + the SDK defaults
         Map<String, String> expectedHeaders = new HashMap<>();
         expectedHeaders.putAll(customHeaders);
         expectedHeaders.putAll(SdkCommon.getSdkHeaders("authenticatorPostSession"));
-        assertEquals(expectedHeaders, a.getHeaders(), "The expected headers should match.");
+        assertEquals(a.getHeaders(), expectedHeaders, "The expected headers should match.");
     }
 
     /**
@@ -270,7 +267,6 @@ public class CouchDbSessionAuthenticatorTest {
      */
     @Test
     void requestToken() throws Exception {
-        MockWebServer server = new MockWebServer();
 
         String mockSession = "AuthSession=ABC123456DE";
         String mockSetCookieValue = String.format("%s; Version=1; Expires=Thu, 09-Apr-2020 " +
@@ -285,8 +281,8 @@ public class CouchDbSessionAuthenticatorTest {
                 .setBody(mockSessionPostResponseBody);
         MockResponse sessionGetResponse = new MockResponse()
                 .setBody(mockSessionGetResponseBody);
-        server.start();
-        try {
+        try(MockWebServer server = new MockWebServer();) {
+            server.start();
             server.getPort();
             server.enqueue(sessionPostResponse);
             server.enqueue(sessionGetResponse);
@@ -299,23 +295,23 @@ public class CouchDbSessionAuthenticatorTest {
             // Assert on the mock server
             // First request
             RecordedRequest sessionPostRequest = server.takeRequest();
-            assertEquals("POST", sessionPostRequest.getMethod(), "Should have been a POST request" +
+            assertEquals(sessionPostRequest.getMethod(), "POST", "Should have been a POST request" +
                     ".");
-            assertEquals("/_session", sessionPostRequest.getPath(), "Should have been a _session " +
+            assertEquals(sessionPostRequest.getPath(), "/_session", "Should have been a _session " +
                     "request.");
             String expectedBody = String.format("{\"username\":\"%s\",\"password\":\"%s\"}",
                     CouchDbSessionAuthenticatorTest.USERNAME,
                     String.valueOf(CouchDbSessionAuthenticatorTest.PASSWORD));
-            assertEquals(expectedBody, sessionPostRequest.getBody().readUtf8(), "The body should " +
+            assertEquals(sessionPostRequest.getBody().readUtf8(), expectedBody, "The body should " +
                     "be as expected.");
-            assertEquals("TESTVALUE", sessionPostRequest.getHeader("X-CDT-SDK-TEST"), "The custom" +
+            assertEquals(sessionPostRequest.getHeader("X-CDT-SDK-TEST"), "TESTVALUE", "The custom" +
                     " header should have been on the request.");
             // Second request
             RecordedRequest sessionGetRequest = server.takeRequest();
-            assertEquals("GET", sessionGetRequest.getMethod(), "Should have been a GET request.");
-            assertEquals("/_session", sessionGetRequest.getPath(), "Should have been a _session " +
+            assertEquals(sessionGetRequest.getMethod(), "GET", "Should have been a GET request.");
+            assertEquals(sessionGetRequest.getPath(), "/_session", "Should have been a _session " +
                     "request.");
-            assertEquals(mockSession, sessionGetRequest.getHeader("Cookie"), "The cookie on the " +
+            assertEquals(sessionGetRequest.getHeader("Cookie"), mockSession, "The cookie on the " +
                     "request should be correct.");
 
             // Additional assertions on the response
@@ -325,13 +321,11 @@ public class CouchDbSessionAuthenticatorTest {
             assertTrue((Boolean) information.get("ok"), "The response should be OK.");
             Map<String, Object> userCtx = (Map<String, Object>) information.get("userCtx");
             assertNotNull(information.get("userCtx"), "There should be a user context.");
-            assertEquals("testuser", userCtx.get("name"), "The user should be " +
+            assertEquals(userCtx.get("name"), "testuser", "The user should be " +
                     "testuser.");
             List<String> roles = (List<String>) userCtx.get("roles");
-            assertEquals("_admin", roles.get(0), "The role should be " +
+            assertEquals(roles.get(0), "_admin", "The role should be " +
                     "_admin");
-        } finally {
-            server.shutdown();
         }
     }
 
@@ -342,14 +336,12 @@ public class CouchDbSessionAuthenticatorTest {
      */
     @Test
     void requestTokenUnauthorized() throws Exception {
-        MockWebServer server = new MockWebServer();
-
         MockResponse sessionPostErrorResponse = new MockResponse()
                 .setStatus("HTTP/1.1 401 UNAUTHORIZED")
                 .setBody("{\"error\":\"unauthorized\",\"reason\":\"Name or password is incorrect" +
                         ".\"}");
-        server.start();
-        try {
+        try(MockWebServer server = new MockWebServer()) {
+            server.start();
             server.getPort();
             server.enqueue(sessionPostErrorResponse);
 
@@ -360,14 +352,12 @@ public class CouchDbSessionAuthenticatorTest {
                 testCloudantService.getSessionInformation().execute().getResult();
                 fail("A ServiceResponseException should be thrown.");
             } catch (ServiceResponseException e) {
-                assertEquals(401, e.getStatusCode(), "The status code should be 401.");
-                assertEquals("unauthorized", e.getMessage(), "The error should be " +
+                assertEquals(e.getStatusCode(), 401, "The status code should be 401.");
+                assertEquals(e.getMessage(), "unauthorized", "The error should be " +
                         "unauthorized.");
-                assertEquals("Name or password is incorrect.", e.getDebuggingInfo().get(
-                        "reason"), "The reason should be as expected.");
+                assertEquals(e.getDebuggingInfo().get(
+                        "reason"), "Name or password is incorrect.", "The reason should be as expected.");
             }
-        } finally {
-            server.shutdown();
         }
     }
 
@@ -378,12 +368,10 @@ public class CouchDbSessionAuthenticatorTest {
      */
     @Test
     void requestTokenNoCookie() throws Exception {
-        MockWebServer server = new MockWebServer();
-
         MockResponse sessionPostErrorResponse = new MockResponse()
                 .setBody("{\"ok\": true}");
-        server.start();
-        try {
+        try(MockWebServer server = new MockWebServer();) {
+            server.start();
             server.getPort();
             server.enqueue(sessionPostErrorResponse);
 
@@ -393,10 +381,8 @@ public class CouchDbSessionAuthenticatorTest {
                 testCloudantService.getSessionInformation().execute().getResult();
                 fail("A ServiceResponseException should be thrown.");
             } catch (ServiceResponseException e) {
-                assertEquals(200, e.getStatusCode(), "The status code should be 200.");
+                assertEquals(e.getStatusCode(), 200, "The status code should be 200.");
             }
-        } finally {
-            server.shutdown();
         }
     }
 }
