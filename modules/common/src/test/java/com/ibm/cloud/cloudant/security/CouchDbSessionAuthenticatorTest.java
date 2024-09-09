@@ -16,7 +16,6 @@ package com.ibm.cloud.cloudant.security;
 import com.ibm.cloud.cloudant.common.SdkCommon;
 import com.ibm.cloud.cloudant.internal.CloudantBaseService;
 import com.ibm.cloud.cloudant.internal.TestCloudantService;
-import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
@@ -242,21 +241,6 @@ public class CouchDbSessionAuthenticatorTest {
         assertEquals(testAuthenticator.getCookieJar(), testCloudantService.getClient().cookieJar(), "The " +
                 "authenticator and client should use the same cookie jar.");
 
-    }
-
-    /**
-     * Test that options set on the client apply to the token request
-     */
-    @Test
-    void setHttpConfigOptions() {
-        CouchDbSessionAuthenticator a =
-                Mockito.spy(testAuthenticator);
-        TestCloudantService testCloudantService = new TestCloudantService("test", a);
-
-        HttpConfigOptions options = new HttpConfigOptions.Builder().build();
-        testCloudantService.configureClient(options);
-        // Verify the setter was called
-        Mockito.verify(a).setHttpConfigOptions(options);
     }
 
     /**

@@ -14,8 +14,6 @@
 package com.ibm.cloud.cloudant.security;
 
 import com.google.gson.JsonObject;
-import com.ibm.cloud.sdk.core.http.HttpClientSingleton;
-import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
 import com.ibm.cloud.sdk.core.http.ServiceCookieJar;
 import com.ibm.cloud.sdk.core.security.AbstractToken;
@@ -42,8 +40,7 @@ import java.util.Map;
  */
 public class CouchDbSessionAuthenticator
         extends TokenRequestBasedAuthenticator<CouchDbSessionAuthenticator.CouchDbSessionToken,
-        CouchDbSessionAuthenticator.CouchDbSessionToken>
-        implements Authenticator {
+        CouchDbSessionAuthenticator.CouchDbSessionToken> {
 
     public static final String AUTH_TYPE = "COUCHDB_SESSION";
 
@@ -52,7 +49,6 @@ public class CouchDbSessionAuthenticator
     private final ServiceCookieJar cookieJar;
 
     private HttpUrl sessionUrl = null;
-    private HttpConfigOptions options = null;
     private Headers headers = null;
 
     /**
@@ -89,18 +85,6 @@ public class CouchDbSessionAuthenticator
      */
     public ServiceCookieJar getCookieJar() {
         return this.cookieJar;
-    }
-
-    /**
-     * Setter to configure this authenticator with HttpConfigOptions. This is called
-     * internally to
-     * apply the configuration options of the
-     * service client automatically.
-     *
-     * @param options
-     */
-    public void setHttpConfigOptions(HttpConfigOptions options) {
-        this.options = options;
     }
 
     /**
@@ -162,18 +146,6 @@ public class CouchDbSessionAuthenticator
             for (String key : headers.names()) {
                 postSessionbuilder.header(key, headers.get(key));
             }
-        }
-
-        // Build the client if we need to
-        if (getClient() == null) {
-            setClient(
-                HttpClientSingleton
-                .getInstance()
-                .configureClient(options)
-                .newBuilder()
-                .cookieJar(cookieJar)
-                .build()
-            );
         }
 
         try (Response response = getClient().newCall(postSessionbuilder.build()).execute()) {
