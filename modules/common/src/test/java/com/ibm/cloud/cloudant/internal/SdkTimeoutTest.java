@@ -39,7 +39,6 @@ import static org.testng.Assert.assertEquals;
 // Every method tests an authenticator.
 public class SdkTimeoutTest {
     final long defaultTimeoutValue = 150L;
-    final long authenticationTimeoutValue = 90L;
     final long customTimeoutValue = 10L;
 
     // Every test case tests a timeout settings.
@@ -163,7 +162,7 @@ public class SdkTimeoutTest {
 
             CouchDbSessionAuthenticator auth = (CouchDbSessionAuthenticator) myService.getAuthenticator();
             OkHttpClient c = auth.getClient();
-            assertEquals(TimeUnit.MILLISECONDS.toSeconds(c.readTimeoutMillis()), authenticationTimeoutValue);
+            assertEquals(TimeUnit.MILLISECONDS.toSeconds(c.readTimeoutMillis()), testCases[i]);
         }
     }
 

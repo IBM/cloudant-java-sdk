@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020, 2022. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2024. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -53,7 +53,9 @@ public abstract class CloudantBaseService extends BaseService {
         // If we are using a CouchDB session authenticator we need to customize the cookie jar
         customizeAuthenticator(a -> builder
                 .cookieJar(a.getCookieJar()));
-        return builder.build();
+        OkHttpClient client = builder.build();
+        this.setClient(client);
+        return this.getClient();
     }
 
     @Override
@@ -77,9 +79,15 @@ public abstract class CloudantBaseService extends BaseService {
     }
 
     @Override
+    public void setClient(OkHttpClient client) {
+        super.setClient(client);
+        customizeAuthenticator(a -> a.setClient(this.getClient()));
+    }
+
+    @Override
     public void configureClient(HttpConfigOptions options) {
         super.configureClient(options);
-        customizeAuthenticator(a -> a.setHttpConfigOptions(options));
+        customizeAuthenticator(a -> a.setClient(this.getClient()));
     }
 
     @Override
