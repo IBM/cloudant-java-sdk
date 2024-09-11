@@ -406,7 +406,7 @@ public class CreateDbAndDoc {
 
 When you run the code, you see a result similar to the following output.
 
-```txt
+```text
 "orders" database created.
 You have created the document:
 {
@@ -489,7 +489,7 @@ public class GetInfoFromExistingDatabase {
 </details>
 When you run the code, you see a result similar to the following output.
 
-```txt
+```text
 Server Version: 2.1.1
 Document count in "orders" database is 1.
 Document retrieved from database:
@@ -619,7 +619,7 @@ public class UpdateDoc {
 </details>
 When you run the code, you see a result similar to the following output.
 
-```txt
+```text
 You have updated the document:
 {
   "_id": "example",
@@ -697,7 +697,7 @@ public class DeleteDoc {
 </details>
 When you run the code, you see the following output.
 
-```txt
+```text
 You have deleted the document.
 ```
 
