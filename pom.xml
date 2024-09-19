@@ -6,7 +6,7 @@
 
     <name>IBM Cloudant Java SDK</name>
 
-    <description>Java Client Library to access IBM Cloudant</description>
+    <description>Official Java client library and SDK for IBM Cloudant database</description>
 
     <url>https://github.com/IBM/cloudant-java-sdk</url>
 
