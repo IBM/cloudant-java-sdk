@@ -32,7 +32,7 @@ if [[ $TAG_NAME =~ ^(0|[1-9][[:digit:]]*)\.(0|[1-9][[:digit:]]*)\.(0|[1-9][[:dig
   printf "\n>>>>> Copying aggregated javadocs to new tagged-release directory: %s\n" ${BRANCH_NAME}
   rm -rf docs/${TAG_NAME}
   mkdir -p docs/${TAG_NAME}
-  cp -rf ../target/site/apidocs/* docs/${TAG_NAME}
+  cp -rf ../target/reports/apidocs/* docs/${TAG_NAME}
 
   printf "\n>>>>> Generating gh-pages index.html...\n"
   ../scripts/javadoc/generate-index-html.sh > index.html
