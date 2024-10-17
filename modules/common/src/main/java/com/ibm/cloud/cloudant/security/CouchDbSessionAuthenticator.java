@@ -49,7 +49,7 @@ public class CouchDbSessionAuthenticator
     private final ServiceCookieJar cookieJar;
 
     private HttpUrl sessionUrl = null;
-    private Headers headers = null;
+    private Headers sessionHeaders = null;
 
     /**
      * Get a new Authenticator instance for the supplied service URL and credentials that provides
@@ -108,7 +108,7 @@ public class CouchDbSessionAuthenticator
         mergedHeaders.putAll(headers);
         super.setHeaders(mergedHeaders);
         // Store the headers in OkHttp format
-        this.headers = Headers.of(mergedHeaders);
+        this.sessionHeaders = Headers.of(mergedHeaders);
     }
 
     @Override
@@ -142,9 +142,9 @@ public class CouchDbSessionAuthenticator
                 .bodyJson(creds);
 
         // Apply custom headers if necessary
-        if (headers != null) {
-            for (String key : headers.names()) {
-                postSessionbuilder.header(key, headers.get(key));
+        if (sessionHeaders != null) {
+            for (String key : sessionHeaders.names()) {
+                postSessionbuilder.header(key, sessionHeaders.get(key));
             }
         }
 
