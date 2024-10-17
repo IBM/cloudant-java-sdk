@@ -12,12 +12,12 @@ Cloudant service = Cloudant.newInstance();
 
 DesignDocumentViewsMapReduce emailViewMapReduce =
     new DesignDocumentViewsMapReduce.Builder()
-        .map("function(doc) { if(doc.email_verified  === true){\n  emit(doc.email, [doc.name, doc.email_verified, doc.joined]) }}")
+        .map("function(doc) { if(doc.email_verified === true) { emit(doc.email, [doc.name, doc.email_verified, doc.joined]); }}")
         .build();
 
 SearchIndexDefinition usersIndex =
     new SearchIndexDefinition.Builder()
-        .index("function (doc) {\n  index(\"name\", doc.name);\n  index(\"active\", doc.active);\n}")
+        .index("function(doc) { index(\"name\", doc.name); index(\"active\", doc.active); }")
         .build();
 
 DesignDocument designDocument = new DesignDocument();
@@ -41,25 +41,25 @@ System.out.println(allusersResponse);
 
 DesignDocumentViewsMapReduce applianceView =
     new DesignDocumentViewsMapReduce.Builder()
-        .map("function(doc) { emit(doc.productid, [doc.brand, doc.name, doc.description]) }")
+        .map("function(doc) { emit(doc.productId, [doc.date, doc.eventType, doc.userId]); }")
         .build();
 
-SearchIndexDefinition priceIndex =
+SearchIndexDefinition dateIndex =
     new SearchIndexDefinition.Builder()
-        .index("function (doc) {  index(\"price\", doc.price);}")
+        .index("function(doc) { index(\"date\", doc.date); }")
         .build();
 
 DesignDocument partitionedDesignDocument = new DesignDocument();
 partitionedDesignDocument.setViews(
-    Collections.singletonMap("byApplianceProdId", applianceView));
+    Collections.singletonMap("byProductId", applianceView));
 partitionedDesignDocument.setIndexes(
-    Collections.singletonMap("findByPrice", priceIndex));
+    Collections.singletonMap("findByDate", dateIndex));
 
 PutDesignDocumentOptions partitionedDesignDocumentOptions =
     new PutDesignDocumentOptions.Builder()
-        .db("products")
+        .db("events")
         .designDocument(partitionedDesignDocument)
-        .ddoc("appliances")
+        .ddoc("checkout")
         .build();
 
 DocumentResult appliancesResponse =
@@ -68,4 +68,4 @@ DocumentResult appliancesResponse =
 
 System.out.println(appliancesResponse);
 // section: markdown
-// This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
+// This example creates `allusers` design document in the `users` database and `checkout` design document in the partitioned `events` database.

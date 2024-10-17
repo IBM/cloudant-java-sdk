@@ -24,7 +24,7 @@ ReplicationDatabaseAuth targetAuth = new ReplicationDatabaseAuth.Builder()
 
 ReplicationDatabase targetDb = new ReplicationDatabase.Builder()
     .auth(targetAuth)
-    .url(String.join("/","<your-target-service-url>", "animaldb-target"))
+    .url("<your-target-service-url>/animaldb-target")
     .build();
 
 ReplicationDocument replDocument = new ReplicationDocument();

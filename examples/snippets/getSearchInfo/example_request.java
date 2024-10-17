@@ -7,9 +7,9 @@ Cloudant service = Cloudant.newInstance();
 
 GetSearchInfoOptions infoOptions =
     new GetSearchInfoOptions.Builder()
-        .db("products")
-        .ddoc("appliances")
-        .index("findByPrice")
+        .db("events")
+        .ddoc("checkout")
+        .index("findByDate")
         .build();
 
 SearchInfoResult response =
@@ -18,4 +18,4 @@ SearchInfoResult response =
 
 System.out.println(response);
 // section: markdown
-// This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
+// This example requires the `findByDate` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)

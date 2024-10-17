@@ -7,12 +7,12 @@ Cloudant service = Cloudant.newInstance();
 
 PostPartitionViewOptions viewOptions =
     new PostPartitionViewOptions.Builder()
-        .db("products")
-        .ddoc("appliances")
+        .db("events")
+        .ddoc("checkout")
         .includeDocs(true)
         .limit(10)
-        .partitionKey("small-appliances")
-        .view("byApplianceProdId")
+        .partitionKey("ns1HJS13AMkK")
+        .view("byProductId")
         .build();
 
 ViewResult response =
@@ -21,4 +21,4 @@ ViewResult response =
 
 System.out.println(response);
 // section: markdown
-// This example requires the `byApplianceProdId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
+// This example requires the `byProductId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)

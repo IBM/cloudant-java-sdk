@@ -12,7 +12,7 @@ Cloudant service = Cloudant.newInstance();
 GetAttachmentOptions attachmentOptions =
     new GetAttachmentOptions.Builder()
         .db("products")
-        .docId("small-appliances:100001")
+        .docId("1000042")
         .attachmentName("product_details.txt")
         .build();
 
@@ -27,4 +27,4 @@ try(InputStream streamResult =
 }
 
 // section: markdown
-// This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
+// This example requires the `product_details.txt` attachment in `1000042` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)

@@ -7,8 +7,8 @@ Cloudant service = Cloudant.newInstance();
 
 GetPartitionInformationOptions informationOptions =
     new GetPartitionInformationOptions.Builder()
-        .db("products")
-        .partitionKey("small-appliances")
+        .db("events")
+        .partitionKey("ns1HJS13AMkK")
         .build();
 
 PartitionInformation response =

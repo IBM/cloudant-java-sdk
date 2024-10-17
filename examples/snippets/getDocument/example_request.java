@@ -8,7 +8,7 @@ Cloudant service = Cloudant.newInstance();
 GetDocumentOptions documentOptions =
     new GetDocumentOptions.Builder()
         .db("products")
-        .docId("small-appliances:1000042")
+        .docId("1000042")
         .build();
 
 Document response =

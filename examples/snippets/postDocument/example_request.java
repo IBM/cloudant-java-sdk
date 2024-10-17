@@ -7,13 +7,13 @@ import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 Cloudant service = Cloudant.newInstance();
 
 Document productsDocument = new Document();
-productsDocument.setId("small-appliances:1000042");
+productsDocument.setId("1000042");
 productsDocument.put("type", "product");
-productsDocument.put("productid", "1000042");
+productsDocument.put("productId", "1000042");
 productsDocument.put("brand", "Salter");
 productsDocument.put("name", "Digital Kitchen Scales");
 productsDocument.put("description", "Slim Colourful Design Electronic"
-    + "Cooking Appliance for Home/Kitchen, Weigh up to 5kg + Aquatronic"
+    + "Cooking Appliance for Home / Kitchen, Weigh up to 5kg + Aquatronic"
     + "for Liquids ml + fl. oz. 15Yr Guarantee - Green");
 productsDocument.put("price", 14.99);
 productsDocument.put("image", "assets/img/0gmsnghhew.jpg");

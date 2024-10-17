@@ -9,7 +9,7 @@ Cloudant service = Cloudant.newInstance();
 
 GetDesignDocumentInformationOptions informationOptions =
     new GetDesignDocumentInformationOptions.Builder()
-        .db("stores")
+        .db("products")
         .ddoc("appliances")
         .build();
 

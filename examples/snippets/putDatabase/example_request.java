@@ -6,7 +6,7 @@ import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
 Cloudant service = Cloudant.newInstance();
 
 PutDatabaseOptions databaseOptions = new PutDatabaseOptions.Builder()
-    .db("products")
+    .db("events")
     .partitioned(true)
     .build();
 
