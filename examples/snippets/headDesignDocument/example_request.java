@@ -8,8 +8,8 @@ Cloudant service = Cloudant.newInstance();
 
 HeadDesignDocumentOptions designDocumentOptions =
     new HeadDesignDocumentOptions.Builder()
-        .db("products")
-        .ddoc("appliances")
+        .db("events")
+        .ddoc("checkout")
         .build();
 
 int statusCode =

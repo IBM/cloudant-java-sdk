@@ -10,16 +10,16 @@ import java.util.Map;
 Cloudant service = Cloudant.newInstance();
 
 Map<String, String> typeEqualsProduct = new HashMap<>();
-typeEqualsProduct.put("$eq", "product");
+typeEqualsProduct.put("$eq", "abc123");
 
 Map<String, Object> selector = new HashMap<>();
-selector.put("type", typeEqualsProduct);
+selector.put("userId", typeEqualsProduct);
 
 PostPartitionFindOptions findOptions =
     new PostPartitionFindOptions.Builder()
-        .db("products")
-        .partitionKey("small-appliances")
-        .fields(Arrays.asList("productid", "name", "description"))
+        .db("events")
+        .partitionKey("ns1HJS13AMkK")
+        .fields(Arrays.asList("productId", "eventType", "date"))
         .selector(selector)
         .build();
 

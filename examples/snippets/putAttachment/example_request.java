@@ -18,7 +18,7 @@ InputStream detailedDescriptionStream =
 PutAttachmentOptions attachmentOptions =
     new PutAttachmentOptions.Builder()
         .db("products")
-        .docId("small-appliances:100001")
+        .docId("1000042")
         .attachmentName("product_details.txt")
         .attachment(detailedDescriptionStream)
         .contentType("text/plain")

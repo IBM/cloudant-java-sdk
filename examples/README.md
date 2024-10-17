@@ -482,7 +482,7 @@ ReplicationDatabaseAuth targetAuth = new ReplicationDatabaseAuth.Builder()
 
 ReplicationDatabase targetDb = new ReplicationDatabase.Builder()
     .auth(targetAuth)
-    .url(String.join("/","<your-target-service-url>", "animaldb-target"))
+    .url("<your-target-service-url>/animaldb-target")
     .build();
 
 ReplicationDocument replDocument = new ReplicationDocument();
@@ -831,13 +831,13 @@ import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 Cloudant service = Cloudant.newInstance();
 
 Document productsDocument = new Document();
-productsDocument.setId("small-appliances:1000042");
+productsDocument.setId("1000042");
 productsDocument.put("type", "product");
-productsDocument.put("productid", "1000042");
+productsDocument.put("productId", "1000042");
 productsDocument.put("brand", "Salter");
 productsDocument.put("name", "Digital Kitchen Scales");
 productsDocument.put("description", "Slim Colourful Design Electronic"
-    + "Cooking Appliance for Home/Kitchen, Weigh up to 5kg + Aquatronic"
+    + "Cooking Appliance for Home / Kitchen, Weigh up to 5kg + Aquatronic"
     + "for Liquids ml + fl. oz. 15Yr Guarantee - Green");
 productsDocument.put("price", 14.99);
 productsDocument.put("image", "assets/img/0gmsnghhew.jpg");
@@ -871,7 +871,7 @@ import com.ibm.cloud.cloudant.v1.model.PutDatabaseOptions;
 Cloudant service = Cloudant.newInstance();
 
 PutDatabaseOptions databaseOptions = new PutDatabaseOptions.Builder()
-    .db("products")
+    .db("events")
     .partitioned(true)
     .build();
 
@@ -964,8 +964,8 @@ import java.util.Arrays;
 Cloudant service = Cloudant.newInstance();
 
 AllDocsQuery query1 = new AllDocsQuery.Builder()
-    .keys(Arrays.asList("small-appliances:1000042",
-        "small-appliances:1000043"))
+    .keys(Arrays.asList("1000042",
+        "1000043"))
     .build();
 
 AllDocsQuery query2 = new AllDocsQuery.Builder()
@@ -1007,17 +1007,17 @@ import java.util.List;
 Cloudant service = Cloudant.newInstance();
 
 Document eventDoc1 = new Document();
-eventDoc1.setId("0007241142412418284");
+eventDoc1.setId("ns1HJS13AMkK:0007241142412418284");
 eventDoc1.put("type", "event");
-eventDoc1.put("userid", "abc123");
+eventDoc1.put("userId", "abc123");
 eventDoc1.put("eventType", "addedToBasket");
 eventDoc1.put("productId", "1000042");
 eventDoc1.put("date", "2019-01-28T10:44:22.000Z");
 
 Document eventDoc2 = new Document();
-eventDoc2.setId("0007241142412418285");
+eventDoc2.setId("H8tDIwfadxp9:0007241142412418285");
 eventDoc2.put("type", "event");
-eventDoc2.put("userid", "abc234");
+eventDoc2.put("userId", "abc234");
 eventDoc2.put("eventType", "addedToBasket");
 eventDoc2.put("productId", "1000050");
 eventDoc2.put("date", "2019-01-28T10:44:22.000Z");
@@ -1055,12 +1055,12 @@ import java.util.List;
 Cloudant service = Cloudant.newInstance();
 
 Document eventDoc1 = new Document();
-eventDoc1.setId("0007241142412418284");
+eventDoc1.setId("ns1HJS13AMkK:0007241142412418284");
 eventDoc1.setRev("1-5005d65514fe9e90f8eccf174af5dd64");
 eventDoc1.setDeleted(true);
 
 Document eventDoc2 = new Document();
-eventDoc2.setId("0007241142412418285");
+eventDoc2.setId("H8tDIwfadxp9:0007241142412418285");
 eventDoc1.setRev("1-2d7810b054babeda4812b3924428d6d6");
 eventDoc1.setDeleted(true);
 
@@ -1114,17 +1114,17 @@ System.out.println(response);
 {
   "docs": [
     {
-      "_id": "0007241142412418284",
+      "_id": "ns1HJS13AMkK:0007241142412418284",
       "type": "event",
-      "userid": "abc123",
+      "userId": "abc123",
       "eventType": "addedToBasket",
       "productId": "1000042",
       "date": "2019-01-28T10:44:22.000Z"
     },
     {
-      "_id": "0007241142412418285",
+      "_id": "H8tDIwfadxp9:0007241142412418285",
       "type": "event",
-      "userid": "abc123",
+      "userId": "abc234",
       "eventType": "addedToBasket",
       "productId": "1000050",
       "date": "2019-01-25T20:00:00.000Z"
@@ -1373,8 +1373,8 @@ Cloudant service = Cloudant.newInstance();
 
 HeadDesignDocumentOptions designDocumentOptions =
     new HeadDesignDocumentOptions.Builder()
-        .db("products")
-        .ddoc("appliances")
+        .db("events")
+        .ddoc("checkout")
         .build();
 
 int statusCode =
@@ -1411,12 +1411,12 @@ Cloudant service = Cloudant.newInstance();
 
 DesignDocumentViewsMapReduce emailViewMapReduce =
     new DesignDocumentViewsMapReduce.Builder()
-        .map("function(doc) { if(doc.email_verified  === true){\n  emit(doc.email, [doc.name, doc.email_verified, doc.joined]) }}")
+        .map("function(doc) { if(doc.email_verified === true) { emit(doc.email, [doc.name, doc.email_verified, doc.joined]); }}")
         .build();
 
 SearchIndexDefinition usersIndex =
     new SearchIndexDefinition.Builder()
-        .index("function (doc) {\n  index(\"name\", doc.name);\n  index(\"active\", doc.active);\n}")
+        .index("function(doc) { index(\"name\", doc.name); index(\"active\", doc.active); }")
         .build();
 
 DesignDocument designDocument = new DesignDocument();
@@ -1440,25 +1440,25 @@ System.out.println(allusersResponse);
 
 DesignDocumentViewsMapReduce applianceView =
     new DesignDocumentViewsMapReduce.Builder()
-        .map("function(doc) { emit(doc.productid, [doc.brand, doc.name, doc.description]) }")
+        .map("function(doc) { emit(doc.productId, [doc.date, doc.eventType, doc.userId]); }")
         .build();
 
-SearchIndexDefinition priceIndex =
+SearchIndexDefinition dateIndex =
     new SearchIndexDefinition.Builder()
-        .index("function (doc) {  index(\"price\", doc.price);}")
+        .index("function(doc) { index(\"date\", doc.date); }")
         .build();
 
 DesignDocument partitionedDesignDocument = new DesignDocument();
 partitionedDesignDocument.setViews(
-    Collections.singletonMap("byApplianceProdId", applianceView));
+    Collections.singletonMap("byProductId", applianceView));
 partitionedDesignDocument.setIndexes(
-    Collections.singletonMap("findByPrice", priceIndex));
+    Collections.singletonMap("findByDate", dateIndex));
 
 PutDesignDocumentOptions partitionedDesignDocumentOptions =
     new PutDesignDocumentOptions.Builder()
-        .db("products")
+        .db("events")
         .designDocument(partitionedDesignDocument)
-        .ddoc("appliances")
+        .ddoc("checkout")
         .build();
 
 DocumentResult appliancesResponse =
@@ -1467,7 +1467,7 @@ DocumentResult appliancesResponse =
 
 System.out.println(appliancesResponse);
 // section: markdown
-// This example creates `allusers` design document in the `users` database and `appliances` design document in the partitioned `products` database.
+// This example creates `allusers` design document in the `users` database and `checkout` design document in the partitioned `events` database.
 ```
 
 ## getDesignDocumentInformation
@@ -1489,7 +1489,7 @@ Cloudant service = Cloudant.newInstance();
 
 GetDesignDocumentInformationOptions informationOptions =
     new GetDesignDocumentInformationOptions.Builder()
-        .db("stores")
+        .db("products")
         .ddoc("appliances")
         .build();
 
@@ -1548,9 +1548,9 @@ Cloudant service = Cloudant.newInstance();
 
 GetSearchInfoOptions infoOptions =
     new GetSearchInfoOptions.Builder()
-        .db("products")
-        .ddoc("appliances")
-        .index("findByPrice")
+        .db("events")
+        .ddoc("checkout")
+        .index("findByDate")
         .build();
 
 SearchInfoResult response =
@@ -1559,7 +1559,7 @@ SearchInfoResult response =
 
 System.out.println(response);
 // section: markdown
-// This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
+// This example requires the `findByDate` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 ```
 
 ## postView
@@ -2033,13 +2033,13 @@ Cloudant service = Cloudant.newInstance();
 Document orderDocument = new Document();
 orderDocument.put("type", "order");
 orderDocument.put("user", "Bob Smith");
-orderDocument.put("orderid", "0007741142412418284");
-orderDocument.put("userid", "abc123");
+orderDocument.put("orderId", "0007741142412418284");
+orderDocument.put("userId", "abc123");
 orderDocument.put("total", 214.98);
 orderDocument.put("deliveryAddress", "19 Front Street, Darlington, DL5 1TY");
 orderDocument.put("delivered", true);
 orderDocument.put("courier", "UPS");
-orderDocument.put("courierid", "15125425151261289");
+orderDocument.put("courierId", "15125425151261289");
 orderDocument.put("date", "2019-01-28T10:44:22.000Z");
 
 PutLocalDocumentOptions documentOptions =
@@ -2073,8 +2073,8 @@ Cloudant service = Cloudant.newInstance();
 
 GetPartitionInformationOptions informationOptions =
     new GetPartitionInformationOptions.Builder()
-        .db("products")
-        .partitionKey("small-appliances")
+        .db("events")
+        .partitionKey("ns1HJS13AMkK")
         .build();
 
 PartitionInformation response =
@@ -2101,8 +2101,8 @@ Cloudant service = Cloudant.newInstance();
 
 PostPartitionAllDocsOptions allDocsOptions =
     new PostPartitionAllDocsOptions.Builder()
-        .db("products")
-        .partitionKey("small-appliances")
+        .db("events")
+        .partitionKey("ns1HJS13AMkK")
         .includeDocs(true)
         .build();
 
@@ -2130,11 +2130,11 @@ Cloudant service = Cloudant.newInstance();
 
 PostPartitionSearchOptions searchOptions =
     new PostPartitionSearchOptions.Builder()
-        .db("products")
-        .partitionKey("small-appliances")
-        .ddoc("appliances")
-        .index("findByPrice")
-        .query("price:[14 TO 20]")
+        .db("events")
+        .partitionKey("ns1HJS13AMkK")
+        .ddoc("checkout")
+        .index("findByDate")
+        .query("date:[2019-01-01T12:00:00.000Z TO 2019-01-31T12:00:00.000Z]")
         .build();
 
 SearchResult response =
@@ -2143,7 +2143,7 @@ SearchResult response =
 
 System.out.println(response);
 // section: markdown
-// This example requires the `findByPrice` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
+// This example requires the `findByDate` Cloudant Search partitioned index to exist. To create the design document with this index, see [Create or modify a design document.](#putdesigndocument)
 ```
 
 ## postPartitionView
@@ -2163,12 +2163,12 @@ Cloudant service = Cloudant.newInstance();
 
 PostPartitionViewOptions viewOptions =
     new PostPartitionViewOptions.Builder()
-        .db("products")
-        .ddoc("appliances")
+        .db("events")
+        .ddoc("checkout")
         .includeDocs(true)
         .limit(10)
-        .partitionKey("small-appliances")
-        .view("byApplianceProdId")
+        .partitionKey("ns1HJS13AMkK")
+        .view("byProductId")
         .build();
 
 ViewResult response =
@@ -2177,8 +2177,14 @@ ViewResult response =
 
 System.out.println(response);
 // section: markdown
-// This example requires the `byApplianceProdId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
+// This example requires the `byProductId` partitioned view to exist. To create the design document with this view, see [Create or modify a design document.](#putdesigndocument)
 ```
+
+## postPartitionExplain
+
+_POST `/{db}/_partition/{partition_key}/_explain`_
+
+### [Example request](snippets/postPartitionExplain/example_request.java)
 
 ## postPartitionFind
 
@@ -2200,16 +2206,16 @@ import java.util.Map;
 Cloudant service = Cloudant.newInstance();
 
 Map<String, String> typeEqualsProduct = new HashMap<>();
-typeEqualsProduct.put("$eq", "product");
+typeEqualsProduct.put("$eq", "abc123");
 
 Map<String, Object> selector = new HashMap<>();
-selector.put("type", typeEqualsProduct);
+selector.put("userId", typeEqualsProduct);
 
 PostPartitionFindOptions findOptions =
     new PostPartitionFindOptions.Builder()
-        .db("products")
-        .partitionKey("small-appliances")
-        .fields(Arrays.asList("productid", "name", "description"))
+        .db("events")
+        .partitionKey("ns1HJS13AMkK")
+        .fields(Arrays.asList("productId", "eventType", "date"))
         .selector(selector)
         .build();
 
@@ -2241,7 +2247,7 @@ import java.util.Arrays;
 Cloudant service = Cloudant.newInstance();
 
 Map<String, List<String>> docRevisions = 
-    Collections.singletonMap("prder00077", Arrays.asList("<1-missing-revision>",
+    Collections.singletonMap("order00077", Arrays.asList("<1-missing-revision>",
         "<2-missing-revision>", "<3-possible-ancestor-revision>"));
 
 PostRevsDiffOptions revsDiffOptions =
@@ -2255,6 +2261,8 @@ Map<String,RevsDiff> response =
         .getResult();
 
 System.out.println(response);
+// section: markdown
+// This example requires the example revisions in the POST body to be replaced with valid revisions.
 ```
 
 ## getSecurity
@@ -2369,7 +2377,7 @@ Cloudant service = Cloudant.newInstance();
 GetDocumentShardsInfoOptions shardsInfoOptions =
     new GetDocumentShardsInfoOptions.Builder()
         .db("products")
-        .docId("small-appliances:1000042")
+        .docId("1000042")
         .build();
 
 DocumentShardInfo response =
@@ -2396,9 +2404,9 @@ Cloudant service = Cloudant.newInstance();
 
 DeleteDocumentOptions documentOptions =
     new DeleteDocumentOptions.Builder()
-        .db("events")
-        .docId("0007241142412418284")
-        .rev("2-9a0d1cd9f40472509e9aac6461837367")
+        .db("orders")
+        .docId("order00058")
+        .rev("1-99b02e08da151943c2dcb40090160bb8")
         .build();
 
 DocumentResult response =
@@ -2426,7 +2434,7 @@ Cloudant service = Cloudant.newInstance();
 GetDocumentOptions documentOptions =
     new GetDocumentOptions.Builder()
         .db("products")
-        .docId("small-appliances:1000042")
+        .docId("1000042")
         .build();
 
 Document response =
@@ -2453,8 +2461,8 @@ import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
 Cloudant service = Cloudant.newInstance();
 HeadDocumentOptions documentOptions =
     new HeadDocumentOptions.Builder()
-        .db("events")
-        .docId("0007741142412418284")
+        .db("orders")
+        .docId("order00058")
         .build();
 
 int statusCode =
@@ -2486,7 +2494,7 @@ Cloudant service = Cloudant.newInstance();
 
 Document eventDoc = new Document();
 eventDoc.put("type", "event");
-eventDoc.put("userid", "abc123");
+eventDoc.put("userId", "abc123");
 eventDoc.put("eventType", "addedToBasket");
 eventDoc.put("productId", "1000042");
 eventDoc.put("date", "2019-01-28T10:44:22.000Z");
@@ -2494,7 +2502,7 @@ eventDoc.put("date", "2019-01-28T10:44:22.000Z");
 PutDocumentOptions documentOptions =
     new PutDocumentOptions.Builder()
         .db("events")
-        .docId("0007241142412418284")
+        .docId("ns1HJS13AMkK:0007241142412418284")
         .document(eventDoc)
         .build();
 
@@ -2523,7 +2531,7 @@ Cloudant service = Cloudant.newInstance();
 DeleteAttachmentOptions attachmentOptions =
     new DeleteAttachmentOptions.Builder()
         .db("products")
-        .docId("small-appliances:100001")
+        .docId("1000042")
         .attachmentName("product_details.txt")
         .rev("4-1a0d1cd6f40472509e9aac646183736a")
         .build();
@@ -2534,7 +2542,7 @@ DocumentResult response =
 
 System.out.println(response);
 // section: markdown
-// This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
+// This example requires the `product_details.txt` attachment in `1000042` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
 
 ## getAttachment
@@ -2559,7 +2567,7 @@ Cloudant service = Cloudant.newInstance();
 GetAttachmentOptions attachmentOptions =
     new GetAttachmentOptions.Builder()
         .db("products")
-        .docId("small-appliances:100001")
+        .docId("1000042")
         .attachmentName("product_details.txt")
         .build();
 
@@ -2574,7 +2582,7 @@ try(InputStream streamResult =
 }
 
 // section: markdown
-// This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
+// This example requires the `product_details.txt` attachment in `1000042` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
 
 ## headAttachment
@@ -2596,7 +2604,7 @@ Cloudant service = Cloudant.newInstance();
 HeadAttachmentOptions attachmentOptions =
     new HeadAttachmentOptions.Builder()
         .db("products")
-        .docId("small-appliances:100001")
+        .docId("1000042")
         .attachmentName("product_details.txt")
         .build();
 
@@ -2612,7 +2620,7 @@ System.out.println(statusCode);
 System.out.println(headers.values("Content-Length"));
 System.out.println(headers.values("Content-Type"));
 // section: markdown
-// This example requires the `product_details.txt` attachment in `small-appliances:100001` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
+// This example requires the `product_details.txt` attachment in `1000042` document to exist. To create the attachment, see [Create or modify an attachment.](#putattachment)
 ```
 
 ## putAttachment
@@ -2643,7 +2651,7 @@ InputStream detailedDescriptionStream =
 PutAttachmentOptions attachmentOptions =
     new PutAttachmentOptions.Builder()
         .db("products")
-        .docId("small-appliances:100001")
+        .docId("1000042")
         .attachmentName("product_details.txt")
         .attachment(detailedDescriptionStream)
         .contentType("text/plain")

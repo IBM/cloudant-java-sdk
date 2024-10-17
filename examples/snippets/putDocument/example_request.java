@@ -8,7 +8,7 @@ Cloudant service = Cloudant.newInstance();
 
 Document eventDoc = new Document();
 eventDoc.put("type", "event");
-eventDoc.put("userid", "abc123");
+eventDoc.put("userId", "abc123");
 eventDoc.put("eventType", "addedToBasket");
 eventDoc.put("productId", "1000042");
 eventDoc.put("date", "2019-01-28T10:44:22.000Z");
@@ -16,7 +16,7 @@ eventDoc.put("date", "2019-01-28T10:44:22.000Z");
 PutDocumentOptions documentOptions =
     new PutDocumentOptions.Builder()
         .db("events")
-        .docId("0007241142412418284")
+        .docId("ns1HJS13AMkK:0007241142412418284")
         .document(eventDoc)
         .build();
 

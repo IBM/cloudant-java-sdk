@@ -7,8 +7,8 @@ import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
 Cloudant service = Cloudant.newInstance();
 HeadDocumentOptions documentOptions =
     new HeadDocumentOptions.Builder()
-        .db("events")
-        .docId("0007741142412418284")
+        .db("orders")
+        .docId("order00058")
         .build();
 
 int statusCode =

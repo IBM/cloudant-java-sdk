@@ -9,8 +9,8 @@ import java.util.Arrays;
 Cloudant service = Cloudant.newInstance();
 
 AllDocsQuery query1 = new AllDocsQuery.Builder()
-    .keys(Arrays.asList("small-appliances:1000042",
-        "small-appliances:1000043"))
+    .keys(Arrays.asList("1000042",
+        "1000043"))
     .build();
 
 AllDocsQuery query2 = new AllDocsQuery.Builder()

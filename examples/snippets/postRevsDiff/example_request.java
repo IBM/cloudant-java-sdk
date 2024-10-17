@@ -11,7 +11,7 @@ import java.util.Arrays;
 Cloudant service = Cloudant.newInstance();
 
 Map<String, List<String>> docRevisions = 
-    Collections.singletonMap("prder00077", Arrays.asList("<1-missing-revision>",
+    Collections.singletonMap("order00077", Arrays.asList("<1-missing-revision>",
         "<2-missing-revision>", "<3-possible-ancestor-revision>"));
 
 PostRevsDiffOptions revsDiffOptions =
@@ -25,3 +25,5 @@ Map<String,RevsDiff> response =
         .getResult();
 
 System.out.println(response);
+// section: markdown
+// This example requires the example revisions in the POST body to be replaced with valid revisions.

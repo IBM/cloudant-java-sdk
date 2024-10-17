@@ -7,8 +7,8 @@ Cloudant service = Cloudant.newInstance();
 
 PostPartitionAllDocsOptions allDocsOptions =
     new PostPartitionAllDocsOptions.Builder()
-        .db("products")
-        .partitionKey("small-appliances")
+        .db("events")
+        .partitionKey("ns1HJS13AMkK")
         .includeDocs(true)
         .build();
 
