@@ -20,6 +20,7 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import java.util.Arrays;
@@ -39,6 +40,8 @@ import java.util.function.Consumer;
  */
 public abstract class CloudantBaseService extends BaseService {
 
+    private static Interceptor errorInterceptor = new ErrorTransformInterceptor();
+
     private int serviceUrlPathSegmentSize = 0;
 
     public CloudantBaseService(String serviceName, Authenticator authenticator) {
@@ -53,6 +56,9 @@ public abstract class CloudantBaseService extends BaseService {
         // If we are using a CouchDB session authenticator we need to customize the cookie jar
         customizeAuthenticator(a -> builder
                 .cookieJar(a.getCookieJar()));
+        if (!builder.interceptors().contains(errorInterceptor)) {
+            builder.addInterceptor(errorInterceptor);
+        }
         OkHttpClient client = builder.build();
         this.setClient(client);
         return this.getClient();
