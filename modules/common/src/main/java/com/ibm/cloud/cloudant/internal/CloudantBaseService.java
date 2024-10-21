@@ -20,6 +20,7 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.cloudant.security.CouchDbSessionAuthenticator;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import java.util.Arrays;
@@ -38,6 +39,8 @@ import java.util.function.Consumer;
  * class to the SDK core BaseService.
  */
 public abstract class CloudantBaseService extends BaseService {
+
+    private static Interceptor errorInterceptor = new ErrorTransformInterceptor();
 
     private int serviceUrlPathSegmentSize = 0;
 
@@ -80,7 +83,14 @@ public abstract class CloudantBaseService extends BaseService {
 
     @Override
     public void setClient(OkHttpClient client) {
-        super.setClient(client);
+        if (!client.interceptors().contains(errorInterceptor)) {
+          OkHttpClient.Builder builder = client.newBuilder();
+          builder.addInterceptor(errorInterceptor);
+          OkHttpClient newClient = builder.build();
+          super.setClient(newClient);
+        } else {
+          super.setClient(client);
+        }
         customizeAuthenticator(a -> a.setClient(this.getClient()));
     }
 
