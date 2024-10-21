@@ -15,6 +15,7 @@ package com.ibm.cloud.cloudant.internal;
 import okhttp3.Interceptor;
 import okhttp3.Interceptor.Chain;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -34,6 +35,7 @@ import org.testng.annotations.Test;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import static org.junit.Assert.assertNull;
 import static org.testng.Assert.assertEquals;
@@ -350,5 +352,29 @@ public class ErrorTransformInterceptorTest {
   @Test(dataProvider = "cases", dataProviderClass = Case.class)
   public void testInterceptor(Case c) throws Exception {
     c.runTest(interceptor);
+  }
+
+  private void countExpectedInterceptors(CloudantBaseService service) {
+    int count = 0;
+    for (Interceptor interceptor : service.getClient().interceptors()) {
+      if (interceptor instanceof ErrorTransformInterceptor) {
+        count++;
+      }
+    }
+    assertEquals(count, 1);
+  }
+  @Test
+  public void testSetClientWithInterceptor() throws Throwable {
+    CloudantBaseService cloudantService = new CloudantBaseService("test", new NoAuthAuthenticator()) {};
+    cloudantService.setClient(cloudantService.getClient());
+    countExpectedInterceptors(cloudantService);
+  }
+
+  @Test
+  public void testSetClientWithNoInterceptor() throws Throwable {
+    CloudantBaseService cloudantService = new CloudantBaseService("test", new NoAuthAuthenticator()) {};
+    OkHttpClient newClient = new OkHttpClient();
+    cloudantService.setClient(newClient);
+    countExpectedInterceptors(cloudantService);
   }
 }

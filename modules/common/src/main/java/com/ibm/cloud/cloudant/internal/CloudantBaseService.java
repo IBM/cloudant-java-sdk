@@ -56,9 +56,6 @@ public abstract class CloudantBaseService extends BaseService {
         // If we are using a CouchDB session authenticator we need to customize the cookie jar
         customizeAuthenticator(a -> builder
                 .cookieJar(a.getCookieJar()));
-        if (!builder.interceptors().contains(errorInterceptor)) {
-            builder.addInterceptor(errorInterceptor);
-        }
         OkHttpClient client = builder.build();
         this.setClient(client);
         return this.getClient();
@@ -86,7 +83,14 @@ public abstract class CloudantBaseService extends BaseService {
 
     @Override
     public void setClient(OkHttpClient client) {
-        super.setClient(client);
+        if (!client.interceptors().contains(errorInterceptor)) {
+          OkHttpClient.Builder builder = client.newBuilder();
+          builder.addInterceptor(errorInterceptor);
+          OkHttpClient newClient = builder.build();
+          super.setClient(newClient);
+        } else {
+          super.setClient(client);
+        }
         customizeAuthenticator(a -> a.setClient(this.getClient()));
     }
 
