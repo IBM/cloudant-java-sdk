@@ -31,8 +31,7 @@ public class ErrorTransformInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         // Don't modify the request, but get the response
         Response response = chain.proceed(chain.request());
-        if (!"HEAD".equals(chain.request().method()) // skip HEAD requests because they have no body
-            && !response.isSuccessful() // skip successful responses
+        if (!response.isSuccessful() // skip successful responses
             && response.body() != null // skip cases with no body
             && response.body().contentType() != null // skip cases with no content type
             && "application".equals(response.body().contentType().type())
