@@ -65,7 +65,10 @@ public class ErrorTransformInterceptor implements Interceptor {
                             }
                         }
                         if (errorBody.has("errors")) {
-                            String trace = response.header("x-couch-request-id");
+                            String trace = response.header("x-request-id");
+                            if (trace == null || trace.isEmpty()) {
+                                trace = response.header("x-couch-request-id");
+                            }
                             if (trace != null && !trace.isEmpty()) {
                                 // Augment with trace
                                 errorBody.addProperty("trace", trace);

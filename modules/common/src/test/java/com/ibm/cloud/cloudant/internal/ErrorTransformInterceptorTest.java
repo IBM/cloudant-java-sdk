@@ -49,7 +49,8 @@ public class ErrorTransformInterceptorTest {
     private static final String MOCK_ERROR_K = "error";
     private static final String MOCK_REASON = "some test reason";
     private static final String MOCK_REASON_K = "reason";
-    private static final String MOCK_REQ_ID = "338da230c5";
+    private static final String MOCK_COUCH_REQ_ID = "338da230c5";
+    private static final String MOCK_REQ_ID = "455fe7724";
     private static final String MOCK_MALFORMED_RESPONSE;
     private static final String MOCK_EXPECTED_ERROR_REASON_RESPONSE;
     private static final String MOCK_EXPECTED_ERRORS_RESPONSE;
@@ -99,11 +100,18 @@ public class ErrorTransformInterceptorTest {
         0, MOCK_EXPECTED_ERROR_REASON_RESPONSE.length() - 1);
     }
 
+    private enum RequestIdHeader {
+      XREQUEST,
+      XCOUCH,
+      BOTH,
+      NONE
+    }
+
     private enum Case {
       NO_AUGMENT_SUCCESS(200,
         "GET",
         MOCK_EXPECTED_OK_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         null,
@@ -111,7 +119,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_REASON(444,
         "GET",
         MOCK_EXPECTED_NO_ERROR_RESPONSE,
-        false,
+        RequestIdHeader.NONE,
         null,
         null,
         null,
@@ -119,7 +127,7 @@ public class ErrorTransformInterceptorTest {
       AUGMENT_ERROR(444,
         "GET",
         MOCK_EXPECTED_NO_REASON_RESPONSE,
-        false,
+        RequestIdHeader.NONE,
         MOCK_ERROR,
         null,
         null,
@@ -127,7 +135,7 @@ public class ErrorTransformInterceptorTest {
       AUGMENT_ERROR_REASON(444,
         "GET",
         MOCK_EXPECTED_ERROR_REASON_RESPONSE,
-        false,
+        RequestIdHeader.NONE,
         MOCK_ERROR,
         MOCK_REASON,
         null,
@@ -135,7 +143,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_ID_ONLY(444,
         "GET",
         MOCK_EXPECTED_OK_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         null,
@@ -143,7 +151,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_NO_ERROR(444,
         "GET",
         MOCK_EXPECTED_NO_ERROR_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         null,
@@ -151,15 +159,31 @@ public class ErrorTransformInterceptorTest {
       AUGMENT_ERROR_WITH_TRACE(444,
         "GET",
         MOCK_EXPECTED_NO_REASON_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         MOCK_ERROR,
         null,
-        MOCK_REQ_ID,
+        MOCK_COUCH_REQ_ID,
         "application/json"),
       AUGMENT_ERROR_REASON_WITH_TRACE(444,
         "GET",
         MOCK_EXPECTED_ERROR_REASON_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
+        MOCK_ERROR,
+        MOCK_REASON,
+        MOCK_COUCH_REQ_ID,
+        "application/json"),
+      AUGMENT_ERROR_REASON_WITH_TRACE_REQUEST_ID(444,
+        "GET",
+        MOCK_EXPECTED_ERROR_REASON_RESPONSE,
+        RequestIdHeader.XREQUEST,
+        MOCK_ERROR,
+        MOCK_REASON,
+        MOCK_REQ_ID,
+        "application/json"),
+      AUGMENT_ERROR_REASON_WITH_TRACE_REQUEST_ID_PREFERRED(444,
+        "GET",
+        MOCK_EXPECTED_ERROR_REASON_RESPONSE,
+        RequestIdHeader.BOTH,
         MOCK_ERROR,
         MOCK_REASON,
         MOCK_REQ_ID,
@@ -167,7 +191,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_EXISTING_TRACE(444,
         "GET",
         MOCK_EXISTING_TRACE_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         "45566afdec",
@@ -175,7 +199,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_EXISTING_ERRORS_NO_ID(444,
         "GET",
         MOCK_EXPECTED_ERRORS_RESPONSE,
-        false,
+        RequestIdHeader.NONE,
         null,
         null,
         null,
@@ -183,15 +207,15 @@ public class ErrorTransformInterceptorTest {
       AUGMENT_TRACE_EXISTING_ERRORS(444,
         "GET",
         MOCK_EXPECTED_ERRORS_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
-        MOCK_REQ_ID,
+        MOCK_COUCH_REQ_ID,
         "application/json"),
       NO_AUGMENT_HEAD(444,
         "HEAD",
         null,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         null,
@@ -199,7 +223,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_NON_JSON(444,
         "GET",
         "text body",
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         null,
@@ -207,7 +231,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_NO_CONTENT_TYPE(444,
         "GET",
         MOCK_EXPECTED_ERROR_REASON_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         null,
@@ -215,7 +239,7 @@ public class ErrorTransformInterceptorTest {
       NO_AUGMENT_MALFORMED_JSON(444,
         "GET",
         MOCK_MALFORMED_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         null,
         null,
         null,
@@ -223,10 +247,10 @@ public class ErrorTransformInterceptorTest {
       AUGMENT_ERROR_EMPTY_REASON_WITH_TRACE(444,
         "GET",
         MOCK_EXPECTED_ERROR_EMPTY_REASON_RESPONSE,
-        true,
+        RequestIdHeader.XCOUCH,
         MOCK_ERROR,
         null,
-        MOCK_REQ_ID,
+        MOCK_COUCH_REQ_ID,
         "application/json");
 
       private final Response mockResponse;
@@ -239,7 +263,7 @@ public class ErrorTransformInterceptorTest {
       Case(int statusCode,
             String httpMethod,
             String responseBody,
-            boolean applyIdHeader,
+            RequestIdHeader idHeader,
             String errorToAssert,
             String reasonToAssert,
             String traceToAssert,
@@ -264,8 +288,19 @@ public class ErrorTransformInterceptorTest {
           responseBuilder.body(ResponseBody.create(responseBody, bodyContentType));
         }
         // Add the header if needed
-        if (applyIdHeader) {
-          responseBuilder.header("x-couch-request-id", MOCK_REQ_ID);
+        switch(idHeader) {
+          case XCOUCH:
+            responseBuilder.header("x-couch-request-id", MOCK_COUCH_REQ_ID);
+            break;
+          case XREQUEST:
+            responseBuilder.header("x-request-id", MOCK_REQ_ID);
+            break;
+          case BOTH:
+            responseBuilder.header("x-couch-request-id", MOCK_COUCH_REQ_ID);
+            responseBuilder.header("x-request-id", MOCK_REQ_ID);
+          case NONE:
+          default:
+            break;
         }
         mockResponse = responseBuilder.build();
       }
