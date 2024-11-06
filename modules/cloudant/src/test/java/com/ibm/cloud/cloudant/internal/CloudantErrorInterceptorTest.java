@@ -1,4 +1,4 @@
-package com.ibm.cloud.cloudant.v1;
+package com.ibm.cloud.cloudant.internal;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -11,6 +11,7 @@ import java.util.function.Function;
 import org.testng.annotations.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
