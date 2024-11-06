@@ -55,7 +55,7 @@ public class ExplainResult extends GenericModel {
   /**
    * Gets the dbname.
    *
-   * Name of database.
+   * Schema for a database name.
    *
    * @return the dbname
    */

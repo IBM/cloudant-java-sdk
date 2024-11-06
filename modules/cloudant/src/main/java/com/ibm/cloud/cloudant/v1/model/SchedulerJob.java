@@ -154,7 +154,7 @@ public class SchedulerJob extends GenericModel {
   /**
    * Gets the user.
    *
-   * Name of user running replication.
+   * Name of user running the process.
    *
    * @return the user
    */

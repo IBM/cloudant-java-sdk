@@ -38,6 +38,7 @@ public class PostExplainOptions extends GenericModel {
 
   protected String db;
   protected Map<String, Object> selector;
+  protected Boolean allowFallback;
   protected String bookmark;
   protected Boolean conflicts;
   protected Boolean executionStats;
@@ -56,6 +57,7 @@ public class PostExplainOptions extends GenericModel {
   public static class Builder {
     private String db;
     private Map<String, Object> selector;
+    private Boolean allowFallback;
     private String bookmark;
     private Boolean conflicts;
     private Boolean executionStats;
@@ -76,6 +78,7 @@ public class PostExplainOptions extends GenericModel {
     private Builder(PostExplainOptions postExplainOptions) {
       this.db = postExplainOptions.db;
       this.selector = postExplainOptions.selector;
+      this.allowFallback = postExplainOptions.allowFallback;
       this.bookmark = postExplainOptions.bookmark;
       this.conflicts = postExplainOptions.conflicts;
       this.executionStats = postExplainOptions.executionStats;
@@ -182,6 +185,17 @@ public class PostExplainOptions extends GenericModel {
      */
     public Builder selector(Map<String, Object> selector) {
       this.selector = selector;
+      return this;
+    }
+
+    /**
+     * Set the allowFallback.
+     *
+     * @param allowFallback the allowFallback
+     * @return the PostExplainOptions builder
+     */
+    public Builder allowFallback(Boolean allowFallback) {
+      this.allowFallback = allowFallback;
       return this;
     }
 
@@ -319,6 +333,7 @@ public class PostExplainOptions extends GenericModel {
       "selector cannot be null");
     db = builder.db;
     selector = builder.selector;
+    allowFallback = builder.allowFallback;
     bookmark = builder.bookmark;
     conflicts = builder.conflicts;
     executionStats = builder.executionStats;
@@ -393,6 +408,17 @@ public class PostExplainOptions extends GenericModel {
    */
   public Map<String, Object> selector() {
     return selector;
+  }
+
+  /**
+   * Gets the allowFallback.
+   *
+   * Whether to allow fallback to other indexes.  Default is true.
+   *
+   * @return the allowFallback
+   */
+  public Boolean allowFallback() {
+    return allowFallback;
   }
 
   /**
@@ -515,8 +541,9 @@ public class PostExplainOptions extends GenericModel {
    * It’s recommended to specify indexes explicitly in your queries to prevent existing queries being affected by new
    * indexes that might get added later.
    *
-   * If the specified index does not exist or cannot answer the query then the value is ignored and another index or a
-   * full scan of all documents will answer the query.
+   * If the specified index doesn't exist or can't answer the query then the server ignores the value and answers using
+   * another index or a full scan of all documents. To change this behavior set `allow_fallback` to `false` and the
+   * server responds instead with a `400` status code if the requested index is unsuitable to answer the query.
    *
    * @return the useIndex
    */

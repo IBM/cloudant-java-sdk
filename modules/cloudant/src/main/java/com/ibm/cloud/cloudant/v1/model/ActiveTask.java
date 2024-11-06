@@ -491,7 +491,7 @@ public class ActiveTask extends GenericModel {
   /**
    * Gets the user.
    *
-   * Name of user running replication or owning the indexer. Available for `indexer`, `replication` type tasks.
+   * Name of user running the process.
    *
    * @return the user
    */

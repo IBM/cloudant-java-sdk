@@ -96,7 +96,7 @@ public class DatabaseInformation extends GenericModel {
   /**
    * Gets the dbName.
    *
-   * The name of the database.
+   * Schema for a database name.
    *
    * @return the dbName
    */

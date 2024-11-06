@@ -236,7 +236,7 @@ public class CloudantTest {
   @Test
   public void testGetServerInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"couchdb\": \"couchdb\", \"features\": [\"features\"], \"vendor\": {\"name\": \"name\", \"variant\": \"variant\", \"version\": \"version\"}, \"version\": \"version\", \"features_flags\": [\"featuresFlags\"]}";
+    String mockResponseBody = "{\"couchdb\": \"couchdb\", \"features\": [\"features\"], \"vendor\": {\"name\": \"name\", \"variant\": \"paas\", \"version\": \"version\"}, \"version\": \"version\", \"features_flags\": [\"featuresFlags\"]}";
     String getServerInformationPath = "/";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -430,7 +430,7 @@ public class CloudantTest {
       .heartbeat(Long.valueOf("0"))
       .limit(Long.valueOf("0"))
       .timeout(Long.valueOf("60000"))
-      .since("0")
+      .since("testString")
       .build();
 
     // Invoke getDbUpdates() with a valid options model and verify the result
@@ -454,7 +454,7 @@ public class CloudantTest {
     assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
-    assertEquals(query.get("since"), "0");
+    assertEquals(query.get("since"), "testString");
   }
 
   // Test the getDbUpdates operation with and without retries enabled
@@ -495,7 +495,7 @@ public class CloudantTest {
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
-      .since("0")
+      .since("testString")
       .style("main_only")
       .timeout(Long.valueOf("60000"))
       .view("testString")
@@ -527,7 +527,7 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
-    assertEquals(query.get("since"), "0");
+    assertEquals(query.get("since"), "testString");
     assertEquals(query.get("style"), "main_only");
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("view"), "testString");
@@ -578,7 +578,7 @@ public class CloudantTest {
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
-      .since("0")
+      .since("testString")
       .style("main_only")
       .timeout(Long.valueOf("60000"))
       .view("testString")
@@ -611,7 +611,7 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
-    assertEquals(query.get("since"), "0");
+    assertEquals(query.get("since"), "testString");
     assertEquals(query.get("style"), "main_only");
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("view"), "testString");
@@ -3480,7 +3480,7 @@ public class CloudantTest {
   @Test
   public void testPostPartitionExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"direction\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
+    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"asc\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
     String postPartitionExplainPath = "/testString/_partition/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3492,6 +3492,7 @@ public class CloudantTest {
       .db("testString")
       .partitionKey("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -3555,6 +3556,7 @@ public class CloudantTest {
       .db("testString")
       .partitionKey("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -3618,6 +3620,7 @@ public class CloudantTest {
       .db("testString")
       .partitionKey("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -3670,7 +3673,7 @@ public class CloudantTest {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"direction\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
+    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"asc\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3681,6 +3684,7 @@ public class CloudantTest {
     PostExplainOptions postExplainOptionsModel = new PostExplainOptions.Builder()
       .db("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -3744,6 +3748,7 @@ public class CloudantTest {
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
       .db("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -3807,6 +3812,7 @@ public class CloudantTest {
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
       .db("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)

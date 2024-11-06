@@ -24,6 +24,14 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  */
 public class ServerVendor extends DynamicModel<String> {
 
+  /**
+   * Vendor variant.
+   */
+  public interface Variant {
+    /** paas. */
+    String PAAS = "paas";
+  }
+
   @SerializedName("name")
   protected String name;
   @SerializedName("variant")

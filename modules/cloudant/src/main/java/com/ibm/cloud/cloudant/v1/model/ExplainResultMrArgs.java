@@ -22,6 +22,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class ExplainResultMrArgs extends GenericModel {
 
   /**
+   * Direction parameter passed to the underlying view.
+   */
+  public interface Direction {
+    /** asc. */
+    String ASC = "asc";
+    /** desc. */
+    String DESC = "desc";
+  }
+
+  /**
    * The type of the underlying view.
    */
   public interface ViewType {

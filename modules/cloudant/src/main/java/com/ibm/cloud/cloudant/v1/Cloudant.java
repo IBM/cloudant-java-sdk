@@ -2581,6 +2581,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionExplainOptions.selector()));
+    if (postPartitionExplainOptions.allowFallback() != null) {
+      contentJson.addProperty("allow_fallback", postPartitionExplainOptions.allowFallback());
+    }
     if (postPartitionExplainOptions.bookmark() != null) {
       contentJson.addProperty("bookmark", postPartitionExplainOptions.bookmark());
     }
@@ -2623,9 +2626,13 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Query documents by using a declarative JSON querying syntax. It's best practice to create an appropriate index for
    * all fields in selector by using the `_index` endpoint.
    *
-   * Queries without an appropriate backing index will fallback to using the built-in `_all_docs` index. This is not
-   * recommended because it has a noticeable performance impact causing a full scan of the partition with each request.
-   * In this case the response body will include a warning field recommending that an index is created.
+   * Queries without an appropriate backing index by default fallback to using the built-in `_all_docs` index. This
+   * isn't recommended because it has a significant performance impact causing a full scan of the partition with each
+   * request. In this case the response body includes a warning field recommending the creation of an index.
+   *
+   * To avoid the fallback behavior set the `allow_fallback` option to `false` and the server responds with a `400`
+   * status code if no suitable index exists. If you want to use only a specific index for your query set
+   * `allow_fallback` to `false` and set the `use_index` option.
    *
    * Before using read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
@@ -2648,6 +2655,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionFindOptions.selector()));
+    if (postPartitionFindOptions.allowFallback() != null) {
+      contentJson.addProperty("allow_fallback", postPartitionFindOptions.allowFallback());
+    }
     if (postPartitionFindOptions.bookmark() != null) {
       contentJson.addProperty("bookmark", postPartitionFindOptions.bookmark());
     }
@@ -2690,9 +2700,13 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Query documents by using a declarative JSON querying syntax. It's best practice to create an appropriate index for
    * all fields in selector by using the `_index` endpoint.
    *
-   * Queries without an appropriate backing index will fallback to using the built-in `_all_docs` index. This is not
-   * recommended because it has a noticeable performance impact causing a full scan of the partition with each request.
-   * In this case the response body will include a warning field recommending that an index is created.
+   * Queries without an appropriate backing index by default fallback to using the built-in `_all_docs` index. This
+   * isn't recommended because it has a significant performance impact causing a full scan of the partition with each
+   * request. In this case the response body includes a warning field recommending the creation of an index.
+   *
+   * To avoid the fallback behavior set the `allow_fallback` option to `false` and the server responds with a `400`
+   * status code if no suitable index exists. If you want to use only a specific index for your query set
+   * `allow_fallback` to `false` and set the `use_index` option.
    *
    * Before using read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
@@ -2715,6 +2729,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postPartitionFindOptions.selector()));
+    if (postPartitionFindOptions.allowFallback() != null) {
+      contentJson.addProperty("allow_fallback", postPartitionFindOptions.allowFallback());
+    }
     if (postPartitionFindOptions.bookmark() != null) {
       contentJson.addProperty("bookmark", postPartitionFindOptions.bookmark());
     }
@@ -2771,6 +2788,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postExplainOptions.selector()));
+    if (postExplainOptions.allowFallback() != null) {
+      contentJson.addProperty("allow_fallback", postExplainOptions.allowFallback());
+    }
     if (postExplainOptions.bookmark() != null) {
       contentJson.addProperty("bookmark", postExplainOptions.bookmark());
     }
@@ -2816,9 +2836,13 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Query documents by using a declarative JSON querying syntax. It's best practice to create an appropriate index for
    * all fields in selector by using the `_index` endpoint.
    *
-   * Queries without an appropriate backing index will fallback to using the built-in `_all_docs` index. This is not
-   * recommended because it has a significant performance impact causing a full scan of the database with each request.
-   * In this case the response body will include a warning field recommending that an index is created.
+   * Queries without an appropriate backing index by default fallback to using the built-in `_all_docs` index. This
+   * isn't recommended because it has a significant performance impact causing a full scan of the database with each
+   * request. In this case the response body includes a warning field recommending the creation of an index.
+   *
+   * To avoid the fallback behavior set the `allow_fallback` option to `false` and the server responds with a `400`
+   * status code if no suitable index exists. If you want to use only a specific index for your query set
+   * `allow_fallback` to `false` and set the `use_index` option.
    *
    * @param postFindOptions the {@link PostFindOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link FindResult}
@@ -2836,6 +2860,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postFindOptions.selector()));
+    if (postFindOptions.allowFallback() != null) {
+      contentJson.addProperty("allow_fallback", postFindOptions.allowFallback());
+    }
     if (postFindOptions.bookmark() != null) {
       contentJson.addProperty("bookmark", postFindOptions.bookmark());
     }
@@ -2881,9 +2908,13 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Query documents by using a declarative JSON querying syntax. It's best practice to create an appropriate index for
    * all fields in selector by using the `_index` endpoint.
    *
-   * Queries without an appropriate backing index will fallback to using the built-in `_all_docs` index. This is not
-   * recommended because it has a significant performance impact causing a full scan of the database with each request.
-   * In this case the response body will include a warning field recommending that an index is created.
+   * Queries without an appropriate backing index by default fallback to using the built-in `_all_docs` index. This
+   * isn't recommended because it has a significant performance impact causing a full scan of the database with each
+   * request. In this case the response body includes a warning field recommending the creation of an index.
+   *
+   * To avoid the fallback behavior set the `allow_fallback` option to `false` and the server responds with a `400`
+   * status code if no suitable index exists. If you want to use only a specific index for your query set
+   * `allow_fallback` to `false` and set the `use_index` option.
    *
    * @param postFindOptions the {@link PostFindOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link InputStream}
@@ -2901,6 +2932,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.header("Accept", "application/json");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("selector", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postFindOptions.selector()));
+    if (postFindOptions.allowFallback() != null) {
+      contentJson.addProperty("allow_fallback", postFindOptions.allowFallback());
+    }
     if (postFindOptions.bookmark() != null) {
       contentJson.addProperty("bookmark", postFindOptions.bookmark());
     }

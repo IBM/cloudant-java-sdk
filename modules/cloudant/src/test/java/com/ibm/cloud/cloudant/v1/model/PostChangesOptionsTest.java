@@ -47,7 +47,7 @@ public class PostChangesOptionsTest {
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
-      .since("0")
+      .since("testString")
       .style("main_only")
       .timeout(Long.valueOf("60000"))
       .view("testString")
@@ -67,7 +67,7 @@ public class PostChangesOptionsTest {
     assertEquals(postChangesOptionsModel.includeDocs(), Boolean.valueOf(false));
     assertEquals(postChangesOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(postChangesOptionsModel.seqInterval(), Long.valueOf("1"));
-    assertEquals(postChangesOptionsModel.since(), "0");
+    assertEquals(postChangesOptionsModel.since(), "testString");
     assertEquals(postChangesOptionsModel.style(), "main_only");
     assertEquals(postChangesOptionsModel.timeout(), Long.valueOf("60000"));
     assertEquals(postChangesOptionsModel.view(), "testString");

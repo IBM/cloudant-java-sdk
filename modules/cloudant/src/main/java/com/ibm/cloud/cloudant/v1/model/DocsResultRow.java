@@ -91,7 +91,7 @@ public class DocsResultRow extends GenericModel {
   /**
    * Gets the id.
    *
-   * id.
+   * Schema for a document ID.
    *
    * @return the id
    */
@@ -102,7 +102,7 @@ public class DocsResultRow extends GenericModel {
   /**
    * Gets the key.
    *
-   * Document ID.
+   * Schema for a document ID.
    *
    * @return the key
    */

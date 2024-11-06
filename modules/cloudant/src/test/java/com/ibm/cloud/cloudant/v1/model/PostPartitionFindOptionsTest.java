@@ -36,6 +36,7 @@ public class PostPartitionFindOptionsTest {
       .db("testString")
       .partitionKey("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -50,6 +51,7 @@ public class PostPartitionFindOptionsTest {
     assertEquals(postPartitionFindOptionsModel.db(), "testString");
     assertEquals(postPartitionFindOptionsModel.partitionKey(), "testString");
     assertEquals(postPartitionFindOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(postPartitionFindOptionsModel.allowFallback(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.bookmark(), "testString");
     assertEquals(postPartitionFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postPartitionFindOptionsModel.executionStats(), Boolean.valueOf(true));

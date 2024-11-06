@@ -36,6 +36,7 @@ public class PostPartitionExplainOptionsTest {
       .db("testString")
       .partitionKey("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -50,6 +51,7 @@ public class PostPartitionExplainOptionsTest {
     assertEquals(postPartitionExplainOptionsModel.db(), "testString");
     assertEquals(postPartitionExplainOptionsModel.partitionKey(), "testString");
     assertEquals(postPartitionExplainOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(postPartitionExplainOptionsModel.allowFallback(), Boolean.valueOf(true));
     assertEquals(postPartitionExplainOptionsModel.bookmark(), "testString");
     assertEquals(postPartitionExplainOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postPartitionExplainOptionsModel.executionStats(), Boolean.valueOf(true));

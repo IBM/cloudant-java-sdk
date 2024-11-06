@@ -43,7 +43,7 @@ public class IndexInformation extends GenericModel {
   /**
    * Gets the ddoc.
    *
-   * Design document ID including a `_design/` prefix.
+   * Schema for a nullable design document ID including a `_design/` prefix.
    *
    * @return the ddoc
    */
