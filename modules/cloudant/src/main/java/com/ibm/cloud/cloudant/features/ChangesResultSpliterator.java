@@ -96,7 +96,8 @@ class ChangesResultSpliterator extends AbstractSpliterator<ChangesResult> {
         } else {
             this.transientSuppression = TransientErrorSuppression.TIMER;
         }
-        if (this.options.since() == null) {
+        this.since = this.options.since();
+        if (this.since == null) {
             this.since = (this.mode == Mode.LISTEN) ? "now" : "0";
         }
         this.successTimestamp = Instant.now();
