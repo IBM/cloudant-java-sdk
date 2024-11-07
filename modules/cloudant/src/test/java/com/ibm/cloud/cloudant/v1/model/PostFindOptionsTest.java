@@ -35,6 +35,7 @@ public class PostFindOptionsTest {
     PostFindOptions postFindOptionsModel = new PostFindOptions.Builder()
       .db("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -49,6 +50,7 @@ public class PostFindOptionsTest {
       .build();
     assertEquals(postFindOptionsModel.db(), "testString");
     assertEquals(postFindOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(postFindOptionsModel.allowFallback(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.bookmark(), "testString");
     assertEquals(postFindOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postFindOptionsModel.executionStats(), Boolean.valueOf(true));

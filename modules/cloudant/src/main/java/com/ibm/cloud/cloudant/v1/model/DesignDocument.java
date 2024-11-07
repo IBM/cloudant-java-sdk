@@ -485,7 +485,7 @@ public class DesignDocument extends DynamicModel<Object> {
   /**
    * Gets the id.
    *
-   * Schema for a design document ID.
+   * Schema for a design document ID including a `_design/` prefix.
    *
    * @return the id
    */

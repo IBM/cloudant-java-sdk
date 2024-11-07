@@ -123,7 +123,7 @@ public class ReplicationDatabaseAuthBasic extends GenericModel {
   /**
    * Gets the username.
    *
-   * The username.
+   * Schema for a username.
    *
    * @return the username
    */

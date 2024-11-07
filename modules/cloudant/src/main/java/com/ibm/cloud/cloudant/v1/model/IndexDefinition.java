@@ -68,6 +68,15 @@ public class IndexDefinition extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param fields the fields
+     */
+    public Builder(List<IndexField> fields) {
+      this.fields = fields;
+    }
+
+    /**
      * Builds a IndexDefinition.
      *
      * @return the new IndexDefinition instance
@@ -152,6 +161,8 @@ public class IndexDefinition extends GenericModel {
   protected IndexDefinition() { }
 
   protected IndexDefinition(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.fields,
+      "fields cannot be null");
     defaultAnalyzer = builder.defaultAnalyzer;
     defaultField = builder.defaultField;
     fields = builder.fields;

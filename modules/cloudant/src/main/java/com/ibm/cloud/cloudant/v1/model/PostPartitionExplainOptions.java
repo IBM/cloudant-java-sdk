@@ -39,6 +39,7 @@ public class PostPartitionExplainOptions extends GenericModel {
   protected String db;
   protected String partitionKey;
   protected Map<String, Object> selector;
+  protected Boolean allowFallback;
   protected String bookmark;
   protected Boolean conflicts;
   protected Boolean executionStats;
@@ -57,6 +58,7 @@ public class PostPartitionExplainOptions extends GenericModel {
     private String db;
     private String partitionKey;
     private Map<String, Object> selector;
+    private Boolean allowFallback;
     private String bookmark;
     private Boolean conflicts;
     private Boolean executionStats;
@@ -77,6 +79,7 @@ public class PostPartitionExplainOptions extends GenericModel {
       this.db = postPartitionExplainOptions.db;
       this.partitionKey = postPartitionExplainOptions.partitionKey;
       this.selector = postPartitionExplainOptions.selector;
+      this.allowFallback = postPartitionExplainOptions.allowFallback;
       this.bookmark = postPartitionExplainOptions.bookmark;
       this.conflicts = postPartitionExplainOptions.conflicts;
       this.executionStats = postPartitionExplainOptions.executionStats;
@@ -195,6 +198,17 @@ public class PostPartitionExplainOptions extends GenericModel {
      */
     public Builder selector(Map<String, Object> selector) {
       this.selector = selector;
+      return this;
+    }
+
+    /**
+     * Set the allowFallback.
+     *
+     * @param allowFallback the allowFallback
+     * @return the PostPartitionExplainOptions builder
+     */
+    public Builder allowFallback(Boolean allowFallback) {
+      this.allowFallback = allowFallback;
       return this;
     }
 
@@ -324,6 +338,7 @@ public class PostPartitionExplainOptions extends GenericModel {
     db = builder.db;
     partitionKey = builder.partitionKey;
     selector = builder.selector;
+    allowFallback = builder.allowFallback;
     bookmark = builder.bookmark;
     conflicts = builder.conflicts;
     executionStats = builder.executionStats;
@@ -408,6 +423,17 @@ public class PostPartitionExplainOptions extends GenericModel {
    */
   public Map<String, Object> selector() {
     return selector;
+  }
+
+  /**
+   * Gets the allowFallback.
+   *
+   * Whether to allow fallback to other indexes.  Default is true.
+   *
+   * @return the allowFallback
+   */
+  public Boolean allowFallback() {
+    return allowFallback;
   }
 
   /**
@@ -530,8 +556,9 @@ public class PostPartitionExplainOptions extends GenericModel {
    * It’s recommended to specify indexes explicitly in your queries to prevent existing queries being affected by new
    * indexes that might get added later.
    *
-   * If the specified index does not exist or cannot answer the query then the value is ignored and another index or a
-   * full scan of all documents will answer the query.
+   * If the specified index doesn't exist or can't answer the query then the server ignores the value and answers using
+   * another index or a full scan of all documents. To change this behavior set `allow_fallback` to `false` and the
+   * server responds instead with a `400` status code if the requested index is unsuitable to answer the query.
    *
    * @return the useIndex
    */

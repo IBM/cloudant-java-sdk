@@ -79,4 +79,10 @@ public class IndexDefinitionTest {
     assertEquals(indexDefinitionModelNew.indexArrayLengths(), Boolean.valueOf(true));
     assertEquals(indexDefinitionModelNew.partialFilterSelector().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testIndexDefinitionError() throws Throwable {
+    new IndexDefinition.Builder().build();
+  }
+
 }

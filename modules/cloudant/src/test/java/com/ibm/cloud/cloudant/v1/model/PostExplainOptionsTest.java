@@ -35,6 +35,7 @@ public class PostExplainOptionsTest {
     PostExplainOptions postExplainOptionsModel = new PostExplainOptions.Builder()
       .db("testString")
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .allowFallback(true)
       .bookmark("testString")
       .conflicts(true)
       .executionStats(true)
@@ -49,6 +50,7 @@ public class PostExplainOptionsTest {
       .build();
     assertEquals(postExplainOptionsModel.db(), "testString");
     assertEquals(postExplainOptionsModel.selector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(postExplainOptionsModel.allowFallback(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.bookmark(), "testString");
     assertEquals(postExplainOptionsModel.conflicts(), Boolean.valueOf(true));
     assertEquals(postExplainOptionsModel.executionStats(), Boolean.valueOf(true));
