@@ -43,7 +43,7 @@ public class DbEvent extends GenericModel {
   /**
    * Gets the dbName.
    *
-   * Database name.
+   * Schema for a database name.
    *
    * @return the dbName
    */

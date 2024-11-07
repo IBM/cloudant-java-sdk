@@ -51,7 +51,7 @@ public class DbsInfoResult extends GenericModel {
   /**
    * Gets the key.
    *
-   * Database name.
+   * Schema for a database name.
    *
    * @return the key
    */

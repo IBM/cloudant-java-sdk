@@ -37,7 +37,7 @@ public class PartitionInformation extends GenericModel {
   /**
    * Gets the dbName.
    *
-   * The name of the database.
+   * Schema for a database name.
    *
    * @return the dbName
    */
@@ -70,7 +70,7 @@ public class PartitionInformation extends GenericModel {
   /**
    * Gets the partition.
    *
-   * The name of the partition in the database.
+   * Schema for a partition key.
    *
    * @return the partition
    */

@@ -180,7 +180,7 @@ public class UserContext extends GenericModel {
   /**
    * Gets the name.
    *
-   * User name.
+   * Name of user running the process.
    *
    * @return the name
    */
