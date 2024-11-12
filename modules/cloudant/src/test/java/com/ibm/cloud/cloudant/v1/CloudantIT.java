@@ -140,6 +140,7 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
+import com.ibm.cloud.cloudant.v1.model.PostReplicatorOptions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
@@ -2372,6 +2373,121 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testHeadSchedulerJob" })
+  public void testPostReplicator() throws Exception {
+    try {
+      Attachment attachmentModel = new Attachment.Builder()
+        .contentType("testString")
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
+        .digest("testString")
+        .encodedLength(Long.valueOf("0"))
+        .encoding("testString")
+        .follows(true)
+        .length(Long.valueOf("0"))
+        .revpos(Long.valueOf("1"))
+        .stub(true)
+        .build();
+
+      Revisions revisionsModel = new Revisions.Builder()
+        .ids(java.util.Arrays.asList("testString"))
+        .start(Long.valueOf("1"))
+        .build();
+
+      DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+        .rev("testString")
+        .status("available")
+        .build();
+
+      ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
+        .n(Long.valueOf("3"))
+        .partitioned(false)
+        .q(Long.valueOf("1"))
+        .build();
+
+      ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+        .password("testString")
+        .username("testString")
+        .build();
+
+      ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
+        .apiKey("testString")
+        .build();
+
+      ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+        .basic(replicationDatabaseAuthBasicModel)
+        .iam(replicationDatabaseAuthIamModel)
+        .build();
+
+      ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
+        .auth(replicationDatabaseAuthModel)
+        .headers(java.util.Collections.singletonMap("key1", "testString"))
+        .url("https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb")
+        .build();
+
+      UserContext userContextModel = new UserContext.Builder()
+        .db("testString")
+        .name("john")
+        .roles(java.util.Arrays.asList("_replicator"))
+        .build();
+
+      ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
+        .conflicts(java.util.Arrays.asList("testString"))
+        .deleted(true)
+        .deletedConflicts(java.util.Arrays.asList("testString"))
+        .id("testString")
+        .localSeq("testString")
+        .rev("testString")
+        .revisions(revisionsModel)
+        .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
+        .cancel(false)
+        .checkpointInterval(Long.valueOf("4500"))
+        .connectionTimeout(Long.valueOf("15000"))
+        .continuous(true)
+        .createTarget(true)
+        .createTargetParams(replicationCreateTargetParametersModel)
+        .docIds(java.util.Arrays.asList("badger", "lemur", "llama"))
+        .filter("ddoc/my_filter")
+        .httpConnections(Long.valueOf("10"))
+        .owner("testString")
+        .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+        .retriesPerRequest(Long.valueOf("3"))
+        .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+        .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
+        .socketOptions("[{keepalive, true}, {nodelay, false}]")
+        .source(replicationDatabaseModel)
+        .sourceProxy("testString")
+        .target(replicationDatabaseModel)
+        .targetProxy("testString")
+        .useBulkGet(true)
+        .useCheckpoints(false)
+        .userCtx(userContextModel)
+        .winningRevsOnly(false)
+        .workerBatchSize(Long.valueOf("400"))
+        .workerProcesses(Long.valueOf("3"))
+        .add("foo", "testString")
+        .build();
+
+      PostReplicatorOptions postReplicatorOptions = new PostReplicatorOptions.Builder()
+        .replicationDocument(replicationDocumentModel)
+        .batch("ok")
+        .build();
+
+      // Invoke operation
+      Response<DocumentResult> response = service.postReplicator(postReplicatorOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      DocumentResult documentResultResult = response.getResult();
+      assertNotNull(documentResultResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testPostReplicator" })
   public void testGetReplicationDocument() throws Exception {
     try {
       GetReplicationDocumentOptions getReplicationDocumentOptions = new GetReplicationDocumentOptions.Builder()

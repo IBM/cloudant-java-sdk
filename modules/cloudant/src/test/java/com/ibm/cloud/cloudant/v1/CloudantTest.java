@@ -141,6 +141,7 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
+import com.ibm.cloud.cloudant.v1.model.PostReplicatorOptions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
@@ -4448,6 +4449,161 @@ public class CloudantTest {
   public void testHeadSchedulerJobNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     cloudantService.headSchedulerJob(null).execute();
+  }
+
+  // Test the postReplicator operation with a valid options model parameter
+  @Test
+  public void testPostReplicatorWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String postReplicatorPath = "/_replicator";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the Attachment model
+    Attachment attachmentModel = new Attachment.Builder()
+      .contentType("testString")
+      .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
+      .digest("testString")
+      .encodedLength(Long.valueOf("0"))
+      .encoding("testString")
+      .follows(true)
+      .length(Long.valueOf("0"))
+      .revpos(Long.valueOf("1"))
+      .stub(true)
+      .build();
+
+    // Construct an instance of the Revisions model
+    Revisions revisionsModel = new Revisions.Builder()
+      .ids(java.util.Arrays.asList("testString"))
+      .start(Long.valueOf("1"))
+      .build();
+
+    // Construct an instance of the DocumentRevisionStatus model
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+      .rev("testString")
+      .status("available")
+      .build();
+
+    // Construct an instance of the ReplicationCreateTargetParameters model
+    ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
+      .n(Long.valueOf("3"))
+      .partitioned(false)
+      .q(Long.valueOf("1"))
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuthBasic model
+    ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+      .password("testString")
+      .username("testString")
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuthIam model
+    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
+      .apiKey("testString")
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuth model
+    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+      .basic(replicationDatabaseAuthBasicModel)
+      .iam(replicationDatabaseAuthIamModel)
+      .build();
+
+    // Construct an instance of the ReplicationDatabase model
+    ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
+      .auth(replicationDatabaseAuthModel)
+      .headers(java.util.Collections.singletonMap("key1", "testString"))
+      .url("https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb")
+      .build();
+
+    // Construct an instance of the UserContext model
+    UserContext userContextModel = new UserContext.Builder()
+      .db("testString")
+      .name("john")
+      .roles(java.util.Arrays.asList("_replicator"))
+      .build();
+
+    // Construct an instance of the ReplicationDocument model
+    ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
+      .conflicts(java.util.Arrays.asList("testString"))
+      .deleted(true)
+      .deletedConflicts(java.util.Arrays.asList("testString"))
+      .id("testString")
+      .localSeq("testString")
+      .rev("testString")
+      .revisions(revisionsModel)
+      .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
+      .cancel(false)
+      .checkpointInterval(Long.valueOf("4500"))
+      .connectionTimeout(Long.valueOf("15000"))
+      .continuous(true)
+      .createTarget(true)
+      .createTargetParams(replicationCreateTargetParametersModel)
+      .docIds(java.util.Arrays.asList("badger", "lemur", "llama"))
+      .filter("ddoc/my_filter")
+      .httpConnections(Long.valueOf("10"))
+      .owner("testString")
+      .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+      .retriesPerRequest(Long.valueOf("3"))
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
+      .socketOptions("[{keepalive, true}, {nodelay, false}]")
+      .source(replicationDatabaseModel)
+      .sourceProxy("testString")
+      .target(replicationDatabaseModel)
+      .targetProxy("testString")
+      .useBulkGet(true)
+      .useCheckpoints(false)
+      .userCtx(userContextModel)
+      .winningRevsOnly(false)
+      .workerBatchSize(Long.valueOf("400"))
+      .workerProcesses(Long.valueOf("3"))
+      .add("foo", "testString")
+      .build();
+
+    // Construct an instance of the PostReplicatorOptions model
+    PostReplicatorOptions postReplicatorOptionsModel = new PostReplicatorOptions.Builder()
+      .replicationDocument(replicationDocumentModel)
+      .batch("ok")
+      .build();
+
+    // Invoke postReplicator() with a valid options model and verify the result
+    Response<DocumentResult> response = cloudantService.postReplicator(postReplicatorOptionsModel).execute();
+    assertNotNull(response);
+    DocumentResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postReplicatorPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("batch"), "ok");
+  }
+
+  // Test the postReplicator operation with and without retries enabled
+  @Test
+  public void testPostReplicatorWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testPostReplicatorWOptions();
+
+    cloudantService.disableRetries();
+    testPostReplicatorWOptions();
+  }
+
+  // Test the postReplicator operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostReplicatorNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    cloudantService.postReplicator(null).execute();
   }
 
   // Test the deleteReplicationDocument operation with a valid options model parameter

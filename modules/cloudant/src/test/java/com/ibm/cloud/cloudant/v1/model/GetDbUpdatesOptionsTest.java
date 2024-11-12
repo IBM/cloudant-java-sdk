@@ -37,13 +37,13 @@ public class GetDbUpdatesOptionsTest {
       .heartbeat(Long.valueOf("0"))
       .limit(Long.valueOf("0"))
       .timeout(Long.valueOf("60000"))
-      .since("0")
+      .since("testString")
       .build();
     assertEquals(getDbUpdatesOptionsModel.descending(), Boolean.valueOf(false));
     assertEquals(getDbUpdatesOptionsModel.feed(), "normal");
     assertEquals(getDbUpdatesOptionsModel.heartbeat(), Long.valueOf("0"));
     assertEquals(getDbUpdatesOptionsModel.limit(), Long.valueOf("0"));
     assertEquals(getDbUpdatesOptionsModel.timeout(), Long.valueOf("60000"));
-    assertEquals(getDbUpdatesOptionsModel.since(), "0");
+    assertEquals(getDbUpdatesOptionsModel.since(), "testString");
   }
 }

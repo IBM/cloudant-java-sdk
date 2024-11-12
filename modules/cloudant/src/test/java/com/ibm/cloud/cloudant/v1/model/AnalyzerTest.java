@@ -44,4 +44,10 @@ public class AnalyzerTest {
     assertTrue(analyzerModelNew instanceof Analyzer);
     assertEquals(analyzerModelNew.name(), "classic");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAnalyzerError() throws Throwable {
+    new Analyzer.Builder().build();
+  }
+
 }
