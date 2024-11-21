@@ -239,7 +239,7 @@ public class GetAttachmentOptions extends GenericModel {
   /**
    * Gets the accept.
    *
-   * The type of the response:  or *_/_*.
+   * The type of the response: *_/_*.
    *
    * @return the accept
    */
