@@ -34,7 +34,8 @@ public class ViewResult extends GenericModel {
   /**
    * Gets the totalRows.
    *
-   * Number of total rows.
+   * Total number of rows in the view index. Note that if the request query narrows the view this is not the number of
+   * matching rows. The number of matching rows, up to the specified `limit`, is the size of the `rows` array.
    *
    * @return the totalRows
    */

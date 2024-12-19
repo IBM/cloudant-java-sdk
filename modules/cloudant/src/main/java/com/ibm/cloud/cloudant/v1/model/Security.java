@@ -25,19 +25,19 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class Security extends GenericModel {
 
   protected SecurityObject admins;
-  protected SecurityObject members;
   protected Map<String, List<String>> cloudant;
   @SerializedName("couchdb_auth_only")
   protected Boolean couchdbAuthOnly;
+  protected SecurityObject members;
 
   /**
    * Builder.
    */
   public static class Builder {
     private SecurityObject admins;
-    private SecurityObject members;
     private Map<String, List<String>> cloudant;
     private Boolean couchdbAuthOnly;
+    private SecurityObject members;
 
     /**
      * Instantiates a new Builder from an existing Security instance.
@@ -46,9 +46,9 @@ public class Security extends GenericModel {
      */
     private Builder(Security security) {
       this.admins = security.admins;
-      this.members = security.members;
       this.cloudant = security.cloudant;
       this.couchdbAuthOnly = security.couchdbAuthOnly;
+      this.members = security.members;
     }
 
     /**
@@ -78,17 +78,6 @@ public class Security extends GenericModel {
     }
 
     /**
-     * Set the members.
-     *
-     * @param members the members
-     * @return the Security builder
-     */
-    public Builder members(SecurityObject members) {
-      this.members = members;
-      return this;
-    }
-
-    /**
      * Set the cloudant.
      *
      * @param cloudant the cloudant
@@ -109,15 +98,26 @@ public class Security extends GenericModel {
       this.couchdbAuthOnly = couchdbAuthOnly;
       return this;
     }
+
+    /**
+     * Set the members.
+     *
+     * @param members the members
+     * @return the Security builder
+     */
+    public Builder members(SecurityObject members) {
+      this.members = members;
+      return this;
+    }
   }
 
   protected Security() { }
 
   protected Security(Builder builder) {
     admins = builder.admins;
-    members = builder.members;
     cloudant = builder.cloudant;
     couchdbAuthOnly = builder.couchdbAuthOnly;
+    members = builder.members;
   }
 
   /**
@@ -141,17 +141,6 @@ public class Security extends GenericModel {
   }
 
   /**
-   * Gets the members.
-   *
-   * Schema for names and roles to map to a database permission.
-   *
-   * @return the members
-   */
-  public SecurityObject members() {
-    return members;
-  }
-
-  /**
    * Gets the cloudant.
    *
    * Database permissions for Cloudant users and/or API keys.
@@ -171,6 +160,17 @@ public class Security extends GenericModel {
    */
   public Boolean couchdbAuthOnly() {
     return couchdbAuthOnly;
+  }
+
+  /**
+   * Gets the members.
+   *
+   * Schema for names and roles to map to a database permission.
+   *
+   * @return the members
+   */
+  public SecurityObject members() {
+    return members;
   }
 }
 

@@ -140,6 +140,7 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
+import com.ibm.cloud.cloudant.v1.model.PostReplicatorOptions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
@@ -268,28 +269,6 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testGetServerInformation" })
-  public void testGetUuids() throws Exception {
-    try {
-      GetUuidsOptions getUuidsOptions = new GetUuidsOptions.Builder()
-        .count(Long.valueOf("1"))
-        .build();
-
-      // Invoke operation
-      Response<UuidsResult> response = service.getUuids(getUuidsOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      UuidsResult uuidsResultResult = response.getResult();
-      assertNotNull(uuidsResultResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetUuids" })
   public void testGetCapacityThroughputInformation() throws Exception {
     try {
       GetCapacityThroughputInformationOptions getCapacityThroughputInformationOptions = new GetCapacityThroughputInformationOptions();
@@ -332,12 +311,34 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testPutCapacityThroughputConfiguration" })
+  public void testGetUuids() throws Exception {
+    try {
+      GetUuidsOptions getUuidsOptions = new GetUuidsOptions.Builder()
+        .count(Long.valueOf("1"))
+        .build();
+
+      // Invoke operation
+      Response<UuidsResult> response = service.getUuids(getUuidsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      UuidsResult uuidsResultResult = response.getResult();
+      assertNotNull(uuidsResultResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetUuids" })
   public void testGetDbUpdates() throws Exception {
     try {
       GetDbUpdatesOptions getDbUpdatesOptions = new GetDbUpdatesOptions.Builder()
         .descending(false)
         .feed("normal")
-        .heartbeat(Long.valueOf("0"))
+        .heartbeat(Long.valueOf("1"))
         .limit(Long.valueOf("0"))
         .timeout(Long.valueOf("60000"))
         .since("0")
@@ -373,7 +374,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .descending(false)
         .feed("normal")
         .filter("testString")
-        .heartbeat(Long.valueOf("0"))
+        .heartbeat(Long.valueOf("1"))
         .includeDocs(false)
         .limit(Long.valueOf("0"))
         .seqInterval(Long.valueOf("1"))
@@ -413,7 +414,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .descending(false)
         .feed("normal")
         .filter("testString")
-        .heartbeat(Long.valueOf("0"))
+        .heartbeat(Long.valueOf("1"))
         .includeDocs(false)
         .limit(Long.valueOf("0"))
         .seqInterval(Long.valueOf("1"))
@@ -533,7 +534,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
       PutDatabaseOptions putDatabaseOptions = new PutDatabaseOptions.Builder()
         .db("testString")
         .partitioned(false)
-        .q(Long.valueOf("26"))
+        .q(Long.valueOf("16"))
         .build();
 
       // Invoke operation
@@ -2231,7 +2232,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .groupField("testString")
         .groupLimit(Long.valueOf("1"))
         .groupSort(java.util.Arrays.asList("testString"))
-        .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
+        .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString")))
         .build();
 
       // Invoke operation
@@ -2273,7 +2274,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .groupField("testString")
         .groupLimit(Long.valueOf("1"))
         .groupSort(java.util.Arrays.asList("testString"))
-        .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
+        .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString")))
         .build();
 
       // Invoke operation
@@ -2372,6 +2373,121 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testHeadSchedulerJob" })
+  public void testPostReplicator() throws Exception {
+    try {
+      Attachment attachmentModel = new Attachment.Builder()
+        .contentType("testString")
+        .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
+        .digest("testString")
+        .encodedLength(Long.valueOf("0"))
+        .encoding("testString")
+        .follows(true)
+        .length(Long.valueOf("0"))
+        .revpos(Long.valueOf("1"))
+        .stub(true)
+        .build();
+
+      Revisions revisionsModel = new Revisions.Builder()
+        .ids(java.util.Arrays.asList("testString"))
+        .start(Long.valueOf("1"))
+        .build();
+
+      DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+        .rev("testString")
+        .status("available")
+        .build();
+
+      ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
+        .n(Long.valueOf("3"))
+        .partitioned(false)
+        .q(Long.valueOf("1"))
+        .build();
+
+      ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+        .password("testString")
+        .username("testString")
+        .build();
+
+      ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
+        .apiKey("testString")
+        .build();
+
+      ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+        .basic(replicationDatabaseAuthBasicModel)
+        .iam(replicationDatabaseAuthIamModel)
+        .build();
+
+      ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
+        .auth(replicationDatabaseAuthModel)
+        .headers(java.util.Collections.singletonMap("key1", "testString"))
+        .url("https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb")
+        .build();
+
+      UserContext userContextModel = new UserContext.Builder()
+        .db("testString")
+        .name("john")
+        .roles(java.util.Arrays.asList("_replicator"))
+        .build();
+
+      ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
+        .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
+        .conflicts(java.util.Arrays.asList("testString"))
+        .deleted(true)
+        .deletedConflicts(java.util.Arrays.asList("testString"))
+        .id("testString")
+        .localSeq("testString")
+        .rev("testString")
+        .revisions(revisionsModel)
+        .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
+        .cancel(false)
+        .checkpointInterval(Long.valueOf("4500"))
+        .connectionTimeout(Long.valueOf("15000"))
+        .continuous(true)
+        .createTarget(true)
+        .createTargetParams(replicationCreateTargetParametersModel)
+        .docIds(java.util.Arrays.asList("badger", "lemur", "llama"))
+        .filter("ddoc/my_filter")
+        .httpConnections(Long.valueOf("10"))
+        .owner("testString")
+        .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+        .retriesPerRequest(Long.valueOf("3"))
+        .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+        .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
+        .socketOptions("[{keepalive, true}, {nodelay, false}]")
+        .source(replicationDatabaseModel)
+        .sourceProxy("testString")
+        .target(replicationDatabaseModel)
+        .targetProxy("testString")
+        .useBulkGet(true)
+        .useCheckpoints(false)
+        .userCtx(userContextModel)
+        .winningRevsOnly(false)
+        .workerBatchSize(Long.valueOf("400"))
+        .workerProcesses(Long.valueOf("3"))
+        .add("foo", "testString")
+        .build();
+
+      PostReplicatorOptions postReplicatorOptions = new PostReplicatorOptions.Builder()
+        .replicationDocument(replicationDocumentModel)
+        .batch("ok")
+        .build();
+
+      // Invoke operation
+      Response<DocumentResult> response = service.postReplicator(postReplicatorOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      DocumentResult documentResultResult = response.getResult();
+      assertNotNull(documentResultResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testPostReplicator" })
   public void testGetReplicationDocument() throws Exception {
     try {
       GetReplicationDocumentOptions getReplicationDocumentOptions = new GetReplicationDocumentOptions.Builder()
@@ -2635,6 +2751,57 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testGetSessionInformation" })
+  public void testPostApiKeys() throws Exception {
+    try {
+      PostApiKeysOptions postApiKeysOptions = new PostApiKeysOptions();
+
+      // Invoke operation
+      Response<ApiKeysResult> response = service.postApiKeys(postApiKeysOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 201);
+
+      ApiKeysResult apiKeysResultResult = response.getResult();
+      assertNotNull(apiKeysResultResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testPostApiKeys" })
+  public void testPutCloudantSecurityConfiguration() throws Exception {
+    try {
+      SecurityObject securityObjectModel = new SecurityObject.Builder()
+        .names(java.util.Arrays.asList("testString"))
+        .roles(java.util.Arrays.asList("testString"))
+        .build();
+
+      PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptions = new PutCloudantSecurityConfigurationOptions.Builder()
+        .db("testString")
+        .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
+        .admins(securityObjectModel)
+        .couchdbAuthOnly(true)
+        .members(securityObjectModel)
+        .build();
+
+      // Invoke operation
+      Response<Ok> response = service.putCloudantSecurityConfiguration(putCloudantSecurityConfigurationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Ok okResult = response.getResult();
+      assertNotNull(okResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testPutCloudantSecurityConfiguration" })
   public void testGetSecurity() throws Exception {
     try {
       GetSecurityOptions getSecurityOptions = new GetSecurityOptions.Builder()
@@ -2667,9 +2834,9 @@ public class CloudantIT extends SdkIntegrationTestBase {
       PutSecurityOptions putSecurityOptions = new PutSecurityOptions.Builder()
         .db("testString")
         .admins(securityObjectModel)
-        .members(securityObjectModel)
         .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
         .couchdbAuthOnly(true)
+        .members(securityObjectModel)
         .build();
 
       // Invoke operation
@@ -2688,57 +2855,6 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testPutSecurity" })
-  public void testPostApiKeys() throws Exception {
-    try {
-      PostApiKeysOptions postApiKeysOptions = new PostApiKeysOptions();
-
-      // Invoke operation
-      Response<ApiKeysResult> response = service.postApiKeys(postApiKeysOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 201);
-
-      ApiKeysResult apiKeysResultResult = response.getResult();
-      assertNotNull(apiKeysResultResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testPostApiKeys" })
-  public void testPutCloudantSecurityConfiguration() throws Exception {
-    try {
-      SecurityObject securityObjectModel = new SecurityObject.Builder()
-        .names(java.util.Arrays.asList("testString"))
-        .roles(java.util.Arrays.asList("testString"))
-        .build();
-
-      PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptions = new PutCloudantSecurityConfigurationOptions.Builder()
-        .db("testString")
-        .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
-        .admins(securityObjectModel)
-        .members(securityObjectModel)
-        .couchdbAuthOnly(true)
-        .build();
-
-      // Invoke operation
-      Response<Ok> response = service.putCloudantSecurityConfiguration(putCloudantSecurityConfigurationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      Ok okResult = response.getResult();
-      assertNotNull(okResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testPutCloudantSecurityConfiguration" })
   public void testGetCorsInformation() throws Exception {
     try {
       GetCorsInformationOptions getCorsInformationOptions = new GetCorsInformationOptions();
@@ -3086,46 +3202,6 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testGetActiveTasks" })
-  public void testGetMembershipInformation() throws Exception {
-    try {
-      GetMembershipInformationOptions getMembershipInformationOptions = new GetMembershipInformationOptions();
-
-      // Invoke operation
-      Response<MembershipInformation> response = service.getMembershipInformation(getMembershipInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      MembershipInformation membershipInformationResult = response.getResult();
-      assertNotNull(membershipInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetMembershipInformation" })
-  public void testGetUpInformation() throws Exception {
-    try {
-      GetUpInformationOptions getUpInformationOptions = new GetUpInformationOptions();
-
-      // Invoke operation
-      Response<UpInformation> response = service.getUpInformation(getUpInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      UpInformation upInformationResult = response.getResult();
-      assertNotNull(upInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetUpInformation" })
   public void testGetActivityTrackerEvents() throws Exception {
     try {
       GetActivityTrackerEventsOptions getActivityTrackerEventsOptions = new GetActivityTrackerEventsOptions();
@@ -3188,6 +3264,46 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testGetCurrentThroughputInformation" })
+  public void testGetMembershipInformation() throws Exception {
+    try {
+      GetMembershipInformationOptions getMembershipInformationOptions = new GetMembershipInformationOptions();
+
+      // Invoke operation
+      Response<MembershipInformation> response = service.getMembershipInformation(getMembershipInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      MembershipInformation membershipInformationResult = response.getResult();
+      assertNotNull(membershipInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetMembershipInformation" })
+  public void testGetUpInformation() throws Exception {
+    try {
+      GetUpInformationOptions getUpInformationOptions = new GetUpInformationOptions();
+
+      // Invoke operation
+      Response<UpInformation> response = service.getUpInformation(getUpInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      UpInformation upInformationResult = response.getResult();
+      assertNotNull(upInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetUpInformation" })
   public void testDeleteDatabase() throws Exception {
     try {
       DeleteDatabaseOptions deleteDatabaseOptions = new DeleteDatabaseOptions.Builder()

@@ -43,14 +43,14 @@ public class PutCloudantSecurityConfigurationOptionsTest {
       .db("testString")
       .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
       .admins(securityObjectModel)
-      .members(securityObjectModel)
       .couchdbAuthOnly(true)
+      .members(securityObjectModel)
       .build();
     assertEquals(putCloudantSecurityConfigurationOptionsModel.db(), "testString");
     assertEquals(putCloudantSecurityConfigurationOptionsModel.cloudant(), java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")));
     assertEquals(putCloudantSecurityConfigurationOptionsModel.admins(), securityObjectModel);
-    assertEquals(putCloudantSecurityConfigurationOptionsModel.members(), securityObjectModel);
     assertEquals(putCloudantSecurityConfigurationOptionsModel.couchdbAuthOnly(), Boolean.valueOf(true));
+    assertEquals(putCloudantSecurityConfigurationOptionsModel.members(), securityObjectModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

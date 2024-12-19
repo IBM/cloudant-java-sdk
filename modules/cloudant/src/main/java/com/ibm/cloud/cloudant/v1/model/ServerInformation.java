@@ -25,10 +25,10 @@ public class ServerInformation extends GenericModel {
 
   protected String couchdb;
   protected List<String> features;
-  protected ServerVendor vendor;
-  protected String version;
   @SerializedName("features_flags")
   protected List<String> featuresFlags;
+  protected ServerVendor vendor;
+  protected String version;
 
   protected ServerInformation() { }
 
@@ -55,6 +55,17 @@ public class ServerInformation extends GenericModel {
   }
 
   /**
+   * Gets the featuresFlags.
+   *
+   * List of feature flags.
+   *
+   * @return the featuresFlags
+   */
+  public List<String> getFeaturesFlags() {
+    return featuresFlags;
+  }
+
+  /**
    * Gets the vendor.
    *
    * Schema for server vendor information.
@@ -74,17 +85,6 @@ public class ServerInformation extends GenericModel {
    */
   public String getVersion() {
     return version;
-  }
-
-  /**
-   * Gets the featuresFlags.
-   *
-   * List of feature flags.
-   *
-   * @return the featuresFlags
-   */
-  public List<String> getFeaturesFlags() {
-    return featuresFlags;
   }
 }
 

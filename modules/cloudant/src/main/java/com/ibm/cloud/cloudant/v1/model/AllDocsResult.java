@@ -34,7 +34,7 @@ public class AllDocsResult extends GenericModel {
   /**
    * Gets the totalRows.
    *
-   * Number of total rows.
+   * Total number of document results.
    *
    * @return the totalRows
    */

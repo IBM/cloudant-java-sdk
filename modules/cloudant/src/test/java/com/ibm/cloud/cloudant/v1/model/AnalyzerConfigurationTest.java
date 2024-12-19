@@ -54,4 +54,10 @@ public class AnalyzerConfigurationTest {
     assertTrue(analyzerConfigurationModelNew instanceof AnalyzerConfiguration);
     assertEquals(analyzerConfigurationModelNew.name(), "classic");
   }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAnalyzerConfigurationError() throws Throwable {
+    new AnalyzerConfiguration.Builder().build();
+  }
+
 }

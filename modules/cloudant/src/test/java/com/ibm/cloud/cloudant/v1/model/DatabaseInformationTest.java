@@ -47,10 +47,10 @@ public class DatabaseInformationTest {
     assertNull(databaseInformationModel.getDocDelCount());
     assertNull(databaseInformationModel.getEngine());
     assertNull(databaseInformationModel.getInstanceStartTime());
+    assertNull(databaseInformationModel.getPartitionedIndexes());
     assertNull(databaseInformationModel.getProps());
     assertNull(databaseInformationModel.getSizes());
     assertNull(databaseInformationModel.getUpdateSeq());
     assertNull(databaseInformationModel.getUuid());
-    assertNull(databaseInformationModel.getPartitionedIndexes());
   }
 }

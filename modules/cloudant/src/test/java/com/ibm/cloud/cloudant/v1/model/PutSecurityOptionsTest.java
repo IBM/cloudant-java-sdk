@@ -42,15 +42,15 @@ public class PutSecurityOptionsTest {
     PutSecurityOptions putSecurityOptionsModel = new PutSecurityOptions.Builder()
       .db("testString")
       .admins(securityObjectModel)
-      .members(securityObjectModel)
       .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
       .couchdbAuthOnly(true)
+      .members(securityObjectModel)
       .build();
     assertEquals(putSecurityOptionsModel.db(), "testString");
     assertEquals(putSecurityOptionsModel.admins(), securityObjectModel);
-    assertEquals(putSecurityOptionsModel.members(), securityObjectModel);
     assertEquals(putSecurityOptionsModel.cloudant(), java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")));
     assertEquals(putSecurityOptionsModel.couchdbAuthOnly(), Boolean.valueOf(true));
+    assertEquals(putSecurityOptionsModel.members(), securityObjectModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

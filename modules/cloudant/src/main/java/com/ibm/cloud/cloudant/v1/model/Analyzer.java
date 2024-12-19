@@ -141,6 +141,15 @@ public class Analyzer extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     */
+    public Builder(String name) {
+      this.name = name;
+    }
+
+    /**
      * Builds a Analyzer.
      *
      * @return the new Analyzer instance
@@ -192,6 +201,8 @@ public class Analyzer extends GenericModel {
   protected Analyzer() { }
 
   protected Analyzer(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+      "name cannot be null");
     name = builder.name;
     stopwords = builder.stopwords;
   }

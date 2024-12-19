@@ -141,6 +141,7 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
+import com.ibm.cloud.cloudant.v1.model.PostReplicatorOptions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
@@ -236,7 +237,7 @@ public class CloudantTest {
   @Test
   public void testGetServerInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"couchdb\": \"couchdb\", \"features\": [\"features\"], \"vendor\": {\"name\": \"name\", \"variant\": \"paas\", \"version\": \"version\"}, \"version\": \"version\", \"features_flags\": [\"featuresFlags\"]}";
+    String mockResponseBody = "{\"couchdb\": \"couchdb\", \"features\": [\"features\"], \"features_flags\": [\"featuresFlags\"], \"vendor\": {\"name\": \"name\", \"variant\": \"paas\", \"version\": \"version\"}, \"version\": \"version\"}";
     String getServerInformationPath = "/";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -272,51 +273,6 @@ public class CloudantTest {
 
     cloudantService.disableRetries();
     testGetServerInformationWOptions();
-  }
-
-  // Test the getUuids operation with a valid options model parameter
-  @Test
-  public void testGetUuidsWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"uuids\": [\"uuids\"]}";
-    String getUuidsPath = "/_uuids";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetUuidsOptions model
-    GetUuidsOptions getUuidsOptionsModel = new GetUuidsOptions.Builder()
-      .count(Long.valueOf("1"))
-      .build();
-
-    // Invoke getUuids() with a valid options model and verify the result
-    Response<UuidsResult> response = cloudantService.getUuids(getUuidsOptionsModel).execute();
-    assertNotNull(response);
-    UuidsResult responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getUuidsPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("1"));
-  }
-
-  // Test the getUuids operation with and without retries enabled
-  @Test
-  public void testGetUuidsWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetUuidsWOptions();
-
-    cloudantService.disableRetries();
-    testGetUuidsWOptions();
   }
 
   // Test the getCapacityThroughputInformation operation with a valid options model parameter
@@ -412,6 +368,51 @@ public class CloudantTest {
     cloudantService.putCapacityThroughputConfiguration(null).execute();
   }
 
+  // Test the getUuids operation with a valid options model parameter
+  @Test
+  public void testGetUuidsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"uuids\": [\"uuids\"]}";
+    String getUuidsPath = "/_uuids";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetUuidsOptions model
+    GetUuidsOptions getUuidsOptionsModel = new GetUuidsOptions.Builder()
+      .count(Long.valueOf("1"))
+      .build();
+
+    // Invoke getUuids() with a valid options model and verify the result
+    Response<UuidsResult> response = cloudantService.getUuids(getUuidsOptionsModel).execute();
+    assertNotNull(response);
+    UuidsResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getUuidsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("1"));
+  }
+
+  // Test the getUuids operation with and without retries enabled
+  @Test
+  public void testGetUuidsWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetUuidsWOptions();
+
+    cloudantService.disableRetries();
+    testGetUuidsWOptions();
+  }
+
   // Test the getDbUpdates operation with a valid options model parameter
   @Test
   public void testGetDbUpdatesWOptions() throws Throwable {
@@ -427,7 +428,7 @@ public class CloudantTest {
     GetDbUpdatesOptions getDbUpdatesOptionsModel = new GetDbUpdatesOptions.Builder()
       .descending(false)
       .feed("normal")
-      .heartbeat(Long.valueOf("0"))
+      .heartbeat(Long.valueOf("1"))
       .limit(Long.valueOf("0"))
       .timeout(Long.valueOf("60000"))
       .since("0")
@@ -451,7 +452,7 @@ public class CloudantTest {
     assertNotNull(query);
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("1"));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("timeout")), Long.valueOf("60000"));
     assertEquals(query.get("since"), "0");
@@ -471,7 +472,7 @@ public class CloudantTest {
   @Test
   public void testPostChangesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"pending\": 7, \"results\": [{\"changes\": [{\"rev\": \"rev\"}], \"deleted\": false, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"seq\": \"seq\"}]}";
+    String mockResponseBody = "{\"last_seq\": \"lastSeq\", \"pending\": 0, \"results\": [{\"changes\": [{\"rev\": \"rev\"}], \"deleted\": false, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"seq\": \"seq\"}]}";
     String postChangesPath = "/testString/_changes";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -491,7 +492,7 @@ public class CloudantTest {
       .descending(false)
       .feed("normal")
       .filter("testString")
-      .heartbeat(Long.valueOf("0"))
+      .heartbeat(Long.valueOf("1"))
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
@@ -523,7 +524,7 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("1"));
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
@@ -574,7 +575,7 @@ public class CloudantTest {
       .descending(false)
       .feed("normal")
       .filter("testString")
-      .heartbeat(Long.valueOf("0"))
+      .heartbeat(Long.valueOf("1"))
       .includeDocs(false)
       .limit(Long.valueOf("0"))
       .seqInterval(Long.valueOf("1"))
@@ -607,7 +608,7 @@ public class CloudantTest {
     assertEquals(Boolean.valueOf(query.get("descending")), Boolean.valueOf(false));
     assertEquals(query.get("feed"), "normal");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("heartbeat")), Long.valueOf("1"));
     assertEquals(Boolean.valueOf(query.get("include_docs")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("limit")), Long.valueOf("0"));
     assertEquals(Long.valueOf(query.get("seq_interval")), Long.valueOf("1"));
@@ -741,7 +742,7 @@ public class CloudantTest {
   @Test
   public void testPostDbsInfoWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"instance_start_time\": \"instanceStartTime\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}, \"key\": \"key\"}]";
+    String mockResponseBody = "[{\"error\": \"error\", \"info\": {\"cluster\": {\"n\": 3, \"q\": 16, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 1, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"instance_start_time\": \"instanceStartTime\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}, \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 0, \"external\": 0, \"file\": 0}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}, \"key\": \"key\"}]";
     String postDbsInfoPath = "/_dbs_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -843,7 +844,7 @@ public class CloudantTest {
   @Test
   public void testGetDatabaseInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"cluster\": {\"n\": 3, \"q\": 1, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 17, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"instance_start_time\": \"instanceStartTime\", \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}}";
+    String mockResponseBody = "{\"cluster\": {\"n\": 3, \"q\": 16, \"r\": 1, \"w\": 1}, \"committed_update_seq\": \"committedUpdateSeq\", \"compact_running\": true, \"compacted_seq\": \"compactedSeq\", \"db_name\": \"dbName\", \"disk_format_version\": 1, \"doc_count\": 0, \"doc_del_count\": 0, \"engine\": \"engine\", \"instance_start_time\": \"instanceStartTime\", \"partitioned_indexes\": {\"count\": 0, \"indexes\": {\"search\": 0, \"view\": 0}, \"limit\": 10}, \"props\": {\"partitioned\": false}, \"sizes\": {\"active\": 0, \"external\": 0, \"file\": 0}, \"update_seq\": \"updateSeq\", \"uuid\": \"uuid\"}";
     String getDatabaseInformationPath = "/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -905,7 +906,7 @@ public class CloudantTest {
     PutDatabaseOptions putDatabaseOptionsModel = new PutDatabaseOptions.Builder()
       .db("testString")
       .partitioned(false)
-      .q(Long.valueOf("26"))
+      .q(Long.valueOf("16"))
       .build();
 
     // Invoke putDatabase() with a valid options model and verify the result
@@ -925,7 +926,7 @@ public class CloudantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(Boolean.valueOf(query.get("partitioned")), Boolean.valueOf(false));
-    assertEquals(Long.valueOf(query.get("q")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("q")), Long.valueOf("16"));
   }
 
   // Test the putDatabase operation with and without retries enabled
@@ -1005,7 +1006,7 @@ public class CloudantTest {
   @Test
   public void testPostDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String postDocumentPath = "/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1108,7 +1109,7 @@ public class CloudantTest {
   @Test
   public void testPostAllDocsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
+    String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
     String postAllDocsPath = "/testString/_all_docs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1237,7 +1238,7 @@ public class CloudantTest {
   @Test
   public void testPostAllDocsQueriesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}]}";
+    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}]}";
     String postAllDocsQueriesPath = "/testString/_all_docs/queries";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1376,7 +1377,7 @@ public class CloudantTest {
   @Test
   public void testPostBulkDocsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "[{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}]";
+    String mockResponseBody = "[{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}]";
     String postBulkDocsPath = "/testString/_bulk_docs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1477,7 +1478,7 @@ public class CloudantTest {
   @Test
   public void testPostBulkGetWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"results\": [{\"docs\": [{\"error\": {\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}, \"ok\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}}], \"id\": \"id\"}]}";
+    String mockResponseBody = "{\"results\": [{\"docs\": [{\"error\": {\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}, \"ok\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}}], \"id\": \"id\"}]}";
     String postBulkGetPath = "/testString/_bulk_get";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -1748,7 +1749,7 @@ public class CloudantTest {
   @Test
   public void testDeleteDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String deleteDocumentPath = "/testString/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2100,7 +2101,7 @@ public class CloudantTest {
   @Test
   public void testPutDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String putDocumentPath = "/testString/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2261,7 +2262,7 @@ public class CloudantTest {
   @Test
   public void testDeleteDesignDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String deleteDesignDocumentPath = "/testString/_design/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2391,7 +2392,7 @@ public class CloudantTest {
   @Test
   public void testPutDesignDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String putDesignDocumentPath = "/testString/_design/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2527,7 +2528,7 @@ public class CloudantTest {
   @Test
   public void testGetDesignDocumentInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 6, \"external\": 8, \"file\": 4}, \"updater_running\": true, \"updates_pending\": {\"minimum\": 7, \"preferred\": 9, \"total\": 5}, \"waiting_clients\": 0, \"waiting_commit\": false}}";
+    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 0, \"external\": 0, \"file\": 0}, \"updater_running\": true, \"updates_pending\": {\"minimum\": 0, \"preferred\": 0, \"total\": 0}, \"waiting_clients\": 0, \"waiting_commit\": false}}";
     String getDesignDocumentInformationPath = "/testString/_design/testString/_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2579,7 +2580,7 @@ public class CloudantTest {
   @Test
   public void testPostDesignDocsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
+    String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
     String postDesignDocsPath = "/testString/_design_docs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2643,7 +2644,7 @@ public class CloudantTest {
   @Test
   public void testPostDesignDocsQueriesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}]}";
+    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}]}";
     String postDesignDocsQueriesPath = "/testString/_design_docs/queries";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2713,7 +2714,7 @@ public class CloudantTest {
   @Test
   public void testPostViewWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
     String postViewPath = "/testString/_design/testString/_view/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2860,7 +2861,7 @@ public class CloudantTest {
   @Test
   public void testPostViewQueriesWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}]}";
+    String mockResponseBody = "{\"results\": [{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}]}";
     String postViewQueriesPath = "/testString/_design/testString/_view/testString/queries";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3069,7 +3070,7 @@ public class CloudantTest {
   @Test
   public void testPostPartitionAllDocsWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
+    String mockResponseBody = "{\"total_rows\": 0, \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"key\", \"value\": {\"deleted\": false, \"rev\": \"rev\"}}], \"update_seq\": \"updateSeq\"}";
     String postPartitionAllDocsPath = "/testString/_partition/testString/_all_docs";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3333,7 +3334,7 @@ public class CloudantTest {
   @Test
   public void testPostPartitionViewWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
+    String mockResponseBody = "{\"total_rows\": 0, \"update_seq\": \"updateSeq\", \"rows\": [{\"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"doc\": {\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}]}, \"id\": \"id\", \"key\": \"anyValue\", \"value\": \"anyValue\"}]}";
     String postPartitionViewPath = "/testString/_partition/testString/_design/testString/_view/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3480,7 +3481,7 @@ public class CloudantTest {
   @Test
   public void testPostPartitionExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"asc\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
+    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"fwd\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
     String postPartitionExplainPath = "/testString/_partition/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -3673,7 +3674,7 @@ public class CloudantTest {
   @Test
   public void testPostExplainWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"asc\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
+    String mockResponseBody = "{\"covering\": true, \"dbname\": \"dbname\", \"fields\": [\"fields\"], \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}, \"index_candidates\": [{\"analysis\": {\"covering\": true, \"ranking\": 1, \"reasons\": [{\"name\": \"alphabetically_comes_after\"}], \"usable\": true}, \"index\": {\"ddoc\": \"ddoc\", \"def\": {\"default_analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"default_field\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"enabled\": true}, \"fields\": [{\"name\": \"name\", \"type\": \"boolean\"}], \"index_array_lengths\": true, \"partial_filter_selector\": {\"anyKey\": \"anyValue\"}}, \"name\": \"name\", \"partitioned\": false, \"type\": \"json\"}}], \"limit\": 25, \"mrargs\": {\"conflicts\": \"anyValue\", \"direction\": \"fwd\", \"end_key\": \"anyValue\", \"include_docs\": false, \"partition\": \"partition\", \"reduce\": true, \"stable\": true, \"start_key\": \"anyValue\", \"update\": \"anyValue\", \"view_type\": \"map\"}, \"opts\": {\"bookmark\": \"bookmark\", \"conflicts\": false, \"execution_stats\": false, \"fields\": [\"fields\"], \"limit\": 25, \"partition\": \"partition\", \"r\": 1, \"skip\": 0, \"sort\": \"anyValue\", \"stable\": false, \"stale\": false, \"update\": true, \"use_index\": [\"useIndex\"]}, \"partitioned\": \"anyValue\", \"selector\": {\"anyKey\": \"anyValue\"}, \"selector_hints\": [{\"indexable_fields\": [\"indexableFields\"], \"type\": \"json\", \"unindexable_fields\": [\"unindexableFields\"]}], \"skip\": 0}";
     String postExplainPath = "/testString/_explain";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4136,7 +4137,7 @@ public class CloudantTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
+      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString")))
       .build();
 
     // Invoke postSearch() with a valid options model and verify the result
@@ -4207,7 +4208,7 @@ public class CloudantTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
+      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString")))
       .build();
 
     // Invoke postSearchAsStream() with a valid options model and verify the result
@@ -4250,7 +4251,7 @@ public class CloudantTest {
   @Test
   public void testGetSearchInfoWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"committed_seq\": 12, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 10, \"signature\": \"signature\"}}";
+    String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"committed_seq\": 0, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 0, \"signature\": \"signature\"}}";
     String getSearchInfoPath = "/testString/_design/testString/_search_info/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4450,11 +4451,166 @@ public class CloudantTest {
     cloudantService.headSchedulerJob(null).execute();
   }
 
+  // Test the postReplicator operation with a valid options model parameter
+  @Test
+  public void testPostReplicatorWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
+    String postReplicatorPath = "/_replicator";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the Attachment model
+    Attachment attachmentModel = new Attachment.Builder()
+      .contentType("testString")
+      .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
+      .digest("testString")
+      .encodedLength(Long.valueOf("0"))
+      .encoding("testString")
+      .follows(true)
+      .length(Long.valueOf("0"))
+      .revpos(Long.valueOf("1"))
+      .stub(true)
+      .build();
+
+    // Construct an instance of the Revisions model
+    Revisions revisionsModel = new Revisions.Builder()
+      .ids(java.util.Arrays.asList("testString"))
+      .start(Long.valueOf("1"))
+      .build();
+
+    // Construct an instance of the DocumentRevisionStatus model
+    DocumentRevisionStatus documentRevisionStatusModel = new DocumentRevisionStatus.Builder()
+      .rev("testString")
+      .status("available")
+      .build();
+
+    // Construct an instance of the ReplicationCreateTargetParameters model
+    ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
+      .n(Long.valueOf("3"))
+      .partitioned(false)
+      .q(Long.valueOf("1"))
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuthBasic model
+    ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
+      .password("testString")
+      .username("testString")
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuthIam model
+    ReplicationDatabaseAuthIam replicationDatabaseAuthIamModel = new ReplicationDatabaseAuthIam.Builder()
+      .apiKey("testString")
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuth model
+    ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
+      .basic(replicationDatabaseAuthBasicModel)
+      .iam(replicationDatabaseAuthIamModel)
+      .build();
+
+    // Construct an instance of the ReplicationDatabase model
+    ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
+      .auth(replicationDatabaseAuthModel)
+      .headers(java.util.Collections.singletonMap("key1", "testString"))
+      .url("https://my-source-instance.cloudantnosqldb.appdomain.cloud.example/animaldb")
+      .build();
+
+    // Construct an instance of the UserContext model
+    UserContext userContextModel = new UserContext.Builder()
+      .db("testString")
+      .name("john")
+      .roles(java.util.Arrays.asList("_replicator"))
+      .build();
+
+    // Construct an instance of the ReplicationDocument model
+    ReplicationDocument replicationDocumentModel = new ReplicationDocument.Builder()
+      .attachments(java.util.Collections.singletonMap("key1", attachmentModel))
+      .conflicts(java.util.Arrays.asList("testString"))
+      .deleted(true)
+      .deletedConflicts(java.util.Arrays.asList("testString"))
+      .id("testString")
+      .localSeq("testString")
+      .rev("testString")
+      .revisions(revisionsModel)
+      .revsInfo(java.util.Arrays.asList(documentRevisionStatusModel))
+      .cancel(false)
+      .checkpointInterval(Long.valueOf("4500"))
+      .connectionTimeout(Long.valueOf("15000"))
+      .continuous(true)
+      .createTarget(true)
+      .createTargetParams(replicationCreateTargetParametersModel)
+      .docIds(java.util.Arrays.asList("badger", "lemur", "llama"))
+      .filter("ddoc/my_filter")
+      .httpConnections(Long.valueOf("10"))
+      .owner("testString")
+      .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+      .retriesPerRequest(Long.valueOf("3"))
+      .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
+      .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
+      .socketOptions("[{keepalive, true}, {nodelay, false}]")
+      .source(replicationDatabaseModel)
+      .sourceProxy("testString")
+      .target(replicationDatabaseModel)
+      .targetProxy("testString")
+      .useBulkGet(true)
+      .useCheckpoints(false)
+      .userCtx(userContextModel)
+      .winningRevsOnly(false)
+      .workerBatchSize(Long.valueOf("400"))
+      .workerProcesses(Long.valueOf("3"))
+      .add("foo", "testString")
+      .build();
+
+    // Construct an instance of the PostReplicatorOptions model
+    PostReplicatorOptions postReplicatorOptionsModel = new PostReplicatorOptions.Builder()
+      .replicationDocument(replicationDocumentModel)
+      .batch("ok")
+      .build();
+
+    // Invoke postReplicator() with a valid options model and verify the result
+    Response<DocumentResult> response = cloudantService.postReplicator(postReplicatorOptionsModel).execute();
+    assertNotNull(response);
+    DocumentResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postReplicatorPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("batch"), "ok");
+  }
+
+  // Test the postReplicator operation with and without retries enabled
+  @Test
+  public void testPostReplicatorWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testPostReplicatorWOptions();
+
+    cloudantService.disableRetries();
+    testPostReplicatorWOptions();
+  }
+
+  // Test the postReplicator operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostReplicatorNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    cloudantService.postReplicator(null).execute();
+  }
+
   // Test the deleteReplicationDocument operation with a valid options model parameter
   @Test
   public void testDeleteReplicationDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String deleteReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4510,7 +4666,7 @@ public class CloudantTest {
   @Test
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 30000, \"connection_timeout\": 30000, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 3, \"partitioned\": false, \"q\": 1}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 20, \"owner\": \"owner\", \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 5, \"selector\": {\"anyKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_bulk_get\": true, \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 500, \"worker_processes\": 4}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 30000, \"connection_timeout\": 30000, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 3, \"partitioned\": false, \"q\": 16}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 20, \"owner\": \"owner\", \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 5, \"selector\": {\"anyKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_bulk_get\": true, \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 500, \"worker_processes\": 4}";
     String getReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4582,7 +4738,7 @@ public class CloudantTest {
   @Test
   public void testPutReplicationDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String putReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4979,11 +5135,114 @@ public class CloudantTest {
     testGetSessionInformationWOptions();
   }
 
+  // Test the postApiKeys operation with a valid options model parameter
+  @Test
+  public void testPostApiKeysWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"ok\": true, \"key\": \"key\", \"password\": \"password\"}";
+    String postApiKeysPath = "/_api/v2/api_keys";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(201)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the PostApiKeysOptions model
+    PostApiKeysOptions postApiKeysOptionsModel = new PostApiKeysOptions();
+
+    // Invoke postApiKeys() with a valid options model and verify the result
+    Response<ApiKeysResult> response = cloudantService.postApiKeys(postApiKeysOptionsModel).execute();
+    assertNotNull(response);
+    ApiKeysResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postApiKeysPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the postApiKeys operation with and without retries enabled
+  @Test
+  public void testPostApiKeysWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testPostApiKeysWOptions();
+
+    cloudantService.disableRetries();
+    testPostApiKeysWOptions();
+  }
+
+  // Test the putCloudantSecurityConfiguration operation with a valid options model parameter
+  @Test
+  public void testPutCloudantSecurityConfigurationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"ok\": true}";
+    String putCloudantSecurityConfigurationPath = "/_api/v2/db/testString/_security";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the SecurityObject model
+    SecurityObject securityObjectModel = new SecurityObject.Builder()
+      .names(java.util.Arrays.asList("testString"))
+      .roles(java.util.Arrays.asList("testString"))
+      .build();
+
+    // Construct an instance of the PutCloudantSecurityConfigurationOptions model
+    PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
+      .db("testString")
+      .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
+      .admins(securityObjectModel)
+      .couchdbAuthOnly(true)
+      .members(securityObjectModel)
+      .build();
+
+    // Invoke putCloudantSecurityConfiguration() with a valid options model and verify the result
+    Response<Ok> response = cloudantService.putCloudantSecurityConfiguration(putCloudantSecurityConfigurationOptionsModel).execute();
+    assertNotNull(response);
+    Ok responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PUT");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, putCloudantSecurityConfigurationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the putCloudantSecurityConfiguration operation with and without retries enabled
+  @Test
+  public void testPutCloudantSecurityConfigurationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testPutCloudantSecurityConfigurationWOptions();
+
+    cloudantService.disableRetries();
+    testPutCloudantSecurityConfigurationWOptions();
+  }
+
+  // Test the putCloudantSecurityConfiguration operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPutCloudantSecurityConfigurationNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    cloudantService.putCloudantSecurityConfiguration(null).execute();
+  }
+
   // Test the getSecurity operation with a valid options model parameter
   @Test
   public void testGetSecurityWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"admins\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}, \"members\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}, \"cloudant\": {\"mapKey\": [\"_reader\"]}, \"couchdb_auth_only\": false}";
+    String mockResponseBody = "{\"admins\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}, \"cloudant\": {\"mapKey\": [\"_reader\"]}, \"couchdb_auth_only\": false, \"members\": {\"names\": [\"names\"], \"roles\": [\"roles\"]}}";
     String getSecurityPath = "/testString/_security";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5051,9 +5310,9 @@ public class CloudantTest {
     PutSecurityOptions putSecurityOptionsModel = new PutSecurityOptions.Builder()
       .db("testString")
       .admins(securityObjectModel)
-      .members(securityObjectModel)
       .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
       .couchdbAuthOnly(true)
+      .members(securityObjectModel)
       .build();
 
     // Invoke putSecurity() with a valid options model and verify the result
@@ -5089,109 +5348,6 @@ public class CloudantTest {
   public void testPutSecurityNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     cloudantService.putSecurity(null).execute();
-  }
-
-  // Test the postApiKeys operation with a valid options model parameter
-  @Test
-  public void testPostApiKeysWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"ok\": true, \"key\": \"key\", \"password\": \"password\"}";
-    String postApiKeysPath = "/_api/v2/api_keys";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(201)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the PostApiKeysOptions model
-    PostApiKeysOptions postApiKeysOptionsModel = new PostApiKeysOptions();
-
-    // Invoke postApiKeys() with a valid options model and verify the result
-    Response<ApiKeysResult> response = cloudantService.postApiKeys(postApiKeysOptionsModel).execute();
-    assertNotNull(response);
-    ApiKeysResult responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postApiKeysPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the postApiKeys operation with and without retries enabled
-  @Test
-  public void testPostApiKeysWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testPostApiKeysWOptions();
-
-    cloudantService.disableRetries();
-    testPostApiKeysWOptions();
-  }
-
-  // Test the putCloudantSecurityConfiguration operation with a valid options model parameter
-  @Test
-  public void testPutCloudantSecurityConfigurationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"ok\": true}";
-    String putCloudantSecurityConfigurationPath = "/_api/v2/db/testString/_security";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the SecurityObject model
-    SecurityObject securityObjectModel = new SecurityObject.Builder()
-      .names(java.util.Arrays.asList("testString"))
-      .roles(java.util.Arrays.asList("testString"))
-      .build();
-
-    // Construct an instance of the PutCloudantSecurityConfigurationOptions model
-    PutCloudantSecurityConfigurationOptions putCloudantSecurityConfigurationOptionsModel = new PutCloudantSecurityConfigurationOptions.Builder()
-      .db("testString")
-      .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
-      .admins(securityObjectModel)
-      .members(securityObjectModel)
-      .couchdbAuthOnly(true)
-      .build();
-
-    // Invoke putCloudantSecurityConfiguration() with a valid options model and verify the result
-    Response<Ok> response = cloudantService.putCloudantSecurityConfiguration(putCloudantSecurityConfigurationOptionsModel).execute();
-    assertNotNull(response);
-    Ok responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "PUT");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, putCloudantSecurityConfigurationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the putCloudantSecurityConfiguration operation with and without retries enabled
-  @Test
-  public void testPutCloudantSecurityConfigurationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testPutCloudantSecurityConfigurationWOptions();
-
-    cloudantService.disableRetries();
-    testPutCloudantSecurityConfigurationWOptions();
-  }
-
-  // Test the putCloudantSecurityConfiguration operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPutCloudantSecurityConfigurationNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    cloudantService.putCloudantSecurityConfiguration(null).execute();
   }
 
   // Test the getCorsInformation operation with a valid options model parameter
@@ -5349,7 +5505,7 @@ public class CloudantTest {
   @Test
   public void testDeleteAttachmentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String deleteAttachmentPath = "/testString/testString/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5467,7 +5623,7 @@ public class CloudantTest {
   @Test
   public void testPutAttachmentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String putAttachmentPath = "/testString/testString/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5579,7 +5735,7 @@ public class CloudantTest {
   @Test
   public void testDeleteLocalDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String deleteLocalDocumentPath = "/testString/_local/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -5693,7 +5849,7 @@ public class CloudantTest {
   @Test
   public void testPutLocalDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 3}";
+    String mockResponseBody = "{\"id\": \"id\", \"rev\": \"rev\", \"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0}";
     String putLocalDocumentPath = "/testString/_local/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -6031,90 +6187,6 @@ public class CloudantTest {
     testGetActiveTasksWOptions();
   }
 
-  // Test the getMembershipInformation operation with a valid options model parameter
-  @Test
-  public void testGetMembershipInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"all_nodes\": [\"allNodes\"], \"cluster_nodes\": [\"clusterNodes\"]}";
-    String getMembershipInformationPath = "/_membership";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetMembershipInformationOptions model
-    GetMembershipInformationOptions getMembershipInformationOptionsModel = new GetMembershipInformationOptions();
-
-    // Invoke getMembershipInformation() with a valid options model and verify the result
-    Response<MembershipInformation> response = cloudantService.getMembershipInformation(getMembershipInformationOptionsModel).execute();
-    assertNotNull(response);
-    MembershipInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getMembershipInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getMembershipInformation operation with and without retries enabled
-  @Test
-  public void testGetMembershipInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetMembershipInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetMembershipInformationWOptions();
-  }
-
-  // Test the getUpInformation operation with a valid options model parameter
-  @Test
-  public void testGetUpInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"seeds\": {\"anyKey\": \"anyValue\"}, \"status\": \"maintenance_mode\"}";
-    String getUpInformationPath = "/_up";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetUpInformationOptions model
-    GetUpInformationOptions getUpInformationOptionsModel = new GetUpInformationOptions();
-
-    // Invoke getUpInformation() with a valid options model and verify the result
-    Response<UpInformation> response = cloudantService.getUpInformation(getUpInformationOptionsModel).execute();
-    assertNotNull(response);
-    UpInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getUpInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getUpInformation operation with and without retries enabled
-  @Test
-  public void testGetUpInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetUpInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetUpInformationWOptions();
-  }
-
   // Test the getActivityTrackerEvents operation with a valid options model parameter
   @Test
   public void testGetActivityTrackerEventsWOptions() throws Throwable {
@@ -6248,6 +6320,90 @@ public class CloudantTest {
 
     cloudantService.disableRetries();
     testGetCurrentThroughputInformationWOptions();
+  }
+
+  // Test the getMembershipInformation operation with a valid options model parameter
+  @Test
+  public void testGetMembershipInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"all_nodes\": [\"allNodes\"], \"cluster_nodes\": [\"clusterNodes\"]}";
+    String getMembershipInformationPath = "/_membership";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetMembershipInformationOptions model
+    GetMembershipInformationOptions getMembershipInformationOptionsModel = new GetMembershipInformationOptions();
+
+    // Invoke getMembershipInformation() with a valid options model and verify the result
+    Response<MembershipInformation> response = cloudantService.getMembershipInformation(getMembershipInformationOptionsModel).execute();
+    assertNotNull(response);
+    MembershipInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getMembershipInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getMembershipInformation operation with and without retries enabled
+  @Test
+  public void testGetMembershipInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetMembershipInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetMembershipInformationWOptions();
+  }
+
+  // Test the getUpInformation operation with a valid options model parameter
+  @Test
+  public void testGetUpInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"seeds\": {\"anyKey\": \"anyValue\"}, \"status\": \"maintenance_mode\"}";
+    String getUpInformationPath = "/_up";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetUpInformationOptions model
+    GetUpInformationOptions getUpInformationOptionsModel = new GetUpInformationOptions();
+
+    // Invoke getUpInformation() with a valid options model and verify the result
+    Response<UpInformation> response = cloudantService.getUpInformation(getUpInformationOptionsModel).execute();
+    assertNotNull(response);
+    UpInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getUpInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getUpInformation operation with and without retries enabled
+  @Test
+  public void testGetUpInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetUpInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetUpInformationWOptions();
   }
 
   // Perform setup needed before each test method

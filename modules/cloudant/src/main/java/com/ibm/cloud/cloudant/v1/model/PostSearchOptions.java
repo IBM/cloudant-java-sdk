@@ -52,7 +52,7 @@ public class PostSearchOptions extends GenericModel {
   protected String groupField;
   protected Long groupLimit;
   protected List<String> groupSort;
-  protected Map<String, Map<String, Map<String, String>>> ranges;
+  protected Map<String, Map<String, String>> ranges;
 
   /**
    * Builder.
@@ -78,7 +78,7 @@ public class PostSearchOptions extends GenericModel {
     private String groupField;
     private Long groupLimit;
     private List<String> groupSort;
-    private Map<String, Map<String, Map<String, String>>> ranges;
+    private Map<String, Map<String, String>> ranges;
 
     /**
      * Instantiates a new Builder from an existing PostSearchOptions instance.
@@ -467,7 +467,7 @@ public class PostSearchOptions extends GenericModel {
      * @param ranges the ranges
      * @return the PostSearchOptions builder
      */
-    public Builder ranges(Map<String, Map<String, Map<String, String>>> ranges) {
+    public Builder ranges(Map<String, Map<String, String>> ranges) {
       this.ranges = ranges;
       return this;
     }
@@ -758,14 +758,13 @@ public class PostSearchOptions extends GenericModel {
   /**
    * Gets the ranges.
    *
-   * This field defines ranges for faceted, numeric search fields. The value is a JSON object where the fields names are
-   * faceted numeric search fields, and the values of the fields are JSON objects. The field names of the JSON objects
-   * are names for ranges. The values are strings that describe the range, for example "[0 TO 10]". This option is only
-   * available when making global queries.
+   * Object mapping faceted, numeric search field names to the required ranges. Each key is a field name and each value
+   * is another object defining the ranges by mapping range name keys to string values describing the numeric ranges,
+   * for example "[0 TO 10]". This option is only available when making global queries.
    *
    * @return the ranges
    */
-  public Map<String, Map<String, Map<String, String>>> ranges() {
+  public Map<String, Map<String, String>> ranges() {
     return ranges;
   }
 }

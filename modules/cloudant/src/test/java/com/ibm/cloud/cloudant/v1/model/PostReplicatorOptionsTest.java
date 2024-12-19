@@ -15,6 +15,7 @@ package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.Attachment;
 import com.ibm.cloud.cloudant.v1.model.DocumentRevisionStatus;
+import com.ibm.cloud.cloudant.v1.model.PostReplicatorOptions;
 import com.ibm.cloud.cloudant.v1.model.ReplicationCreateTargetParameters;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
@@ -32,14 +33,14 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Unit test class for the ReplicationDocument model.
+ * Unit test class for the PostReplicatorOptions model.
  */
-public class ReplicationDocumentTest {
+public class PostReplicatorOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata = TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testReplicationDocument() throws Throwable {
+  public void testPostReplicatorOptions() throws Throwable {
     Attachment attachmentModel = new Attachment.Builder()
       .contentType("testString")
       .data(TestUtilities.createMockByteArray("VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4="))
@@ -194,44 +195,17 @@ public class ReplicationDocumentTest {
     assertEquals(replicationDocumentModel.getWorkerProcesses(), Long.valueOf("4"));
     assertEquals(replicationDocumentModel.get("foo"), "testString");
 
-    String json = TestUtilities.serialize(replicationDocumentModel);
-
-    ReplicationDocument replicationDocumentModelNew = TestUtilities.deserialize(json, ReplicationDocument.class);
-    assertTrue(replicationDocumentModelNew instanceof ReplicationDocument);
-    assertEquals(replicationDocumentModelNew.isDeleted(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModelNew.getId(), "testString");
-    assertEquals(replicationDocumentModelNew.getLocalSeq(), "testString");
-    assertEquals(replicationDocumentModelNew.getRev(), "testString");
-    assertEquals(replicationDocumentModelNew.getRevisions().toString(), revisionsModel.toString());
-    assertEquals(replicationDocumentModelNew.isCancel(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModelNew.getCheckpointInterval(), Long.valueOf("30000"));
-    assertEquals(replicationDocumentModelNew.getConnectionTimeout(), Long.valueOf("30000"));
-    assertEquals(replicationDocumentModelNew.isContinuous(), Boolean.valueOf(false));
-    assertEquals(replicationDocumentModelNew.isCreateTarget(), Boolean.valueOf(false));
-    assertEquals(replicationDocumentModelNew.getCreateTargetParams().toString(), replicationCreateTargetParametersModel.toString());
-    assertEquals(replicationDocumentModelNew.getFilter(), "testString");
-    assertEquals(replicationDocumentModelNew.getHttpConnections(), Long.valueOf("20"));
-    assertEquals(replicationDocumentModelNew.getOwner(), "testString");
-    assertEquals(replicationDocumentModelNew.getRetriesPerRequest(), Long.valueOf("5"));
-    assertEquals(replicationDocumentModelNew.getSelector().toString(), java.util.Collections.singletonMap("anyKey", "anyValue").toString());
-    assertEquals(replicationDocumentModelNew.getSinceSeq(), "testString");
-    assertEquals(replicationDocumentModelNew.getSocketOptions(), "testString");
-    assertEquals(replicationDocumentModelNew.getSource().toString(), replicationDatabaseModel.toString());
-    assertEquals(replicationDocumentModelNew.getSourceProxy(), "testString");
-    assertEquals(replicationDocumentModelNew.getTarget().toString(), replicationDatabaseModel.toString());
-    assertEquals(replicationDocumentModelNew.getTargetProxy(), "testString");
-    assertEquals(replicationDocumentModelNew.isUseBulkGet(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModelNew.isUseCheckpoints(), Boolean.valueOf(true));
-    assertEquals(replicationDocumentModelNew.getUserCtx().toString(), userContextModel.toString());
-    assertEquals(replicationDocumentModelNew.isWinningRevsOnly(), Boolean.valueOf(false));
-    assertEquals(replicationDocumentModelNew.getWorkerBatchSize(), Long.valueOf("500"));
-    assertEquals(replicationDocumentModelNew.getWorkerProcesses(), Long.valueOf("4"));
-    assertEquals(replicationDocumentModelNew.get("foo"), "testString");
+    PostReplicatorOptions postReplicatorOptionsModel = new PostReplicatorOptions.Builder()
+      .replicationDocument(replicationDocumentModel)
+      .batch("ok")
+      .build();
+    assertEquals(postReplicatorOptionsModel.replicationDocument(), replicationDocumentModel);
+    assertEquals(postReplicatorOptionsModel.batch(), "ok");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testReplicationDocumentError() throws Throwable {
-    new ReplicationDocument.Builder().build();
+  public void testPostReplicatorOptionsError() throws Throwable {
+    new PostReplicatorOptions.Builder().build();
   }
 
 }

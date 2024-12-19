@@ -32,7 +32,7 @@ public class SchedulerDocsResult extends GenericModel {
   /**
    * Gets the totalRows.
    *
-   * Number of total rows.
+   * Total number of replication scheduler documents.
    *
    * @return the totalRows
    */

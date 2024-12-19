@@ -79,11 +79,11 @@ public class PutReplicationDocumentOptionsTest {
     ReplicationCreateTargetParameters replicationCreateTargetParametersModel = new ReplicationCreateTargetParameters.Builder()
       .n(Long.valueOf("3"))
       .partitioned(false)
-      .q(Long.valueOf("26"))
+      .q(Long.valueOf("16"))
       .build();
     assertEquals(replicationCreateTargetParametersModel.n(), Long.valueOf("3"));
     assertEquals(replicationCreateTargetParametersModel.partitioned(), Boolean.valueOf(false));
-    assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("26"));
+    assertEquals(replicationCreateTargetParametersModel.q(), Long.valueOf("16"));
 
     ReplicationDatabaseAuthBasic replicationDatabaseAuthBasicModel = new ReplicationDatabaseAuthBasic.Builder()
       .password("testString")

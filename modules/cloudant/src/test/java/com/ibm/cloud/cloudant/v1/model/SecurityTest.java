@@ -41,21 +41,21 @@ public class SecurityTest {
 
     Security securityModel = new Security.Builder()
       .admins(securityObjectModel)
-      .members(securityObjectModel)
       .cloudant(java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")))
       .couchdbAuthOnly(true)
+      .members(securityObjectModel)
       .build();
     assertEquals(securityModel.admins(), securityObjectModel);
-    assertEquals(securityModel.members(), securityObjectModel);
     assertEquals(securityModel.cloudant(), java.util.Collections.singletonMap("key1", java.util.Arrays.asList("_reader")));
     assertEquals(securityModel.couchdbAuthOnly(), Boolean.valueOf(true));
+    assertEquals(securityModel.members(), securityObjectModel);
 
     String json = TestUtilities.serialize(securityModel);
 
     Security securityModelNew = TestUtilities.deserialize(json, Security.class);
     assertTrue(securityModelNew instanceof Security);
     assertEquals(securityModelNew.admins().toString(), securityObjectModel.toString());
-    assertEquals(securityModelNew.members().toString(), securityObjectModel.toString());
     assertEquals(securityModelNew.couchdbAuthOnly(), Boolean.valueOf(true));
+    assertEquals(securityModelNew.members().toString(), securityObjectModel.toString());
   }
 }

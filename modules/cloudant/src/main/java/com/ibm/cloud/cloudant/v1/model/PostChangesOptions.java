@@ -38,6 +38,18 @@ public class PostChangesOptions extends GenericModel {
     String NORMAL = "normal";
   }
 
+  /**
+   * Query parameter to specify how many revisions are returned in the changes array. The default, `main_only`, will
+   * only return the current "winning" revision; all_docs will return all leaf revisions (including conflicts and
+   * deleted former conflicts).
+   */
+  public interface Style {
+    /** main_only. */
+    String MAIN_ONLY = "main_only";
+    /** all_docs. */
+    String ALL_DOCS = "all_docs";
+  }
+
   protected String db;
   protected List<String> docIds;
   protected List<String> fields;

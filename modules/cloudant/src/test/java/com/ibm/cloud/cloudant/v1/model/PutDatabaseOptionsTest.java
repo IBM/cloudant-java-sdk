@@ -34,11 +34,11 @@ public class PutDatabaseOptionsTest {
     PutDatabaseOptions putDatabaseOptionsModel = new PutDatabaseOptions.Builder()
       .db("testString")
       .partitioned(false)
-      .q(Long.valueOf("26"))
+      .q(Long.valueOf("16"))
       .build();
     assertEquals(putDatabaseOptionsModel.db(), "testString");
     assertEquals(putDatabaseOptionsModel.partitioned(), Boolean.valueOf(false));
-    assertEquals(putDatabaseOptionsModel.q(), Long.valueOf("26"));
+    assertEquals(putDatabaseOptionsModel.q(), Long.valueOf("16"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
