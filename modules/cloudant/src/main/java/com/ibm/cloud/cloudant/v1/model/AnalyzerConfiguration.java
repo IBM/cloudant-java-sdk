@@ -145,6 +145,15 @@ public class AnalyzerConfiguration extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     */
+    public Builder(String name) {
+      this.name = name;
+    }
+
+    /**
      * Builds a AnalyzerConfiguration.
      *
      * @return the new AnalyzerConfiguration instance
@@ -207,6 +216,8 @@ public class AnalyzerConfiguration extends GenericModel {
   protected AnalyzerConfiguration() { }
 
   protected AnalyzerConfiguration(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name,
+      "name cannot be null");
     name = builder.name;
     stopwords = builder.stopwords;
     fields = builder.fields;

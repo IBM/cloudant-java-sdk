@@ -38,7 +38,7 @@ public class SearchResult extends GenericModel {
   /**
    * Gets the totalRows.
    *
-   * Number of total rows.
+   * Total number of rows in the index matching the search query. The limit may truncate the number of matches returned.
    *
    * @return the totalRows
    */

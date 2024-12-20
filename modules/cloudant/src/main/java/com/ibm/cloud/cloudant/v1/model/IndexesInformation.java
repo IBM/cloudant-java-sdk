@@ -32,7 +32,7 @@ public class IndexesInformation extends GenericModel {
   /**
    * Gets the totalRows.
    *
-   * Number of total rows.
+   * Total number of query indexes in the database.
    *
    * @return the totalRows
    */

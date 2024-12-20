@@ -25,10 +25,10 @@ public class ExplainResultMrArgs extends GenericModel {
    * Direction parameter passed to the underlying view.
    */
   public interface Direction {
-    /** asc. */
-    String ASC = "asc";
-    /** desc. */
-    String DESC = "desc";
+    /** fwd. */
+    String FWD = "fwd";
+    /** rev. */
+    String REV = "rev";
   }
 
   /**

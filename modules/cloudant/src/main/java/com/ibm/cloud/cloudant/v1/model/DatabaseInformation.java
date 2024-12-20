@@ -39,13 +39,13 @@ public class DatabaseInformation extends GenericModel {
   protected String engine;
   @SerializedName("instance_start_time")
   protected String instanceStartTime;
+  @SerializedName("partitioned_indexes")
+  protected PartitionedIndexesInformation partitionedIndexes;
   protected DatabaseInformationProps props;
   protected ContentInformationSizes sizes;
   @SerializedName("update_seq")
   protected String updateSeq;
   protected String uuid;
-  @SerializedName("partitioned_indexes")
-  protected PartitionedIndexesInformation partitionedIndexes;
 
   protected DatabaseInformation() { }
 
@@ -161,6 +161,17 @@ public class DatabaseInformation extends GenericModel {
   }
 
   /**
+   * Gets the partitionedIndexes.
+   *
+   * Information about database's partitioned indexes.
+   *
+   * @return the partitionedIndexes
+   */
+  public PartitionedIndexesInformation getPartitionedIndexes() {
+    return partitionedIndexes;
+  }
+
+  /**
    * Gets the props.
    *
    * Schema for database properties.
@@ -203,17 +214,6 @@ public class DatabaseInformation extends GenericModel {
    */
   public String getUuid() {
     return uuid;
-  }
-
-  /**
-   * Gets the partitionedIndexes.
-   *
-   * Information about database's partitioned indexes.
-   *
-   * @return the partitionedIndexes
-   */
-  public PartitionedIndexesInformation getPartitionedIndexes() {
-    return partitionedIndexes;
   }
 }
 
