@@ -53,7 +53,7 @@ public class PostSearchOptionsTest {
       .groupField("testString")
       .groupLimit(Long.valueOf("1"))
       .groupSort(java.util.Arrays.asList("testString"))
-      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))))
+      .ranges(java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString")))
       .build();
     assertEquals(postSearchOptionsModel.db(), "testString");
     assertEquals(postSearchOptionsModel.ddoc(), "testString");
@@ -75,7 +75,7 @@ public class PostSearchOptionsTest {
     assertEquals(postSearchOptionsModel.groupField(), "testString");
     assertEquals(postSearchOptionsModel.groupLimit(), Long.valueOf("1"));
     assertEquals(postSearchOptionsModel.groupSort(), java.util.Arrays.asList("testString"));
-    assertEquals(postSearchOptionsModel.ranges(), java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString"))));
+    assertEquals(postSearchOptionsModel.ranges(), java.util.Collections.singletonMap("key1", java.util.Collections.singletonMap("key1", "testString")));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

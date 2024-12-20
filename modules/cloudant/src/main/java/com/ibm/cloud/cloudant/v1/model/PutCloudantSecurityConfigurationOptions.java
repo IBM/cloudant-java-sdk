@@ -26,8 +26,8 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
   protected String db;
   protected Map<String, List<String>> cloudant;
   protected SecurityObject admins;
-  protected SecurityObject members;
   protected Boolean couchdbAuthOnly;
+  protected SecurityObject members;
 
   /**
    * Builder.
@@ -36,8 +36,8 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
     private String db;
     private Map<String, List<String>> cloudant;
     private SecurityObject admins;
-    private SecurityObject members;
     private Boolean couchdbAuthOnly;
+    private SecurityObject members;
 
     /**
      * Instantiates a new Builder from an existing PutCloudantSecurityConfigurationOptions instance.
@@ -48,8 +48,8 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
       this.db = putCloudantSecurityConfigurationOptions.db;
       this.cloudant = putCloudantSecurityConfigurationOptions.cloudant;
       this.admins = putCloudantSecurityConfigurationOptions.admins;
-      this.members = putCloudantSecurityConfigurationOptions.members;
       this.couchdbAuthOnly = putCloudantSecurityConfigurationOptions.couchdbAuthOnly;
+      this.members = putCloudantSecurityConfigurationOptions.members;
     }
 
     /**
@@ -112,17 +112,6 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the members.
-     *
-     * @param members the members
-     * @return the PutCloudantSecurityConfigurationOptions builder
-     */
-    public Builder members(SecurityObject members) {
-      this.members = members;
-      return this;
-    }
-
-    /**
      * Set the couchdbAuthOnly.
      *
      * @param couchdbAuthOnly the couchdbAuthOnly
@@ -130,6 +119,17 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
      */
     public Builder couchdbAuthOnly(Boolean couchdbAuthOnly) {
       this.couchdbAuthOnly = couchdbAuthOnly;
+      return this;
+    }
+
+    /**
+     * Set the members.
+     *
+     * @param members the members
+     * @return the PutCloudantSecurityConfigurationOptions builder
+     */
+    public Builder members(SecurityObject members) {
+      this.members = members;
       return this;
     }
   }
@@ -144,8 +144,8 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
     db = builder.db;
     cloudant = builder.cloudant;
     admins = builder.admins;
-    members = builder.members;
     couchdbAuthOnly = builder.couchdbAuthOnly;
+    members = builder.members;
   }
 
   /**
@@ -191,17 +191,6 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
   }
 
   /**
-   * Gets the members.
-   *
-   * Schema for names and roles to map to a database permission.
-   *
-   * @return the members
-   */
-  public SecurityObject members() {
-    return members;
-  }
-
-  /**
    * Gets the couchdbAuthOnly.
    *
    * Manage permissions using the `_users` database only.
@@ -210,6 +199,17 @@ public class PutCloudantSecurityConfigurationOptions extends GenericModel {
    */
   public Boolean couchdbAuthOnly() {
     return couchdbAuthOnly;
+  }
+
+  /**
+   * Gets the members.
+   *
+   * Schema for names and roles to map to a database permission.
+   *
+   * @return the members
+   */
+  public SecurityObject members() {
+    return members;
   }
 }
 

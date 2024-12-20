@@ -25,9 +25,9 @@ public class PutSecurityOptions extends GenericModel {
 
   protected String db;
   protected SecurityObject admins;
-  protected SecurityObject members;
   protected Map<String, List<String>> cloudant;
   protected Boolean couchdbAuthOnly;
+  protected SecurityObject members;
 
   /**
    * Builder.
@@ -35,9 +35,9 @@ public class PutSecurityOptions extends GenericModel {
   public static class Builder {
     private String db;
     private SecurityObject admins;
-    private SecurityObject members;
     private Map<String, List<String>> cloudant;
     private Boolean couchdbAuthOnly;
+    private SecurityObject members;
 
     /**
      * Instantiates a new Builder from an existing PutSecurityOptions instance.
@@ -47,9 +47,9 @@ public class PutSecurityOptions extends GenericModel {
     private Builder(PutSecurityOptions putSecurityOptions) {
       this.db = putSecurityOptions.db;
       this.admins = putSecurityOptions.admins;
-      this.members = putSecurityOptions.members;
       this.cloudant = putSecurityOptions.cloudant;
       this.couchdbAuthOnly = putSecurityOptions.couchdbAuthOnly;
+      this.members = putSecurityOptions.members;
     }
 
     /**
@@ -99,17 +99,6 @@ public class PutSecurityOptions extends GenericModel {
     }
 
     /**
-     * Set the members.
-     *
-     * @param members the members
-     * @return the PutSecurityOptions builder
-     */
-    public Builder members(SecurityObject members) {
-      this.members = members;
-      return this;
-    }
-
-    /**
      * Set the cloudant.
      *
      * @param cloudant the cloudant
@@ -132,6 +121,17 @@ public class PutSecurityOptions extends GenericModel {
     }
 
     /**
+     * Set the members.
+     *
+     * @param members the members
+     * @return the PutSecurityOptions builder
+     */
+    public Builder members(SecurityObject members) {
+      this.members = members;
+      return this;
+    }
+
+    /**
      * Set the security.
      *
      * @param security the security
@@ -139,9 +139,9 @@ public class PutSecurityOptions extends GenericModel {
      */
     public Builder security(Security security) {
       this.admins = security.admins();
-      this.members = security.members();
       this.cloudant = security.cloudant();
       this.couchdbAuthOnly = security.couchdbAuthOnly();
+      this.members = security.members();
       return this;
     }
   }
@@ -153,9 +153,9 @@ public class PutSecurityOptions extends GenericModel {
       "db cannot be empty");
     db = builder.db;
     admins = builder.admins;
-    members = builder.members;
     cloudant = builder.cloudant;
     couchdbAuthOnly = builder.couchdbAuthOnly;
+    members = builder.members;
   }
 
   /**
@@ -190,17 +190,6 @@ public class PutSecurityOptions extends GenericModel {
   }
 
   /**
-   * Gets the members.
-   *
-   * Schema for names and roles to map to a database permission.
-   *
-   * @return the members
-   */
-  public SecurityObject members() {
-    return members;
-  }
-
-  /**
    * Gets the cloudant.
    *
    * Database permissions for Cloudant users and/or API keys.
@@ -220,6 +209,17 @@ public class PutSecurityOptions extends GenericModel {
    */
   public Boolean couchdbAuthOnly() {
     return couchdbAuthOnly;
+  }
+
+  /**
+   * Gets the members.
+   *
+   * Schema for names and roles to map to a database permission.
+   *
+   * @return the members
+   */
+  public SecurityObject members() {
+    return members;
   }
 }
 

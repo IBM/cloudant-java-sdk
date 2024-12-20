@@ -103,6 +103,7 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
+import com.ibm.cloud.cloudant.v1.model.PostReplicatorOptions;
 import com.ibm.cloud.cloudant.v1.model.PostRevsDiffOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchAnalyzeOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
@@ -246,49 +247,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve one or more UUIDs.
-   *
-   * Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The response is a JSON object that
-   * provides a list of UUIDs.
-   *
-   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-   *
-   * @param getUuidsOptions the {@link GetUuidsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link UuidsResult}
-   */
-  public ServiceCall<UuidsResult> getUuids(GetUuidsOptions getUuidsOptions) {
-    if (getUuidsOptions == null) {
-      getUuidsOptions = new GetUuidsOptions.Builder().build();
-    }
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_uuids"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getUuids");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (getUuidsOptions.count() != null) {
-      builder.query("count", String.valueOf(getUuidsOptions.count()));
-    }
-    ResponseConverter<UuidsResult> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<UuidsResult>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve one or more UUIDs.
-   *
-   * Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The response is a JSON object that
-   * provides a list of UUIDs.
-   *
-   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link UuidsResult}
-   */
-  public ServiceCall<UuidsResult> getUuids() {
-    return getUuids(null);
-  }
-
-  /**
    * Retrieve provisioned throughput capacity information.
    *
    * View the amount of provisioned throughput capacity that is allocated to an IBM Cloudant instance and what is the
@@ -345,6 +303,49 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     ResponseConverter<CapacityThroughputInformation> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CapacityThroughputInformation>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve one or more UUIDs.
+   *
+   * Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The response is a JSON object that
+   * provides a list of UUIDs.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
+   * @param getUuidsOptions the {@link GetUuidsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link UuidsResult}
+   */
+  public ServiceCall<UuidsResult> getUuids(GetUuidsOptions getUuidsOptions) {
+    if (getUuidsOptions == null) {
+      getUuidsOptions = new GetUuidsOptions.Builder().build();
+    }
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_uuids"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getUuids");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (getUuidsOptions.count() != null) {
+      builder.query("count", String.valueOf(getUuidsOptions.count()));
+    }
+    ResponseConverter<UuidsResult> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<UuidsResult>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve one or more UUIDs.
+   *
+   * Requests one or more Universally Unique Identifiers (UUIDs) from the instance. The response is a JSON object that
+   * provides a list of UUIDs.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link UuidsResult}
+   */
+  public ServiceCall<UuidsResult> getUuids() {
+    return getUuids(null);
   }
 
   /**
@@ -3286,7 +3287,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve the HTTP headers for a replication document.
+   * Retrieve the HTTP headers for a persistent replication.
    *
    * Retrieves the HTTP headers containing minimal amount of information about the specified replication document from
    * the `_replicator` database.  The method supports the same query arguments as the `GET /_replicator/{doc_id}`
@@ -3360,7 +3361,34 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Cancel a replication.
+   * Create a persistent replication with a generated ID.
+   *
+   * Creates or modifies a document in the `_replicator` database to start a new replication or to edit an existing
+   * replication.
+   *
+   * @param postReplicatorOptions the {@link PostReplicatorOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentResult}
+   */
+  public ServiceCall<DocumentResult> postReplicator(PostReplicatorOptions postReplicatorOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postReplicatorOptions,
+      "postReplicatorOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_replicator"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postReplicator");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (postReplicatorOptions.batch() != null) {
+      builder.query("batch", String.valueOf(postReplicatorOptions.batch()));
+    }
+    builder.bodyContent(com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting().toJson(postReplicatorOptions.replicationDocument()), "application/json");
+    ResponseConverter<DocumentResult> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentResult>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Cancel a persistent replication.
    *
    * Cancels a replication by deleting the document that describes it from the `_replicator` database.
    *
@@ -3393,7 +3421,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve a replication document.
+   * Retrieve the configuration for a persistent replication.
    *
    * Retrieves a replication document from the `_replicator` database to view the configuration of the replication. The
    * status of the replication is no longer recorded in the document but can be checked via the replication scheduler.
@@ -3451,7 +3479,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Create or modify a replication using a replication document.
+   * Create or modify a persistent replication.
    *
    * Creates or modifies a document in the `_replicator` database to start a new replication or to edit an existing
    * replication.
@@ -3662,78 +3690,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve database permissions information.
-   *
-   * See who has permission to read, write, and manage the database. The credentials you use to log in to the dashboard
-   * automatically include `_admin` permissions to all databases you create. Everyone and everything else, including
-   * users you share databases with and API keys you create, must be given a permission level explicitly.
-   *
-   * @param getSecurityOptions the {@link GetSecurityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link Security}
-   */
-  public ServiceCall<Security> getSecurity(GetSecurityOptions getSecurityOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(getSecurityOptions,
-      "getSecurityOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", getSecurityOptions.db());
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_security", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getSecurity");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<Security> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Security>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Modify database permissions.
-   *
-   * Modify who has permission to read, write, or manage a database. This endpoint can be used to modify both Cloudant
-   * and CouchDB related permissions. Be careful: by removing a Cloudant API key, a member or an admin from the list of
-   * users that have access permissions, you remove it from the list of users that have access to the database.
-   *
-   * ### Note about nobody role
-   *
-   * The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to
-   * read data from a database, but did not identify itself, the task can continue only if the `nobody` user has the
-   * role `_reader`.
-   *
-   * @param putSecurityOptions the {@link PutSecurityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link Ok}
-   */
-  public ServiceCall<Ok> putSecurity(PutSecurityOptions putSecurityOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(putSecurityOptions,
-      "putSecurityOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("db", putSecurityOptions.db());
-    RequestBuilder builder = RequestBuilder.put(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_security", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "putSecurity");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    if (putSecurityOptions.admins() != null) {
-      contentJson.add("admins", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putSecurityOptions.admins()));
-    }
-    if (putSecurityOptions.members() != null) {
-      contentJson.add("members", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putSecurityOptions.members()));
-    }
-    if (putSecurityOptions.cloudant() != null) {
-      contentJson.add("cloudant", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putSecurityOptions.cloudant()));
-    }
-    if (putSecurityOptions.couchdbAuthOnly() != null) {
-      contentJson.addProperty("couchdb_auth_only", putSecurityOptions.couchdbAuthOnly());
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<Ok> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Generates API keys for apps or persons to enable database access.
    *
    * Generates API keys to enable database access for a person or application, but without creating a new IBM Cloudant
@@ -3799,11 +3755,83 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     if (putCloudantSecurityConfigurationOptions.admins() != null) {
       contentJson.add("admins", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putCloudantSecurityConfigurationOptions.admins()));
     }
+    if (putCloudantSecurityConfigurationOptions.couchdbAuthOnly() != null) {
+      contentJson.addProperty("couchdb_auth_only", putCloudantSecurityConfigurationOptions.couchdbAuthOnly());
+    }
     if (putCloudantSecurityConfigurationOptions.members() != null) {
       contentJson.add("members", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putCloudantSecurityConfigurationOptions.members()));
     }
-    if (putCloudantSecurityConfigurationOptions.couchdbAuthOnly() != null) {
-      contentJson.addProperty("couchdb_auth_only", putCloudantSecurityConfigurationOptions.couchdbAuthOnly());
+    builder.bodyJson(contentJson);
+    ResponseConverter<Ok> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve database permissions information.
+   *
+   * See who has permission to read, write, and manage the database. The credentials you use to log in to the dashboard
+   * automatically include `_admin` permissions to all databases you create. Everyone and everything else, including
+   * users you share databases with and API keys you create, must be given a permission level explicitly.
+   *
+   * @param getSecurityOptions the {@link GetSecurityOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Security}
+   */
+  public ServiceCall<Security> getSecurity(GetSecurityOptions getSecurityOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getSecurityOptions,
+      "getSecurityOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", getSecurityOptions.db());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_security", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getSecurity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<Security> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Security>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Modify database permissions.
+   *
+   * Modify who has permission to read, write, or manage a database. This endpoint can be used to modify both Cloudant
+   * and CouchDB related permissions. Be careful: by removing a Cloudant API key, a member or an admin from the list of
+   * users that have access permissions, you remove it from the list of users that have access to the database.
+   *
+   * ### Note about nobody role
+   *
+   * The `nobody` username applies to all unauthenticated connection attempts. For example, if an application tries to
+   * read data from a database, but did not identify itself, the task can continue only if the `nobody` user has the
+   * role `_reader`.
+   *
+   * @param putSecurityOptions the {@link PutSecurityOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Ok}
+   */
+  public ServiceCall<Ok> putSecurity(PutSecurityOptions putSecurityOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(putSecurityOptions,
+      "putSecurityOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", putSecurityOptions.db());
+    RequestBuilder builder = RequestBuilder.put(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_security", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "putSecurity");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (putSecurityOptions.admins() != null) {
+      contentJson.add("admins", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putSecurityOptions.admins()));
+    }
+    if (putSecurityOptions.cloudant() != null) {
+      contentJson.add("cloudant", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putSecurityOptions.cloudant()));
+    }
+    if (putSecurityOptions.couchdbAuthOnly() != null) {
+      contentJson.addProperty("couchdb_auth_only", putSecurityOptions.couchdbAuthOnly());
+    }
+    if (putSecurityOptions.members() != null) {
+      contentJson.add("members", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(putSecurityOptions.members()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Ok> responseConverter =
@@ -4307,78 +4335,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve cluster membership information.
-   *
-   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
-   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
-   * cluster.
-   *
-   * @param getMembershipInformationOptions the {@link GetMembershipInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
-   */
-  public ServiceCall<MembershipInformation> getMembershipInformation(GetMembershipInformationOptions getMembershipInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_membership"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getMembershipInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<MembershipInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MembershipInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve cluster membership information.
-   *
-   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
-   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
-   * cluster.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
-   */
-  public ServiceCall<MembershipInformation> getMembershipInformation() {
-    return getMembershipInformation(null);
-  }
-
-  /**
-   * Retrieve information about whether the server is up.
-   *
-   * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
-   * `nolb`, the endpoint returns a 404 response.
-   *
-   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-   *
-   * @param getUpInformationOptions the {@link GetUpInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
-   */
-  public ServiceCall<UpInformation> getUpInformation(GetUpInformationOptions getUpInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_up"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getUpInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<UpInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<UpInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve information about whether the server is up.
-   *
-   * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
-   * `nolb`, the endpoint returns a 404 response.
-   *
-   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
-   */
-  public ServiceCall<UpInformation> getUpInformation() {
-    return getUpInformation(null);
-  }
-
-  /**
    * Retrieve Activity Tracker events information.
    *
    * Check event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
@@ -4467,6 +4423,78 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    */
   public ServiceCall<CurrentThroughputInformation> getCurrentThroughputInformation() {
     return getCurrentThroughputInformation(null);
+  }
+
+  /**
+   * Retrieve cluster membership information.
+   *
+   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
+   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
+   * cluster.
+   *
+   * @param getMembershipInformationOptions the {@link GetMembershipInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
+   */
+  public ServiceCall<MembershipInformation> getMembershipInformation(GetMembershipInformationOptions getMembershipInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_membership"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getMembershipInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<MembershipInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MembershipInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve cluster membership information.
+   *
+   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
+   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
+   * cluster.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
+   */
+  public ServiceCall<MembershipInformation> getMembershipInformation() {
+    return getMembershipInformation(null);
+  }
+
+  /**
+   * Retrieve information about whether the server is up.
+   *
+   * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
+   * `nolb`, the endpoint returns a 404 response.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
+   * @param getUpInformationOptions the {@link GetUpInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
+   */
+  public ServiceCall<UpInformation> getUpInformation(GetUpInformationOptions getUpInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_up"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getUpInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<UpInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<UpInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve information about whether the server is up.
+   *
+   * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
+   * `nolb`, the endpoint returns a 404 response.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
+   */
+  public ServiceCall<UpInformation> getUpInformation() {
+    return getUpInformation(null);
   }
 
 }

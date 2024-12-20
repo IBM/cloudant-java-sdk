@@ -32,7 +32,7 @@ public class SchedulerJobsResult extends GenericModel {
   /**
    * Gets the totalRows.
    *
-   * Number of total rows.
+   * Total number of replication jobs.
    *
    * @return the totalRows
    */
