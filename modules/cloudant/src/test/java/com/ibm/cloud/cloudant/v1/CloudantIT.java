@@ -88,6 +88,7 @@ import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobsOptions;
+import com.ibm.cloud.cloudant.v1.model.GetSearchDiskSizeOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSearchInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSecurityOptions;
 import com.ibm.cloud.cloudant.v1.model.GetServerInformationOptions;
@@ -171,7 +172,9 @@ import com.ibm.cloud.cloudant.v1.model.SchedulerJob;
 import com.ibm.cloud.cloudant.v1.model.SchedulerJobEvent;
 import com.ibm.cloud.cloudant.v1.model.SchedulerJobsResult;
 import com.ibm.cloud.cloudant.v1.model.SearchAnalyzeResult;
+import com.ibm.cloud.cloudant.v1.model.SearchDiskSizeInformation;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexDefinition;
+import com.ibm.cloud.cloudant.v1.model.SearchIndexDiskSize;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexInfo;
 import com.ibm.cloud.cloudant.v1.model.SearchInfoResult;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
@@ -2294,6 +2297,30 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testPostSearchAsStream" })
+  public void testGetSearchDiskSize() throws Exception {
+    try {
+      GetSearchDiskSizeOptions getSearchDiskSizeOptions = new GetSearchDiskSizeOptions.Builder()
+        .db("testString")
+        .ddoc("testString")
+        .index("testString")
+        .build();
+
+      // Invoke operation
+      Response<SearchDiskSizeInformation> response = service.getSearchDiskSize(getSearchDiskSizeOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      SearchDiskSizeInformation searchDiskSizeInformationResult = response.getResult();
+      assertNotNull(searchDiskSizeInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetSearchDiskSize" })
   public void testGetSearchInfo() throws Exception {
     try {
       GetSearchInfoOptions getSearchInfoOptions = new GetSearchInfoOptions.Builder()

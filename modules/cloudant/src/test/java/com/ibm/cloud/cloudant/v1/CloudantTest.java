@@ -89,6 +89,7 @@ import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobsOptions;
+import com.ibm.cloud.cloudant.v1.model.GetSearchDiskSizeOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSearchInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSecurityOptions;
 import com.ibm.cloud.cloudant.v1.model.GetServerInformationOptions;
@@ -172,7 +173,9 @@ import com.ibm.cloud.cloudant.v1.model.SchedulerJob;
 import com.ibm.cloud.cloudant.v1.model.SchedulerJobEvent;
 import com.ibm.cloud.cloudant.v1.model.SchedulerJobsResult;
 import com.ibm.cloud.cloudant.v1.model.SearchAnalyzeResult;
+import com.ibm.cloud.cloudant.v1.model.SearchDiskSizeInformation;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexDefinition;
+import com.ibm.cloud.cloudant.v1.model.SearchIndexDiskSize;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexInfo;
 import com.ibm.cloud.cloudant.v1.model.SearchInfoResult;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
@@ -4245,6 +4248,59 @@ public class CloudantTest {
   public void testPostSearchAsStreamNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     cloudantService.postSearchAsStream(null).execute();
+  }
+
+  // Test the getSearchDiskSize operation with a valid options model parameter
+  @Test
+  public void testGetSearchDiskSizeWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"disk_size\": 0}}";
+    String getSearchDiskSizePath = "/testString/_design/testString/_search_disk_size/testString";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetSearchDiskSizeOptions model
+    GetSearchDiskSizeOptions getSearchDiskSizeOptionsModel = new GetSearchDiskSizeOptions.Builder()
+      .db("testString")
+      .ddoc("testString")
+      .index("testString")
+      .build();
+
+    // Invoke getSearchDiskSize() with a valid options model and verify the result
+    Response<SearchDiskSizeInformation> response = cloudantService.getSearchDiskSize(getSearchDiskSizeOptionsModel).execute();
+    assertNotNull(response);
+    SearchDiskSizeInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getSearchDiskSizePath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getSearchDiskSize operation with and without retries enabled
+  @Test
+  public void testGetSearchDiskSizeWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetSearchDiskSizeWOptions();
+
+    cloudantService.disableRetries();
+    testGetSearchDiskSizeWOptions();
+  }
+
+  // Test the getSearchDiskSize operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetSearchDiskSizeNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    cloudantService.getSearchDiskSize(null).execute();
   }
 
   // Test the getSearchInfo operation with a valid options model parameter
