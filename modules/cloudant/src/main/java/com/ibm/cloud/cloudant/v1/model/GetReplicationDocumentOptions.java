@@ -258,7 +258,7 @@ public class GetReplicationDocumentOptions extends GenericModel {
   /**
    * Gets the docId.
    *
-   * Path parameter to specify the document ID.
+   * Path parameter to specify the ID of the stored replication configuration in the `_replicator` database.
    *
    * @return the docId
    */

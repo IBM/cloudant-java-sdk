@@ -63,6 +63,7 @@ import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSchedulerJobsOptions;
+import com.ibm.cloud.cloudant.v1.model.GetSearchDiskSizeOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSearchInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.GetSecurityOptions;
 import com.ibm.cloud.cloudant.v1.model.GetServerInformationOptions;
@@ -126,6 +127,7 @@ import com.ibm.cloud.cloudant.v1.model.SchedulerDocument;
 import com.ibm.cloud.cloudant.v1.model.SchedulerJob;
 import com.ibm.cloud.cloudant.v1.model.SchedulerJobsResult;
 import com.ibm.cloud.cloudant.v1.model.SearchAnalyzeResult;
+import com.ibm.cloud.cloudant.v1.model.SearchDiskSizeInformation;
 import com.ibm.cloud.cloudant.v1.model.SearchInfoResult;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
 import com.ibm.cloud.cloudant.v1.model.Security;
@@ -3257,6 +3259,32 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     }
     builder.bodyJson(contentJson);
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve information about the search index disk size.
+   *
+   * Retrieve size of the search index on disk.
+   *
+   * @param getSearchDiskSizeOptions the {@link GetSearchDiskSizeOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SearchDiskSizeInformation}
+   */
+  public ServiceCall<SearchDiskSizeInformation> getSearchDiskSize(GetSearchDiskSizeOptions getSearchDiskSizeOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(getSearchDiskSizeOptions,
+      "getSearchDiskSizeOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", getSearchDiskSizeOptions.db());
+    pathParamsMap.put("ddoc", getSearchDiskSizeOptions.ddoc());
+    pathParamsMap.put("index", getSearchDiskSizeOptions.index());
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_design/{ddoc}/_search_disk_size/{index}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getSearchDiskSize");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<SearchDiskSizeInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<SearchDiskSizeInformation>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
