@@ -13,42 +13,77 @@
 
 package com.ibm.cloud.cloudant.features.pagination;
 
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-abstract class BasePager<B, O, R, I> implements Pager<I> {
+abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
 
-  protected O nextPageOptions;
+  protected final Cloudant client;
+  protected final long pageSize;
+  protected volatile boolean hasNext = true;
+  protected volatile O nextPageOptions;
 
   protected BasePager(Cloudant client, O options) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented constructor 'BasePager'");
+    this.client = client;
+    // TODO validate initial options
+    // Set the page size from the supplied options limit
+    this.pageSize = getPageSizeFromOptionsLimit(options);
+    // Clone the supplied options into the nextPageOptions
+    this.buildAndSetOptions(this.optionsToBuilderFunction().apply(options));
   }
 
   @Override
   public final boolean hasNext() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+    return this.hasNext;
+  }
+
+  @Override
+  public List<I> next() {
+      return getNext();
   }
 
   @Override
   public final List<I> getNext() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getNext'");
+    if (this.hasNext()) {
+      return Collections.unmodifiableList(this.nextRequest());
+    } else {
+      throw new NoSuchElementException();
+    }
   }
 
   @Override
   public final List<I> getAll() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+    return StreamSupport.stream(this.spliterator(), false)
+      .flatMap(List::stream).collect(Collectors.toList());
   }
 
   protected final List<I> nextRequest() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'nextRequest'");
+    ServiceCall<R> request = nextRequestFunction().apply(this.client, nextPageOptions);
+    R result = request.execute().getResult();
+    List<I> items = itemsGetter().apply(result);
+    if (items.size() < this.pageSize) {
+      this.hasNext = false;
+    } else {
+      B optionsBuilder = optionsToBuilderFunction().apply(nextPageOptions);
+      setNextPageOptions(optionsBuilder, result);
+      this.buildAndSetOptions(optionsBuilder);
+    }
+    return items;
+  }
+
+  private void buildAndSetOptions(B optionsBuilder) {
+    this.nextPageOptions = this.builderToOptionsFunction().apply(optionsBuilder);
   }
 
   protected abstract Function<O, B> optionsToBuilderFunction();
@@ -63,4 +98,17 @@ abstract class BasePager<B, O, R, I> implements Pager<I> {
 
   protected abstract Function<O, Long> limitGetter();
 
+  protected Long getPageSizeFromOptionsLimit(O opts) {
+    return Optional.ofNullable(limitGetter().apply(opts)).orElse(200L);
+  }
+
+  @Override
+  public Iterator<List<I>> iterator() {
+      return this;
+  }
+
+  @Override
+  public Spliterator<List<I>> spliterator() {
+    return Spliterators.spliteratorUnknownSize(this, Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.IMMUTABLE);
+  }
 }

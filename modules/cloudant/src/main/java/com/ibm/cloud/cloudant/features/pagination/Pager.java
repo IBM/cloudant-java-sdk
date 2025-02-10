@@ -35,7 +35,7 @@ import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
  * Use the static methods to instantiate a Pager instance for
  * the required operation.
  */
-public interface Pager<I> {
+public interface Pager<I> extends Iterable<List<I>> {
 
   /**
    * Returns {@code true} if there may be another page.
