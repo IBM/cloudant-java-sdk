@@ -23,9 +23,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class FindPager extends FindBasePager<PostFindOptions.Builder, PostFindOptions> {
 
-  protected FindPager(PostFindOptions options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected FindPager(Cloudant client, PostFindOptions options) {
+    super(client, options);
   }
 
   @Override

@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import com.ibm.cloud.cloudant.v1.Cloudant;
 
 abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
 
-  protected KeyPager(O options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected KeyPager(Cloudant client, O options) {
+    super(client, options);
   }
 
   protected abstract BiFunction<B, K, B> nextKeySetter();

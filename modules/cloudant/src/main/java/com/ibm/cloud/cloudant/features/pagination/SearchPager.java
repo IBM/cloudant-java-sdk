@@ -23,9 +23,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class SearchPager extends SearchBasePager<PostSearchOptions.Builder, PostSearchOptions> {
 
-  protected SearchPager(PostSearchOptions options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected SearchPager(Cloudant client, PostSearchOptions options) {
+    super(client, options);
   }
 
   @Override

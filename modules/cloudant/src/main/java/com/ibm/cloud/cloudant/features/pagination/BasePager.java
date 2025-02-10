@@ -23,7 +23,7 @@ abstract class BasePager<B, O, R, I> implements Pager<I> {
 
   protected O nextPageOptions;
 
-  protected BasePager(O options) {
+  protected BasePager(Cloudant client, O options) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented constructor 'BasePager'");
   }

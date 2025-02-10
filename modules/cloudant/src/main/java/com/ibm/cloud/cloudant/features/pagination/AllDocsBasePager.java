@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 
 abstract class AllDocsBasePager<B, O> extends KeyPager<String, B, O, AllDocsResult, DocsResultRow> {
 
-  protected AllDocsBasePager(O options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected AllDocsBasePager(Cloudant client, O options) {
+    super(client, options);
   }
 
   @Override

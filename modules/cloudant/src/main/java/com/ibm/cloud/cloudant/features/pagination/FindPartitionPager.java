@@ -23,9 +23,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class FindPartitionPager extends FindBasePager<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
 
-  protected FindPartitionPager(PostPartitionFindOptions options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected FindPartitionPager(Cloudant client, PostPartitionFindOptions options) {
+    super(client, options);
   }
 
   @Override

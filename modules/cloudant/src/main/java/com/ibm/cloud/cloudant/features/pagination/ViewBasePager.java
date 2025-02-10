@@ -15,14 +15,14 @@ package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.List;
 import java.util.function.Function;
+import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
 import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 
 abstract class ViewBasePager<B, O> extends KeyPager<Object, B, O, ViewResult, ViewResultRow> {
 
-  protected ViewBasePager(O options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected ViewBasePager(Cloudant client, O options) {
+    super(client, options);
   }
 
   @Override

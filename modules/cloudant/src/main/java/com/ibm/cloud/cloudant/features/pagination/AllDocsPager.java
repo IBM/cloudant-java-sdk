@@ -23,9 +23,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class AllDocsPager extends AllDocsBasePager<PostAllDocsOptions.Builder, PostAllDocsOptions> {
 
-  protected AllDocsPager(PostAllDocsOptions options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected AllDocsPager(Cloudant client, PostAllDocsOptions options) {
+    super(client, options);
   }
 
   @Override

@@ -15,12 +15,12 @@ package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import com.ibm.cloud.cloudant.v1.Cloudant;
 
 abstract class BookmarkPager<B, O, R, I> extends BasePager<B, O, R, I> {
 
-  protected BookmarkPager(O options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected BookmarkPager(Cloudant client, O options) {
+    super(client, options);
   }
 
   protected abstract Function<R, String> bookmarkGetter();

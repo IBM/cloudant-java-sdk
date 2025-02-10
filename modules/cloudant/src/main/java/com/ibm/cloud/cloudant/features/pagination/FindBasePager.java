@@ -15,14 +15,14 @@ package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.List;
 import java.util.function.Function;
+import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
 
 abstract class FindBasePager<B, O> extends BookmarkPager<B, O, FindResult, Document> {
 
-  protected FindBasePager(O options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected FindBasePager(Cloudant client, O options) {
+    super(client, options);
   }
 
   @Override

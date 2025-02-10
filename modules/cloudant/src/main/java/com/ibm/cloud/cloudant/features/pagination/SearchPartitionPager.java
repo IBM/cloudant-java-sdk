@@ -23,9 +23,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class SearchPartitionPager extends SearchBasePager<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
 
-  protected SearchPartitionPager(PostPartitionSearchOptions options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected SearchPartitionPager(Cloudant client, PostPartitionSearchOptions options) {
+    super(client, options);
   }
 
   @Override

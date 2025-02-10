@@ -24,9 +24,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class ViewPartitionPager extends ViewBasePager<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
 
-  protected ViewPartitionPager(PostPartitionViewOptions options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected ViewPartitionPager(Cloudant client, PostPartitionViewOptions options) {
+    super(client, options);
   }
 
   @Override

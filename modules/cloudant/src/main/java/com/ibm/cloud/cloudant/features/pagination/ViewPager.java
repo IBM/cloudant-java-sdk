@@ -24,9 +24,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class ViewPager extends ViewBasePager<PostViewOptions.Builder, PostViewOptions> {
 
-  protected ViewPager(PostViewOptions options) {
-    super(options);
-    //TODO Auto-generated constructor stub
+  protected ViewPager(Cloudant client, PostViewOptions options) {
+    super(client, options);
   }
 
   @Override

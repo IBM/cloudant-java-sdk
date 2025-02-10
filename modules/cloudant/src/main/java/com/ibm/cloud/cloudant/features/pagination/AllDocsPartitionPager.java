@@ -23,8 +23,8 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class AllDocsPartitionPager extends AllDocsBasePager<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
 
-  protected AllDocsPartitionPager(PostPartitionAllDocsOptions options) {
-    super(options);
+  protected AllDocsPartitionPager(Cloudant client, PostPartitionAllDocsOptions options) {
+    super(client, options);
     //TODO Auto-generated constructor stub
   }
 
