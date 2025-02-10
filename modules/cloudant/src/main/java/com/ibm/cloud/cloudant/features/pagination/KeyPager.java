@@ -33,6 +33,14 @@ abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
 
   protected abstract Function<I, String> nextKeyIdGetter();
 
+  protected List<I> nextRequest() {
+    List<I> items = super.nextRequest();
+    if (hasNext()) {
+      items.remove(items.size() - 1);
+    }
+    return items;
+  }
+
   @Override
   protected final void setNextPageOptions(B builder, R result) {
     List<I> items = itemsGetter().apply(result);
@@ -41,6 +49,11 @@ abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
     String nextId = nextKeyIdGetter().apply(lastItem);
     nextKeySetter().apply(builder, nextKey);
     nextKeyIdSetter().ifPresent(f -> f.apply(builder, nextId));
+  }
+
+  @Override
+  protected Long getPageSizeFromOptionsLimit(O opts) {
+      return super.getPageSizeFromOptionsLimit(opts) + 1;
   }
 
 }

@@ -68,7 +68,7 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
       .flatMap(List::stream).collect(Collectors.toList());
   }
 
-  protected final List<I> nextRequest() {
+  protected List<I> nextRequest() {
     ServiceCall<R> request = nextRequestFunction().apply(this.client, nextPageOptions);
     R result = request.execute().getResult();
     List<I> items = itemsGetter().apply(result);
