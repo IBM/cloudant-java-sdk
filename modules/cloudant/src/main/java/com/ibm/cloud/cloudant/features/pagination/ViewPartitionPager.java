@@ -54,4 +54,9 @@ final class ViewPartitionPager extends ViewBasePager<PostPartitionViewOptions.Bu
     return Optional.of(Builder::startKeyDocId);
   }
 
+  @Override
+  protected Function<PostPartitionViewOptions, Long> limitGetter() {
+    return PostPartitionViewOptions::limit;
+  }
+
 }

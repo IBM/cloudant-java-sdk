@@ -54,4 +54,9 @@ final class ViewPager extends ViewBasePager<PostViewOptions.Builder, PostViewOpt
     return Optional.of(Builder::startKeyDocId);
   }
 
+  @Override
+  protected Function<PostViewOptions, Long> limitGetter() {
+    return PostViewOptions::limit;
+  }
+
 }

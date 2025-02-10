@@ -48,4 +48,9 @@ final class SearchPartitionPager extends SearchBasePager<PostPartitionSearchOpti
     return Cloudant::postPartitionSearch;
   }
 
+  @Override
+  protected Function<PostPartitionSearchOptions, Long> limitGetter() {
+    return PostPartitionSearchOptions::limit;
+  }
+
 }

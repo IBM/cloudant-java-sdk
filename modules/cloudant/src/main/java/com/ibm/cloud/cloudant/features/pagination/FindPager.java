@@ -48,4 +48,9 @@ final class FindPager extends FindBasePager<PostFindOptions.Builder, PostFindOpt
     return Cloudant::postFind;
   }
 
+  @Override
+  protected Function<PostFindOptions, Long> limitGetter() {
+    return PostFindOptions::limit;
+  }
+
 }

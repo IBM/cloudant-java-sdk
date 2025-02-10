@@ -61,4 +61,6 @@ abstract class BasePager<B, O, R, I> implements Pager<I> {
 
   protected abstract BiFunction<Cloudant, O, ServiceCall<R>> nextRequestFunction();
 
+  protected abstract Function<O, Long> limitGetter();
+
 }

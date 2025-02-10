@@ -50,4 +50,9 @@ final class AllDocsPartitionPager extends AllDocsBasePager<PostPartitionAllDocsO
     return Builder::startKey;
   }
 
+  @Override
+  protected Function<PostPartitionAllDocsOptions, Long> limitGetter() {
+    return PostPartitionAllDocsOptions::limit;
+  }
+
 }

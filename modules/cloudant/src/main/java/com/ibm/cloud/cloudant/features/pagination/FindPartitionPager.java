@@ -48,4 +48,9 @@ final class FindPartitionPager extends FindBasePager<PostPartitionFindOptions.Bu
     return Cloudant::postPartitionFind;
   }
 
+  @Override
+  protected Function<PostPartitionFindOptions, Long> limitGetter() {
+    return PostPartitionFindOptions::limit;
+  }
+
 }

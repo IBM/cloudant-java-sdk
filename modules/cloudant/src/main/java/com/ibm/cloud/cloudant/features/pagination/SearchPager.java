@@ -48,4 +48,9 @@ final class SearchPager extends SearchBasePager<PostSearchOptions.Builder, PostS
     return Cloudant::postSearch;
   }
 
+  @Override
+  protected Function<PostSearchOptions, Long> limitGetter() {
+    return PostSearchOptions::limit;
+  }
+
 }

@@ -48,4 +48,9 @@ final class AllDocsPager extends AllDocsBasePager<PostAllDocsOptions.Builder, Po
     return Builder::startKey;
   }
 
+  @Override
+  protected Function<PostAllDocsOptions, Long> limitGetter() {
+    return PostAllDocsOptions::limit;
+  }
+
 }
