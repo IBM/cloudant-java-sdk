@@ -23,11 +23,12 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.LimitExposingException;
-import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.MockError;
-import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.MockInstruction;
 import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.PerpetualSupplier;
-import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.QueuedSupplier;
+import com.ibm.cloud.cloudant.features.MockCloudant.MockError;
+import com.ibm.cloud.cloudant.features.MockCloudant.MockInstruction;
+import com.ibm.cloud.cloudant.features.MockCloudant.QueuedSupplier;
 import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.ChangesResultItem;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -53,21 +54,21 @@ public class ChangesFollowerTest {
      * @param batches
      * @return
      */
-    Collection<MockInstruction> getAlternatingBatchesAndErrors(int batches) {
-        Collection<MockInstruction> instructions = new ArrayList<>(batches*2);
+    Collection<MockInstruction<ChangesResult>> getAlternatingBatchesAndErrors(int batches) {
+        Collection<MockInstruction<ChangesResult>> instructions = new ArrayList<>(batches*2);
         Object[] errors = MockError.getTransientErrors().toArray();
-        Supplier<MockInstruction> qs = QueuedSupplier.makeBatchSupplier(batches);
+        Supplier<MockInstruction<ChangesResult>> qs = ChangesRequestMockClient.makeBatchSupplier(batches);
         for (int i = 0; i < batches; i++) {
             // Add a successful batch
             instructions.add(qs.get());
             // Add a transient error
-            instructions.add(new MockInstruction((MockError) errors[i % errors.length]));
+            instructions.add(new MockInstruction<ChangesResult>((MockError) errors[i % errors.length]));
         }
         return instructions;
     }
 
-    Supplier<MockInstruction> getAlternatingBatchErrorSupplier(int batches) {
-        return new QueuedSupplier(getAlternatingBatchesAndErrors(batches));
+    Supplier<MockInstruction<ChangesResult>> getAlternatingBatchErrorSupplier(int batches) {
+        return new QueuedSupplier<ChangesResult>(getAlternatingBatchesAndErrors(batches));
     }
 
     Cloudant getClientWithTimeouts(Duration callTimeout, Duration readTimeout) {
@@ -90,7 +91,7 @@ public class ChangesFollowerTest {
      * @param batches
      * @return
      */
-    Supplier<MockInstruction> getAlternatingBatchErrorThenPerpetualSupplier(int batches) {
+    Supplier<MockInstruction<ChangesResult>> getAlternatingBatchErrorThenPerpetualSupplier(int batches) {
         return new PerpetualSupplier(getAlternatingBatchesAndErrors(batches), true);
     }
 
@@ -265,7 +266,7 @@ public class ChangesFollowerTest {
     @Test
     void testStartOneOff() {
         int batches = 6;
-        Cloudant mockClient = new ChangesRequestMockClient(QueuedSupplier.makeBatchSupplier(batches));
+        Cloudant mockClient = new ChangesRequestMockClient(ChangesRequestMockClient.makeBatchSupplier(batches));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
         Assert.assertEquals(testFollower.startOneOff().count(), batches*ChangesFollower.BATCH_SIZE, "There should be the expected number of changes.");
     }
@@ -275,7 +276,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "terminalErrors")
     void testStartOneOffTerminalErrors(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
         RuntimeException e = Assert.expectThrows(error.getExceptionClass(), () -> {
             testFollower.startOneOff().count();
@@ -288,7 +289,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "transientErrors")
     void testStartOneOffTransientErrorsNoSuppression(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions(), Duration.ZERO);
         RuntimeException e = Assert.expectThrows(error.getExceptionClass(), () -> {
             testFollower.startOneOff().count();
@@ -303,7 +304,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "transientErrors")
     void testStartOneOffTransientErrorsWithSuppressionDuration(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions(), Duration.ofMillis(100L));
         RuntimeException e = Assert.expectThrows(error.getExceptionClass(), () -> {
             testFollower.startOneOff().count();
@@ -330,7 +331,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "transientErrors")
     void testStartOneOffTransientErrorsMaxSuppressionDoesNotComplete(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
         try {
             long count = testFollowerOnThread(testFollower, ChangesFollower.Mode.FINITE, false, Duration.ofMillis(500L));
@@ -380,7 +381,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "terminalErrors")
     void testStartTerminalErrors(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
         RuntimeException e = Assert.expectThrows(error.getExceptionClass(), () -> {
             testFollowerOnThread(testFollower, ChangesFollower.Mode.LISTEN, true, Duration.ofSeconds(1L));
@@ -393,7 +394,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "transientErrors")
     void testStartTransientErrorsNoSuppression(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions(), Duration.ZERO);
         RuntimeException e = Assert.expectThrows(error.getExceptionClass(), () -> {
             testFollowerOnThread(testFollower, ChangesFollower.Mode.LISTEN, true, Duration.ofSeconds(1L));
@@ -406,7 +407,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "transientErrors")
     void testStartTransientErrorsWithSuppressionDurationErrorTermination(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions(), Duration.ofMillis(100L));
         RuntimeException e = Assert.expectThrows(error.getExceptionClass(), () -> {
             testFollowerOnThread(testFollower, ChangesFollower.Mode.LISTEN, true, Duration.ofSeconds(1L));
@@ -436,7 +437,7 @@ public class ChangesFollowerTest {
      */
     @Test(dataProvider = "transientErrors")
     void testStartTransientErrorsWithMaxSuppression(MockError error) {
-        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction(error));
+        Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
         try {
             long count = testFollowerOnThread(testFollower, ChangesFollower.Mode.LISTEN, false, Duration.ofSeconds(1L));
@@ -539,7 +540,7 @@ public class ChangesFollowerTest {
      */
     @Test
     void testBatchSize() {
-        Cloudant mockClient = new ChangesRequestMockClient(QueuedSupplier.makeBatchSupplier(1));
+        Cloudant mockClient = new ChangesRequestMockClient(ChangesRequestMockClient.makeBatchSupplier(1));
         // Use no error tolerance to ensure we get our special test exception
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getBuilder().includeDocs(true).build(), Duration.ZERO);
         LimitExposingException lee = Assert.expectThrows(LimitExposingException.class, () -> {
@@ -558,7 +559,7 @@ public class ChangesFollowerTest {
      */
     @Test
     void testBatchSizeMinimum() {
-        ChangesRequestMockClient mockClient = new ChangesRequestMockClient(QueuedSupplier.makeBatchSupplier(1));
+        ChangesRequestMockClient mockClient = new ChangesRequestMockClient(ChangesRequestMockClient.makeBatchSupplier(1));
         mockClient.setDatabaseInfoDocCount(1L);
         mockClient.setDatabaseInfoDocSize(5L * 1024L * 1024L - 1L);
         // Use no error tolerance to ensure we get our special test exception
@@ -580,7 +581,7 @@ public class ChangesFollowerTest {
      */
     @Test
     void testBatchSizeLimit() {
-        Cloudant mockClient = new ChangesRequestMockClient(QueuedSupplier.makeBatchSupplier(1));
+        Cloudant mockClient = new ChangesRequestMockClient(ChangesRequestMockClient.makeBatchSupplier(1));
         // Use no error tolerance to ensure we get our special test exception
         ChangesFollower testFollower = new ChangesFollower(mockClient,
             TestOptions.MINIMUM.getBuilder().limit(1000L).includeDocs(true).build(), Duration.ZERO);
