@@ -99,7 +99,7 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
   protected abstract Function<O, Long> limitGetter();
 
   protected Long getPageSizeFromOptionsLimit(O opts) {
-    return Optional.ofNullable(limitGetter().apply(opts)).orElse(200L);
+    return Optional.ofNullable(limitGetter().apply(opts)).orElse(20L);
   }
 
   @Override
