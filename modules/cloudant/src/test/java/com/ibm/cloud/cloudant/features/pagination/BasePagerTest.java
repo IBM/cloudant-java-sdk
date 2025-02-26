@@ -243,6 +243,26 @@ public class BasePagerTest {
   @Test
   void testGetNextUntilEmpty() {
     int pageSize = 3;
+    PageSupplier pageSupplier = PageSupplier.makePageSupplier(3*pageSize, pageSize);
+    MockPagerClient c = new MockPagerClient(pageSupplier);
+    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    List<Integer> actualItems = new ArrayList<>();
+    int pageCount = 0;
+    while(pager.hasNext()) {
+      pageCount++;
+      List<Integer> page = pager.getNext();
+      actualItems.addAll(page);
+      // Assert each page is the same or smaller than the limit
+      // to make sure we aren't getting all the results in a single page
+      Assert.assertTrue(page.size() <= pageSize, "The actual page size should be smaller or equal to the expected page size.");
+    }
+    Assert.assertEquals(actualItems, pageSupplier.allItems, "The results should match all the pages.");
+    Assert.assertEquals(pageCount, pageSupplier.pages.size(), "There should have been the correct number of pages.");
+  }
+
+  @Test
+  void testGetNextUntilSmaller() {
+    int pageSize = 3;
     PageSupplier pageSupplier = PageSupplier.makePageSupplier(10, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
@@ -254,7 +274,7 @@ public class BasePagerTest {
       actualItems.addAll(page);
       // Assert each page is the same or smaller than the limit
       // to make sure we aren't getting all the results in a single page
-      Assert.assertTrue(page.size() <= pageSize, "The page should be smaller or equal to the page size.");
+      Assert.assertTrue(page.size() <= pageSize, "The actual page size should be smaller or equal to the expected page size.");
     }
     Assert.assertEquals(actualItems, pageSupplier.allItems, "The results should match all the pages.");
     Assert.assertEquals(pageCount, pageSupplier.pages.size(), "There should have been the correct number of pages.");
