@@ -33,7 +33,7 @@
         <maven-compiler-plugin-version>3.14.0</maven-compiler-plugin-version>
         <maven-site-plugin-version>3.21.0</maven-site-plugin-version>
         <maven-checkstyle-plugin-version>3.6.0</maven-checkstyle-plugin-version>
-        <maven-reports-plugin-version>3.8.0</maven-reports-plugin-version>
+        <maven-reports-plugin-version>3.9.0</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.5.2</maven-failsafe-plugin-version>
         <maven-buildnumber-plugin-version>3.2.1</maven-buildnumber-plugin-version>
         <mockito-version>5.15.2</mockito-version>
