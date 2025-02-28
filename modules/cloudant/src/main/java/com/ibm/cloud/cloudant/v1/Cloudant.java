@@ -20,9 +20,11 @@ import com.ibm.cloud.cloudant.v1.model.AllDocsQueriesResult;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
 import com.ibm.cloud.cloudant.v1.model.ApiKeysResult;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
+import com.ibm.cloud.cloudant.v1.model.CapacityDatabasesInformation;
 import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.CorsInformation;
+import com.ibm.cloud.cloudant.v1.model.CurrentDatabasesInformation;
 import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
 import com.ibm.cloud.cloudant.v1.model.DbUpdates;
@@ -45,8 +47,10 @@ import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
 import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCapacityDatabasesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCapacityThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCorsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCurrentDatabasesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCurrentThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDbUpdatesOptions;
@@ -4416,6 +4420,68 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     ResponseConverter<Ok> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve maximum allowed database count.
+   *
+   * Retrieves the maximum number of databases currently allowed in the instance.
+   *
+   * @param getCapacityDatabasesInformationOptions the {@link GetCapacityDatabasesInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CapacityDatabasesInformation}
+   */
+  public ServiceCall<CapacityDatabasesInformation> getCapacityDatabasesInformation(GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/capacity/databases"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCapacityDatabasesInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<CapacityDatabasesInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CapacityDatabasesInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve maximum allowed database count.
+   *
+   * Retrieves the maximum number of databases currently allowed in the instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link CapacityDatabasesInformation}
+   */
+  public ServiceCall<CapacityDatabasesInformation> getCapacityDatabasesInformation() {
+    return getCapacityDatabasesInformation(null);
+  }
+
+  /**
+   * Retrieve current database count.
+   *
+   * Retrieves the current number of databases that exist in the instance.
+   *
+   * @param getCurrentDatabasesInformationOptions the {@link GetCurrentDatabasesInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CurrentDatabasesInformation}
+   */
+  public ServiceCall<CurrentDatabasesInformation> getCurrentDatabasesInformation(GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/current/databases"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCurrentDatabasesInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<CurrentDatabasesInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CurrentDatabasesInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve current database count.
+   *
+   * Retrieves the current number of databases that exist in the instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link CurrentDatabasesInformation}
+   */
+  public ServiceCall<CurrentDatabasesInformation> getCurrentDatabasesInformation() {
+    return getCurrentDatabasesInformation(null);
   }
 
   /**

@@ -28,6 +28,8 @@ import com.ibm.cloud.cloudant.v1.model.BulkGetQueryDocument;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResultDocument;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResultItem;
+import com.ibm.cloud.cloudant.v1.model.CapacityDatabasesInformation;
+import com.ibm.cloud.cloudant.v1.model.CapacityDatabasesInformationCurrent;
 import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformationCurrent;
 import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformationTarget;
@@ -36,11 +38,13 @@ import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.ChangesResultItem;
 import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
 import com.ibm.cloud.cloudant.v1.model.CorsInformation;
+import com.ibm.cloud.cloudant.v1.model.CurrentDatabasesInformation;
 import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformationThroughput;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationCluster;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationProps;
+import com.ibm.cloud.cloudant.v1.model.DatabasesCountInformation;
 import com.ibm.cloud.cloudant.v1.model.DbEvent;
 import com.ibm.cloud.cloudant.v1.model.DbUpdates;
 import com.ibm.cloud.cloudant.v1.model.DbsInfoResult;
@@ -71,8 +75,10 @@ import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
 import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCapacityDatabasesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCapacityThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCorsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCurrentDatabasesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCurrentThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDbUpdatesOptions;
@@ -6334,6 +6340,90 @@ public class CloudantTest {
   public void testPostActivityTrackerEventsNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     cloudantService.postActivityTrackerEvents(null).execute();
+  }
+
+  // Test the getCapacityDatabasesInformation operation with a valid options model parameter
+  @Test
+  public void testGetCapacityDatabasesInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"current\": {\"databases\": {\"total\": 0}}}";
+    String getCapacityDatabasesInformationPath = "/_api/v2/user/capacity/databases";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetCapacityDatabasesInformationOptions model
+    GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptionsModel = new GetCapacityDatabasesInformationOptions();
+
+    // Invoke getCapacityDatabasesInformation() with a valid options model and verify the result
+    Response<CapacityDatabasesInformation> response = cloudantService.getCapacityDatabasesInformation(getCapacityDatabasesInformationOptionsModel).execute();
+    assertNotNull(response);
+    CapacityDatabasesInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCapacityDatabasesInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getCapacityDatabasesInformation operation with and without retries enabled
+  @Test
+  public void testGetCapacityDatabasesInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetCapacityDatabasesInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetCapacityDatabasesInformationWOptions();
+  }
+
+  // Test the getCurrentDatabasesInformation operation with a valid options model parameter
+  @Test
+  public void testGetCurrentDatabasesInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"databases\": {\"total\": 0}}";
+    String getCurrentDatabasesInformationPath = "/_api/v2/user/current/databases";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetCurrentDatabasesInformationOptions model
+    GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptionsModel = new GetCurrentDatabasesInformationOptions();
+
+    // Invoke getCurrentDatabasesInformation() with a valid options model and verify the result
+    Response<CurrentDatabasesInformation> response = cloudantService.getCurrentDatabasesInformation(getCurrentDatabasesInformationOptionsModel).execute();
+    assertNotNull(response);
+    CurrentDatabasesInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCurrentDatabasesInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getCurrentDatabasesInformation operation with and without retries enabled
+  @Test
+  public void testGetCurrentDatabasesInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetCurrentDatabasesInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetCurrentDatabasesInformationWOptions();
   }
 
   // Test the getCurrentThroughputInformation operation with a valid options model parameter

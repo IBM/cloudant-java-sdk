@@ -27,6 +27,8 @@ import com.ibm.cloud.cloudant.v1.model.BulkGetQueryDocument;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResult;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResultDocument;
 import com.ibm.cloud.cloudant.v1.model.BulkGetResultItem;
+import com.ibm.cloud.cloudant.v1.model.CapacityDatabasesInformation;
+import com.ibm.cloud.cloudant.v1.model.CapacityDatabasesInformationCurrent;
 import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformationCurrent;
 import com.ibm.cloud.cloudant.v1.model.CapacityThroughputInformationTarget;
@@ -35,11 +37,13 @@ import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.ChangesResultItem;
 import com.ibm.cloud.cloudant.v1.model.ContentInformationSizes;
 import com.ibm.cloud.cloudant.v1.model.CorsInformation;
+import com.ibm.cloud.cloudant.v1.model.CurrentDatabasesInformation;
 import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformation;
 import com.ibm.cloud.cloudant.v1.model.CurrentThroughputInformationThroughput;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformation;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationCluster;
 import com.ibm.cloud.cloudant.v1.model.DatabaseInformationProps;
+import com.ibm.cloud.cloudant.v1.model.DatabasesCountInformation;
 import com.ibm.cloud.cloudant.v1.model.DbEvent;
 import com.ibm.cloud.cloudant.v1.model.DbUpdates;
 import com.ibm.cloud.cloudant.v1.model.DbsInfoResult;
@@ -70,8 +74,10 @@ import com.ibm.cloud.cloudant.v1.model.GetActiveTasksOptions;
 import com.ibm.cloud.cloudant.v1.model.GetActivityTrackerEventsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAllDbsOptions;
 import com.ibm.cloud.cloudant.v1.model.GetAttachmentOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCapacityDatabasesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCapacityThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCorsInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.GetCurrentDatabasesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetCurrentThroughputInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDatabaseInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDbUpdatesOptions;
@@ -3271,6 +3277,46 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testPostActivityTrackerEvents" })
+  public void testGetCapacityDatabasesInformation() throws Exception {
+    try {
+      GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptions = new GetCapacityDatabasesInformationOptions();
+
+      // Invoke operation
+      Response<CapacityDatabasesInformation> response = service.getCapacityDatabasesInformation(getCapacityDatabasesInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      CapacityDatabasesInformation capacityDatabasesInformationResult = response.getResult();
+      assertNotNull(capacityDatabasesInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetCapacityDatabasesInformation" })
+  public void testGetCurrentDatabasesInformation() throws Exception {
+    try {
+      GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptions = new GetCurrentDatabasesInformationOptions();
+
+      // Invoke operation
+      Response<CurrentDatabasesInformation> response = service.getCurrentDatabasesInformation(getCurrentDatabasesInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      CurrentDatabasesInformation currentDatabasesInformationResult = response.getResult();
+      assertNotNull(currentDatabasesInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetCurrentDatabasesInformation" })
   public void testGetCurrentThroughputInformation() throws Exception {
     try {
       GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptions = new GetCurrentThroughputInformationOptions();
