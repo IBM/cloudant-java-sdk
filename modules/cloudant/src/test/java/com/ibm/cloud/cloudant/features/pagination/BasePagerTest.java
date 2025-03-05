@@ -1,3 +1,16 @@
+/**
+ * © Copyright IBM Corporation 2025. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.ArrayList;
@@ -8,71 +21,23 @@ import java.util.NoSuchElementException;
 import java.util.Spliterator;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.ibm.cloud.cloudant.features.MockCloudant;
 import com.ibm.cloud.cloudant.features.MockCloudant.MockInstruction;
-import com.ibm.cloud.cloudant.features.MockCloudant.QueuedSupplier;
+import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.MockPagerClient;
+import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.PageSupplier;
+import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.TestResult;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
+import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getDefaultTestOptions;
+import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getRequiredTestOptionsBuilder;
+
 public class BasePagerTest {
   
   private Cloudant mockClient = new MockPagerClient(null);
-
-  static class PageSupplier extends QueuedSupplier<TestResult> {
-    
-    final List<Integer> allItems;
-    final List<List<Integer>> pages;
-
-    private PageSupplier(List<List<Integer>> pages) {
-      super(pages.stream().map(TestResult::new).map(MockInstruction::new).collect(Collectors.toList()));
-      this.pages = pages;
-      this.allItems = this.pages.stream().flatMap(List::stream).collect(Collectors.toList());
-    }
-
-    static PageSupplier makePageSupplier(int total, int pageSize) {
-      final List<List<Integer>> pages = new ArrayList<>();
-      List<Integer> page = new ArrayList<>();
-      for (int i = 0; i < total; i++) {
-        page.add(i);
-        if (i % pageSize == pageSize - 1) {
-            pages.add(page);
-            page = new ArrayList<>();
-        }
-      }
-      // Add the final page, empty or otherwise
-      pages.add(page);
-      return new PageSupplier(pages);
-    }
-  }
-
-  class MockPagerClient extends MockCloudant<TestResult> {
-
-    MockPagerClient(Supplier<MockInstruction<TestResult>> instructionSupplier) {
-      super(instructionSupplier);
-    }
- 
-    ServiceCall<TestResult> testCall() {
-      return new MockServiceCall(mocks.get());
-    }
-
-  }
-
-  static class TestResult {
-    private List<Integer> rows;
-    TestResult(List<Integer> rows) {
-      this.rows = rows;
-    }
-
-    List<Integer> getRows() {
-      return this.rows;
-    }
-  }
 
   /**
    * This test sub-class of BasePager implicitly tests that various abstract methods are correctly
@@ -142,19 +107,6 @@ public class BasePagerTest {
 
   }
 
-  private PostViewOptions getDefaultTestOptions(int limit) {
-    return getRequiredTestOptionsBuilder()
-      .limit(limit)
-      .build();
-  }
-
-  private static Builder getRequiredTestOptionsBuilder() {
-    return new Builder()
-      .db("example-database")
-      .ddoc("test-ddoc")
-      .view("test-view");
-  }
-
   // test constructor
   @Test
   void testConstructor() {
@@ -216,7 +168,7 @@ public class BasePagerTest {
   @Test
   void testGetNextFirstPage() {
     int pageSize = 25;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(pageSize, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     List<Integer> actualPage = pager.getNext();
@@ -227,7 +179,7 @@ public class BasePagerTest {
   @Test
   void testGetNextTwoPages() {
     int pageSize = 3;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(2*pageSize, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(2*pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     Assert.assertEquals(pager.hasNext(), true, "hasNext() should return true.");
@@ -243,7 +195,7 @@ public class BasePagerTest {
   @Test
   void testGetNextUntilEmpty() {
     int pageSize = 3;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(3*pageSize, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(3*pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     List<Integer> actualItems = new ArrayList<>();
@@ -263,7 +215,7 @@ public class BasePagerTest {
   @Test
   void testGetNextUntilSmaller() {
     int pageSize = 3;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(10, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(10, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     List<Integer> actualItems = new ArrayList<>();
@@ -283,7 +235,7 @@ public class BasePagerTest {
   @Test
   void testGetNextException() {
     int pageSize = 2;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(pageSize - 1, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(pageSize - 1, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     List<Integer> actualPage = pager.getNext();
@@ -301,7 +253,7 @@ public class BasePagerTest {
   @Test
   void testGetAll() {
     int pageSize = 11;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(71, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(71, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     List<Integer> actualItems = pager.getAll();
@@ -312,7 +264,7 @@ public class BasePagerTest {
   @Test
   void testNextFirstPage() {
     int pageSize = 7;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(2*pageSize, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(2*pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     List<Integer> actualPage = pager.next();
@@ -324,7 +276,7 @@ public class BasePagerTest {
   @Test
   void testIterator() {
     int pageSize = 23;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(3*pageSize - 1, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(3*pageSize - 1, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     Assert.assertNotNull(pager.iterator(), "The iterator should not be null.");
@@ -339,7 +291,7 @@ public class BasePagerTest {
   @Test
   void testSpliterator() {
     int pageSize = 23;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(3*pageSize - 1, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(3*pageSize - 1, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     Spliterator<List<Integer>> s = pager.spliterator();
@@ -352,7 +304,7 @@ public class BasePagerTest {
   @Test
   void testPagesAreImmutable() {
     int pageSize = 1;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(pageSize, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     List<Integer> actualPage = pager.getNext();
@@ -366,7 +318,7 @@ public class BasePagerTest {
   @Test
   void testSetNextPageOptions() {
     int pageSize = 1;
-    PageSupplier pageSupplier = PageSupplier.makePageSupplier(5*pageSize, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(5*pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
     Assert.assertNull(pager.nextPageOptions.key(), "key should initially be null.");
