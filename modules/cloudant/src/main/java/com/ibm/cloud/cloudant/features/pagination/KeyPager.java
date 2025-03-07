@@ -21,28 +21,28 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 
 abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
 
-  protected KeyPager(Cloudant client, O options) {
+  KeyPager(Cloudant client, O options) {
     super(client, options);
   }
 
-  protected abstract BiFunction<B, K, B> nextKeySetter();
+  abstract BiFunction<B, K, B> nextKeySetter();
 
-  protected abstract Optional<BiFunction<B, String, B>> nextKeyIdSetter();
+  abstract Optional<BiFunction<B, String, B>> nextKeyIdSetter();
 
-  protected abstract Function<I, K> nextKeyGetter();
+  abstract Function<I, K> nextKeyGetter();
 
-  protected abstract Function<I, String> nextKeyIdGetter();
+  abstract Function<I, String> nextKeyIdGetter();
 
-  protected List<I> nextRequest() {
+  List<I> nextRequest() {
     List<I> items = super.nextRequest();
-    if (hasNext()) {
+    if (this.hasNext()) {
       items.remove(items.size() - 1);
     }
     return items;
   }
 
   @Override
-  protected final void setNextPageOptions(B builder, R result) {
+  final void setNextPageOptions(B builder, R result) {
     List<I> items = itemsGetter().apply(result);
     I lastItem = items.get(items.size() - 1);
     K nextKey = nextKeyGetter().apply(lastItem);
@@ -52,7 +52,7 @@ abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
   }
 
   @Override
-  protected Long getPageSizeFromOptionsLimit(O opts) {
+  Long getPageSizeFromOptionsLimit(O opts) {
       return super.getPageSizeFromOptionsLimit(opts) + 1;
   }
 

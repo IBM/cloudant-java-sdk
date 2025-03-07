@@ -19,38 +19,43 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
+import com.ibm.cloud.cloudant.v1.model.SearchResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class SearchPartitionPager extends SearchBasePager<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
 
-  protected SearchPartitionPager(Cloudant client, PostPartitionSearchOptions options) {
+  SearchPartitionPager(Cloudant client, PostPartitionSearchOptions options) {
     super(client, options);
   }
 
   @Override
-  protected Function<PostPartitionSearchOptions, Builder> optionsToBuilderFunction() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getOptionsToBuilderFunction'");
+  Function<PostPartitionSearchOptions, Builder> optionsToBuilderFunction() {
+    return PostPartitionSearchOptions::newBuilder;
   }
 
   @Override
-  protected Function<Builder, PostPartitionSearchOptions> builderToOptionsFunction() {
+  Function<Builder, PostPartitionSearchOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  protected BiFunction<Builder, String, Builder> bookmarkSetter() {
+  BiFunction<Builder, String, Builder> bookmarkSetter() {
     return Builder::bookmark;
   }
 
   @Override
-  protected BiFunction<Cloudant, PostPartitionSearchOptions, ServiceCall<SearchResult>> nextRequestFunction() {
+  BiFunction<Cloudant, PostPartitionSearchOptions, ServiceCall<SearchResult>> nextRequestFunction() {
     return Cloudant::postPartitionSearch;
   }
 
   @Override
-  protected Function<PostPartitionSearchOptions, Long> limitGetter() {
+  Function<PostPartitionSearchOptions, Long> limitGetter() {
     return PostPartitionSearchOptions::limit;
+  }
+
+  @Override
+  BiFunction<Cloudant, PostPartitionSearchOptions, BasePager<Builder, PostPartitionSearchOptions, SearchResult, SearchResultRow>> getConstructor() {
+    return SearchPartitionPager::new;
   }
 
 }

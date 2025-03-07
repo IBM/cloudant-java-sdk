@@ -20,43 +20,48 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
+import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class ViewPartitionPager extends ViewBasePager<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
 
-  protected ViewPartitionPager(Cloudant client, PostPartitionViewOptions options) {
+  ViewPartitionPager(Cloudant client, PostPartitionViewOptions options) {
     super(client, options);
   }
 
   @Override
-  protected Function<PostPartitionViewOptions, Builder> optionsToBuilderFunction() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getOptionsToBuilderFunction'");
+  Function<PostPartitionViewOptions, Builder> optionsToBuilderFunction() {
+    return PostPartitionViewOptions::newBuilder;
   }
 
   @Override
-  protected Function<Builder, PostPartitionViewOptions> builderToOptionsFunction() {
+  Function<Builder, PostPartitionViewOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  protected BiFunction<Cloudant, PostPartitionViewOptions, ServiceCall<ViewResult>> nextRequestFunction() {
+  BiFunction<Cloudant, PostPartitionViewOptions, ServiceCall<ViewResult>> nextRequestFunction() {
     return Cloudant::postPartitionView;
   }
 
   @Override
-  protected BiFunction<Builder, Object, Builder> nextKeySetter() {
+  BiFunction<Builder, Object, Builder> nextKeySetter() {
     return Builder::startKey;
   }
 
   @Override
-  protected Optional<BiFunction<Builder, String, Builder>> nextKeyIdSetter() {
+  Optional<BiFunction<Builder, String, Builder>> nextKeyIdSetter() {
     return Optional.of(Builder::startKeyDocId);
   }
 
   @Override
-  protected Function<PostPartitionViewOptions, Long> limitGetter() {
+  Function<PostPartitionViewOptions, Long> limitGetter() {
     return PostPartitionViewOptions::limit;
+  }
+
+  @Override
+  BiFunction<Cloudant, PostPartitionViewOptions, BasePager<Builder, PostPartitionViewOptions, ViewResult, ViewResultRow>> getConstructor() {
+    return ViewPartitionPager::new;
   }
 
 }

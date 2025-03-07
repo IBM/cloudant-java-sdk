@@ -21,17 +21,17 @@ import com.ibm.cloud.cloudant.v1.model.FindResult;
 
 abstract class FindBasePager<B, O> extends BookmarkPager<B, O, FindResult, Document> {
 
-  protected FindBasePager(Cloudant client, O options) {
+  FindBasePager(Cloudant client, O options) {
     super(client, options);
   }
 
   @Override
-  protected final Function<FindResult, List<Document>> itemsGetter() {
+  final Function<FindResult, List<Document>> itemsGetter() {
     return FindResult::getDocs;
   }
 
   @Override
-  protected final Function<FindResult, String> bookmarkGetter() {
+  final Function<FindResult, String> bookmarkGetter() {
     return FindResult::getBookmark;
   }
 

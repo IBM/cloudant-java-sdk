@@ -17,42 +17,47 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
+import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class AllDocsPartitionPager extends AllDocsBasePager<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
 
-  protected AllDocsPartitionPager(Cloudant client, PostPartitionAllDocsOptions options) {
+  AllDocsPartitionPager(Cloudant client, PostPartitionAllDocsOptions options) {
     super(client, options);
     //TODO Auto-generated constructor stub
   }
 
   @Override
-  protected Function<PostPartitionAllDocsOptions, Builder> optionsToBuilderFunction() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getOptionsToBuilderFunction'");
+  Function<PostPartitionAllDocsOptions, Builder> optionsToBuilderFunction() {
+    return PostPartitionAllDocsOptions::newBuilder;
   }
 
   @Override
-  protected Function<Builder, PostPartitionAllDocsOptions> builderToOptionsFunction() {
+  Function<Builder, PostPartitionAllDocsOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  protected BiFunction<Cloudant, PostPartitionAllDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
+  BiFunction<Cloudant, PostPartitionAllDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
     return Cloudant::postPartitionAllDocs;
   }
 
 
   @Override
-  protected BiFunction<Builder, String, Builder> nextKeySetter() {
+  BiFunction<Builder, String, Builder> nextKeySetter() {
     return Builder::startKey;
   }
 
   @Override
-  protected Function<PostPartitionAllDocsOptions, Long> limitGetter() {
+  Function<PostPartitionAllDocsOptions, Long> limitGetter() {
     return PostPartitionAllDocsOptions::limit;
+  }
+
+  @Override
+  BiFunction<Cloudant, PostPartitionAllDocsOptions, BasePager<Builder, PostPartitionAllDocsOptions, AllDocsResult, DocsResultRow>> getConstructor() {
+    return AllDocsPartitionPager::new;
   }
 
 }

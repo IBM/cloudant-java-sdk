@@ -21,22 +21,22 @@ import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 
 abstract class ViewBasePager<B, O> extends KeyPager<Object, B, O, ViewResult, ViewResultRow> {
 
-  protected ViewBasePager(Cloudant client, O options) {
+  ViewBasePager(Cloudant client, O options) {
     super(client, options);
   }
 
   @Override
-  protected final Function<ViewResult, List<ViewResultRow>> itemsGetter() {
+  final Function<ViewResult, List<ViewResultRow>> itemsGetter() {
     return ViewResult::getRows;
   }
 
   @Override
-  protected final Function<ViewResultRow, Object> nextKeyGetter() {
+  final Function<ViewResultRow, Object> nextKeyGetter() {
     return ViewResultRow::getKey;
   }
 
   @Override
-  protected final Function<ViewResultRow, String> nextKeyIdGetter() {
+  final Function<ViewResultRow, String> nextKeyIdGetter() {
     return ViewResultRow::getId;
   }
 

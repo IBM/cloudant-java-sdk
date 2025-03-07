@@ -17,40 +17,45 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
+import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class AllDocsPager extends AllDocsBasePager<PostAllDocsOptions.Builder, PostAllDocsOptions> {
+final class AllDocsPager extends AllDocsBasePager<Builder, PostAllDocsOptions> {
 
-  protected AllDocsPager(Cloudant client, PostAllDocsOptions options) {
-    super(client, options);
+  AllDocsPager(Cloudant client, PostAllDocsOptions options) {
+     super(client, options);
   }
 
   @Override
-  protected Function<PostAllDocsOptions, Builder> optionsToBuilderFunction() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getOptionsToBuilderFunction'");
+  Function<PostAllDocsOptions, Builder> optionsToBuilderFunction() {
+    return PostAllDocsOptions::newBuilder;
   }
 
   @Override
-  protected Function<Builder, PostAllDocsOptions> builderToOptionsFunction() {
+  Function<Builder, PostAllDocsOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  protected BiFunction<Cloudant, PostAllDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
+  BiFunction<Cloudant, PostAllDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
     return Cloudant::postAllDocs;
   }
 
   @Override
-  protected BiFunction<Builder, String, Builder> nextKeySetter() {
+  BiFunction<Builder, String, Builder> nextKeySetter() {
     return Builder::startKey;
   }
 
   @Override
-  protected Function<PostAllDocsOptions, Long> limitGetter() {
+  Function<PostAllDocsOptions, Long> limitGetter() {
     return PostAllDocsOptions::limit;
+  }
+
+  @Override
+  BiFunction<Cloudant, PostAllDocsOptions, BasePager<Builder, PostAllDocsOptions, AllDocsResult, DocsResultRow>> getConstructor() {
+    return AllDocsPager::new;
   }
 
 }

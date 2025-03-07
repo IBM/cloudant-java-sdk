@@ -19,16 +19,16 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 
 abstract class BookmarkPager<B, O, R, I> extends BasePager<B, O, R, I> {
 
-  protected BookmarkPager(Cloudant client, O options) {
+  BookmarkPager(Cloudant client, O options) {
     super(client, options);
   }
 
-  protected abstract Function<R, String> bookmarkGetter();
+  abstract Function<R, String> bookmarkGetter();
 
-  protected abstract BiFunction<B, String, B> bookmarkSetter();
+  abstract BiFunction<B, String, B> bookmarkSetter();
 
   @Override
-  protected final void setNextPageOptions(B builder, R result) {
+  final void setNextPageOptions(B builder, R result) {
     String bookmark = bookmarkGetter().apply(result);
     bookmarkSetter().apply(builder, bookmark);
   }

@@ -21,17 +21,17 @@ import com.ibm.cloud.cloudant.v1.model.SearchResultRow;
 
 abstract class SearchBasePager<B, O> extends BookmarkPager<B, O, SearchResult, SearchResultRow> {
 
-  protected SearchBasePager(Cloudant client, O options) {
+  SearchBasePager(Cloudant client, O options) {
     super(client, options);
   }
 
   @Override
-  protected final Function<SearchResult, List<SearchResultRow>> itemsGetter() {
+  final Function<SearchResult, List<SearchResultRow>> itemsGetter() {
     return SearchResult::getRows;
   }
 
   @Override
-  protected final Function<SearchResult, String> bookmarkGetter() {
+  final Function<SearchResult, String> bookmarkGetter() {
     return SearchResult::getBookmark;
   }
 

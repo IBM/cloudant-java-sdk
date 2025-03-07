@@ -20,43 +20,48 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
+import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class ViewPager extends ViewBasePager<PostViewOptions.Builder, PostViewOptions> {
 
-  protected ViewPager(Cloudant client, PostViewOptions options) {
+  ViewPager(Cloudant client, PostViewOptions options) {
     super(client, options);
   }
 
   @Override
-  protected Function<PostViewOptions, Builder> optionsToBuilderFunction() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getOptionsToBuilderFunction'");
+  Function<PostViewOptions, Builder> optionsToBuilderFunction() {
+    return PostViewOptions::newBuilder;
   }
 
   @Override
-  protected Function<Builder, PostViewOptions> builderToOptionsFunction() {
+  Function<Builder, PostViewOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  protected BiFunction<Cloudant, PostViewOptions, ServiceCall<ViewResult>> nextRequestFunction() {
+  BiFunction<Cloudant, PostViewOptions, ServiceCall<ViewResult>> nextRequestFunction() {
     return Cloudant::postView;
   }
 
   @Override
-  protected BiFunction<Builder, Object, Builder> nextKeySetter() {
+  BiFunction<Builder, Object, Builder> nextKeySetter() {
     return Builder::startKey;
   }
 
   @Override
-  protected Optional<BiFunction<Builder, String, Builder>> nextKeyIdSetter() {
+  Optional<BiFunction<Builder, String, Builder>> nextKeyIdSetter() {
     return Optional.of(Builder::startKeyDocId);
   }
 
   @Override
-  protected Function<PostViewOptions, Long> limitGetter() {
+  Function<PostViewOptions, Long> limitGetter() {
     return PostViewOptions::limit;
+  }
+
+  @Override
+  BiFunction<Cloudant, PostViewOptions, BasePager<Builder, PostViewOptions, ViewResult, ViewResultRow>> getConstructor() {
+    return ViewPager::new;
   }
 
 }

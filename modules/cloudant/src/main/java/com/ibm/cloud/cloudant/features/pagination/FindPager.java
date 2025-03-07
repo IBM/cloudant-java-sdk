@@ -16,6 +16,7 @@ package com.ibm.cloud.cloudant.features.pagination;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions.Builder;
@@ -23,34 +24,38 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class FindPager extends FindBasePager<PostFindOptions.Builder, PostFindOptions> {
 
-  protected FindPager(Cloudant client, PostFindOptions options) {
+  FindPager(Cloudant client, PostFindOptions options) {
     super(client, options);
   }
 
   @Override
-  protected Function<PostFindOptions, Builder> optionsToBuilderFunction() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getOptionsToBuilderFunction'");
+  Function<PostFindOptions, Builder> optionsToBuilderFunction() {
+    return PostFindOptions::newBuilder;
   }
 
   @Override
-  protected Function<Builder, PostFindOptions> builderToOptionsFunction() {
+  Function<Builder, PostFindOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  protected BiFunction<Builder, String, Builder> bookmarkSetter() {
+  BiFunction<Builder, String, Builder> bookmarkSetter() {
     return Builder::bookmark;
   }
 
   @Override
-  protected BiFunction<Cloudant, PostFindOptions, ServiceCall<FindResult>> nextRequestFunction() {
+  BiFunction<Cloudant, PostFindOptions, ServiceCall<FindResult>> nextRequestFunction() {
     return Cloudant::postFind;
   }
 
   @Override
-  protected Function<PostFindOptions, Long> limitGetter() {
+  Function<PostFindOptions, Long> limitGetter() {
     return PostFindOptions::limit;
+  }
+
+  @Override
+  BiFunction<Cloudant, PostFindOptions, BasePager<Builder, PostFindOptions, FindResult, Document>> getConstructor() {
+    return FindPager::new;
   }
 
 }

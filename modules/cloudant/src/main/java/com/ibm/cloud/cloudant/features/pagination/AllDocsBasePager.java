@@ -23,22 +23,22 @@ import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 
 abstract class AllDocsBasePager<B, O> extends KeyPager<String, B, O, AllDocsResult, DocsResultRow> {
 
-  protected AllDocsBasePager(Cloudant client, O options) {
+  AllDocsBasePager(Cloudant client, O options) {
     super(client, options);
   }
 
   @Override
-  protected final Function<AllDocsResult, List<DocsResultRow>> itemsGetter() {
+  final Function<AllDocsResult, List<DocsResultRow>> itemsGetter() {
     return AllDocsResult::getRows;
   }
 
   @Override
-  protected final Function<DocsResultRow, String> nextKeyGetter() {
+  final Function<DocsResultRow, String> nextKeyGetter() {
     return DocsResultRow::getKey;
   }
 
   @Override
-  protected final Function<DocsResultRow, String> nextKeyIdGetter() {
+  final Function<DocsResultRow, String> nextKeyIdGetter() {
     return DocsResultRow::getId;
   }
 
@@ -47,7 +47,7 @@ abstract class AllDocsBasePager<B, O> extends KeyPager<String, B, O, AllDocsResu
    * key is the same as id.
    */
   @Override
-  protected final Optional<BiFunction<B, String, B>> nextKeyIdSetter() {
+  final Optional<BiFunction<B, String, B>> nextKeyIdSetter() {
     return Optional.empty();
   }
 }

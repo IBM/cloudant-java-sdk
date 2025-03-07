@@ -59,9 +59,7 @@ public class BasePagerTest {
      */
     @Override
     protected Function<PostViewOptions, Builder> optionsToBuilderFunction() {
-      return o -> {
-        return BasePagerTest.getRequiredTestOptionsBuilder();
-      };
+      return PostViewOptions::newBuilder;
     }
 
     @Override
@@ -103,6 +101,11 @@ public class BasePagerTest {
     @Override
     protected Function<PostViewOptions, Long> limitGetter() {
       return PostViewOptions::limit;
+    }
+
+    @Override
+    BiFunction<Cloudant, PostViewOptions, BasePager<Builder, PostViewOptions, TestResult, Integer>> getConstructor() {
+      return TestPager::new;
     }
 
   }

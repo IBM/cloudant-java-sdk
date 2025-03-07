@@ -30,6 +30,7 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
 
   protected final Cloudant client;
+  protected final O initialOptions;
   protected final long pageSize;
   protected volatile boolean hasNext = true;
   protected volatile O nextPageOptions;
@@ -37,9 +38,12 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
   protected BasePager(Cloudant client, O options) {
     this.client = client;
     // TODO validate initial options
+    // Clone user provided options into initial options
+    this.initialOptions = this.builderToOptionsFunction()
+      .apply(this.optionsToBuilderFunction().apply(options));
     // Set the page size from the supplied options limit
     this.pageSize = getPageSizeFromOptionsLimit(options);
-    // Clone the supplied options into the nextPageOptions
+    // Set the first page options
     this.buildAndSetOptions(this.optionsToBuilderFunction().apply(options));
   }
 
@@ -49,12 +53,12 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
   }
 
   @Override
-  public List<I> next() {
-      return getNext();
+  public List<I> getNext() {
+    return this.next();
   }
 
   @Override
-  public final List<I> getNext() {
+  public List<I> next() {
     if (this.hasNext()) {
       return Collections.unmodifiableList(this.nextRequest());
     } else {
@@ -64,11 +68,11 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
 
   @Override
   public final List<I> getAll() {
-    return StreamSupport.stream(this.spliterator(), false)
+    return StreamSupport.stream(this.wrapIteratorAsSpliterator(this), false)
       .flatMap(List::stream).collect(Collectors.toList());
   }
 
-  protected List<I> nextRequest() {
+  List<I> nextRequest() {
     ServiceCall<R> request = nextRequestFunction().apply(this.client, nextPageOptions);
     R result = request.execute().getResult();
     List<I> items = itemsGetter().apply(result);
@@ -86,29 +90,40 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
     this.nextPageOptions = this.builderToOptionsFunction().apply(optionsBuilder);
   }
 
-  protected abstract Function<O, B> optionsToBuilderFunction();
+  abstract Function<O, B> optionsToBuilderFunction();
 
-  protected abstract Function<B, O> builderToOptionsFunction();
+  abstract Function<B, O> builderToOptionsFunction();
 
-  protected abstract Function<R, List<I>> itemsGetter();
+  abstract Function<R, List<I>> itemsGetter();
 
-  protected abstract void setNextPageOptions(B builder, R result);
+  abstract void setNextPageOptions(B builder, R result);
 
-  protected abstract BiFunction<Cloudant, O, ServiceCall<R>> nextRequestFunction();
+  abstract BiFunction<Cloudant, O, ServiceCall<R>> nextRequestFunction();
 
-  protected abstract Function<O, Long> limitGetter();
+  abstract Function<O, Long> limitGetter();
 
-  protected Long getPageSizeFromOptionsLimit(O opts) {
+  Long getPageSizeFromOptionsLimit(O opts) {
     return Optional.ofNullable(limitGetter().apply(opts)).orElse(20L);
   }
 
+  private BasePager<B, O, R, I> newInstance() {
+    return this.getConstructor().apply(this.client, this.initialOptions);
+  }
+
+  abstract BiFunction<Cloudant, O, BasePager<B, O, R, I>> getConstructor();
+
   @Override
   public Iterator<List<I>> iterator() {
-      return this;
+    return this.newInstance();
   }
 
   @Override
   public Spliterator<List<I>> spliterator() {
-    return Spliterators.spliteratorUnknownSize(this, Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.IMMUTABLE);
+    return wrapIteratorAsSpliterator(this.iterator());
   }
+
+  private Spliterator<List<I>> wrapIteratorAsSpliterator(Iterator<List<I>> iterator) {
+    return Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.IMMUTABLE);
+  }
+
 }
