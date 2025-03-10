@@ -50,4 +50,10 @@ abstract class AllDocsBasePager<B, O> extends KeyPager<String, B, O, AllDocsResu
   final Optional<BiFunction<B, String, B>> nextKeyIdSetter() {
     return Optional.empty();
   }
+
+  @Override
+  final Optional<String> checkBoundary(DocsResultRow penultimateItem, DocsResultRow lastItem) {
+    // AllDocs and DesignDocs pagers always have unique keys (because they are document IDs)
+    return Optional.empty();
+  }
 }

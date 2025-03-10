@@ -14,6 +14,7 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
@@ -38,6 +39,28 @@ abstract class ViewBasePager<B, O> extends KeyPager<Object, B, O, ViewResult, Vi
   @Override
   final Function<ViewResultRow, String> nextKeyIdGetter() {
     return ViewResultRow::getId;
+  }
+
+  @Override
+  final Optional<String> checkBoundary(ViewResultRow penultimateItem, ViewResultRow lastItem) {
+    String pId = penultimateItem.getId();
+    String lId = lastItem.getId();
+    if (pId.equals(lId)) {
+      // ID's are the same, check the keys
+      Object pKey = penultimateItem.getKey();
+      Object lKey = lastItem.getKey();
+      // Check reference equality first (e.g. null)
+      // Then check values
+      if (pKey == lKey || pKey != null && pKey.equals(lKey)) {
+        // Identical keys, set an error message
+        return Optional.of(
+          String.format(
+            "Cannot paginate on a boundary containing identical keys '%s' and document IDs '%s'",
+            String.valueOf(lKey),
+            lId));
+      }
+    }
+    return Optional.empty();
   }
 
 }

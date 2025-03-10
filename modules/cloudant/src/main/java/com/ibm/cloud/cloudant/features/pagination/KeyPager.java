@@ -21,6 +21,8 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 
 abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
 
+  private Optional<String> boundaryFailure = Optional.empty();
+
   KeyPager(Cloudant client, O options) {
     super(client, options);
   }
@@ -34,9 +36,19 @@ abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
   abstract Function<I, String> nextKeyIdGetter();
 
   List<I> nextRequest() {
+    // If the previous request had the duplicate boundary error
+    // throw it now because we cannot safely get the next page.
+    if (boundaryFailure.isPresent()) {
+      throw new UnsupportedOperationException(boundaryFailure.get());
+    }
     List<I> items = super.nextRequest();
     if (this.hasNext()) {
-      items.remove(items.size() - 1);
+      I lastItem = items.remove(items.size() - 1);
+      if (items.size() > 0) {
+        I penultimateItem = items.get(items.size() - 1);
+        // Defer a throw for a boundary failure to the next request
+        boundaryFailure = checkBoundary(penultimateItem, lastItem);
+      }
     }
     return items;
   }
@@ -55,5 +67,7 @@ abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
   Long getPageSizeFromOptionsLimit(O opts) {
       return super.getPageSizeFromOptionsLimit(opts) + 1;
   }
+
+  abstract Optional<String> checkBoundary(I penultimateItem, I lastItem);
 
 }

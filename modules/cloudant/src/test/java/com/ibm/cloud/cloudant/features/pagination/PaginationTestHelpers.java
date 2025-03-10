@@ -148,6 +148,10 @@ public class PaginationTestHelpers {
     return new PageSupplierFactory<ViewResult, ViewResultRow>(TestViewResult::new, TestViewResultRow::new).newExtraRowPageSupplier(total, pageSize);
   }
 
+  static PageSupplier<TestResult, Integer> newPageSupplierFromList(List<List<Integer>> pages) {
+    return new PageSupplier<TestResult, Integer>(TestResult::new, pages);
+  }
+
   static PostViewOptions getDefaultTestOptions(int limit) {
     return getRequiredTestOptionsBuilder()
       .limit(limit)
