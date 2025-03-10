@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -32,8 +33,8 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
   protected final Cloudant client;
   protected final O initialOptions;
   protected final long pageSize;
+  protected final AtomicReference<O> nextPageOptionsRef = new AtomicReference<>();
   protected volatile boolean hasNext = true;
-  protected volatile O nextPageOptions;
 
   protected BasePager(Cloudant client, O options) {
     this.client = client;
@@ -73,13 +74,13 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
   }
 
   List<I> nextRequest() {
-    ServiceCall<R> request = nextRequestFunction().apply(this.client, nextPageOptions);
+    ServiceCall<R> request = nextRequestFunction().apply(this.client, nextPageOptionsRef.get());
     R result = request.execute().getResult();
     List<I> items = itemsGetter().apply(result);
     if (items.size() < this.pageSize) {
       this.hasNext = false;
     } else {
-      B optionsBuilder = optionsToBuilderFunction().apply(nextPageOptions);
+      B optionsBuilder = optionsToBuilderFunction().apply(nextPageOptionsRef.get());
       setNextPageOptions(optionsBuilder, result);
       this.buildAndSetOptions(optionsBuilder);
     }
@@ -87,7 +88,7 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
   }
 
   private void buildAndSetOptions(B optionsBuilder) {
-    this.nextPageOptions = this.builderToOptionsFunction().apply(optionsBuilder);
+    this.nextPageOptionsRef.set(this.builderToOptionsFunction().apply(optionsBuilder));
   }
 
   abstract Function<O, B> optionsToBuilderFunction();

@@ -324,16 +324,16 @@ public class BasePagerTest {
     PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(5*pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
-    Assert.assertNull(pager.nextPageOptions.key(), "key should initially be null.");
+    Assert.assertNull(pager.nextPageOptionsRef.get().key(), "key should initially be null.");
     // Since we use a page size of 1, each next page options key, is the same as the element from the page
     int page = 0;
     while(pager.hasNext()) {
       pager.getNext();
       if (pager.hasNext()) {
-        Assert.assertEquals(pager.nextPageOptions.key(), page, "The key should increment per page.");
+        Assert.assertEquals(pager.nextPageOptionsRef.get().key(), page, "The key should increment per page.");
       } else {
         // Options don't change for last page
-        Assert.assertEquals(pager.nextPageOptions.key(), page - 1, "The options should not be set for the final page.");
+        Assert.assertEquals(pager.nextPageOptionsRef.get().key(), page - 1, "The options should not be set for the final page.");
       }
       page++;
     }
