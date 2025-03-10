@@ -11,7 +11,7 @@
     <url>https://github.com/IBM/cloudant-java-sdk</url>
 
     <groupId>com.ibm.cloud</groupId>
-    <version>0.10.1</version>
+    <version>0.10.2</version>
     <packaging>pom</packaging>
 
     <properties>
