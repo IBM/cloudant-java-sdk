@@ -115,7 +115,7 @@ public class BasePagerTest {
     Assert.assertEquals(pager.getClient(), mockClient, "The client should be the supplied one.");
   }
 
-  // test page size limit
+  // test page size default
   @Test
   void testDefaultPageSize() {
     TestPager pager = new TestPager(mockClient, getRequiredTestOptionsBuilder().build());
@@ -123,7 +123,7 @@ public class BasePagerTest {
     Assert.assertEquals(pager.pageSize, 20, "The page size should be the default.");
   }
 
-  // test page size default
+  // test page size limit
   @Test
   void testLimitPageSize() {
     TestPager pager = new TestPager(mockClient, getDefaultTestOptions(42));
