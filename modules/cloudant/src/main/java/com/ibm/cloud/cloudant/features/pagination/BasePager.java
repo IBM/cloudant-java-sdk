@@ -75,7 +75,7 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
 
   @Override
   public final Stream<I> getRows() {
-    return StreamSupport.stream(this.wrapIteratorAsSpliterator(this), false)
+    return StreamSupport.stream(this.spliterator(), false)
       .flatMap(List::stream);
   }
 
@@ -126,11 +126,7 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
 
   @Override
   public Spliterator<List<I>> spliterator() {
-    return wrapIteratorAsSpliterator(this.iterator());
-  }
-
-  private Spliterator<List<I>> wrapIteratorAsSpliterator(Iterator<List<I>> iterator) {
-    return Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.IMMUTABLE);
+    return Spliterators.spliteratorUnknownSize(this.iterator(), Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.IMMUTABLE);
   }
 
 }
