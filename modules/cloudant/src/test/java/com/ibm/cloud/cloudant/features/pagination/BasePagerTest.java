@@ -34,6 +34,7 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getDefaultTestOptions;
 import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getRequiredTestOptionsBuilder;
+import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.newPageSupplierFromList;
 
 public class BasePagerTest {
   
@@ -43,7 +44,7 @@ public class BasePagerTest {
    * This test sub-class of BasePager implicitly tests that various abstract methods are correctly
    * called by non-abstract methods in the BasePager.
    */
-  class TestPager extends BasePager<Builder, PostViewOptions, TestResult, Integer> {
+  private static class TestPager extends BasePager<Builder, PostViewOptions, TestResult, Integer> {
 
     protected TestPager(Cloudant client, PostViewOptions options) {
       super(client, options);
@@ -73,7 +74,7 @@ public class BasePagerTest {
     }
 
     /**
-     * These tests don't actually use the options, but we set a key
+     * These tests don't actually use the options, but we set a startKey
      * so we can validate calls to setNextPageOptions.
      */
     @Override
@@ -83,7 +84,7 @@ public class BasePagerTest {
         throw new IllegalStateException("Test failure: tried to setNextPageOptions on empty page.");
       } else {
         Integer i = rows.get(rows.size() - 1);
-        builder.key(i);
+        builder.startKey(i);
       }
     }
 
@@ -109,6 +110,39 @@ public class BasePagerTest {
     }
 
   }
+
+private static class ThrowingTestPager extends TestPager {
+
+  // This has to be static because we get new Pager for iterables
+  private static int ctorCounter = 0;
+  private int callCounter = 0;
+
+  protected ThrowingTestPager(Cloudant client, PostViewOptions options) {
+    super(client, options);
+  }
+
+  @Override
+  List<Integer> nextRequest() {
+    callCounter++;
+    switch(callCounter) {
+      case 2:
+        throw new RuntimeException("Test issue with request");
+      default:
+        return super.nextRequest();
+    }
+  }
+
+  @Override
+  BiFunction<Cloudant, PostViewOptions, BasePager<Builder, PostViewOptions, TestResult, Integer>> getConstructor() {
+    ctorCounter++;
+    // Use the error version only initially, afterwards return a non-throwing version
+    if (ctorCounter >= 2) {
+      return TestPager::new;
+    }
+    return ThrowingTestPager::new;
+  }
+
+}
 
   // test constructor
   @Test
@@ -336,19 +370,56 @@ public class BasePagerTest {
     PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(5*pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
-    Assert.assertNull(pager.nextPageOptionsRef.get().key(), "key should initially be null.");
+    Assert.assertNull(pager.nextPageOptionsRef.get().startKey(), "startKey should initially be null.");
     // Since we use a page size of 1, each next page options key, is the same as the element from the page
     int page = 0;
     while(pager.hasNext()) {
       pager.getNext();
       if (pager.hasNext()) {
-        Assert.assertEquals(pager.nextPageOptionsRef.get().key(), page, "The key should increment per page.");
+        Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), page, "the startKey should increment per page.");
       } else {
         // Options don't change for last page
-        Assert.assertEquals(pager.nextPageOptionsRef.get().key(), page - 1, "The options should not be set for the final page.");
+        Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), page - 1, "The options should not be set for the final page.");
       }
       page++;
     }
+  }
+
+  @Test
+  void testGetNextResumesAfterError() {
+    int pageSize = 3;
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(2*pageSize, pageSize);
+    MockPagerClient c = new MockPagerClient(pageSupplier);
+    TestPager pager = new ThrowingTestPager(c, getDefaultTestOptions(pageSize));
+    List<Integer> actualPage1 = pager.getNext();
+    // Assert pages
+    Assert.assertEquals(actualPage1, pageSupplier.pages.get(0), "The actual page should match the expected page.");
+    // The startKey should point to row 2 (the last row we saw, note this is not doing n+1 paging)
+    Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), 2, "The startKey should be 2 for the second page.");
+    Assert.assertThrows(RuntimeException.class,() -> pager.getNext());
+    // Assert hasNext
+    Assert.assertEquals(pager.hasNext(), true, "hasNext() should return true.");
+    // The startKey should still point to the second page
+    Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), 2, "The startKey should be 2 for the second page.");
+    List<Integer> actualPage2 = pager.getNext();
+    Assert.assertEquals(actualPage2, pageSupplier.pages.get(1), "The actual page should match the expected page.");
+  }
+
+  @Test
+  void testGetAllRestartsAfterError() {
+    int pageSize = 1;
+    // Set up a supplier to do first page, [error], first page, second page, empty page
+    PageSupplier<TestResult, Integer> pageSupplier = newPageSupplierFromList(List.of(
+      List.of(1), // first page
+      List.of(1), // error, followed by first page replay
+      List.of(2), // second page
+      Collections.emptyList())); // final empty page
+    MockPagerClient c = new MockPagerClient(pageSupplier);
+    TestPager pager = new ThrowingTestPager(c, getDefaultTestOptions(pageSize));
+    Assert.assertThrows(RuntimeException.class, () -> pager.getAll());
+    // Assert no startKey set
+    Assert.assertNull(pager.nextPageOptionsRef.get().startKey(), "startKey should initially be null.");
+    Assert.assertEquals(pager.getAll(), List.of(1, 2), "The results should match all the pages.");
   }
 
 }
