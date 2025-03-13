@@ -263,6 +263,18 @@ public class BasePagerTest {
     Assert.assertEquals(actualItems, pageSupplier.allItems, "The results should match all the pages.");
   }
 
+  // test getRows stream
+  @Test
+  void testGetRows() {
+    int pageSize = 11;
+    PageSupplier<TestResult, Integer> pageSupplier = PaginationTestHelpers.newBasePageSupplier(71, pageSize);
+    MockPagerClient c = new MockPagerClient(pageSupplier);
+    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    pager.getRows().forEachOrdered(i -> 
+      Assert.assertEquals(i, pageSupplier.allItems.remove(0), "The row should be the expected one.")
+    );
+  }
+
   // test next
   @Test
   void testNextFirstPage() {

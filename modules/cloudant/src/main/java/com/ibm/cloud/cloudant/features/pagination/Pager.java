@@ -14,7 +14,7 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.List;
-
+import java.util.stream.Stream;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.Document;
@@ -34,6 +34,8 @@ import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
  *
  * Use the static methods to instantiate a Pager instance for
  * the required operation.
+ *
+ * @param <I> the item type of the page rows
  */
 public interface Pager<I> extends Iterable<List<I>> {
 
@@ -47,17 +49,28 @@ public interface Pager<I> extends Iterable<List<I>> {
   /**
    * Get the next page in the sequence.
    *
-   * @return java.util.List of the items from the next page
+   * @return java.util.List of the rows from the next page
    */
   List<I> getNext();
 
   /**
    * Get all the avaialble pages and collect them into a
-   * single java.util.List.
+   * single java.util.List. This operation is not lazy and
+   * may consume significant memory to hold the entire
+   * results collection for large queries.
    *
-   * @return java.util.List of the items from all the pages
+   * @return java.util.List of the rows from all the pages
    */
   List<I> getAll();
+
+  /**
+   * Stream all the rows from all the available pages one at
+   * a time. This operation is lazy and requests pages as
+   * needed.
+   *
+   * @return java.util.Stream of the rows from all the pages
+   */
+  Stream<I> getRows();
 
   /**
    * Get a Pager for the postAllDocs operation.

@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
@@ -69,8 +70,13 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
 
   @Override
   public final List<I> getAll() {
+    return getRows().collect(Collectors.toList());
+  }
+
+  @Override
+  public final Stream<I> getRows() {
     return StreamSupport.stream(this.wrapIteratorAsSpliterator(this), false)
-      .flatMap(List::stream).collect(Collectors.toList());
+      .flatMap(List::stream);
   }
 
   List<I> nextRequest() {
