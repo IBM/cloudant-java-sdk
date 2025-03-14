@@ -88,9 +88,7 @@ public class KeyPagerTest {
 
     @Override
     protected Function<PostViewOptions, Builder> optionsToBuilderFunction() {
-      return o -> {
-        return new Builder(o.db(), o.ddoc(), o.view());
-      };
+      return PostViewOptions::newBuilder;
     }
 
     @Override
