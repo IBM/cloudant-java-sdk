@@ -14,6 +14,7 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -21,8 +22,8 @@ import java.util.stream.Collectors;
 import com.ibm.cloud.cloudant.features.MockCloudant;
 import com.ibm.cloud.cloudant.features.MockCloudant.MockInstruction;
 import com.ibm.cloud.cloudant.features.MockCloudant.QueuedSupplier;
+import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
-import com.ibm.cloud.cloudant.v1.model.PostViewOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
 import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
@@ -158,11 +159,23 @@ public class PaginationTestHelpers {
       .build();
   }
 
-  static Builder getRequiredTestOptionsBuilder() {
-    return new Builder()
+  static PostViewOptions.Builder getRequiredTestOptionsBuilder() {
+    return new PostViewOptions.Builder()
       .db("example-database")
       .ddoc("test-ddoc")
       .view("test-view");
+  }
+
+  static PostFindOptions getDefaultTestFindOptions(int limit) {
+    return getRequiredTestFindOptionsBuilder()
+      .limit(limit)
+      .build();
+  }
+
+  static PostFindOptions.Builder getRequiredTestFindOptionsBuilder() {
+    return new PostFindOptions.Builder()
+      .db("example-database")
+      .selector(Collections.singletonMap("testField", "testValue"));
   }
 
 }
