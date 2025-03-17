@@ -118,7 +118,7 @@ public class KeyPagerTest {
   void testDefaultPageSize() {
     TestKeyPager pager = new TestKeyPager(mockClient, getRequiredTestOptionsBuilder().build());
     // Assert the limit provided as page size
-    Assert.assertEquals(pager.pageSize, 21, "The page size should be one more than the default limit.");
+    Assert.assertEquals(pager.pageSize, 201, "The page size should be one more than the default limit.");
   }
 
   // Test page size limit (+1)

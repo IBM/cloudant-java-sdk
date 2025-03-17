@@ -157,7 +157,7 @@ private static class ThrowingTestPager extends TestPager {
   void testDefaultPageSize() {
     TestPager pager = new TestPager(mockClient, getRequiredTestOptionsBuilder().build());
     // Assert the default page size
-    Assert.assertEquals(pager.pageSize, 20, "The page size should be the default.");
+    Assert.assertEquals(pager.pageSize, 200, "The page size should be the default.");
   }
 
   // test page size limit

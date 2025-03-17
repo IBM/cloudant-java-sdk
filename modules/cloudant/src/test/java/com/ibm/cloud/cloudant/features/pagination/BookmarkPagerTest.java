@@ -104,7 +104,7 @@ public class BookmarkPagerTest {
   void testDefaultPageSize() {
     TestBookmarkPager pager = new TestBookmarkPager(mockClient, getRequiredTestFindOptionsBuilder().build());
     // Assert the limit provided as page size
-    Assert.assertEquals(pager.pageSize, 20, "The page size should be the default limit.");
+    Assert.assertEquals(pager.pageSize, 200, "The page size should be the default limit.");
   }
 
   // Test page size limit
