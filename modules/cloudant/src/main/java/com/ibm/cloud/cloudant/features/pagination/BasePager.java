@@ -18,45 +18,32 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Spliterator;
-import java.util.Spliterators;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
+abstract class BasePager<B, O, R, I> implements Iterator<List<I>> {
 
   protected final Cloudant client;
-  protected final O initialOptions;
   protected final long pageSize;
+  protected final OptionsHandler<B, O> optsHandler;
   protected final AtomicReference<O> nextPageOptionsRef = new AtomicReference<>();
   protected volatile boolean hasNext = true;
 
-  protected BasePager(Cloudant client, O options) {
+  BasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
     this.client = client;
-    // TODO validate initial options
-    // Clone user provided options into initial options
-    this.initialOptions = this.builderToOptionsFunction()
-      .apply(this.optionsToBuilderFunction().apply(options));
+    this.optsHandler = optsHandler;
     // Set the page size from the supplied options limit
     this.pageSize = getPageSizeFromOptionsLimit(options);
     // Set the first page options
-    this.buildAndSetOptions(this.optionsToBuilderFunction().apply(options));
+    buildAndSetOptions(optsHandler.builderFromOptions(options));
   }
 
   @Override
   public final boolean hasNext() {
     return this.hasNext;
-  }
-
-  @Override
-  public List<I> getNext() {
-    return this.next();
   }
 
   @Override
@@ -68,33 +55,22 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
     }
   }
 
-  @Override
-  public final List<I> getAll() {
-    return getRows().collect(Collectors.toList());
-  }
-
-  @Override
-  public final Stream<I> getRows() {
-    return StreamSupport.stream(this.spliterator(), false)
-      .flatMap(List::stream);
-  }
-
   List<I> nextRequest() {
-    ServiceCall<R> request = nextRequestFunction().apply(this.client, nextPageOptionsRef.get());
+    ServiceCall<R> request = nextRequestFunction().apply(this.client, this.nextPageOptionsRef.get());
     R result = request.execute().getResult();
     List<I> items = itemsGetter().apply(result);
     if (items.size() < this.pageSize) {
       this.hasNext = false;
     } else {
-      B optionsBuilder = optionsToBuilderFunction().apply(nextPageOptionsRef.get());
+      B optionsBuilder = optsHandler.builderFromOptions(this.nextPageOptionsRef.get());
       setNextPageOptions(optionsBuilder, result);
-      this.buildAndSetOptions(optionsBuilder);
+      buildAndSetOptions(optionsBuilder);
     }
     return items;
   }
 
   private void buildAndSetOptions(B optionsBuilder) {
-    this.nextPageOptionsRef.set(this.builderToOptionsFunction().apply(optionsBuilder));
+    this.nextPageOptionsRef.set(optsHandler.optionsFromBuilder(optionsBuilder));
   }
 
   abstract Function<O, B> optionsToBuilderFunction();
@@ -111,22 +87,6 @@ abstract class BasePager<B, O, R, I> implements Pager<I>, Iterator<List<I>> {
 
   Long getPageSizeFromOptionsLimit(O opts) {
     return Optional.ofNullable(limitGetter().apply(opts)).orElse(200L);
-  }
-
-  private BasePager<B, O, R, I> newInstance() {
-    return this.getConstructor().apply(this.client, this.initialOptions);
-  }
-
-  abstract BiFunction<Cloudant, O, BasePager<B, O, R, I>> getConstructor();
-
-  @Override
-  public Iterator<List<I>> iterator() {
-    return this.newInstance();
-  }
-
-  @Override
-  public Spliterator<List<I>> spliterator() {
-    return Spliterators.spliteratorUnknownSize(this.iterator(), Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.IMMUTABLE);
   }
 
 }

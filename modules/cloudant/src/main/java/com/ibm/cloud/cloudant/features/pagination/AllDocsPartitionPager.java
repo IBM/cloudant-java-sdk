@@ -17,7 +17,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
-import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
@@ -25,8 +24,7 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 final class AllDocsPartitionPager extends AllDocsBasePager<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
 
   AllDocsPartitionPager(Cloudant client, PostPartitionAllDocsOptions options) {
-    super(client, options);
-    //TODO Auto-generated constructor stub
+    super(client, options, OptionsHandler.POST_PARTITION_ALL_DOCS);
   }
 
   @Override
@@ -53,11 +51,6 @@ final class AllDocsPartitionPager extends AllDocsBasePager<PostPartitionAllDocsO
   @Override
   Function<PostPartitionAllDocsOptions, Long> limitGetter() {
     return PostPartitionAllDocsOptions::limit;
-  }
-
-  @Override
-  BiFunction<Cloudant, PostPartitionAllDocsOptions, BasePager<Builder, PostPartitionAllDocsOptions, AllDocsResult, DocsResultRow>> getConstructor() {
-    return AllDocsPartitionPager::new;
   }
 
 }

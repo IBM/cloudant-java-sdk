@@ -19,8 +19,8 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 
 abstract class BookmarkPager<B, O, R, I> extends BasePager<B, O, R, I> {
 
-  BookmarkPager(Cloudant client, O options) {
-    super(client, options);
+  BookmarkPager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+    super(client, options, optsHandler);
   }
 
   abstract Function<R, String> bookmarkGetter();

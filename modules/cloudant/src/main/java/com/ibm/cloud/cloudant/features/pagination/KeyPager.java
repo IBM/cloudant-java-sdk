@@ -23,8 +23,8 @@ abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
 
   private Optional<String> boundaryFailure = Optional.empty();
 
-  KeyPager(Cloudant client, O options) {
-    super(client, options);
+  KeyPager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+    super(client, options, optsHandler);
   }
 
   abstract BiFunction<B, K, B> nextKeySetter();

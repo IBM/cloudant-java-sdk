@@ -19,13 +19,12 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
-import com.ibm.cloud.cloudant.v1.model.SearchResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class SearchPartitionPager extends SearchBasePager<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
 
   SearchPartitionPager(Cloudant client, PostPartitionSearchOptions options) {
-    super(client, options);
+    super(client, options, OptionsHandler.POST_PARTITION_SEARCH);
   }
 
   @Override
@@ -51,11 +50,6 @@ final class SearchPartitionPager extends SearchBasePager<PostPartitionSearchOpti
   @Override
   Function<PostPartitionSearchOptions, Long> limitGetter() {
     return PostPartitionSearchOptions::limit;
-  }
-
-  @Override
-  BiFunction<Cloudant, PostPartitionSearchOptions, BasePager<Builder, PostPartitionSearchOptions, SearchResult, SearchResultRow>> getConstructor() {
-    return SearchPartitionPager::new;
   }
 
 }

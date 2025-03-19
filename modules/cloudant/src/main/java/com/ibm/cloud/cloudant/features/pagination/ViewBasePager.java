@@ -22,8 +22,8 @@ import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 
 abstract class ViewBasePager<B, O> extends KeyPager<Object, B, O, ViewResult, ViewResultRow> {
 
-  ViewBasePager(Cloudant client, O options) {
-    super(client, options);
+  ViewBasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+    super(client, options, optsHandler);
   }
 
   @Override

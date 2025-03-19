@@ -1,14 +1,15 @@
 /**
  * © Copyright IBM Corporation 2025. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.ibm.cloud.cloudant.features.pagination;
@@ -35,7 +36,7 @@ public class PaginationTestHelpers {
     MockPagerClient(Supplier<MockInstruction<TestResult>> instructionSupplier) {
       super(instructionSupplier);
     }
- 
+
     ServiceCall<TestResult> testCall() {
       return new MockServiceCall(mocks.get());
     }
@@ -44,6 +45,7 @@ public class PaginationTestHelpers {
 
   static class TestResult {
     private List<Integer> rows;
+
     TestResult(List<Integer> rows) {
       this.rows = rows;
     }
@@ -58,7 +60,8 @@ public class PaginationTestHelpers {
     Function<List<I>, R> itemsToPageResultFn;
     Function<Integer, I> integerRowWrapFn;
 
-    PageSupplierFactory(Function<List<I>, R> itemsToPageResultFn, Function<Integer, I> integerRowWrapFn) {
+    PageSupplierFactory(Function<List<I>, R> itemsToPageResultFn,
+        Function<Integer, I> integerRowWrapFn) {
       this.itemsToPageResultFn = itemsToPageResultFn;
       this.integerRowWrapFn = integerRowWrapFn;
     }
@@ -69,8 +72,8 @@ public class PaginationTestHelpers {
       for (int i = 0; i < total; i++) {
         page.add(this.integerRowWrapFn.apply(i));
         if (i % pageSize == pageSize - 1) {
-            pages.add(page);
-            page = new ArrayList<>();
+          pages.add(page);
+          page = new ArrayList<>();
         }
       }
       // Add the final page, empty or otherwise
@@ -97,7 +100,7 @@ public class PaginationTestHelpers {
         try {
           List<I> nextPage = pages.get(index + 1);
           responsePage.add(nextPage.get(0));
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
           // Suppress exception if pages/elements exhuasted
         }
         responsePages.add(responsePage);
@@ -109,21 +112,23 @@ public class PaginationTestHelpers {
   }
 
   static class PageSupplier<R, I> extends QueuedSupplier<R> {
-    
+
     final List<I> allItems;
     final List<List<I>> pages;
-   
+
     private PageSupplier(Function<List<I>, R> itemsToPageFn, List<List<I>> pages) {
       this(itemsToPageFn, pages, pages);
     }
 
-    private PageSupplier(Function<List<I>, R> itemsToPageFn, List<List<I>> pages, List<List<I>> responsePages) {
-      super(responsePages.stream().map(itemsToPageFn).map(MockInstruction::new).collect(Collectors.toList()));
+    private PageSupplier(Function<List<I>, R> itemsToPageFn, List<List<I>> pages,
+        List<List<I>> responsePages) {
+      super(responsePages.stream().map(itemsToPageFn).map(MockInstruction::new)
+          .collect(Collectors.toList()));
       this.pages = pages;
       this.allItems = this.pages.stream().flatMap(List::stream).collect(Collectors.toList());
     }
   }
- 
+
   private static class TestViewResultRow extends ViewResultRow {
     private TestViewResultRow(Integer i) {
       this.id = "testdoc" + String.valueOf(i);
@@ -138,15 +143,18 @@ public class PaginationTestHelpers {
   }
 
   static PageSupplier<TestResult, Integer> newBasePageSupplier(int total, int pageSize) {
-    return new PageSupplierFactory<>(TestResult::new, Function.identity()).newPageSupplier(total, pageSize);
+    return new PageSupplierFactory<>(TestResult::new, Function.identity()).newPageSupplier(total,
+        pageSize);
   }
 
   static PageSupplier<TestResult, Integer> newKeyPageSupplier(int total, int pageSize) {
-    return new PageSupplierFactory<TestResult, Integer>(TestResult::new, Function.identity()).newExtraRowPageSupplier(total, pageSize);
+    return new PageSupplierFactory<TestResult, Integer>(TestResult::new, Function.identity())
+        .newExtraRowPageSupplier(total, pageSize);
   }
 
   static PageSupplier<ViewResult, ViewResultRow> newViewPageSupplier(int total, int pageSize) {
-    return new PageSupplierFactory<ViewResult, ViewResultRow>(TestViewResult::new, TestViewResultRow::new).newExtraRowPageSupplier(total, pageSize);
+    return new PageSupplierFactory<ViewResult, ViewResultRow>(TestViewResult::new,
+        TestViewResultRow::new).newExtraRowPageSupplier(total, pageSize);
   }
 
   static PageSupplier<TestResult, Integer> newPageSupplierFromList(List<List<Integer>> pages) {
@@ -154,28 +162,20 @@ public class PaginationTestHelpers {
   }
 
   static PostViewOptions getDefaultTestOptions(int limit) {
-    return getRequiredTestOptionsBuilder()
-      .limit(limit)
-      .build();
+    return getRequiredTestOptionsBuilder().limit(limit).build();
   }
 
   static PostViewOptions.Builder getRequiredTestOptionsBuilder() {
-    return new PostViewOptions.Builder()
-      .db("example-database")
-      .ddoc("test-ddoc")
-      .view("test-view");
+    return new PostViewOptions.Builder().db("example-database").ddoc("test-ddoc").view("test-view");
   }
 
   static PostFindOptions getDefaultTestFindOptions(int limit) {
-    return getRequiredTestFindOptionsBuilder()
-      .limit(limit)
-      .build();
+    return getRequiredTestFindOptionsBuilder().limit(limit).build();
   }
 
   static PostFindOptions.Builder getRequiredTestFindOptionsBuilder() {
-    return new PostFindOptions.Builder()
-      .db("example-database")
-      .selector(Collections.singletonMap("testField", "testValue"));
+    return new PostFindOptions.Builder().db("example-database")
+        .selector(Collections.singletonMap("testField", "testValue"));
   }
 
 }

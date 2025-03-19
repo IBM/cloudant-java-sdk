@@ -20,13 +20,12 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
-import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class ViewPartitionPager extends ViewBasePager<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
 
   ViewPartitionPager(Cloudant client, PostPartitionViewOptions options) {
-    super(client, options);
+    super(client, options, OptionsHandler.POST_PARTITION_VIEW);
   }
 
   @Override
@@ -57,11 +56,6 @@ final class ViewPartitionPager extends ViewBasePager<PostPartitionViewOptions.Bu
   @Override
   Function<PostPartitionViewOptions, Long> limitGetter() {
     return PostPartitionViewOptions::limit;
-  }
-
-  @Override
-  BiFunction<Cloudant, PostPartitionViewOptions, BasePager<Builder, PostPartitionViewOptions, ViewResult, ViewResultRow>> getConstructor() {
-    return ViewPartitionPager::new;
   }
 
 }

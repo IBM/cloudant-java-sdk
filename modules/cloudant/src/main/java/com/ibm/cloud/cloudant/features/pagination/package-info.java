@@ -12,9 +12,9 @@
  */
 
 /**
- * Feature for paginating requests.
+ * Feature for paginating operation requests.
  *
- * Accessed via the com.ibm.cloud.cloudant.features.pagination.Pager interface.
+ * Accessed via the {@link Pagination} class.
  *
  */
 package com.ibm.cloud.cloudant.features.pagination;

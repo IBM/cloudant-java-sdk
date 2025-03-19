@@ -17,7 +17,6 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
-import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
@@ -25,7 +24,7 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 public class DesignDocsPager extends AllDocsBasePager<Builder, PostDesignDocsOptions> {
 
   DesignDocsPager(Cloudant client, PostDesignDocsOptions options) {
-      super(client, options);
+      super(client, options, OptionsHandler.POST_DESIGN_DOCS);
     }
 
     @Override
@@ -51,11 +50,6 @@ public class DesignDocsPager extends AllDocsBasePager<Builder, PostDesignDocsOpt
   @Override
   Function<PostDesignDocsOptions, Long> limitGetter() {
     return PostDesignDocsOptions::limit;
-  }
-
-  @Override
-  BiFunction<Cloudant, PostDesignDocsOptions, BasePager<Builder, PostDesignDocsOptions, AllDocsResult, DocsResultRow>> getConstructor() {
-    return DesignDocsPager::new;
   }
 
 }

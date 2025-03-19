@@ -16,7 +16,6 @@ package com.ibm.cloud.cloudant.features.pagination;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.FindResult;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions.Builder;
@@ -25,7 +24,7 @@ import com.ibm.cloud.sdk.core.http.ServiceCall;
 final class FindPartitionPager extends FindBasePager<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
 
   FindPartitionPager(Cloudant client, PostPartitionFindOptions options) {
-    super(client, options);
+    super(client, options, OptionsHandler.POST_PARTITION_FIND);
   }
 
   @Override
@@ -51,11 +50,6 @@ final class FindPartitionPager extends FindBasePager<PostPartitionFindOptions.Bu
   @Override
   Function<PostPartitionFindOptions, Long> limitGetter() {
     return PostPartitionFindOptions::limit;
-  }
-
-  @Override
-  BiFunction<Cloudant, PostPartitionFindOptions, BasePager<Builder, PostPartitionFindOptions, FindResult, Document>> getConstructor() {
-    return FindPartitionPager::new;
   }
 
 }

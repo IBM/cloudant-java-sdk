@@ -21,8 +21,8 @@ import com.ibm.cloud.cloudant.v1.model.FindResult;
 
 abstract class FindBasePager<B, O> extends BookmarkPager<B, O, FindResult, Document> {
 
-  FindBasePager(Cloudant client, O options) {
-    super(client, options);
+  FindBasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+    super(client, options, optsHandler);
   }
 
   @Override

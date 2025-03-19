@@ -1,14 +1,15 @@
 /**
  * © Copyright IBM Corporation 2025. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.ibm.cloud.cloudant.features.pagination;
@@ -34,22 +35,22 @@ public class BookmarkPagerTest {
   private Cloudant mockClient = new MockPagerClient(null);
 
   /**
-   * This test sub-class of BookmarkPager implicitly tests that various abstract methods are correctly
-   * called.
+   * This test sub-class of BookmarkPager implicitly tests that various abstract methods are
+   * correctly called.
    */
   class TestBookmarkPager extends BookmarkPager<Builder, PostFindOptions, TestResult, Integer> {
 
     protected TestBookmarkPager(Cloudant client, PostFindOptions options) {
-      super(client, options);
+      super(client, options, OptionsHandler.POST_FIND);
     }
-    
+
     Cloudant getClient() {
       return this.client;
     }
 
     /**
-     * Delegates to our next mock.
-     * If the BasePager didn't correctly call this the mocks wouldn't work.
+     * Delegates to our next mock. If the BasePager didn't correctly call this the mocks wouldn't
+     * work.
      */
     @Override
     protected BiFunction<Cloudant, PostFindOptions, ServiceCall<TestResult>> nextRequestFunction() {
@@ -79,11 +80,6 @@ public class BookmarkPagerTest {
     }
 
     @Override
-    BiFunction<Cloudant, PostFindOptions, BasePager<Builder, PostFindOptions, TestResult, Integer>> getConstructor() {
-      return TestBookmarkPager::new;
-    }
-
-    @Override
     Function<TestResult, String> bookmarkGetter() {
       // Use the last row value as the bookmark
       return result -> {
@@ -102,7 +98,8 @@ public class BookmarkPagerTest {
   // Test page size default
   @Test
   void testDefaultPageSize() {
-    TestBookmarkPager pager = new TestBookmarkPager(mockClient, getRequiredTestFindOptionsBuilder().build());
+    TestBookmarkPager pager =
+        new TestBookmarkPager(mockClient, getRequiredTestFindOptionsBuilder().build());
     // Assert the limit provided as page size
     Assert.assertEquals(pager.pageSize, 200, "The page size should be the default limit.");
   }
@@ -117,38 +114,43 @@ public class BookmarkPagerTest {
 
   // Test all items on page when no more pages
   @Test
-  void testGetNextPageLessThanLimit() {
+  void testNextPageLessThanLimit() {
     int pageSize = 21;
     PageSupplier<TestResult, Integer> pageSupplier = newBasePageSupplier(pageSize - 1, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestBookmarkPager pager = new TestBookmarkPager(c, getDefaultTestFindOptions(pageSize));
-    List<Integer> actualPage = pager.getNext();
+    List<Integer> actualPage = pager.next();
     // Assert first page
-    Assert.assertEquals(actualPage, pageSupplier.pages.get(0), "The actual page should match the expected page.");
+    Assert.assertEquals(actualPage, pageSupplier.pages.get(0),
+        "The actual page should match the expected page.");
     // Assert size
-    Assert.assertEquals(actualPage.size(), pageSize - 1, "The actual page size should match the expected page size.");
+    Assert.assertEquals(actualPage.size(), pageSize - 1,
+        "The actual page size should match the expected page size.");
     // Assert hasNext false
     Assert.assertFalse(pager.hasNext(), "hasNext() should return false.");
   }
 
   // Test correct items on page when limit
   @Test
-  void testGetNextPageEqualToLimit() {
+  void testNextPageEqualToLimit() {
     int pageSize = 14;
     PageSupplier<TestResult, Integer> pageSupplier = newBasePageSupplier(pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestBookmarkPager pager = new TestBookmarkPager(c, getDefaultTestFindOptions(pageSize));
-    List<Integer> actualPage = pager.getNext();
+    List<Integer> actualPage = pager.next();
     // Assert first page
-    Assert.assertEquals(actualPage, pageSupplier.pages.get(0), "The actual page should match the expected page.");
+    Assert.assertEquals(actualPage, pageSupplier.pages.get(0),
+        "The actual page should match the expected page.");
     // Assert size is pageSize
-    Assert.assertEquals(actualPage.size(), pageSize, "The actual page size should match the expected page size.");
+    Assert.assertEquals(actualPage.size(), pageSize,
+        "The actual page size should match the expected page size.");
     // Assert hasNext true
     Assert.assertTrue(pager.hasNext(), "hasNext() should return true.");
     // Assert bookmark is correct, note the result rows start at zero, so pageSize - 1, not pageSize
-    Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), String.valueOf(pageSize - 1), "The bookmark should be one less than the page size.");
+    Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), String.valueOf(pageSize - 1),
+        "The bookmark should be one less than the page size.");
     // Get next page
-    List<Integer> actualSecondPage = pager.getNext();
+    List<Integer> actualSecondPage = pager.next();
     // Assert second page is empty
     Assert.assertEquals(actualSecondPage.size(), 0, "The second page should be empty.");
     // Assert hasNext false
@@ -157,28 +159,34 @@ public class BookmarkPagerTest {
 
   // Test correct items on pages when more than limit
   @Test
-  void testGetNextPageGreaterThanLimit() {
+  void testNextPageGreaterThanLimit() {
     int pageSize = 7;
-    PageSupplier<TestResult, Integer> pageSupplier = newBasePageSupplier(pageSize+2, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = newBasePageSupplier(pageSize + 2, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     TestBookmarkPager pager = new TestBookmarkPager(c, getDefaultTestFindOptions(pageSize));
-    List<Integer> actualPage = pager.getNext();
+    List<Integer> actualPage = pager.next();
     // Assert first page
-    Assert.assertEquals(actualPage, pageSupplier.pages.get(0), "The actual page should match the expected page.");
+    Assert.assertEquals(actualPage, pageSupplier.pages.get(0),
+        "The actual page should match the expected page.");
     // Assert size is pageSize
-    Assert.assertEquals(actualPage.size(), pageSize, "The actual page size should match the expected page size.");
+    Assert.assertEquals(actualPage.size(), pageSize,
+        "The actual page size should match the expected page size.");
     // Assert hasNext true
     Assert.assertTrue(pager.hasNext(), "hasNext() should return true.");
     // Assert bookmark is correct, note the result rows start at zero, so pageSize - 1
-    Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), String.valueOf(pageSize - 1), "The bookmark should be one less than the page size.");
+    Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), String.valueOf(pageSize - 1),
+        "The bookmark should be one less than the page size.");
     // Get next page
-    List<Integer> actualSecondPage = pager.getNext();
+    List<Integer> actualSecondPage = pager.next();
     // Assert first item on second page is correct
-    Assert.assertEquals(actualSecondPage.get(0), pageSize, "The first item on the second page should be as expected.");
+    Assert.assertEquals(actualSecondPage.get(0), pageSize,
+        "The first item on the second page should be as expected.");
     // Assert size is 2
-    Assert.assertEquals(actualSecondPage.size(), 2, "The actual page size should match the expected page size.");
+    Assert.assertEquals(actualSecondPage.size(), 2,
+        "The actual page size should match the expected page size.");
     // Assert second page
-    Assert.assertEquals(actualSecondPage, pageSupplier.pages.get(1), "The actual page should match the expected page.");
+    Assert.assertEquals(actualSecondPage, pageSupplier.pages.get(1),
+        "The actual page should match the expected page.");
     // Assert hasNext false
     Assert.assertFalse(pager.hasNext(), "hasNext() should return false.");
   }
@@ -187,10 +195,11 @@ public class BookmarkPagerTest {
   @Test
   void testGetAll() {
     int pageSize = 3;
-    PageSupplier<TestResult, Integer> pageSupplier = newBasePageSupplier(pageSize*12, pageSize);
+    PageSupplier<TestResult, Integer> pageSupplier = newBasePageSupplier(pageSize * 12, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestBookmarkPager pager = new TestBookmarkPager(c, getDefaultTestFindOptions(pageSize));
-    List<Integer> actualItems = pager.getAll();
-    Assert.assertEquals(actualItems, pageSupplier.allItems, "The results should match all the pages.");
+    List<Integer> actualItems = new Pagination<PostFindOptions, Integer>(c,
+        getDefaultTestFindOptions(pageSize), TestBookmarkPager::new).pager().getAll();
+    Assert.assertEquals(actualItems, pageSupplier.allItems,
+        "The results should match all the pages.");
   }
 }

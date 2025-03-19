@@ -21,8 +21,8 @@ import com.ibm.cloud.cloudant.v1.model.SearchResultRow;
 
 abstract class SearchBasePager<B, O> extends BookmarkPager<B, O, SearchResult, SearchResultRow> {
 
-  SearchBasePager(Cloudant client, O options) {
-    super(client, options);
+  SearchBasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+    super(client, options, optsHandler);
   }
 
   @Override

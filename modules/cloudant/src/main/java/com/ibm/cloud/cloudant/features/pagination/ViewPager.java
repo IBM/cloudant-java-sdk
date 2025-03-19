@@ -20,13 +20,12 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
-import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class ViewPager extends ViewBasePager<PostViewOptions.Builder, PostViewOptions> {
 
   ViewPager(Cloudant client, PostViewOptions options) {
-    super(client, options);
+    super(client, options, OptionsHandler.POST_VIEW);
   }
 
   @Override
@@ -57,11 +56,6 @@ final class ViewPager extends ViewBasePager<PostViewOptions.Builder, PostViewOpt
   @Override
   Function<PostViewOptions, Long> limitGetter() {
     return PostViewOptions::limit;
-  }
-
-  @Override
-  BiFunction<Cloudant, PostViewOptions, BasePager<Builder, PostViewOptions, ViewResult, ViewResultRow>> getConstructor() {
-    return ViewPager::new;
   }
 
 }

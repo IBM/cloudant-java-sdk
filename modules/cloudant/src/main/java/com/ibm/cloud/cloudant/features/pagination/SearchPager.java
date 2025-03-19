@@ -19,13 +19,12 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
-import com.ibm.cloud.cloudant.v1.model.SearchResultRow;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
 final class SearchPager extends SearchBasePager<PostSearchOptions.Builder, PostSearchOptions> {
 
   SearchPager(Cloudant client, PostSearchOptions options) {
-    super(client, options);
+    super(client, options, OptionsHandler.POST_SEARCH);
   }
 
   @Override
@@ -51,11 +50,6 @@ final class SearchPager extends SearchBasePager<PostSearchOptions.Builder, PostS
   @Override
   Function<PostSearchOptions, Long> limitGetter() {
     return PostSearchOptions::limit;
-  }
-
-  @Override
-  BiFunction<Cloudant, PostSearchOptions, BasePager<Builder, PostSearchOptions, SearchResult, SearchResultRow>> getConstructor() {
-    return SearchPager::new;
   }
 
 }
