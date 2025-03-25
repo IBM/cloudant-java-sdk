@@ -25,6 +25,7 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 import com.ibm.cloud.cloudant.v1.model.Document;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
+import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
@@ -185,6 +186,20 @@ public class Pagination<O, I> {
       Cloudant client, PostPartitionAllDocsOptions options) {
     return new Pagination<PostPartitionAllDocsOptions, DocsResultRow>(client,
         OptionsHandler.duplicate(options), AllDocsPartitionPageIterator::new);
+  }
+
+  /**
+   * Get a Pagination for the postPartitionAllDocs operation. The page size is configured with the
+   * limit paramater of the options.
+   *
+   * @param client com.ibm.cloud.cloudant.v1.Cloudant instance to make page requests
+   * @param options com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions for the query
+   * @return a Pagination for all the documents in a database partition
+   */
+  public static Pagination<PostDesignDocsOptions, DocsResultRow> newPagination(
+      Cloudant client, PostDesignDocsOptions options) {
+    return new Pagination<PostDesignDocsOptions, DocsResultRow>(client,
+        OptionsHandler.duplicate(options), DesignDocsPageIterator::new);
   }
 
   /**
