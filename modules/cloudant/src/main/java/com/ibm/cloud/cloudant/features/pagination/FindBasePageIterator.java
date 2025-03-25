@@ -16,23 +16,23 @@ package com.ibm.cloud.cloudant.features.pagination;
 import java.util.List;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.SearchResult;
-import com.ibm.cloud.cloudant.v1.model.SearchResultRow;
+import com.ibm.cloud.cloudant.v1.model.Document;
+import com.ibm.cloud.cloudant.v1.model.FindResult;
 
-abstract class SearchBasePager<B, O> extends BookmarkPager<B, O, SearchResult, SearchResultRow> {
+abstract class FindBasePageIterator<B, O> extends BookmarkPageIterator<B, O, FindResult, Document> {
 
-  SearchBasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+  FindBasePageIterator(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
     super(client, options, optsHandler);
   }
 
   @Override
-  final Function<SearchResult, List<SearchResultRow>> itemsGetter() {
-    return SearchResult::getRows;
+  final Function<FindResult, List<Document>> itemsGetter() {
+    return FindResult::getDocs;
   }
 
   @Override
-  final Function<SearchResult, String> bookmarkGetter() {
-    return SearchResult::getBookmark;
+  final Function<FindResult, String> bookmarkGetter() {
+    return FindResult::getBookmark;
   }
 
 }

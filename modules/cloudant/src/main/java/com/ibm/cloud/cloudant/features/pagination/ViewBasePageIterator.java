@@ -20,9 +20,9 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
 import com.ibm.cloud.cloudant.v1.model.ViewResultRow;
 
-abstract class ViewBasePager<B, O> extends KeyPager<Object, B, O, ViewResult, ViewResultRow> {
+abstract class ViewBasePageIterator<B, O> extends KeyPageIterator<Object, B, O, ViewResult, ViewResultRow> {
 
-  ViewBasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+  ViewBasePageIterator(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
     super(client, options, optsHandler);
   }
 

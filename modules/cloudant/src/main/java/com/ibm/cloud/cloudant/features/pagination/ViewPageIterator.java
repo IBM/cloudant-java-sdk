@@ -22,9 +22,9 @@ import com.ibm.cloud.cloudant.v1.model.PostViewOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class ViewPager extends ViewBasePager<PostViewOptions.Builder, PostViewOptions> {
+final class ViewPageIterator extends ViewBasePageIterator<PostViewOptions.Builder, PostViewOptions> {
 
-  ViewPager(Cloudant client, PostViewOptions options) {
+  ViewPageIterator(Cloudant client, PostViewOptions options) {
     super(client, options, OptionsHandler.POST_VIEW);
   }
 

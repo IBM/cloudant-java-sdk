@@ -16,40 +16,40 @@ package com.ibm.cloud.cloudant.features.pagination;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
-import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
-import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions.Builder;
+import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
+import com.ibm.cloud.cloudant.v1.model.PostSearchOptions.Builder;
+import com.ibm.cloud.cloudant.v1.model.SearchResult;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-public class DesignDocsPager extends AllDocsBasePager<Builder, PostDesignDocsOptions> {
+final class SearchPageIterator extends SearchBasePageIterator<PostSearchOptions.Builder, PostSearchOptions> {
 
-  DesignDocsPager(Cloudant client, PostDesignDocsOptions options) {
-      super(client, options, OptionsHandler.POST_DESIGN_DOCS);
-    }
-
-    @Override
-  BiFunction<Builder, String, Builder> nextKeySetter() {
-    return Builder::key;
+  SearchPageIterator(Cloudant client, PostSearchOptions options) {
+    super(client, options, OptionsHandler.POST_SEARCH);
   }
 
   @Override
-  Function<PostDesignDocsOptions, Builder> optionsToBuilderFunction() {
-    return PostDesignDocsOptions::newBuilder;
+  Function<PostSearchOptions, Builder> optionsToBuilderFunction() {
+    return PostSearchOptions::newBuilder;
   }
 
   @Override
-  Function<Builder, PostDesignDocsOptions> builderToOptionsFunction() {
+  Function<Builder, PostSearchOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  BiFunction<Cloudant, PostDesignDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
-    return Cloudant::postDesignDocs;
+  BiFunction<Builder, String, Builder> bookmarkSetter() {
+    return Builder::bookmark;
   }
 
   @Override
-  Function<PostDesignDocsOptions, Long> limitGetter() {
-    return PostDesignDocsOptions::limit;
+  BiFunction<Cloudant, PostSearchOptions, ServiceCall<SearchResult>> nextRequestFunction() {
+    return Cloudant::postSearch;
+  }
+
+  @Override
+  Function<PostSearchOptions, Long> limitGetter() {
+    return PostSearchOptions::limit;
   }
 
 }

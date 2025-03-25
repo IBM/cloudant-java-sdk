@@ -33,7 +33,7 @@ import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.g
 import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getRequiredTestOptionsBuilder;
 import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.newKeyPageSupplier;
 
-public class KeyPagerTest {
+public class KeyPageIteratorTest {
 
   private Cloudant mockClient = new MockPagerClient(null);
 
@@ -41,7 +41,7 @@ public class KeyPagerTest {
    * This test sub-class of KeyPager implicitly tests that various abstract methods are correctly
    * called.
    */
-  class TestKeyPager extends KeyPager<Integer, Builder, PostViewOptions, TestResult, Integer> {
+  class TestKeyPager extends KeyPageIterator<Integer, Builder, PostViewOptions, TestResult, Integer> {
 
     protected TestKeyPager(Cloudant client, PostViewOptions options) {
       super(client, options, OptionsHandler.POST_VIEW);

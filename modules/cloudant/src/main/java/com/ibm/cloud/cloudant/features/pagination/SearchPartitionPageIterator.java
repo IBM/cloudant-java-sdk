@@ -21,9 +21,9 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class SearchPartitionPager extends SearchBasePager<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
+final class SearchPartitionPageIterator extends SearchBasePageIterator<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
 
-  SearchPartitionPager(Cloudant client, PostPartitionSearchOptions options) {
+  SearchPartitionPageIterator(Cloudant client, PostPartitionSearchOptions options) {
     super(client, options, OptionsHandler.POST_PARTITION_SEARCH);
   }
 

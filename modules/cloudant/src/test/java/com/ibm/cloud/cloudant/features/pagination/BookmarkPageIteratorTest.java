@@ -30,7 +30,7 @@ import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-public class BookmarkPagerTest {
+public class BookmarkPageIteratorTest {
 
   private Cloudant mockClient = new MockPagerClient(null);
 
@@ -38,7 +38,7 @@ public class BookmarkPagerTest {
    * This test sub-class of BookmarkPager implicitly tests that various abstract methods are
    * correctly called.
    */
-  class TestBookmarkPager extends BookmarkPager<Builder, PostFindOptions, TestResult, Integer> {
+  class TestBookmarkPager extends BookmarkPageIterator<Builder, PostFindOptions, TestResult, Integer> {
 
     protected TestBookmarkPager(Cloudant client, PostFindOptions options) {
       super(client, options, OptionsHandler.POST_FIND);

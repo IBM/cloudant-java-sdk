@@ -17,9 +17,9 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 
-abstract class BookmarkPager<B, O, R, I> extends BasePager<B, O, R, I> {
+abstract class BookmarkPageIterator<B, O, R, I> extends BasePageIterator<B, O, R, I> {
 
-  BookmarkPager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+  BookmarkPageIterator(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
     super(client, options, optsHandler);
   }
 

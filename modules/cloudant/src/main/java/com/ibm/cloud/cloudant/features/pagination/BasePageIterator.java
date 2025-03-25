@@ -24,7 +24,7 @@ import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-abstract class BasePager<B, O, R, I> implements Iterator<List<I>> {
+abstract class BasePageIterator<B, O, R, I> implements Iterator<List<I>> {
 
   protected final Cloudant client;
   protected final long pageSize;
@@ -32,7 +32,7 @@ abstract class BasePager<B, O, R, I> implements Iterator<List<I>> {
   protected final AtomicReference<O> nextPageOptionsRef = new AtomicReference<>();
   protected volatile boolean hasNext = true;
 
-  BasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+  BasePageIterator(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
     this.client = client;
     this.optsHandler = optsHandler;
     // Set the page size from the supplied options limit

@@ -55,11 +55,11 @@ public class Pagination<O, I> {
 
   private final Cloudant client;
   private final O opts;
-  private final BiFunction<Cloudant, O, BasePager<?, O, ?, I>> iteratorCtor;
+  private final BiFunction<Cloudant, O, BasePageIterator<?, O, ?, I>> iteratorCtor;
   private final Iterable<List<I>> pageIterable = new PageIterable();
   private final Iterable<I> rowIterable = new RowIterable();
 
-  Pagination(Cloudant client, O opts, BiFunction<Cloudant, O, BasePager<?, O, ?, I>> iteratorCtor) {
+  Pagination(Cloudant client, O opts, BiFunction<Cloudant, O, BasePageIterator<?, O, ?, I>> iteratorCtor) {
     this.client = client;
     this.opts = opts;
     this.iteratorCtor = iteratorCtor;
@@ -170,7 +170,7 @@ public class Pagination<O, I> {
   public static Pagination<PostAllDocsOptions, DocsResultRow> newPagination(Cloudant client,
       PostAllDocsOptions options) {
     return new Pagination<PostAllDocsOptions, DocsResultRow>(client,
-        OptionsHandler.duplicate(options), AllDocsPager::new);
+        OptionsHandler.duplicate(options), AllDocsPageIterator::new);
   }
 
   /**
@@ -184,7 +184,7 @@ public class Pagination<O, I> {
   public static Pagination<PostPartitionAllDocsOptions, DocsResultRow> newPagination(
       Cloudant client, PostPartitionAllDocsOptions options) {
     return new Pagination<PostPartitionAllDocsOptions, DocsResultRow>(client,
-        OptionsHandler.duplicate(options), AllDocsPartitionPager::new);
+        OptionsHandler.duplicate(options), AllDocsPartitionPageIterator::new);
   }
 
   /**
@@ -225,7 +225,7 @@ public class Pagination<O, I> {
   public static Pagination<PostSearchOptions, SearchResultRow> newPagination(Cloudant client,
       PostSearchOptions options) {
     return new Pagination<PostSearchOptions, SearchResultRow>(client,
-        OptionsHandler.duplicate(options), SearchPager::new);
+        OptionsHandler.duplicate(options), SearchPageIterator::new);
   }
 
   /**
@@ -239,7 +239,7 @@ public class Pagination<O, I> {
   public static Pagination<PostPartitionSearchOptions, SearchResultRow> newPagination(
       Cloudant client, PostPartitionSearchOptions options) {
     return new Pagination<PostPartitionSearchOptions, SearchResultRow>(client,
-        OptionsHandler.duplicate(options), SearchPartitionPager::new);
+        OptionsHandler.duplicate(options), SearchPartitionPageIterator::new);
   }
 
   /**
@@ -253,7 +253,7 @@ public class Pagination<O, I> {
   public static Pagination<PostViewOptions, ViewResultRow> newPagination(Cloudant client,
       PostViewOptions options) {
     return new Pagination<PostViewOptions, ViewResultRow>(client, OptionsHandler.duplicate(options),
-        ViewPager::new);
+        ViewPageIterator::new);
   }
 
   /**
@@ -267,7 +267,7 @@ public class Pagination<O, I> {
   public static Pagination<PostPartitionViewOptions, ViewResultRow> newPagination(Cloudant client,
       PostPartitionViewOptions options) {
     return new Pagination<PostPartitionViewOptions, ViewResultRow>(client,
-        OptionsHandler.duplicate(options), ViewPartitionPager::new);
+        OptionsHandler.duplicate(options), ViewPartitionPageIterator::new);
   }
 
 }

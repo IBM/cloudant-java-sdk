@@ -16,40 +16,40 @@ package com.ibm.cloud.cloudant.features.pagination;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
-import com.ibm.cloud.cloudant.v1.model.PostSearchOptions.Builder;
-import com.ibm.cloud.cloudant.v1.model.SearchResult;
+import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
+import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
+import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class SearchPager extends SearchBasePager<PostSearchOptions.Builder, PostSearchOptions> {
+final class AllDocsPageIterator extends AllDocsBasePageIterator<Builder, PostAllDocsOptions> {
 
-  SearchPager(Cloudant client, PostSearchOptions options) {
-    super(client, options, OptionsHandler.POST_SEARCH);
+  AllDocsPageIterator(Cloudant client, PostAllDocsOptions options) {
+     super(client, options, OptionsHandler.POST_ALL_DOCS);
   }
 
   @Override
-  Function<PostSearchOptions, Builder> optionsToBuilderFunction() {
-    return PostSearchOptions::newBuilder;
+  Function<PostAllDocsOptions, Builder> optionsToBuilderFunction() {
+    return PostAllDocsOptions::newBuilder;
   }
 
   @Override
-  Function<Builder, PostSearchOptions> builderToOptionsFunction() {
+  Function<Builder, PostAllDocsOptions> builderToOptionsFunction() {
     return Builder::build;
   }
 
   @Override
-  BiFunction<Builder, String, Builder> bookmarkSetter() {
-    return Builder::bookmark;
+  BiFunction<Cloudant, PostAllDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
+    return Cloudant::postAllDocs;
   }
 
   @Override
-  BiFunction<Cloudant, PostSearchOptions, ServiceCall<SearchResult>> nextRequestFunction() {
-    return Cloudant::postSearch;
+  BiFunction<Builder, String, Builder> nextKeySetter() {
+    return Builder::startKey;
   }
 
   @Override
-  Function<PostSearchOptions, Long> limitGetter() {
-    return PostSearchOptions::limit;
+  Function<PostAllDocsOptions, Long> limitGetter() {
+    return PostAllDocsOptions::limit;
   }
 
 }

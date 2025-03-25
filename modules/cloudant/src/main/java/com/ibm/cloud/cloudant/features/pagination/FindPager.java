@@ -21,7 +21,7 @@ import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class FindPager extends FindBasePager<PostFindOptions.Builder, PostFindOptions> {
+final class FindPager extends FindBasePageIterator<PostFindOptions.Builder, PostFindOptions> {
 
   FindPager(Cloudant client, PostFindOptions options) {
     super(client, options, OptionsHandler.POST_FIND);

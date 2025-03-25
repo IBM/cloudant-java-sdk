@@ -21,9 +21,9 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class AllDocsPartitionPager extends AllDocsBasePager<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
+final class AllDocsPartitionPageIterator extends AllDocsBasePageIterator<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
 
-  AllDocsPartitionPager(Cloudant client, PostPartitionAllDocsOptions options) {
+  AllDocsPartitionPageIterator(Cloudant client, PostPartitionAllDocsOptions options) {
     super(client, options, OptionsHandler.POST_PARTITION_ALL_DOCS);
   }
 

@@ -37,7 +37,7 @@ import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.g
 import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getRequiredTestOptionsBuilder;
 import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.newPageSupplierFromList;
 
-public class BasePagerTest {
+public class BasePageIteratorTest {
 
   private Cloudant mockClient = new MockPagerClient(null);
 
@@ -45,7 +45,7 @@ public class BasePagerTest {
    * This test sub-class of BasePager implicitly tests that various abstract methods are correctly
    * called by non-abstract methods in the BasePager.
    */
-  private static class TestPager extends BasePager<Builder, PostViewOptions, TestResult, Integer> {
+  private static class TestPager extends BasePageIterator<Builder, PostViewOptions, TestResult, Integer> {
 
     protected TestPager(Cloudant client, PostViewOptions options) {
       super(client, options, OptionsHandler.POST_VIEW);

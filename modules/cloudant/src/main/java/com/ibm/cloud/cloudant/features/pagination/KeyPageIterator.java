@@ -19,11 +19,11 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 
-abstract class KeyPager<K, B, O, R, I> extends BasePager<B, O, R, I> {
+abstract class KeyPageIterator<K, B, O, R, I> extends BasePageIterator<B, O, R, I> {
 
   private Optional<String> boundaryFailure = Optional.empty();
 
-  KeyPager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+  KeyPageIterator(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
     super(client, options, optsHandler);
   }
 

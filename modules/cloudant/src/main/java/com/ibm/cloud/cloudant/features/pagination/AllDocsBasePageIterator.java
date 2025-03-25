@@ -21,9 +21,9 @@ import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
 import com.ibm.cloud.cloudant.v1.model.DocsResultRow;
 
-abstract class AllDocsBasePager<B, O> extends KeyPager<String, B, O, AllDocsResult, DocsResultRow> {
+abstract class AllDocsBasePageIterator<B, O> extends KeyPageIterator<String, B, O, AllDocsResult, DocsResultRow> {
 
-  AllDocsBasePager(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
+  AllDocsBasePageIterator(Cloudant client, O options, OptionsHandler<B, O> optsHandler) {
     super(client, options, optsHandler);
   }
 

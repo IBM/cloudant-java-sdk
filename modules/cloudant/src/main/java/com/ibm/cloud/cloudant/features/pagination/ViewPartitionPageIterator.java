@@ -22,9 +22,9 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions.Builder;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class ViewPartitionPager extends ViewBasePager<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
+final class ViewPartitionPageIterator extends ViewBasePageIterator<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
 
-  ViewPartitionPager(Cloudant client, PostPartitionViewOptions options) {
+  ViewPartitionPageIterator(Cloudant client, PostPartitionViewOptions options) {
     super(client, options, OptionsHandler.POST_PARTITION_VIEW);
   }
 

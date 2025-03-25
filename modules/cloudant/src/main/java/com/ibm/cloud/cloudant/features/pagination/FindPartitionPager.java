@@ -21,7 +21,7 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionFindOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-final class FindPartitionPager extends FindBasePager<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
+final class FindPartitionPager extends FindBasePageIterator<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
 
   FindPartitionPager(Cloudant client, PostPartitionFindOptions options) {
     super(client, options, OptionsHandler.POST_PARTITION_FIND);
