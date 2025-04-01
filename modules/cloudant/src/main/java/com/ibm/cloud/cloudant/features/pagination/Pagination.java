@@ -109,7 +109,7 @@ public class Pagination<O, I> {
   /**
    * Get a new IBM Cloud SDK style Pager for the operation.
    *
-   * This type is useful for retrieving one page at a time through a function call.
+   * This type is useful for retrieving one page at a time from a method call.
    *
    * @return a new IBM Cloud SDK style Pager
    */
