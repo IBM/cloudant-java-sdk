@@ -257,7 +257,7 @@ public class ChangesFollower {
             // Construct the spliterator using the batch size as the per request limit
             this.changesResultSpliterator.set(new ChangesResultSpliterator(
                 this.client,
-                ChangesOptionsHelper.cloneOptionsWithNewLimit(this.options, batchSize.get()),
+                ChangesOptionsHelper.cloneOptionsWithModeAndNewLimit(this.options, mode, batchSize.get()),
                 mode,
                 this.errorTolerance
             ));

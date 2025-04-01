@@ -16,9 +16,13 @@ package com.ibm.cloud.cloudant.features;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import com.ibm.cloud.cloudant.features.ChangesFollower.Mode;
 import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
+import com.ibm.cloud.cloudant.v1.model.PostChangesOptions.Builder;
 
 class ChangesOptionsHelper {
 
@@ -36,51 +40,42 @@ class ChangesOptionsHelper {
     }
 
     static PostChangesOptions cloneOptions(PostChangesOptions options) {
-        return cloneOptions(options, options.since(), options.limit());
+        return buildOptions(options, null);
     }
 
-    static PostChangesOptions cloneOptionsWithNewLimit(PostChangesOptions options, Long limit) {
-        return cloneOptions(options, options.since(), limit);
+    static PostChangesOptions cloneOptionsWithModeAndNewLimit(PostChangesOptions options, Mode mode, Long limit) {
+        return buildOptions(options, b -> {
+            switch (mode) {
+                case FINITE:
+                    b.feed(PostChangesOptions.Feed.NORMAL);
+                    break;
+                case LISTEN:
+                    b.feed(PostChangesOptions.Feed.LONGPOLL);
+                    b.timeout(LONGPOLL_TIMEOUT);
+                    break;
+            }
+            // Handle limit to avoid NPE during unboxing
+            if (limit != null) {
+                b.limit(limit);
+            }
+        });
     }
 
     static PostChangesOptions cloneOptionsWithNewSince(PostChangesOptions options, String since) {
-        return cloneOptions(options, since, options.limit());
+        return buildOptions(options, b -> {
+            b.since(since);
+        });
     }
 
-    private static PostChangesOptions cloneOptions(PostChangesOptions options, String since, Long limit) {
-        // Now merge and set defaults
-        PostChangesOptions.Builder builder = new PostChangesOptions.Builder(options.db())
-        .attEncodingInfo(options.attEncodingInfo())
-        .attachments(options.attachments())
-        .conflicts(options.conflicts())
-        // no descending
-        .docIds(options.docIds())
-        .feed(PostChangesOptions.Feed.LONGPOLL)
-        .fields(options.fields())
-        .filter(options.filter())
-        // no heartbeat
-        .includeDocs(options.includeDocs())
-        // no lastEventId
-        // limit handled after
-        .selector(options.selector())
-        // seq interval handled after
-        .since(since)
-        .style(options.style())
-        .timeout(LONGPOLL_TIMEOUT)
-        .view(options.view());
-
-        // Handle options that might NPE during unboxing
-        if (limit != null) {
-            builder.limit(limit);
-        }
-        if (options.seqInterval() != null) {
-            builder.seqInterval(options.seqInterval());
-        }
-
+    private static PostChangesOptions buildOptions(PostChangesOptions originalOptions, Consumer<Builder> extraOpts) {
+        Builder builder = originalOptions.newBuilder();
+        Optional.ofNullable(extraOpts).ifPresent(
+            builderConsumer -> builderConsumer.accept(builder)
+        );
         return builder.build();
     }
 
-    private static String throwInvalidOptionsMessageWith(String suffix, List<String> invalidOptions) {
+    private static String throwInvalidOptionsMessageWith(List<String> invalidOptions) {
 
         String errorMsgFormat = (invalidOptions.size() > 1) ? multipleOptionErrorFormat : singleOptionErrorFormat;
         String errorMsg = String.format(errorMsgFormat,
@@ -112,7 +107,7 @@ class ChangesOptionsHelper {
             invalidOptions.add(String.format("filter=%s", options.filter()));
         }
         if (invalidOptions.size() > 0) {
-            throwInvalidOptionsMessageWith(String.format(" when using %s.", ChangesFollower.class.getSimpleName()), invalidOptions);
+            throwInvalidOptionsMessageWith(invalidOptions);
         }
     }
 }
