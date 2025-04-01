@@ -13,7 +13,12 @@
 
 package com.ibm.cloud.cloudant.features;
 
+import com.ibm.cloud.cloudant.features.ChangesFollower.Mode;
 import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -29,14 +34,29 @@ public class ChangesOptionsHelperTest {
         return TestOptions.filteredValuesAsDataProvider(TestOptions::valid);
     }
 
+    @DataProvider(name = "validOptionsBothModes")
+    Iterator<Object[]> getValidOptionsAndModesDataProvider() {
+        List<Object[]> options = new ArrayList<>();
+        for (Mode mode : Mode.values()) {
+            for (Object[] opts : getValidOptionsDataProvider()) {
+                // Add the valid opts
+                List<Object> modeOpts= new ArrayList<>(Arrays.asList(opts));
+                // Add the mode
+                modeOpts.add(mode);
+                options.add(modeOpts.toArray(new Object[modeOpts.size()]));
+            }
+        }
+        return options.iterator();
+    }
+
     @DataProvider(name = "invalidOptions")
     Object[][] getInvalidOptionsDataProvider() {
         return TestOptions.filteredValuesAsDataProvider(o -> !o.valid());
     }
 
-    @Test(dataProvider = "validOptions")
-    void testCloneOptions(String name, TestOptions opts) {
-        PostChangesOptions expected = opts.getExpectedOptions();
+    @Test(dataProvider = "validOptionsBothModes")
+    void testCloneOptions(String name, TestOptions opts, Mode mode) {
+        PostChangesOptions expected = opts.getExpectedOptions(mode);
         Assert.assertNotNull(expected);
         PostChangesOptions cloned = ChangesOptionsHelper.cloneOptions(expected);
         // Can't use assertNotSame in testng 7.4 because https://github.com/cbeust/testng/issues/2486
@@ -44,12 +64,12 @@ public class ChangesOptionsHelperTest {
         Assert.assertEquals(cloned, expected, "The clone should equal the original options object.");
     }
 
-    @Test(dataProvider = "validOptions")
-    void testCloneOptionsWithNewLimit(String name, TestOptions opts) {
+    @Test(dataProvider = "validOptionsBothModes")
+    void testCloneOptionsWithNewLimit(String name, TestOptions opts, Mode mode) {
         Long newLimit = 50L;
         PostChangesOptions original = opts.getOptions();
-        PostChangesOptions expected = opts.getExpectedOptionsBuilder().limit(newLimit).build();
-        PostChangesOptions newLimitOpts = ChangesOptionsHelper.cloneOptionsWithNewLimit(original, newLimit);
+        PostChangesOptions expected = opts.getExpectedOptionsBuilder(mode).limit(newLimit).build();
+        PostChangesOptions newLimitOpts = ChangesOptionsHelper.cloneOptionsWithModeAndNewLimit(original, mode, newLimit);
         // Can't use assertNotSame in testng 7.4 because https://github.com/cbeust/testng/issues/2486
         Assert.assertFalse(newLimitOpts == original, "The clone should not be the original options object.");
         Assert.assertNotEquals(newLimitOpts, original, "The clone should not equal the original options object.");
@@ -61,7 +81,7 @@ public class ChangesOptionsHelperTest {
     void testCloneOptionsWithNewSince(String name, TestOptions opts) {
         String newSince = "9876-alotofcharactersthatarenotreallyrandom";
         PostChangesOptions original = opts.getOptions();
-        PostChangesOptions expected = opts.getExpectedOptionsBuilder().since(newSince).build();
+        PostChangesOptions expected = opts.getExpectedOptionsBuilder(null).since(newSince).build();
         PostChangesOptions newSinceOpts = ChangesOptionsHelper.cloneOptionsWithNewSince(original, newSince);
         // Can't use assertNotSame in testng 7.4 because https://github.com/cbeust/testng/issues/2486
         Assert.assertFalse(newSinceOpts == original, "The clone should not be the original options object.");
