@@ -19,6 +19,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
+import com.ibm.cloud.cloudant.features.ChangesFollower.Mode;
 import com.ibm.cloud.cloudant.v1.model.GetDbUpdatesOptions.Feed;
 
 /**
@@ -129,14 +130,24 @@ enum TestOptions {
     }
 
     // Adds in the implementation expected changes
-    PostChangesOptions.Builder getExpectedOptionsBuilder() {
-        return this.getBuilder()
-            .feed(Feed.LONGPOLL)
-            .timeout(ChangesOptionsHelper.LONGPOLL_TIMEOUT);
+    PostChangesOptions.Builder getExpectedOptionsBuilder(Mode mode) {
+        PostChangesOptions.Builder b = this.getBuilder();
+        if (mode != null) {
+            switch (mode) {
+                case FINITE:
+                    b.feed(Feed.NORMAL);
+                    break;
+                case LISTEN:
+                    b.feed(Feed.LONGPOLL);
+                    b.timeout(ChangesOptionsHelper.LONGPOLL_TIMEOUT);
+                    break;
+            }   
+        }
+        return b;
     }
 
     // Adds in the implementation expected changes
-    PostChangesOptions getExpectedOptions() {
-        return this.getExpectedOptionsBuilder().build();
+    PostChangesOptions getExpectedOptions(Mode mode) {
+        return this.getExpectedOptionsBuilder(mode).build();
     }
 }

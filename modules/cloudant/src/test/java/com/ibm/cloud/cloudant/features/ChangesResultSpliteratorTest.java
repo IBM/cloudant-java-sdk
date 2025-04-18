@@ -40,8 +40,9 @@ import org.testng.annotations.Test;
 public class ChangesResultSpliteratorTest {
 
     // A default set of options to run with
-    static final PostChangesOptions DEFAULT_OPTIONS = ChangesOptionsHelper.cloneOptionsWithNewLimit(
+    static final PostChangesOptions DEFAULT_OPTIONS = ChangesOptionsHelper.cloneOptionsWithModeAndNewLimit(
                                                         TestOptions.MINIMUM.getOptions(),
+                                                        ChangesFollower.Mode.LISTEN,
                                                         ChangesFollower.BATCH_SIZE);
 
     // A duration to use for testing error suppression
