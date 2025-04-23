@@ -4367,9 +4367,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve Activity Tracker events information.
+   * Retrieve activity tracking events information.
    *
-   * Check event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
+   * Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
    *
    * @param getActivityTrackerEventsOptions the {@link GetActivityTrackerEventsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
@@ -4387,9 +4387,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Retrieve Activity Tracker events information.
+   * Retrieve activity tracking events information.
    *
-   * Check event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
+   * Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
    *
    * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
    */
@@ -4398,9 +4398,9 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   }
 
   /**
-   * Modify Activity Tracker events configuration.
+   * Modify activity tracking events configuration.
    *
-   * Configure event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
+   * Configure event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
    *
    * @param postActivityTrackerEventsOptions the {@link PostActivityTrackerEventsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Ok}

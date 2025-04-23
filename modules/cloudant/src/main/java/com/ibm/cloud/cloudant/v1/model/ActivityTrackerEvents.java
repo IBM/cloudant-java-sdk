@@ -19,7 +19,7 @@ import java.util.List;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for Activity Tracker events.
+ * Schema for activity tracking events.
  */
 public class ActivityTrackerEvents extends GenericModel {
 
@@ -120,7 +120,7 @@ public class ActivityTrackerEvents extends GenericModel {
   /**
    * Gets the types.
    *
-   * An array of event types that are being sent to IBM Cloud Activity Tracker for the IBM Cloudant instance.
+   * An array of event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
    * "management" is a required element of this array.
    *
    * @return the types
