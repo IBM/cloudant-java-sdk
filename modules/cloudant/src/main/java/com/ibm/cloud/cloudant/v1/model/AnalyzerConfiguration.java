@@ -37,8 +37,12 @@ public class AnalyzerConfiguration extends GenericModel {
     String EMAIL = "email";
     /** keyword. */
     String KEYWORD = "keyword";
+    /** perfield. */
+    String PERFIELD = "perfield";
     /** simple. */
     String SIMPLE = "simple";
+    /** simple_asciifolding. */
+    String SIMPLE_ASCIIFOLDING = "simple_asciifolding";
     /** standard. */
     String STANDARD = "standard";
     /** whitespace. */
@@ -49,16 +53,16 @@ public class AnalyzerConfiguration extends GenericModel {
     String ARMENIAN = "armenian";
     /** basque. */
     String BASQUE = "basque";
-    /** bulgarian. */
-    String BULGARIAN = "bulgarian";
     /** brazilian. */
     String BRAZILIAN = "brazilian";
+    /** bulgarian. */
+    String BULGARIAN = "bulgarian";
     /** catalan. */
     String CATALAN = "catalan";
-    /** cjk. */
-    String CJK = "cjk";
     /** chinese. */
     String CHINESE = "chinese";
+    /** cjk. */
+    String CJK = "cjk";
     /** czech. */
     String CZECH = "czech";
     /** danish. */
@@ -71,12 +75,12 @@ public class AnalyzerConfiguration extends GenericModel {
     String FINNISH = "finnish";
     /** french. */
     String FRENCH = "french";
+    /** galician. */
+    String GALICIAN = "galician";
     /** german. */
     String GERMAN = "german";
     /** greek. */
     String GREEK = "greek";
-    /** galician. */
-    String GALICIAN = "galician";
     /** hindi. */
     String HINDI = "hindi";
     /** hungarian. */
@@ -111,8 +115,6 @@ public class AnalyzerConfiguration extends GenericModel {
     String THAI = "thai";
     /** turkish. */
     String TURKISH = "turkish";
-    /** perfield. */
-    String PERFIELD = "perfield";
   }
 
   protected String name;
