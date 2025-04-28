@@ -11,10 +11,13 @@
  * specific language governing permissions and limitations under the License.
  */
 
-
 package com.ibm.cloud.cloudant.features.pagination;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
@@ -25,30 +28,19 @@ import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 
-class OptionsHandler<B, O> {
+abstract class OptionsHandler<B, O> {
 
-  static final OptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> POST_ALL_DOCS =
-      new OptionsHandler<>(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder);
-  static final OptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> POST_DESIGN_DOCS =
-      new OptionsHandler<>(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder);
-  static final OptionsHandler<PostFindOptions.Builder, PostFindOptions> POST_FIND =
-      new OptionsHandler<>(PostFindOptions.Builder::build, PostFindOptions::newBuilder);
+  static final OptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> POST_ALL_DOCS = new AllDocsOptionsHandler();
+  static final OptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> POST_DESIGN_DOCS = new DesignDocsOptionsHandler();
+  static final OptionsHandler<PostFindOptions.Builder, PostFindOptions> POST_FIND = new FindOptionsHandler();
   static final OptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> POST_PARTITION_ALL_DOCS =
-      new OptionsHandler<>(PostPartitionAllDocsOptions.Builder::build,
-          PostPartitionAllDocsOptions::newBuilder);
-  static final OptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> POST_PARTITION_FIND =
-      new OptionsHandler<>(PostPartitionFindOptions.Builder::build,
-          PostPartitionFindOptions::newBuilder);
+      new PartitionAllDocsOptionsHandler();
+  static final OptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> POST_PARTITION_FIND = new PartitionFindOptionsHandler();
   static final OptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> POST_PARTITION_SEARCH =
-      new OptionsHandler<>(PostPartitionSearchOptions.Builder::build,
-          PostPartitionSearchOptions::newBuilder);
-  static final OptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> POST_PARTITION_VIEW =
-      new OptionsHandler<>(PostPartitionViewOptions.Builder::build,
-          PostPartitionViewOptions::newBuilder);
-  static final OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> POST_SEARCH =
-      new OptionsHandler<>(PostSearchOptions.Builder::build, PostSearchOptions::newBuilder);
-  static final OptionsHandler<PostViewOptions.Builder, PostViewOptions> POST_VIEW =
-      new OptionsHandler<>(PostViewOptions.Builder::build, PostViewOptions::newBuilder);
+      new PartitionSearchOptionsHandler();
+  static final OptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> POST_PARTITION_VIEW = new PartitionViewOptionsHandler();
+  static final OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> POST_SEARCH = new SearchOptionsHandler();
+  static final OptionsHandler<PostViewOptions.Builder, PostViewOptions> POST_VIEW = new ViewOptionsHandler();
 
   private final Function<B, O> builderToOptions;
   private final Function<O, B> optionsToBuilder;
@@ -66,9 +58,7 @@ class OptionsHandler<B, O> {
     return this.builderToOptions.apply(builder);
   }
 
-  void validate(O options) {
-    throw new UnsupportedOperationException("Not yet implemented.");
-  }
+  abstract void validate(O options);
 
   O clone(O options) {
     return this.optionsFromBuilder(this.builderFromOptions(options));
@@ -108,6 +98,147 @@ class OptionsHandler<B, O> {
 
   static final PostViewOptions duplicate(PostViewOptions opts) {
     return POST_VIEW.clone(opts);
+  }
+
+  private static <V> boolean optionIsPresent(final Supplier<V> optionSupplier) {
+    return Optional.ofNullable(optionSupplier.get()).isPresent();
+  }
+
+  private static void validateOptionsAbsent(final Map<String, Supplier<?>> options) {
+    for (Map.Entry<String, Supplier<?>> option : options.entrySet()) {
+      if (optionIsPresent(option.getValue())) {
+        throw new IllegalArgumentException(
+          String.format("The option '%s' is invalid when using pagination.", option.getKey())
+        );
+      }
+    }
+  }
+
+  private static final class AllDocsOptionsHandler
+      extends OptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> {
+
+    private AllDocsOptionsHandler() {
+      super(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostAllDocsOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+  private static final class DesignDocsOptionsHandler
+      extends OptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> {
+
+    private DesignDocsOptionsHandler() {
+      super(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostDesignDocsOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+  private static final class FindOptionsHandler
+      extends OptionsHandler<PostFindOptions.Builder, PostFindOptions> {
+
+    private FindOptionsHandler() {
+      super(PostFindOptions.Builder::build, PostFindOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostFindOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+  private static final class PartitionAllDocsOptionsHandler
+      extends OptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
+
+    private PartitionAllDocsOptionsHandler() {
+      super(PostPartitionAllDocsOptions.Builder::build, PostPartitionAllDocsOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostPartitionAllDocsOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+  private static final class PartitionFindOptionsHandler
+      extends OptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
+
+    private PartitionFindOptionsHandler() {
+      super(PostPartitionFindOptions.Builder::build, PostPartitionFindOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostPartitionFindOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+  private static final class PartitionSearchOptionsHandler
+      extends OptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
+
+    private PartitionSearchOptionsHandler() {
+      super(PostPartitionSearchOptions.Builder::build, PostPartitionSearchOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostPartitionSearchOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+  private static final class PartitionViewOptionsHandler
+      extends OptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
+
+    private PartitionViewOptionsHandler() {
+      super(PostPartitionViewOptions.Builder::build, PostPartitionViewOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostPartitionViewOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+  private static final class SearchOptionsHandler
+      extends OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> {
+
+    private SearchOptionsHandler() {
+      super(PostSearchOptions.Builder::build, PostSearchOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostSearchOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
+  }
+
+
+  private static final class ViewOptionsHandler
+      extends OptionsHandler<PostViewOptions.Builder, PostViewOptions> {
+
+    private ViewOptionsHandler() {
+      super(PostViewOptions.Builder::build, PostViewOptions::newBuilder);
+    }
+
+    @Override
+    void validate(PostViewOptions options) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+    }
+
   }
 
 }
