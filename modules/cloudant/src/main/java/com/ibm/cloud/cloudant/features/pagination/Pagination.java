@@ -170,6 +170,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostAllDocsOptions, DocsResultRow> newPagination(Cloudant client,
       PostAllDocsOptions options) {
+    OptionsHandler.POST_ALL_DOCS.validate(options);
     return new Pagination<PostAllDocsOptions, DocsResultRow>(client,
         OptionsHandler.duplicate(options), AllDocsPageIterator::new);
   }
@@ -184,6 +185,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostPartitionAllDocsOptions, DocsResultRow> newPagination(
       Cloudant client, PostPartitionAllDocsOptions options) {
+    OptionsHandler.POST_PARTITION_ALL_DOCS.validate(options);
     return new Pagination<PostPartitionAllDocsOptions, DocsResultRow>(client,
         OptionsHandler.duplicate(options), AllDocsPartitionPageIterator::new);
   }
@@ -198,6 +200,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostDesignDocsOptions, DocsResultRow> newPagination(
       Cloudant client, PostDesignDocsOptions options) {
+    OptionsHandler.POST_DESIGN_DOCS.validate(options);
     return new Pagination<PostDesignDocsOptions, DocsResultRow>(client,
         OptionsHandler.duplicate(options), DesignDocsPageIterator::new);
   }
@@ -267,6 +270,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostViewOptions, ViewResultRow> newPagination(Cloudant client,
       PostViewOptions options) {
+    OptionsHandler.POST_VIEW.validate(options);
     return new Pagination<PostViewOptions, ViewResultRow>(client, OptionsHandler.duplicate(options),
         ViewPageIterator::new);
   }
@@ -281,6 +285,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostPartitionViewOptions, ViewResultRow> newPagination(Cloudant client,
       PostPartitionViewOptions options) {
+    OptionsHandler.POST_PARTITION_VIEW.validate(options);
     return new Pagination<PostPartitionViewOptions, ViewResultRow>(client,
         OptionsHandler.duplicate(options), ViewPartitionPageIterator::new);
   }

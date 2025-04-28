@@ -30,17 +30,24 @@ import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 
 abstract class OptionsHandler<B, O> {
 
-  static final OptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> POST_ALL_DOCS = new AllDocsOptionsHandler();
-  static final OptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> POST_DESIGN_DOCS = new DesignDocsOptionsHandler();
-  static final OptionsHandler<PostFindOptions.Builder, PostFindOptions> POST_FIND = new FindOptionsHandler();
+  static final OptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> POST_ALL_DOCS =
+      new AllDocsOptionsHandler();
+  static final OptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> POST_DESIGN_DOCS =
+      new DesignDocsOptionsHandler();
+  static final OptionsHandler<PostFindOptions.Builder, PostFindOptions> POST_FIND =
+      new FindOptionsHandler();
   static final OptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> POST_PARTITION_ALL_DOCS =
       new PartitionAllDocsOptionsHandler();
-  static final OptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> POST_PARTITION_FIND = new PartitionFindOptionsHandler();
+  static final OptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> POST_PARTITION_FIND =
+      new PartitionFindOptionsHandler();
   static final OptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> POST_PARTITION_SEARCH =
       new PartitionSearchOptionsHandler();
-  static final OptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> POST_PARTITION_VIEW = new PartitionViewOptionsHandler();
-  static final OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> POST_SEARCH = new SearchOptionsHandler();
-  static final OptionsHandler<PostViewOptions.Builder, PostViewOptions> POST_VIEW = new ViewOptionsHandler();
+  static final OptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> POST_PARTITION_VIEW =
+      new PartitionViewOptionsHandler();
+  static final OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> POST_SEARCH =
+      new SearchOptionsHandler();
+  static final OptionsHandler<PostViewOptions.Builder, PostViewOptions> POST_VIEW =
+      new ViewOptionsHandler();
 
   // The maximum and minimum limit values (i.e. page size)
   static final Long MAX_LIMIT = 200L;
@@ -129,8 +136,7 @@ abstract class OptionsHandler<B, O> {
     for (Map.Entry<String, Supplier<?>> option : options.entrySet()) {
       if (optionIsPresent(option.getValue())) {
         throw new IllegalArgumentException(
-          String.format("The option '%s' is invalid when using pagination.", option.getKey())
-        );
+            String.format("The option '%s' is invalid when using pagination.", option.getKey()));
       }
     }
   }
@@ -144,7 +150,8 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostAllDocsOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
+      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
     }
 
   }
@@ -158,7 +165,8 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostDesignDocsOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
+      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
     }
 
   }
@@ -186,7 +194,8 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostPartitionAllDocsOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
+      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
     }
 
   }
@@ -228,7 +237,8 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostPartitionViewOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
+      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
     }
 
   }
@@ -257,7 +267,8 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostViewOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
+      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
     }
 
   }

@@ -255,4 +255,15 @@ public class OptionsValidationTest {
     }
   }
 
+  @Test(dataProvider = "viewLikeOptions")
+  public <B, O> void testValidationExceptionForKeys(OptionsProvider<B, O> provider)
+      throws Exception {
+    provider.setRequiredOpts();
+    provider.set("keys", List.of("key1", "key2"));
+    Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
+        () -> {
+          provider.handler.validate(provider.build());
+        });
+  }
+
 }
