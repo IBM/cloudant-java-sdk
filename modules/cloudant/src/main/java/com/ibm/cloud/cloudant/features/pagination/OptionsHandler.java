@@ -42,6 +42,10 @@ abstract class OptionsHandler<B, O> {
   static final OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> POST_SEARCH = new SearchOptionsHandler();
   static final OptionsHandler<PostViewOptions.Builder, PostViewOptions> POST_VIEW = new ViewOptionsHandler();
 
+  // The maximum and minimum limit values (i.e. page size)
+  static final Long MAX_LIMIT = 200L;
+  static final Long MIN_LIMIT = 1L;
+
   private final Function<B, O> builderToOptions;
   private final Function<O, B> optionsToBuilder;
 
@@ -98,6 +102,23 @@ abstract class OptionsHandler<B, O> {
 
   static final PostViewOptions duplicate(PostViewOptions opts) {
     return POST_VIEW.clone(opts);
+  }
+
+  private static void validateLimit(Supplier<Long> limitSupplier) {
+    // If limit is set check it is within range
+    // Else it is unset and we will set the valid default value later
+    if (optionIsPresent(limitSupplier)) {
+      Long limit = limitSupplier.get();
+      if (limit > MAX_LIMIT) {
+        throw new IllegalArgumentException(String.format(
+            "The provided limit %d exceeds the maximum page size value of %d.", limit, MAX_LIMIT));
+      }
+      if (limit < MIN_LIMIT) {
+        throw new IllegalArgumentException(
+            String.format("The provided limit %d is lower than the minimum page size value of %d.",
+                limit, MIN_LIMIT));
+      }
+    }
   }
 
   private static <V> boolean optionIsPresent(final Supplier<V> optionSupplier) {
