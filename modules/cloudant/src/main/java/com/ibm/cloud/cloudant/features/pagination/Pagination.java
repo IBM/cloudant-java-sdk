@@ -215,6 +215,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostFindOptions, Document> newPagination(Cloudant client,
       PostFindOptions options) {
+    OptionsHandler.POST_FIND.validate(options);
     return new Pagination<PostFindOptions, Document>(client, OptionsHandler.duplicate(options),
         FindPager::new);
   }
@@ -228,6 +229,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostPartitionFindOptions, Document> newPagination(Cloudant client,
       PostPartitionFindOptions options) {
+    OptionsHandler.POST_PARTITION_FIND.validate(options);
     return new Pagination<PostPartitionFindOptions, Document>(client,
         OptionsHandler.duplicate(options), FindPartitionPager::new);
   }

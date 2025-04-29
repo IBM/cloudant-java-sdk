@@ -180,7 +180,7 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostFindOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
     }
 
   }
@@ -209,7 +209,7 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostPartitionFindOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
     }
 
   }

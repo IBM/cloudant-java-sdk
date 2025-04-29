@@ -154,9 +154,9 @@ public class OptionsValidationTest {
           new OptionsWrapper<>(OptionsHandler.POST_PARTITION_SEARCH,
               PostPartitionSearchOptions.Builder::new));
 
-  // TODO add findOptions and searchOptions to allOptions when those validations are implemented
+  // TODO add searchOptions to allOptions when that validation is implemented
   List<OptionsWrapper<?, ?>> allOptions =
-      Stream.of(viewLikeOptions).flatMap(List::stream).collect(Collectors.toList());
+      Stream.of(findOptions, viewLikeOptions).flatMap(List::stream).collect(Collectors.toList());
 
   @DataProvider(name = "allOptions")
   public Iterator<Object[]> allOptions() {
