@@ -244,6 +244,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostSearchOptions, SearchResultRow> newPagination(Cloudant client,
       PostSearchOptions options) {
+    OptionsHandler.POST_SEARCH.validate(options);
     return new Pagination<PostSearchOptions, SearchResultRow>(client,
         OptionsHandler.duplicate(options), SearchPageIterator::new);
   }
@@ -258,6 +259,7 @@ public class Pagination<O, I> {
    */
   public static Pagination<PostPartitionSearchOptions, SearchResultRow> newPagination(
       Cloudant client, PostPartitionSearchOptions options) {
+    OptionsHandler.POST_PARTITION_SEARCH.validate(options);
     return new Pagination<PostPartitionSearchOptions, SearchResultRow>(client,
         OptionsHandler.duplicate(options), SearchPartitionPageIterator::new);
   }

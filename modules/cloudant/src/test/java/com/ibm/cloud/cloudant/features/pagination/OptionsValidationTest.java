@@ -14,6 +14,7 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -36,6 +37,9 @@ import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 
 public class OptionsValidationTest {
+
+  private static final OptionsWrapper<PostSearchOptions.Builder, PostSearchOptions> SEARCH_OPTS_WRAPPER =
+      new OptionsWrapper<>(OptionsHandler.POST_SEARCH, PostSearchOptions.Builder::new);
 
   private static final class OptionsWrapper<B, O> {
 
@@ -150,13 +154,11 @@ public class OptionsValidationTest {
               PostPartitionFindOptions.Builder::new));
 
   List<OptionsWrapper<?, ?>> searchOptions =
-      List.of(new OptionsWrapper<>(OptionsHandler.POST_SEARCH, PostSearchOptions.Builder::new),
-          new OptionsWrapper<>(OptionsHandler.POST_PARTITION_SEARCH,
-              PostPartitionSearchOptions.Builder::new));
+      List.of(SEARCH_OPTS_WRAPPER, new OptionsWrapper<>(OptionsHandler.POST_PARTITION_SEARCH,
+          PostPartitionSearchOptions.Builder::new));
 
-  // TODO add searchOptions to allOptions when that validation is implemented
-  List<OptionsWrapper<?, ?>> allOptions =
-      Stream.of(findOptions, viewLikeOptions).flatMap(List::stream).collect(Collectors.toList());
+  List<OptionsWrapper<?, ?>> allOptions = Stream.of(findOptions, searchOptions, viewLikeOptions)
+      .flatMap(List::stream).collect(Collectors.toList());
 
   @DataProvider(name = "allOptions")
   public Iterator<Object[]> allOptions() {
@@ -177,6 +179,18 @@ public class OptionsValidationTest {
     return searchOptions.stream().map(w -> {
       return new Object[] {w.newProvider()};
     }).iterator();
+  }
+
+  @DataProvider(name = "searchFacetOptions")
+  public Iterator<Object[]> facets() {
+    List<Object[]> options = new ArrayList<>(5);
+    options.add(new Object[] {"counts", Collections.singletonList("aTestFieldToCount")});
+    options.add(new Object[] {"groupField", "testField"});
+    options.add(new Object[] {"groupLimit", 6L});
+    options.add(new Object[] {"groupSort", Collections.singletonList("aTestFieldToGroupSort")});
+    options.add(new Object[] {"ranges", Collections.singletonMap("aTestFieldForRanges",
+        Map.of("low", "[0 TO 5}", "high", "[5 TO 10]"))});
+    return options.iterator();
   }
 
   @DataProvider(name = "viewLikeOptions")
@@ -260,6 +274,18 @@ public class OptionsValidationTest {
       throws Exception {
     provider.setRequiredOpts();
     provider.set("keys", List.of("key1", "key2"));
+    Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
+        () -> {
+          provider.handler.validate(provider.build());
+        });
+  }
+
+  public void testValidationExceptionForFacetedSearch(String optionName, Object optionValue)
+      throws Exception {
+    OptionsProvider<PostSearchOptions.Builder, PostSearchOptions> provider =
+        SEARCH_OPTS_WRAPPER.newProvider();
+    provider.setRequiredOpts();
+    provider.set(optionName, optionValue);
     Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
         () -> {
           provider.handler.validate(provider.build());

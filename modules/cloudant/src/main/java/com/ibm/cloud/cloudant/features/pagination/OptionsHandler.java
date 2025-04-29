@@ -14,6 +14,7 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -223,7 +224,7 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostPartitionSearchOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
     }
 
   }
@@ -252,11 +253,17 @@ abstract class OptionsHandler<B, O> {
 
     @Override
     void validate(PostSearchOptions options) {
-      throw new UnsupportedOperationException("Not yet implemented.");
+      validateLimit(options::limit);
+      Map<String, Supplier<?>> invalidOptions = new HashMap<>(5);
+      invalidOptions.put("counts", options::counts);
+      invalidOptions.put("groupField", options::groupField);
+      invalidOptions.put("groupLimit", options::groupLimit);
+      invalidOptions.put("groupSort", options::groupSort);
+      invalidOptions.put("ranges", options::ranges);
+      validateOptionsAbsent(invalidOptions);
     }
 
   }
-
 
   private static final class ViewOptionsHandler
       extends OptionsHandler<PostViewOptions.Builder, PostViewOptions> {
