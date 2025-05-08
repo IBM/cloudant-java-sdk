@@ -280,6 +280,7 @@ public class OptionsValidationTest {
         });
   }
 
+  @Test(dataProvider = "searchFacetOptions")
   public void testValidationExceptionForFacetedSearch(String optionName, Object optionValue)
       throws Exception {
     OptionsProvider<PostSearchOptions.Builder, PostSearchOptions> provider =
