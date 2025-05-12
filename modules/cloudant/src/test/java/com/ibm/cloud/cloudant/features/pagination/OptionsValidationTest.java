@@ -23,7 +23,7 @@ import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
 public class OptionsValidationTest {
 
   @Test(dataProvider = "allOptions", dataProviderClass = PaginationTestHelpers.class)
-  public <B, O> void testOptionsValidationLimitLessThanMin(OptionsProvider<B, O> provider)
+  public void testOptionsValidationLimitLessThanMin(OptionsProvider<Object, Object> provider)
       throws Exception {
     provider.setRequiredOpts();
     provider.set("limit", OptionsHandler.MIN_LIMIT - 1);
@@ -34,7 +34,7 @@ public class OptionsValidationTest {
   }
 
   @Test(dataProvider = "allOptions", dataProviderClass = PaginationTestHelpers.class)
-  public <B, O> void testOptionsValidationLimitEqualToMin(OptionsProvider<B, O> provider)
+  public void testOptionsValidationLimitEqualToMin(OptionsProvider<Object, Object> provider)
       throws Exception {
     provider.setRequiredOpts();
     provider.set("limit", OptionsHandler.MIN_LIMIT);
@@ -46,7 +46,7 @@ public class OptionsValidationTest {
   }
 
   @Test(dataProvider = "allOptions", dataProviderClass = PaginationTestHelpers.class)
-  public <B, O> void testOptionsValidationLimitLessThanMax(OptionsProvider<B, O> provider)
+  public void testOptionsValidationLimitLessThanMax(OptionsProvider<Object, Object> provider)
       throws Exception {
     provider.setRequiredOpts();
     provider.set("limit", OptionsHandler.MAX_LIMIT - 1);
@@ -58,7 +58,7 @@ public class OptionsValidationTest {
   }
 
   @Test(dataProvider = "allOptions", dataProviderClass = PaginationTestHelpers.class)
-  public <B, O> void testOptionsValidationLimitEqualToMax(OptionsProvider<B, O> provider)
+  public void testOptionsValidationLimitEqualToMax(OptionsProvider<Object, Object> provider)
       throws Exception {
     provider.setRequiredOpts();
     provider.set("limit", OptionsHandler.MAX_LIMIT);
@@ -70,7 +70,7 @@ public class OptionsValidationTest {
   }
 
   @Test(dataProvider = "allOptions", dataProviderClass = PaginationTestHelpers.class)
-  public <B, O> void testOptionsValidationLimitGreaterThanMax(OptionsProvider<B, O> provider)
+  public void testOptionsValidationLimitGreaterThanMax(OptionsProvider<Object, Object> provider)
       throws Exception {
     provider.setRequiredOpts();
     provider.set("limit", OptionsHandler.MAX_LIMIT + 1);
@@ -81,7 +81,7 @@ public class OptionsValidationTest {
   }
 
   @Test(dataProvider = "allOptions", dataProviderClass = PaginationTestHelpers.class)
-  public <B, O> void testOptionsValidationLimitUnset(OptionsProvider<B, O> provider)
+  public void testOptionsValidationLimitUnset(OptionsProvider<Object, Object> provider)
       throws Exception {
     provider.setRequiredOpts();
     try {
@@ -92,7 +92,7 @@ public class OptionsValidationTest {
   }
 
   @Test(dataProvider = "viewLikeOptions", dataProviderClass = PaginationTestHelpers.class)
-  public <B, O> void testValidationExceptionForKeys(OptionsProvider<B, O> provider)
+  public void testValidationExceptionForKeys(OptionsProvider<Object, Object> provider)
       throws Exception {
     provider.setRequiredOpts();
     provider.set("keys", List.of("key1", "key2"));
