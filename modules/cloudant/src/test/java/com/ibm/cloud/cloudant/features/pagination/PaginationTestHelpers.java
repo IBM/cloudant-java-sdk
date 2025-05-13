@@ -455,7 +455,13 @@ public class PaginationTestHelpers {
   }
 
   static class TestFindDocument extends Document {
+
+    TestFindDocument() {
+      super();
+    }
+
     TestFindDocument(Integer i) {
+      super();
       this.id = "testdoc" + String.valueOf(i);
     }
   }
