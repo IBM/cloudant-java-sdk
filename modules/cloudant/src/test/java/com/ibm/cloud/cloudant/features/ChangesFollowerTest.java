@@ -37,16 +37,6 @@ import okhttp3.OkHttpClient;
 
 public class ChangesFollowerTest {
 
-    Object[][] errorsAsTestObjectArray(Collection<MockError> errors) {
-        Object[][] tests = new Object[errors.size()][];
-        int index = 0;
-        for (MockError e : errors) {
-            tests[index] = new Object[]{e};
-            index++;
-        }
-        return tests;
-    }
-
     /**
      * Make a collection of mock instructions that alternate between
      * successful batches and errors.
@@ -97,12 +87,12 @@ public class ChangesFollowerTest {
 
     @DataProvider(name = "terminalErrors")
     Object[][] getTerminalErrors() {
-        return errorsAsTestObjectArray(MockError.getTerminalErrors());
+        return MockError.errorsAsTestObjectArray(MockError.getTerminalErrors());
     }
 
     @DataProvider(name = "transientErrors")
     Object[][] getTransientErrors() {
-        return errorsAsTestObjectArray(MockError.getTransientErrors());
+        return MockError.errorsAsTestObjectArray(MockError.getTransientErrors());
     }
 
     @DataProvider(name = "invalidTimeoutClients")

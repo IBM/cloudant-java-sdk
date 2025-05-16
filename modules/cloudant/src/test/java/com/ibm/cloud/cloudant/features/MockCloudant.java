@@ -78,7 +78,7 @@ public class MockCloudant<R> extends Cloudant {
     /**
      * Mock errors
      */
-    enum MockError {
+    public enum MockError {
         TERMINAL_400,
         TERMINAL_401,
         TERMINAL_403,
@@ -138,7 +138,7 @@ public class MockCloudant<R> extends Cloudant {
             return rb.build();
         }
 
-        Class<? extends RuntimeException> getExceptionClass() {
+        public Class<? extends RuntimeException> getExceptionClass() {
             return getException().getClass();
         }
 
@@ -175,6 +175,16 @@ public class MockCloudant<R> extends Cloudant {
         void throwException() throws RuntimeException {
             throw getException();
         }
+
+        public static Object[][] errorsAsTestObjectArray(Collection<MockError> errors) {
+        Object[][] tests = new Object[errors.size()][];
+        int index = 0;
+        for (MockError e : errors) {
+            tests[index] = new Object[]{e};
+            index++;
+        }
+        return tests;
+    }
     }
 
     /**
@@ -252,7 +262,7 @@ public class MockCloudant<R> extends Cloudant {
         protected final Collection<MockInstruction<R>> instructions;
         protected final Queue<MockInstruction<R>> q;
 
-        protected QueuedSupplier(Collection<MockInstruction<R>> instructions) {
+        public QueuedSupplier(Collection<MockInstruction<R>> instructions) {
             this.instructions = instructions;
             this.q = new ArrayDeque<>(instructions);
         }
