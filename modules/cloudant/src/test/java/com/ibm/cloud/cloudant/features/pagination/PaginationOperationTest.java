@@ -14,13 +14,20 @@
 
 package com.ibm.cloud.cloudant.features.pagination;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.ibm.cloud.cloudant.features.MockCloudant;
+import com.ibm.cloud.cloudant.features.MockCloudant.MockInstruction;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.MockPagerCloudant;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.OptionsProvider;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.PageSupplierFactory;
@@ -31,149 +38,202 @@ public abstract class PaginationOperationTest<B, R, O, I> {
   protected final OptionsProvider<B, O> provider;
   protected final boolean plusOnePaging;
 
-  PaginationOperationTest(PageSupplierFactory<R, I> pageSupplierFactory, OptionsProvider<B, O> provider, boolean plusOnePaging) {
+  private Function<Pagination<O, I>, PagingResult<I>> pagerFn = p -> {
+    PagingResult<I> result = new PagingResult<>();
+    Pager<I> pager = p.pager();
+    while (pager.hasNext()) {
+      List<I> page = pager.getNext();
+      result.handlePage(page);
+    }
+    return result;
+  };
+
+  private Function<Pagination<O, I>, PagingResult<I>> pageStreamFn = p -> {
+    PagingResult<I> result = new PagingResult<>();
+    p.pageStream().forEach(result::handlePage);
+    return result;
+  };
+
+  private Function<Pagination<O, I>, PagingResult<I>> pagesFn = p -> {
+    PagingResult<I> result = new PagingResult<>();
+    for (List<I> page : p.pages()) {
+      result.handlePage(page);
+    }
+    return result;
+  };
+
+  private Function<Pagination<O, I>, PagingResult<I>> rowStreamFn = p -> {
+    PagingResult<I> result = new PagingResult<>();
+    p.rowStream().forEach(result::handleItem);
+    return result;
+  };
+
+  private Function<Pagination<O, I>, PagingResult<I>> rowsFn = p -> {
+    PagingResult<I> result = new PagingResult<>();
+    for (I row : p.rows()) {
+      result.handleItem(row);
+    }
+    return result;
+  };
+
+  PaginationOperationTest(PageSupplierFactory<R, I> pageSupplierFactory,
+      OptionsProvider<B, O> provider, boolean plusOnePaging) {
     this.pageSupplierFactory = pageSupplierFactory;
     this.provider = provider;
     this.plusOnePaging = plusOnePaging;
   }
 
+  private static final class TestCase {
+    final int totalItems;
+    final int pageSize;
+    final int expectedPages;
+
+    TestCase(int totalItems, int pageSize, boolean plusOnePaging) {
+      this.totalItems = totalItems;
+      this.pageSize = pageSize;
+      this.expectedPages = (totalItems == 0) ? 1 : getExpectedPages(plusOnePaging);
+    }
+
+    private int getExpectedPages(boolean plusOnePaging) {
+      int fullPages = (totalItems / pageSize);
+      int partialPages = totalItems % pageSize == 0 ? 0 : 1;
+      int expectedPages = fullPages + partialPages;
+      // Need at least 1 empty page to know there are no more results
+      // if not ending on a partial page, except if the first page or
+      // using n+1 paging (because an exact user page is a partial real page).
+      if (partialPages == 0 && (!plusOnePaging || expectedPages == 0)) {
+        expectedPages += 1; // We will get at least 1 empty page
+      }
+      return expectedPages;
+    }
+  }
+
+  private final List<BiConsumer<PagingResult<I>, TestCase>> pageAssertions =
+      List.of(PagingResult::assertPageCount, PagingResult::assertItemCount,
+          PagingResult::assertUniqueItemCount);
+  private final List<BiConsumer<PagingResult<I>, TestCase>> itemAssertions =
+      pageAssertions.subList(1, pageAssertions.size());
+
+
+  private static final class PagingResult<I> {
+
+    boolean assertable = false;
+    Integer pageCount = 0;
+    List<I> items = new ArrayList<>();
+
+    private void setAssertable() {
+      if (!this.assertable) {
+        this.assertable = true;
+      }
+    }
+
+    private void handleItem(I item) {
+      setAssertable();
+      items.add(item);
+    }
+
+    private void handlePage(Collection<I> page) {
+      setAssertable();
+      pageCount++;
+      items.addAll(page);
+    }
+
+    private void assertItemCount(TestCase t) {
+      Assert.assertEquals(items.size(), t.totalItems,
+          "There should be the expected number of items.");
+    }
+
+    private void assertPageCount(TestCase t) {
+      Assert.assertTrue(this.assertable, "PagingResult handled no pages.");
+      Assert.assertEquals(pageCount, t.expectedPages,
+          "There should be the expected number of pages.");
+    }
+
+    private void assertUniqueItemCount(TestCase t) {
+      Set<I> uniqueItems = new HashSet<>();
+      uniqueItems.addAll(items);
+      Assert.assertEquals(uniqueItems.size(), t.totalItems, "The items should be unique.");
+    }
+
+  }
+
   @DataProvider(name = "pageSets")
   Object[][] getPageSets() {
     int pageSize = 10;
-    return new Object[][] {getTestPageParams(0, pageSize), // Empty page
-        getTestPageParams(1, pageSize), // Partial page
-        getTestPageParams(pageSize - 1, pageSize), // One less than a whole page
-        getTestPageParams(pageSize, pageSize), // Exactly one page
-        getTestPageParams(pageSize + 1, pageSize), // One more than a whole page
-        getTestPageParams(3 * pageSize, pageSize), // Multiple pages, exact
-        getTestPageParams(3 * pageSize + 1, pageSize), // Multiple pages, plus one
-        getTestPageParams(4 * pageSize - 1, pageSize) // Multiple pages, partial finish
+    return new Object[][] {makeTestCase(0, pageSize), // Empty page
+        makeTestCase(1, pageSize), // Partial page
+        makeTestCase(pageSize - 1, pageSize), // One less than a whole page
+        makeTestCase(pageSize, pageSize), // Exactly one page
+        makeTestCase(pageSize + 1, pageSize), // One more than a whole page
+        makeTestCase(3 * pageSize, pageSize), // Multiple pages, exact
+        makeTestCase(3 * pageSize + 1, pageSize), // Multiple pages, plus one
+        makeTestCase(4 * pageSize - 1, pageSize) // Multiple pages, partial finish
     };
   }
 
-  Object[] getTestPageParams(int total, int pageSize) {
-    int fullPages = (total / pageSize);
-    int partialPages = total % pageSize == 0 ? 0 : 1;
-    int expectedPages = fullPages + partialPages;
-    // Need at least 1 empty page to know there are no more results
-    // if not ending on a partial page, except if the first page or
-    // using n+1 paging (because an exact user page is a partial real page).
-    if (partialPages == 0 && (!plusOnePaging || expectedPages == 0)) {
-      expectedPages += 1; // We will get at least 1 empty page
-    }
-    return new Object[] {total, pageSize, expectedPages};
+  Object[] makeTestCase(int total, int pageSize) {
+    return new Object[] {new TestCase(total, pageSize, plusOnePaging)};
   }
 
   protected abstract Pagination<O, I> makeNewPagination(MockCloudant<R> c, O options);
 
+  private Pagination<O, I> makeTestPagination(int pageSize, Supplier<MockInstruction<R>> supplier)
+      throws Exception {
+    this.provider.setRequiredOpts();
+    this.provider.set("limit", Integer.valueOf(pageSize).longValue());
+    return makeNewPagination(new MockPagerCloudant<R>(supplier), provider.build());
+  }
+
+  private void runPaginationTest(TestCase t,
+      Function<Pagination<O, I>, PagingResult<I>> pagingFunction,
+      List<BiConsumer<PagingResult<I>, TestCase>> assertions) throws Exception {
+    Pagination<O, I> pagination = makeTestPagination(t.pageSize,
+        this.pageSupplierFactory.newPageSupplier(t.totalItems, t.pageSize));
+    PagingResult<I> r = pagingFunction.apply(pagination);
+    for (BiConsumer<PagingResult<I>, TestCase> assertion : assertions) {
+      assertion.accept(r, t);
+    }
+  }
+
   // Check validation is wired
   @Test
   public void testValidationEnabled() throws Exception {
-    this.provider.setRequiredOpts();
-    this.provider.set("limit", OptionsHandler.MIN_LIMIT - 1);
     Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
         () -> {
-          makeNewPagination(new MockPagerCloudant<R>(pageSupplierFactory.newPageSupplier(0, 0)),
-              provider.build());
+          runPaginationTest(
+              new TestCase(0, Long.valueOf(OptionsHandler.MIN_LIMIT - 1).intValue(), plusOnePaging),
+              p -> null, Collections.emptyList());
         });
   }
 
   // Check Pager
   @Test(dataProvider = "pageSets")
-  public void testPager(int totalItems, int pageSize, int expectedPages) throws Exception {
-    provider.setRequiredOpts();
-    provider.set("limit", Integer.valueOf(pageSize).longValue());
-    Pagination<O, I> pagination = makeNewPagination(
-        new MockPagerCloudant<R>(this.pageSupplierFactory.newPageSupplier(totalItems, pageSize)),
-        provider.build());
-    Pager<I> pager = pagination.pager();
-    int pageCount = 0;
-    int items = 0;
-    Set<I> uniqueItems = new HashSet<>(totalItems);
-    while (pager.hasNext()) {
-      List<I> page = pager.getNext();
-      pageCount++;
-      items += page.size();
-      uniqueItems.addAll(page);
-    }
-    Assert.assertEquals(pageCount, expectedPages, "There should be the expected number of pages.");
-    Assert.assertEquals(items, totalItems, "There should be the expected number of items.");
-    Assert.assertEquals(uniqueItems.size(), totalItems, "The items should be unique.");
+  public void testPager(TestCase t) throws Exception {
+    runPaginationTest(t, pagerFn, pageAssertions);
   }
 
   // Check PageStream
   @Test(dataProvider = "pageSets")
-  public void testPageStream(int totalItems, int pageSize, int expectedPages) throws Exception {
-    provider.setRequiredOpts();
-    provider.set("limit", Integer.valueOf(pageSize).longValue());
-    Pagination<O, I> pagination = makeNewPagination(
-        new MockPagerCloudant<R>(this.pageSupplierFactory.newPageSupplier(totalItems, pageSize)),
-        provider.build());
-    Assert.assertEquals(pagination.pageStream().count(), expectedPages,
-        "There should be the expected number of pages.");
-    // Reset the mocks for another stream
-    pagination = makeNewPagination(
-        new MockPagerCloudant<R>(this.pageSupplierFactory.newPageSupplier(totalItems, pageSize)),
-        provider.build());
-    Assert.assertEquals(pagination.pageStream().flatMap(List::stream).distinct().count(),
-        totalItems, "There should be the expected number of distinct items.");
+  public void testPageStream(TestCase t) throws Exception {
+    runPaginationTest(t, pageStreamFn, pageAssertions);
   }
 
   // Check Pages
   @Test(dataProvider = "pageSets")
-  public void testPages(int totalItems, int pageSize, int expectedPages) throws Exception {
-    provider.setRequiredOpts();
-    provider.set("limit", Integer.valueOf(pageSize).longValue());
-    Pagination<O, I> pagination = makeNewPagination(
-        new MockPagerCloudant<R>(this.pageSupplierFactory.newPageSupplier(totalItems, pageSize)),
-        provider.build());
-    int pageCount = 0;
-    int items = 0;
-    Set<I> uniqueItems = new HashSet<>(totalItems);
-    for (List<I> page : pagination.pages()) {
-      pageCount++;
-      items += page.size();
-      uniqueItems.addAll(page);
-    }
-    Assert.assertEquals(pageCount, expectedPages, "There should be the expected number of pages.");
-    Assert.assertEquals(items, totalItems, "There should be the expected number of items.");
-    Assert.assertEquals(uniqueItems.size(), totalItems, "The items should be unique.");
+  public void testPages(TestCase t) throws Exception {
+    runPaginationTest(t, pagesFn, pageAssertions);
   }
 
   // Check RowStream
   @Test(dataProvider = "pageSets")
-  public void testRowStream(int totalItems, int pageSize, int expectedPages) throws Exception {
-    provider.setRequiredOpts();
-    provider.set("limit", Integer.valueOf(pageSize).longValue());
-    Pagination<O, I> pagination = makeNewPagination(
-        new MockPagerCloudant<R>(this.pageSupplierFactory.newPageSupplier(totalItems, pageSize)),
-        provider.build());
-    Assert.assertEquals(pagination.rowStream().count(), totalItems,
-        "There should be the expected number of items.");
-    // Reset mocks for another stream
-    pagination = makeNewPagination(
-        new MockPagerCloudant<R>(this.pageSupplierFactory.newPageSupplier(totalItems, pageSize)),
-        provider.build());
-    Assert.assertEquals(pagination.rowStream().distinct().count(), totalItems,
-        "There should be the expected number of distinct items.");
+  public void testRowStream(TestCase t) throws Exception {
+    runPaginationTest(t, rowStreamFn, itemAssertions);
   }
 
   // Check Rows
   @Test(dataProvider = "pageSets")
-  public void testRows(int totalItems, int pageSize, int expectedPages) throws Exception {
-    provider.setRequiredOpts();
-    provider.set("limit", Integer.valueOf(pageSize).longValue());
-    Pagination<O, I> pagination = makeNewPagination(
-        new MockPagerCloudant<R>(this.pageSupplierFactory.newPageSupplier(totalItems, pageSize)),
-        provider.build());
-    int items = 0;
-    Set<I> uniqueItems = new HashSet<>(totalItems);
-    for (I row : pagination.rows()) {
-      items++;
-      uniqueItems.add(row);
-    }
-    Assert.assertEquals(items, totalItems, "There should be the expected number of items.");
-    Assert.assertEquals(uniqueItems.size(), totalItems, "The items should be unique.");
+  public void testRows(TestCase t) throws Exception {
+    runPaginationTest(t, rowsFn, itemAssertions);
   }
 
 }
