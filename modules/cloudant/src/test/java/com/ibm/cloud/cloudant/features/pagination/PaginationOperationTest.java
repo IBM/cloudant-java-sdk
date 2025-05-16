@@ -15,9 +15,11 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -27,9 +29,11 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.ibm.cloud.cloudant.features.MockCloudant;
+import com.ibm.cloud.cloudant.features.MockCloudant.MockError;
 import com.ibm.cloud.cloudant.features.MockCloudant.MockInstruction;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.MockPagerCloudant;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.OptionsProvider;
+import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.PageSupplier;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.PageSupplierFactory;
 
 public abstract class PaginationOperationTest<B, R, O, I> {
@@ -171,6 +175,13 @@ public abstract class PaginationOperationTest<B, R, O, I> {
     };
   }
 
+  @DataProvider(name = "errorSuppliers")
+  Iterator<Object[]> getErrorSuppliers() {
+    return Arrays.stream(MockError.values()).flatMap(mockError -> {
+      return List.of(new Object[] {mockError, true}, new Object[] {mockError, false}).stream();
+    }).iterator();
+  }
+
   Object[] makeTestCase(int total, int pageSize) {
     return new Object[] {new TestCase(total, pageSize, plusOnePaging)};
   }
@@ -193,6 +204,22 @@ public abstract class PaginationOperationTest<B, R, O, I> {
     for (BiConsumer<PagingResult<I>, TestCase> assertion : assertions) {
       assertion.accept(r, t);
     }
+  }
+
+  private void runPaginationErrorTest(Function<Pagination<O, I>, PagingResult<I>> pagingFunction,
+      MockError error, boolean errorOnFirstPage) throws Exception {
+    int pageSize = Long.valueOf(OptionsHandler.MAX_LIMIT).intValue();
+    List<MockInstruction<R>> instructions = new ArrayList<>();
+    if (!errorOnFirstPage) {
+      PageSupplier<R, I> supplier =
+          this.pageSupplierFactory.newPageSupplier(2 * pageSize, pageSize);
+      instructions.add(supplier.get()); // Add a successful page
+    }
+    instructions.add(new MockInstruction<>(error)); // Add the error
+    Pagination<O, I> pagination =
+        makeTestPagination(pageSize, new MockCloudant.QueuedSupplier<R>(instructions));
+    Assert.assertThrows("The correct exception should be received.", error.getExceptionClass(),
+        () -> pagingFunction.apply(pagination));
   }
 
   // Check validation is wired
@@ -235,5 +262,36 @@ public abstract class PaginationOperationTest<B, R, O, I> {
   public void testRows(TestCase t) throws Exception {
     runPaginationTest(t, rowsFn, itemAssertions);
   }
+
+  // Check Pager errors
+  @Test(dataProvider = "errorSuppliers")
+  public void testPagerErrors(MockError error, boolean errorOnFirstPage) throws Exception {
+    runPaginationErrorTest(pagerFn, error, errorOnFirstPage);
+  }
+
+    // Check PageStream errors
+  @Test(dataProvider = "errorSuppliers")
+  public void testPageStreamErrors(MockError error, boolean errorOnFirstPage) throws Exception {
+    runPaginationErrorTest(pageStreamFn, error, errorOnFirstPage);
+  }
+
+  // Check Pages errors 
+  @Test(dataProvider = "errorSuppliers")
+  public void testPagesErrors(MockError error, boolean errorOnFirstPage) throws Exception {
+    runPaginationErrorTest(pagesFn, error, errorOnFirstPage);
+  }
+
+  // Check RowStream errors
+  @Test(dataProvider = "errorSuppliers")
+  public void testRowStreamErrors(MockError error, boolean errorOnFirstPage) throws Exception {
+    runPaginationErrorTest(rowStreamFn, error, errorOnFirstPage);
+  }
+
+  // Check Rows errors
+  @Test(dataProvider = "errorSuppliers")
+  public void testRowsErrors(MockError error, boolean errorOnFirstPage) throws Exception {
+    runPaginationErrorTest(rowsFn, error, errorOnFirstPage);
+  }
+
 
 }
