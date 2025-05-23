@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -46,36 +47,56 @@ public abstract class PaginationOperationTest<B, R, O, I> {
     PagingResult<I> result = new PagingResult<>();
     Pager<I> pager = p.pager();
     while (pager.hasNext()) {
-      List<I> page = pager.getNext();
-      result.handlePage(page);
+      try {
+        List<I> page = pager.getNext();
+        result.handlePage(page);
+      } catch (Exception e) {
+        result.handleException(e);
+      }
     }
     return result;
   };
 
   private Function<Pagination<O, I>, PagingResult<I>> pageStreamFn = p -> {
     PagingResult<I> result = new PagingResult<>();
-    p.pageStream().forEach(result::handlePage);
+    try {
+      p.pageStream().forEach(result::handlePage);
+    } catch (Exception e) {
+      result.handleException(e);
+    }
     return result;
   };
 
   private Function<Pagination<O, I>, PagingResult<I>> pagesFn = p -> {
     PagingResult<I> result = new PagingResult<>();
-    for (List<I> page : p.pages()) {
-      result.handlePage(page);
+    try {
+      for (List<I> page : p.pages()) {
+        result.handlePage(page);
+      }
+    } catch (Exception e) {
+      result.handleException(e);
     }
     return result;
   };
 
   private Function<Pagination<O, I>, PagingResult<I>> rowStreamFn = p -> {
     PagingResult<I> result = new PagingResult<>();
-    p.rowStream().forEach(result::handleItem);
+    try {
+      p.rowStream().forEach(result::handleItem);
+    } catch (Exception e) {
+      result.handleException(e);
+    }
     return result;
   };
 
   private Function<Pagination<O, I>, PagingResult<I>> rowsFn = p -> {
     PagingResult<I> result = new PagingResult<>();
-    for (I row : p.rows()) {
-      result.handleItem(row);
+    try {
+      for (I row : p.rows()) {
+        result.handleItem(row);
+      }
+    } catch (Exception e) {
+      result.handleException(e);
     }
     return result;
   };
@@ -124,11 +145,17 @@ public abstract class PaginationOperationTest<B, R, O, I> {
     boolean assertable = false;
     Integer pageCount = 0;
     List<I> items = new ArrayList<>();
+    List<Exception> errors = new ArrayList<>();
 
     private void setAssertable() {
       if (!this.assertable) {
         this.assertable = true;
       }
+    }
+
+    private void handleException(Exception e) {
+      setAssertable();
+      errors.add(e);
     }
 
     private void handleItem(I item) {
@@ -209,17 +236,45 @@ public abstract class PaginationOperationTest<B, R, O, I> {
   private void runPaginationErrorTest(Function<Pagination<O, I>, PagingResult<I>> pagingFunction,
       MockError error, boolean errorOnFirstPage) throws Exception {
     int pageSize = Long.valueOf(OptionsHandler.MAX_LIMIT).intValue();
+    int wholePages = 2;
+    int expectedItems = wholePages * pageSize;
     List<MockInstruction<R>> instructions = new ArrayList<>();
+    PageSupplier<R, I> supplier = this.pageSupplierFactory.newPageSupplier(expectedItems, pageSize);
     if (!errorOnFirstPage) {
-      PageSupplier<R, I> supplier =
-          this.pageSupplierFactory.newPageSupplier(2 * pageSize, pageSize);
       instructions.add(supplier.get()); // Add a successful page
     }
     instructions.add(new MockInstruction<>(error)); // Add the error
+    // Add remaining instructions that might be needed
+    // For error on first page it is first page, second page, empty page (i.e. 3)
+    // For error on second page it is second page, empty page (i.e. 2)
+    int remainingInstructions = (errorOnFirstPage ? 1 : 0) + wholePages;
+    Stream.generate(supplier).limit(remainingInstructions).forEach(instructions::add);
     Pagination<O, I> pagination =
         makeTestPagination(pageSize, new MockCloudant.QueuedSupplier<R>(instructions));
-    Assert.assertThrows("The correct exception should be received.", error.getExceptionClass(),
-        () -> pagingFunction.apply(pagination));
+    PagingResult<I> r = pagingFunction.apply(pagination);
+    // Assert that there was a single exception
+    Assert.assertEquals(r.errors.size(), 1, "There should be a single exception.");
+    Assert.assertEquals(r.errors.get(0).getClass(), error.getExceptionClass(),
+        "The correct exception should be received.");
+    TestCase t;
+    if (pagerFn.equals(pagingFunction)) {
+      // If using pager then expect all pages/items
+      t = new TestCase(expectedItems, pageSize, this.plusOnePaging);
+      r.assertPageCount(new TestCase(expectedItems, pageSize, this.plusOnePaging));
+      r.assertItemCount(new TestCase(expectedItems, pageSize, this.plusOnePaging));
+    } else {
+      // Else (pages, rows, streams) expect only up to the error
+      int expectedPages = (errorOnFirstPage) ? 0 : 1;
+      expectedItems = expectedPages * pageSize;
+      if (!rowsFn.equals(pagingFunction) && !rowStreamFn.equals(pagingFunction)) {
+        // Only assert page count if we are handling pages
+        Assert.assertEquals(r.pageCount, expectedPages,
+            "There should be the correct number of pages.");
+      }
+      Assert.assertEquals(r.items.size(), expectedItems,
+          "There should be the correct number of items.");
+    }
+
   }
 
   // Check validation is wired
@@ -269,13 +324,13 @@ public abstract class PaginationOperationTest<B, R, O, I> {
     runPaginationErrorTest(pagerFn, error, errorOnFirstPage);
   }
 
-    // Check PageStream errors
+  // Check PageStream errors
   @Test(dataProvider = "errorSuppliers")
   public void testPageStreamErrors(MockError error, boolean errorOnFirstPage) throws Exception {
     runPaginationErrorTest(pageStreamFn, error, errorOnFirstPage);
   }
 
-  // Check Pages errors 
+  // Check Pages errors
   @Test(dataProvider = "errorSuppliers")
   public void testPagesErrors(MockError error, boolean errorOnFirstPage) throws Exception {
     runPaginationErrorTest(pagesFn, error, errorOnFirstPage);
