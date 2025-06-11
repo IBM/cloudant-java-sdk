@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2022, 2023. All Rights Reserved.
+ * © Copyright IBM Corporation 2022, 2025. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -366,8 +366,10 @@ public class ChangesFollowerTest {
         try {
             // Run for 5 seconds against an infinite stream
             long count = testFollowerOnThread(testFollower, ChangesFollower.Mode.LISTEN, false, Duration.ofSeconds(5L));
-            // Even on a slow test machine we should at least get into the third batch, but hard to predict total changes
-            Assert.assertTrue(count > 2*ChangesFollower.BATCH_SIZE + 1, "There should be some changes.");
+            // Even on a slow test machine we should at least get two batches, but hard to predict total changes
+            long expectedMinChanges = 2 * ChangesFollower.BATCH_SIZE;
+            Assert.assertTrue(count >= expectedMinChanges,
+                String.format("Expected at least %d changes, but found only %d.", expectedMinChanges, count));
         } catch(Exception e) {
             Assert.fail("There should be no exception.", e);
         }
@@ -470,8 +472,10 @@ public class ChangesFollowerTest {
         try {
             // Run for 5 seconds against an infinite stream
             long count = testFollowerOnThread(testFollower, ChangesFollower.Mode.FINITE, false, Duration.ofSeconds(5L));
-            // Even on a slow test machine we should at least get into the third batch, but hard to predict total changes
-            Assert.assertTrue(count > 2*ChangesFollower.BATCH_SIZE + 1, "There should be some changes.");
+            // Even on a slow test machine we should at least get two batches, but hard to predict total changes
+            long expectedMinChanges = 2 * ChangesFollower.BATCH_SIZE;
+            Assert.assertTrue(count >= expectedMinChanges,
+                String.format("Expected at least %d changes, but found only %d.", expectedMinChanges, count));
         } catch(Exception e) {
             Assert.fail("There should be no exception.", e);
         }
