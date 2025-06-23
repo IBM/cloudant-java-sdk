@@ -25,7 +25,7 @@
         <jacoco-plugin-version>0.8.13</jacoco-plugin-version>
         <maven-deploy-plugin-version>3.1.4</maven-deploy-plugin-version>
         <maven-source-plugin-version>3.3.1</maven-source-plugin-version>
-        <nexus-staging-plugin-version>1.7.0</nexus-staging-plugin-version>
+        <central-publish-plugin-version>0.8.0</central-publish-plugin-version>
         <maven-gpg-plugin-version>3.2.7</maven-gpg-plugin-version>
         <maven-source-plugin-version>3.3.1</maven-source-plugin-version>
         <maven-jar-plugin-version>3.4.2</maven-jar-plugin-version>
@@ -95,9 +95,9 @@
                     <!-- We don't deploy snapshot releases -->
                 </snapshotRepository>
                 <repository>
-                    <!-- This is where the nexus staging plugin will publish artifacts -->
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                    <!-- Config needed by default deploy plugin (unused) -->
+                    <id>central</id>
+                    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
                 </repository>
             </distributionManagement>
             <build>
@@ -110,16 +110,15 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- Enable alternate nexus-staging-maven-plugin -->
+                    <!-- Enable alternate central-publishing-maven-plugin -->
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -249,9 +248,9 @@
                     <version>${maven-deploy-plugin-version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus-staging-plugin-version}</version>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publish-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
