@@ -218,7 +218,7 @@ public abstract class PaginationOperationTest<B, R, O, I> {
   private Pagination<O, I> makeTestPagination(int pageSize, Supplier<MockInstruction<R>> supplier)
       throws Exception {
     this.provider.setRequiredOpts();
-    this.provider.set("limit", Integer.valueOf(pageSize).longValue());
+    this.provider.set("limit", (long) pageSize);
     return makeNewPagination(new MockPagerCloudant<R>(supplier), provider.build());
   }
 
@@ -235,7 +235,7 @@ public abstract class PaginationOperationTest<B, R, O, I> {
 
   private void runPaginationErrorTest(Function<Pagination<O, I>, PagingResult<I>> pagingFunction,
       MockError error, boolean errorOnFirstPage) throws Exception {
-    int pageSize = Long.valueOf(OptionsHandler.MAX_LIMIT).intValue();
+    int pageSize = OptionsHandler.MAX_LIMIT.intValue();
     int wholePages = 2;
     int expectedItems = wholePages * pageSize;
     List<MockInstruction<R>> instructions = new ArrayList<>();
@@ -283,7 +283,7 @@ public abstract class PaginationOperationTest<B, R, O, I> {
     Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
         () -> {
           runPaginationTest(
-              new TestCase(0, Long.valueOf(OptionsHandler.MIN_LIMIT - 1).intValue(), plusOnePaging),
+              new TestCase(0, Math.toIntExact(OptionsHandler.MIN_LIMIT - 1), plusOnePaging),
               p -> null, Collections.emptyList());
         });
   }
