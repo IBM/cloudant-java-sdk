@@ -298,6 +298,7 @@ public class ErrorTransformInterceptorTest {
           case BOTH:
             responseBuilder.header("x-couch-request-id", MOCK_COUCH_REQ_ID);
             responseBuilder.header("x-request-id", MOCK_REQ_ID);
+            break;
           case NONE:
           default:
             break;
