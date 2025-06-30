@@ -26,10 +26,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.MockChangesResult;
-import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.MockError;
-import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.MockInstruction;
 import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.PerpetualSupplier;
-import com.ibm.cloud.cloudant.features.ChangesRequestMockClient.QueuedSupplier;
+import com.ibm.cloud.cloudant.features.MockCloudant.MockError;
+import com.ibm.cloud.cloudant.features.MockCloudant.MockInstruction;
+import com.ibm.cloud.cloudant.features.MockCloudant.QueuedSupplier;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.ChangesResult;
 import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
@@ -66,7 +66,7 @@ public class ChangesResultSpliteratorTest {
      * @return
      */
     WrappedTestSpliterator makeFixedSizeSpliterator(int batches, ChangesFollower.Mode mode, Duration tolerance) {
-        return makeSpliterator(QueuedSupplier.makeBatchSupplier(batches), mode, tolerance);
+        return makeSpliterator(ChangesRequestMockClient.makeBatchSupplier(batches), mode, tolerance);
     }
 
     /**
@@ -91,7 +91,7 @@ public class ChangesResultSpliteratorTest {
      * @param tolerance
      * @return
      */
-    WrappedTestSpliterator makeSpliterator(Supplier<MockInstruction> mockSupplier, ChangesFollower.Mode mode, Duration tolerance) {
+    WrappedTestSpliterator makeSpliterator(Supplier<MockInstruction<ChangesResult>> mockSupplier, ChangesFollower.Mode mode, Duration tolerance) {
         return new WrappedTestSpliterator(
                     new ChangesRequestMockClient(mockSupplier),
                     DEFAULT_OPTIONS,
@@ -134,7 +134,7 @@ public class ChangesResultSpliteratorTest {
         int index = 0;
         for (ChangesFollower.Mode mode : modes) {
             for (ChangesRequestMockClient.MockError error : errors) {
-                tests[index] = new Object[]{mode, error, new ChangesRequestMockClient(() -> new MockInstruction(error))};
+                tests[index] = new Object[]{mode, error, new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error))};
                 index++;
             }            
         }
@@ -169,19 +169,19 @@ public class ChangesResultSpliteratorTest {
         for (ChangesFollower.Mode mode : modes) {
             for (ChangesRequestMockClient.MockError error : errors) {
                 for(Action[] sequence : sequences) {
-                    List<MockInstruction> instructions = new ArrayList<>(3);
+                    List<MockInstruction<ChangesResult>> instructions = new ArrayList<>(3);
                     for (Action a: sequence) {
                         switch(a) {
                             case SUCCESS:
-                                instructions.add(new MockInstruction(new MockChangesResult(1,1)));
+                                instructions.add(new MockInstruction<ChangesResult>(new MockChangesResult(1,1)));
                                 break;
                             case SUPPRESS:
                             case THROW:
-                                instructions.add(new MockInstruction(error));
+                                instructions.add(new MockInstruction<ChangesResult>(error));
                                 break;
                         }
                     }
-                    tests[index] = new Object[]{sequence, mode, error, new ChangesRequestMockClient(new QueuedSupplier(instructions))};
+                    tests[index] = new Object[]{sequence, mode, error, new ChangesRequestMockClient(new QueuedSupplier<ChangesResult>(instructions))};
                     index++;
                 }
             }
@@ -270,12 +270,12 @@ public class ChangesResultSpliteratorTest {
      */
     @Test
     void testEstimateSizePartialBatch() {
-        List<MockInstruction> instructions = new ArrayList<>();
+        List<MockInstruction<ChangesResult>> instructions = new ArrayList<>();
         long partialBatchSize = 1844;
-        instructions.add(new MockInstruction(new MockChangesResult(1, ChangesFollower.BATCH_SIZE, ChangesFollower.BATCH_SIZE + partialBatchSize)));
-        instructions.add(new MockInstruction(new MockChangesResult(ChangesFollower.BATCH_SIZE + 1, ChangesFollower.BATCH_SIZE, partialBatchSize)));
-        instructions.add(new MockInstruction(new MockChangesResult(2*ChangesFollower.BATCH_SIZE + 1, partialBatchSize, 0L)));
-        ChangesResultSpliterator testSpliterator = makeSpliterator(new QueuedSupplier(instructions), ChangesFollower.Mode.FINITE, Duration.ZERO);
+        instructions.add(new MockInstruction<ChangesResult>(new MockChangesResult(1, ChangesFollower.BATCH_SIZE, ChangesFollower.BATCH_SIZE + partialBatchSize)));
+        instructions.add(new MockInstruction<ChangesResult>(new MockChangesResult(ChangesFollower.BATCH_SIZE + 1, ChangesFollower.BATCH_SIZE, partialBatchSize)));
+        instructions.add(new MockInstruction<ChangesResult>(new MockChangesResult(2*ChangesFollower.BATCH_SIZE + 1, partialBatchSize, 0L)));
+        ChangesResultSpliterator testSpliterator = makeSpliterator(new QueuedSupplier<ChangesResult>(instructions), ChangesFollower.Mode.FINITE, Duration.ZERO);
         // Initial estimate is always Long.MAX_VALUE
         Assert.assertEquals(testSpliterator.estimateSize(), Long.MAX_VALUE, "The initial estimated size should be Long.MAX_VALUE.");
         // Advance the spliterator
@@ -292,7 +292,7 @@ public class ChangesResultSpliteratorTest {
     void testNext(ChangesFollower.Mode mode) {
         ChangesResult expectedResult = new MockChangesResult(1, 0);
         ChangesResultSpliterator testSpliterator = makeSpliterator(
-            new QueuedSupplier(Collections.singletonList(new MockInstruction(expectedResult))),
+            new QueuedSupplier<ChangesResult>(Collections.singletonList(new MockInstruction<ChangesResult>(expectedResult))),
             mode,
             Duration.ZERO);
         ChangesResult actualResult = testSpliterator.next();
@@ -409,7 +409,7 @@ public class ChangesResultSpliteratorTest {
     @Test(dataProvider = "modes")
     void testStopDuringSuppression(ChangesFollower.Mode mode) throws Exception {
         executeTestStop(makeSpliterator(
-            () -> new MockInstruction(MockError.TRANSIENT_429),
+            () -> new MockInstruction<ChangesResult>(MockError.TRANSIENT_429),
             mode,
             ChronoUnit.FOREVER.getDuration()));
     }
@@ -423,11 +423,11 @@ public class ChangesResultSpliteratorTest {
      */
     @Test(dataProvider = "modes")
     void testStopWithCancelledCall(ChangesFollower.Mode mode) throws Exception {
-        Collection<MockInstruction> instructions = Collections.singletonList(
-                new MockInstruction(MockError.TRANSIENT_IO)
+        Collection<MockInstruction<ChangesResult>> instructions = Collections.singletonList(
+                new MockInstruction<ChangesResult>(MockError.TRANSIENT_IO)
             );
         ChangesResultSpliterator testSpliterator = makeSpliterator(
-            new QueuedSupplier(instructions),
+            new QueuedSupplier<ChangesResult>(instructions),
             mode,
             Duration.ZERO);
         testSpliterator.stop();
@@ -573,7 +573,7 @@ public class ChangesResultSpliteratorTest {
     @Test(dataProvider = "modes")
     void testRetryDelay(ChangesFollower.Mode mode) {
         // Make a spliterator with 429 responses
-        ChangesResultSpliterator testSpliterator = makeSpliterator(() -> new MockInstruction(MockError.TRANSIENT_429), mode, ChronoUnit.FOREVER.getDuration());
+        ChangesResultSpliterator testSpliterator = makeSpliterator(() -> new MockInstruction<ChangesResult>(MockError.TRANSIENT_429), mode, ChronoUnit.FOREVER.getDuration());
         // Iterate for at least 300 ms (i.e. minimum 2 delays i.e. 100, 200 but could be more because of jitter)
         int requestCounter = 0;
         long startTime = System.currentTimeMillis();
