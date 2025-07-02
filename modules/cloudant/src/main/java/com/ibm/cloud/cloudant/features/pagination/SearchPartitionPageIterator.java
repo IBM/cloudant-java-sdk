@@ -14,7 +14,6 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionSearchOptions.Builder;
@@ -28,16 +27,6 @@ final class SearchPartitionPageIterator extends SearchBasePageIterator<PostParti
   }
 
   @Override
-  Function<PostPartitionSearchOptions, Builder> optionsToBuilderFunction() {
-    return PostPartitionSearchOptions::newBuilder;
-  }
-
-  @Override
-  Function<Builder, PostPartitionSearchOptions> builderToOptionsFunction() {
-    return Builder::build;
-  }
-
-  @Override
   BiFunction<Builder, String, Builder> bookmarkSetter() {
     return Builder::bookmark;
   }
@@ -45,11 +34,6 @@ final class SearchPartitionPageIterator extends SearchBasePageIterator<PostParti
   @Override
   BiFunction<Cloudant, PostPartitionSearchOptions, ServiceCall<SearchResult>> nextRequestFunction() {
     return Cloudant::postPartitionSearch;
-  }
-
-  @Override
-  Function<PostPartitionSearchOptions, Long> limitGetter() {
-    return PostPartitionSearchOptions::limit;
   }
 
 }

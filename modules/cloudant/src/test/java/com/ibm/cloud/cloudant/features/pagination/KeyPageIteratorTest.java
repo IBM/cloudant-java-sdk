@@ -63,11 +63,6 @@ public class KeyPageIteratorTest {
     }
 
     @Override
-    protected Function<PostViewOptions, Long> limitGetter() {
-      return PostViewOptions::limit;
-    }
-
-    @Override
     protected BiFunction<Builder, Integer, Builder> nextKeySetter() {
       return Builder::startKey;
     }
@@ -88,16 +83,6 @@ public class KeyPageIteratorTest {
     }
 
     @Override
-    protected Function<PostViewOptions, Builder> optionsToBuilderFunction() {
-      return PostViewOptions::newBuilder;
-    }
-
-    @Override
-    protected Function<Builder, PostViewOptions> builderToOptionsFunction() {
-      return Builder::build;
-    }
-
-    @Override
     protected Function<TestResult, List<Integer>> itemsGetter() {
       return TestResult::getRows;
     }
@@ -113,18 +98,25 @@ public class KeyPageIteratorTest {
   @Test
   void testDefaultPageSize() {
     TestKeyPager pager = new TestKeyPager(mockClient, getRequiredTestOptionsBuilder().build());
+    int expectedPageSize = Math.toIntExact(OptionsHandler.MAX_LIMIT + 1);
     // Assert the default limit as page size
-    Assert.assertEquals(pager.pageSize, 201,
+    Assert.assertEquals(pager.pageSize, expectedPageSize,
         "The page size should be one more than the default limit.");
+    Assert.assertEquals(pager.nextPageOptionsRef.get().limit(), expectedPageSize,
+        "The request limit should equal the page size.");
   }
 
   // Test page size limit (+1)
   @Test
   void testLimitPageSize() {
-    TestKeyPager pager = new TestKeyPager(mockClient, getDefaultTestOptions(42));
+    int testPageSize = 42;
+    TestKeyPager pager = new TestKeyPager(mockClient, getDefaultTestOptions(testPageSize));
+    int expectedPageSize = testPageSize + 1;
     // Assert the limit provided as page size
     Assert.assertEquals(pager.pageSize, 43,
         "The page size should be one more than the supplied limit.");
+    Assert.assertEquals(pager.nextPageOptionsRef.get().limit(), expectedPageSize,
+        "The request limit should equal the page size.");
   }
 
   // Test all items on page when no more pages

@@ -14,7 +14,6 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
@@ -28,16 +27,6 @@ final class AllDocsPartitionPageIterator extends AllDocsBasePageIterator<PostPar
   }
 
   @Override
-  Function<PostPartitionAllDocsOptions, Builder> optionsToBuilderFunction() {
-    return PostPartitionAllDocsOptions::newBuilder;
-  }
-
-  @Override
-  Function<Builder, PostPartitionAllDocsOptions> builderToOptionsFunction() {
-    return Builder::build;
-  }
-
-  @Override
   BiFunction<Cloudant, PostPartitionAllDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
     return Cloudant::postPartitionAllDocs;
   }
@@ -46,11 +35,6 @@ final class AllDocsPartitionPageIterator extends AllDocsBasePageIterator<PostPar
   @Override
   BiFunction<Builder, String, Builder> nextKeySetter() {
     return Builder::startKey;
-  }
-
-  @Override
-  Function<PostPartitionAllDocsOptions, Long> limitGetter() {
-    return PostPartitionAllDocsOptions::limit;
   }
 
 }
