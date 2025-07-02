@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -36,9 +35,10 @@ abstract class BasePageIterator<B, O, R, I> implements Iterator<List<I>> {
     this.client = client;
     this.optsHandler = optsHandler;
     // Set the page size from the supplied options limit
-    this.pageSize = getPageSizeFromOptionsLimit(options);
+    this.pageSize = this.optsHandler.getPageSizeFromOptionsLimit(options);
     // Set the first page options
-    buildAndSetOptions(optsHandler.builderFromOptions(options));
+    buildAndSetOptions(
+        this.optsHandler.applyLimit(this.optsHandler.builderFromOptions(options), this.pageSize));
   }
 
   @Override
@@ -56,7 +56,8 @@ abstract class BasePageIterator<B, O, R, I> implements Iterator<List<I>> {
   }
 
   List<I> nextRequest() {
-    ServiceCall<R> request = nextRequestFunction().apply(this.client, this.nextPageOptionsRef.get());
+    ServiceCall<R> request =
+        nextRequestFunction().apply(this.client, this.nextPageOptionsRef.get());
     R result = request.execute().getResult();
     List<I> items = itemsGetter().apply(result);
     if (items.size() < this.pageSize) {
@@ -69,24 +70,14 @@ abstract class BasePageIterator<B, O, R, I> implements Iterator<List<I>> {
     return items;
   }
 
-  private void buildAndSetOptions(B optionsBuilder) {
+  protected void buildAndSetOptions(B optionsBuilder) {
     this.nextPageOptionsRef.set(optsHandler.optionsFromBuilder(optionsBuilder));
   }
-
-  abstract Function<O, B> optionsToBuilderFunction();
-
-  abstract Function<B, O> builderToOptionsFunction();
 
   abstract Function<R, List<I>> itemsGetter();
 
   abstract void setNextPageOptions(B builder, R result);
 
   abstract BiFunction<Cloudant, O, ServiceCall<R>> nextRequestFunction();
-
-  abstract Function<O, Long> limitGetter();
-
-  Long getPageSizeFromOptionsLimit(O opts) {
-    return Optional.ofNullable(limitGetter().apply(opts)).orElse(200L);
-  }
 
 }

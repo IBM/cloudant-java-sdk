@@ -63,11 +63,6 @@ abstract class KeyPageIterator<K, B, O, R, I> extends BasePageIterator<B, O, R, 
     nextKeyIdSetter().ifPresent(f -> f.apply(builder, nextId));
   }
 
-  @Override
-  Long getPageSizeFromOptionsLimit(O opts) {
-      return super.getPageSizeFromOptionsLimit(opts) + 1;
-  }
-
   abstract Optional<String> checkBoundary(I penultimateItem, I lastItem);
 
 }

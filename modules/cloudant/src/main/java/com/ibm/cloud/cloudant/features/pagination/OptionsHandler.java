@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
@@ -72,8 +73,20 @@ abstract class OptionsHandler<B, O> {
 
   abstract void validate(O options);
 
-  O clone(O options) {
+  private O clone(O options) {
     return this.optionsFromBuilder(this.builderFromOptions(options));
+  }
+
+  B applyLimit(B builder, Long newLimit) {
+    return this.limitSetter().apply(builder, newLimit);
+  }
+
+  abstract BiFunction<B, Long, B> limitSetter();
+
+  abstract Function<O, Long> limitGetter();
+
+  Long getPageSizeFromOptionsLimit(O opts) {
+    return Optional.ofNullable(limitGetter().apply(opts)).orElse(MAX_LIMIT);
   }
 
   static final PostAllDocsOptions duplicate(PostAllDocsOptions opts) {
@@ -142,11 +155,44 @@ abstract class OptionsHandler<B, O> {
     }
   }
 
+  private abstract static class KeyOptionsHandler<B, O>
+      extends OptionsHandler<B, O> {
+
+    KeyOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder) {
+      super(builderToOptions, optionsToBuilder);
+    }
+
+    @Override
+    Long getPageSizeFromOptionsLimit(O opts) {
+      return super.getPageSizeFromOptionsLimit(opts) + 1;
+    }
+
+  }
+
+  private abstract static class BookmarkOptionsHandler<B, O>
+      extends OptionsHandler<B, O> {
+
+    BookmarkOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder) {
+      super(builderToOptions, optionsToBuilder);
+    }
+
+  }
+
   private static final class AllDocsOptionsHandler
-      extends OptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> {
+      extends KeyOptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> {
 
     private AllDocsOptionsHandler() {
       super(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostAllDocsOptions, Long> limitGetter() {
+      return PostAllDocsOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostAllDocsOptions.Builder, Long, PostAllDocsOptions.Builder> limitSetter() {
+      return PostAllDocsOptions.Builder::limit;
     }
 
     @Override
@@ -158,10 +204,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class DesignDocsOptionsHandler
-      extends OptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> {
+      extends KeyOptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> {
 
     private DesignDocsOptionsHandler() {
       super(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostDesignDocsOptions, Long> limitGetter() {
+      return PostDesignDocsOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostDesignDocsOptions.Builder, Long, PostDesignDocsOptions.Builder> limitSetter() {
+      return PostDesignDocsOptions.Builder::limit;
     }
 
     @Override
@@ -173,10 +229,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class FindOptionsHandler
-      extends OptionsHandler<PostFindOptions.Builder, PostFindOptions> {
+      extends BookmarkOptionsHandler<PostFindOptions.Builder, PostFindOptions> {
 
     private FindOptionsHandler() {
       super(PostFindOptions.Builder::build, PostFindOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostFindOptions, Long> limitGetter() {
+      return PostFindOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostFindOptions.Builder, Long, PostFindOptions.Builder> limitSetter() {
+      return PostFindOptions.Builder::limit;
     }
 
     @Override
@@ -187,10 +253,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class PartitionAllDocsOptionsHandler
-      extends OptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
+      extends KeyOptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
 
     private PartitionAllDocsOptionsHandler() {
       super(PostPartitionAllDocsOptions.Builder::build, PostPartitionAllDocsOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostPartitionAllDocsOptions, Long> limitGetter() {
+      return PostPartitionAllDocsOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostPartitionAllDocsOptions.Builder, Long, PostPartitionAllDocsOptions.Builder> limitSetter() {
+      return PostPartitionAllDocsOptions.Builder::limit;
     }
 
     @Override
@@ -202,10 +278,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class PartitionFindOptionsHandler
-      extends OptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
+      extends BookmarkOptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
 
     private PartitionFindOptionsHandler() {
       super(PostPartitionFindOptions.Builder::build, PostPartitionFindOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostPartitionFindOptions, Long> limitGetter() {
+      return PostPartitionFindOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostPartitionFindOptions.Builder, Long, PostPartitionFindOptions.Builder> limitSetter() {
+      return PostPartitionFindOptions.Builder::limit;
     }
 
     @Override
@@ -216,10 +302,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class PartitionSearchOptionsHandler
-      extends OptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
+      extends BookmarkOptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
 
     private PartitionSearchOptionsHandler() {
       super(PostPartitionSearchOptions.Builder::build, PostPartitionSearchOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostPartitionSearchOptions, Long> limitGetter() {
+      return PostPartitionSearchOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostPartitionSearchOptions.Builder, Long, PostPartitionSearchOptions.Builder> limitSetter() {
+      return PostPartitionSearchOptions.Builder::limit;
     }
 
     @Override
@@ -230,10 +326,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class PartitionViewOptionsHandler
-      extends OptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
+      extends KeyOptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
 
     private PartitionViewOptionsHandler() {
       super(PostPartitionViewOptions.Builder::build, PostPartitionViewOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostPartitionViewOptions, Long> limitGetter() {
+      return PostPartitionViewOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostPartitionViewOptions.Builder, Long, PostPartitionViewOptions.Builder> limitSetter() {
+      return PostPartitionViewOptions.Builder::limit;
     }
 
     @Override
@@ -245,10 +351,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class SearchOptionsHandler
-      extends OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> {
+      extends BookmarkOptionsHandler<PostSearchOptions.Builder, PostSearchOptions> {
 
     private SearchOptionsHandler() {
       super(PostSearchOptions.Builder::build, PostSearchOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostSearchOptions, Long> limitGetter() {
+      return PostSearchOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostSearchOptions.Builder, Long, PostSearchOptions.Builder> limitSetter() {
+      return PostSearchOptions.Builder::limit;
     }
 
     @Override
@@ -266,10 +382,20 @@ abstract class OptionsHandler<B, O> {
   }
 
   private static final class ViewOptionsHandler
-      extends OptionsHandler<PostViewOptions.Builder, PostViewOptions> {
+      extends KeyOptionsHandler<PostViewOptions.Builder, PostViewOptions> {
 
     private ViewOptionsHandler() {
       super(PostViewOptions.Builder::build, PostViewOptions::newBuilder);
+    }
+
+    @Override
+    Function<PostViewOptions, Long> limitGetter() {
+      return PostViewOptions::limit;
+    }
+
+    @Override
+    BiFunction<PostViewOptions.Builder, Long, PostViewOptions.Builder> limitSetter() {
+      return PostViewOptions.Builder::limit;
     }
 
     @Override

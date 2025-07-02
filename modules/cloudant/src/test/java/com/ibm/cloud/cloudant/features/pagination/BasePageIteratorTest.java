@@ -59,15 +59,6 @@ public class BasePageIteratorTest {
      * Implicitly tests that limit gets applied per page, otherwise the default would be used and
      * page counts would be wrong.
      */
-    @Override
-    protected Function<PostViewOptions, Builder> optionsToBuilderFunction() {
-      return PostViewOptions::newBuilder;
-    }
-
-    @Override
-    protected Function<Builder, PostViewOptions> builderToOptionsFunction() {
-      return Builder::build;
-    }
 
     @Override
     protected Function<TestResult, List<Integer>> itemsGetter() {
@@ -98,11 +89,6 @@ public class BasePageIteratorTest {
       return (c, o) -> {
         return ((MockPagerClient) c).testCall();
       };
-    }
-
-    @Override
-    protected Function<PostViewOptions, Long> limitGetter() {
-      return PostViewOptions::limit;
     }
 
   }
