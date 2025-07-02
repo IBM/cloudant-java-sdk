@@ -15,7 +15,6 @@ package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostViewOptions.Builder;
@@ -26,16 +25,6 @@ final class ViewPageIterator extends ViewBasePageIterator<PostViewOptions.Builde
 
   ViewPageIterator(Cloudant client, PostViewOptions options) {
     super(client, options, OptionsHandler.POST_VIEW);
-  }
-
-  @Override
-  Function<PostViewOptions, Builder> optionsToBuilderFunction() {
-    return PostViewOptions::newBuilder;
-  }
-
-  @Override
-  Function<Builder, PostViewOptions> builderToOptionsFunction() {
-    return Builder::build;
   }
 
   @Override
@@ -51,11 +40,6 @@ final class ViewPageIterator extends ViewBasePageIterator<PostViewOptions.Builde
   @Override
   Optional<BiFunction<Builder, String, Builder>> nextKeyIdSetter() {
     return Optional.of(Builder::startKeyDocId);
-  }
-
-  @Override
-  Function<PostViewOptions, Long> limitGetter() {
-    return PostViewOptions::limit;
   }
 
 }

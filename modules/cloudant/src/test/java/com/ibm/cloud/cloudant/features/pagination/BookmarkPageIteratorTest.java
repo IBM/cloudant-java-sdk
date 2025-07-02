@@ -60,21 +60,6 @@ public class BookmarkPageIteratorTest {
     }
 
     @Override
-    protected Function<PostFindOptions, Long> limitGetter() {
-      return PostFindOptions::limit;
-    }
-
-    @Override
-    protected Function<PostFindOptions, Builder> optionsToBuilderFunction() {
-      return PostFindOptions::newBuilder;
-    }
-
-    @Override
-    protected Function<Builder, PostFindOptions> builderToOptionsFunction() {
-      return Builder::build;
-    }
-
-    @Override
     protected Function<TestResult, List<Integer>> itemsGetter() {
       return TestResult::getRows;
     }
