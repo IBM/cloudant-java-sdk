@@ -29,12 +29,12 @@ import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.MockPage
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.PageSupplier;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.TestResult;
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
-import com.ibm.cloud.cloudant.v1.model.PostViewOptions.Builder;
+import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
+import com.ibm.cloud.cloudant.v1.model.PostFindOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getDefaultTestOptions;
-import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getRequiredTestOptionsBuilder;
+import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getDefaultTestFindOptions;
+import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.getRequiredTestFindOptionsBuilder;
 import static com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.newPageSupplierFromList;
 
 public class BasePageIteratorTest {
@@ -45,10 +45,10 @@ public class BasePageIteratorTest {
    * This test sub-class of BasePager implicitly tests that various abstract methods are correctly
    * called by non-abstract methods in the BasePager.
    */
-  private static class TestPager extends BasePageIterator<Builder, PostViewOptions, TestResult, Integer> {
+  private static class TestPager extends BasePageIterator<Builder, PostFindOptions, TestResult, Integer> {
 
-    protected TestPager(Cloudant client, PostViewOptions options) {
-      super(client, options, OptionsHandler.POST_VIEW);
+    protected TestPager(Cloudant client, PostFindOptions options) {
+      super(client, options, OptionsHandler.POST_FIND);
     }
 
     Cloudant getClient() {
@@ -75,7 +75,7 @@ public class BasePageIteratorTest {
     }
 
     /**
-     * These tests don't actually use the options, but we set a startKey so we can validate calls to
+     * These tests don't actually use the options, but we set a bookmark so we can validate calls to
      * setNextPageOptions.
      */
     @Override
@@ -85,7 +85,7 @@ public class BasePageIteratorTest {
         throw new IllegalStateException("Test failure: tried to setNextPageOptions on empty page.");
       } else {
         Integer i = rows.get(rows.size() - 1);
-        builder.startKey(i);
+        builder.bookmark(String.valueOf(i));
       }
     }
 
@@ -94,7 +94,7 @@ public class BasePageIteratorTest {
      * work.
      */
     @Override
-    protected BiFunction<Cloudant, PostViewOptions, ServiceCall<TestResult>> nextRequestFunction() {
+    protected BiFunction<Cloudant, PostFindOptions, ServiceCall<TestResult>> nextRequestFunction() {
       return (c, o) -> {
         return ((MockPagerClient) c).testCall();
       };
@@ -111,7 +111,7 @@ public class BasePageIteratorTest {
 
     private int callCounter = 0;
 
-    protected ThrowingTestPager(Cloudant client, PostViewOptions options) {
+    protected ThrowingTestPager(Cloudant client, PostFindOptions options) {
       super(client, options);
     }
 
@@ -128,20 +128,20 @@ public class BasePageIteratorTest {
 
   }
 
-  private Pagination<PostViewOptions, Integer> newPagination(Cloudant client,
-      PostViewOptions options) {
+  private Pagination<PostFindOptions, Integer> newPagination(Cloudant client,
+      PostFindOptions options) {
     return new Pagination<>(client, options, TestPager::new);
   }
 
-  private Pagination<PostViewOptions, Integer> newThrowingPagination(Cloudant client,
-      PostViewOptions options) {
+  private Pagination<PostFindOptions, Integer> newThrowingPagination(Cloudant client,
+      PostFindOptions options) {
     return new Pagination<>(client, options, ThrowingTestPager::new);
   }
 
   // test constructor
   @Test
   void testConstructor() {
-    TestPager pager = new TestPager(mockClient, getDefaultTestOptions(42));
+    TestPager pager = new TestPager(mockClient, getDefaultTestFindOptions(42));
     // Assert the client
     Assert.assertEquals(((TestPager) pager).getClient(), mockClient,
         "The client should be the supplied one.");
@@ -150,7 +150,7 @@ public class BasePageIteratorTest {
   // test page size default
   @Test
   void testDefaultPageSize() {
-    TestPager pager = new TestPager(mockClient, getRequiredTestOptionsBuilder().build());
+    TestPager pager = new TestPager(mockClient, getRequiredTestFindOptionsBuilder().build());
     // Assert the default page size
     Assert.assertEquals(pager.pageSize, 200, "The page size should be the default.");
   }
@@ -158,7 +158,7 @@ public class BasePageIteratorTest {
   // test page size limit
   @Test
   void testLimitPageSize() {
-    TestPager pager = new TestPager(mockClient, getDefaultTestOptions(42));
+    TestPager pager = new TestPager(mockClient, getDefaultTestFindOptions(42));
     // Assert the limit provided as page size
     Assert.assertEquals(pager.pageSize, 42, "The page size should match the limit.");
   }
@@ -166,7 +166,7 @@ public class BasePageIteratorTest {
   // test hasNext
   @Test
   void testHasNextIsTrueInitially() {
-    TestPager pager = new TestPager(mockClient, getDefaultTestOptions(42));
+    TestPager pager = new TestPager(mockClient, getDefaultTestFindOptions(42));
     Assert.assertEquals(pager.hasNext(), true, "hasNext() should initially return true.");
   }
 
@@ -176,7 +176,7 @@ public class BasePageIteratorTest {
     MockPagerClient c = new MockPagerClient(() -> {
       return new MockInstruction<TestResult>(new TestResult(Collections.singletonList(1)));
     });
-    TestPager pager = new TestPager(c, getDefaultTestOptions(1));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(1));
     // Get the first page (size 1)
     pager.next();
     // hasNext should return true because results size is the same as limit
@@ -189,7 +189,7 @@ public class BasePageIteratorTest {
     MockPagerClient c = new MockPagerClient(() -> {
       return new MockInstruction<TestResult>(new TestResult(Collections.emptyList()));
     });
-    TestPager pager = new TestPager(c, getDefaultTestOptions(1));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(1));
     // Get the first page (size 0)
     pager.next();
     // hasNext should return false because results size smaller than limit
@@ -203,7 +203,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(pageSize));
     List<Integer> actualPage = pager.next();
     // Assert first page
     Assert.assertEquals(actualPage, pageSupplier.pages.get(0),
@@ -216,7 +216,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(2 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(pageSize));
     Assert.assertEquals(pager.hasNext(), true, "hasNext() should return true.");
     List<Integer> actualPage1 = pager.next();
     // Assert pages
@@ -235,7 +235,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(3 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(pageSize));
     List<Integer> actualItems = new ArrayList<>();
     int pageCount = 0;
     while (pager.hasNext()) {
@@ -259,7 +259,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(10, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(pageSize));
     List<Integer> actualItems = new ArrayList<>();
     int pageCount = 0;
     while (pager.hasNext()) {
@@ -283,7 +283,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(pageSize - 1, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(pageSize));
     List<Integer> actualPage = pager.next();
     // Assert first page
     Assert.assertEquals(actualPage, pageSupplier.pages.get(0),
@@ -302,7 +302,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(pageSize));
     List<Integer> actualPage = pager.next();
     // Assert immutable
     Assert.assertThrows(UnsupportedOperationException.class, () -> {
@@ -317,20 +317,20 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(5 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new TestPager(c, getDefaultTestOptions(pageSize));
-    Assert.assertNull(pager.nextPageOptionsRef.get().startKey(),
-        "startKey should initially be null.");
-    // Since we use a page size of 1, each next page options key, is the same as the element from
+    TestPager pager = new TestPager(c, getDefaultTestFindOptions(pageSize));
+    Assert.assertNull(pager.nextPageOptionsRef.get().bookmark(),
+        "bookamrk should initially be null.");
+    // Since we use a page size of 1, each next page options bookmark, is the same as the element from
     // the page
     int page = 0;
     while (pager.hasNext()) {
       pager.next();
       if (pager.hasNext()) {
-        Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), page,
-            "the startKey should increment per page.");
+        Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), String.valueOf(page),
+            "the bookmark should increment per page.");
       } else {
         // Options don't change for last page
-        Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), page - 1,
+        Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), String.valueOf(page - 1),
             "The options should not be set for the final page.");
       }
       page++;
@@ -343,20 +343,20 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(2 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    TestPager pager = new ThrowingTestPager(c, getDefaultTestOptions(pageSize));
+    TestPager pager = new ThrowingTestPager(c, getDefaultTestFindOptions(pageSize));
     List<Integer> actualPage1 = pager.next();
     // Assert pages
     Assert.assertEquals(actualPage1, pageSupplier.pages.get(0),
         "The actual page should match the expected page.");
-    // The startKey should point to row 2 (the last row we saw, note this is not doing n+1 paging)
-    Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), 2,
-        "The startKey should be 2 for the second page.");
+    // The bookmark should point to row 2 (the last row we saw, note this is not doing n+1 paging)
+    Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), "2",
+        "The bookmark should be 2 for the second page.");
     Assert.assertThrows(RuntimeException.class, () -> pager.next());
     // Assert hasNext
     Assert.assertEquals(pager.hasNext(), true, "hasNext() should return true.");
-    // The startKey should still point to the second page
-    Assert.assertEquals(pager.nextPageOptionsRef.get().startKey(), 2,
-        "The startKey should be 2 for the second page.");
+    // The bookmark should still point to the second page
+    Assert.assertEquals(pager.nextPageOptionsRef.get().bookmark(), "2",
+        "The bookmark should be 2 for the second page.");
     List<Integer> actualPage2 = pager.next();
     Assert.assertEquals(actualPage2, pageSupplier.pages.get(1),
         "The actual page should match the expected page.");
@@ -369,7 +369,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(2 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    Pager<Integer> pager = newPagination(c, getDefaultTestOptions(pageSize)).pager();
+    Pager<Integer> pager = newPagination(c, getDefaultTestFindOptions(pageSize)).pager();
     List<Integer> actualPage = pager.getNext();
     // Assert first page
     Assert.assertEquals(actualPage, pageSupplier.pages.get(0),
@@ -383,7 +383,7 @@ public class BasePageIteratorTest {
       PageSupplier<TestResult, Integer> pageSupplier =
           PaginationTestHelpers.newBasePageSupplier(2 * pageSize, pageSize);
       MockPagerClient c = new MockPagerClient(pageSupplier);
-      Pager<Integer> pager = newPagination(c, getDefaultTestOptions(pageSize)).pager();
+      Pager<Integer> pager = newPagination(c, getDefaultTestFindOptions(pageSize)).pager();
       List<Integer> actualItems = new ArrayList<>();
       Iterator<List<Integer>> expectedPages = pageSupplier.pages.iterator();
       int pageCount = 0;
@@ -412,7 +412,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(71, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    Pager<Integer> pager = newPagination(c, getDefaultTestOptions(pageSize)).pager();
+    Pager<Integer> pager = newPagination(c, getDefaultTestFindOptions(pageSize)).pager();
     List<Integer> actualItems = pager.getAll();
     Assert.assertEquals(actualItems, pageSupplier.allItems,
         "The results should match all the pages.");
@@ -432,7 +432,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(2 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    Pager<Integer> pager = newThrowingPagination(c, getDefaultTestOptions(pageSize)).pager();
+    Pager<Integer> pager = newThrowingPagination(c, getDefaultTestFindOptions(pageSize)).pager();
     List<Integer> actualPage1 = pager.getNext();
     // Assert pages
     Assert.assertEquals(actualPage1, pageSupplier.pages.get(0),
@@ -457,8 +457,8 @@ public class BasePageIteratorTest {
         Collections.emptyList())); // final empty page
     MockPagerClient c = new MockPagerClient(pageSupplier);
     final AtomicInteger constructedOnce = new AtomicInteger();
-    Pagination<PostViewOptions, Integer> errorOnFirst = new Pagination<PostViewOptions, Integer>(c,
-        getDefaultTestOptions(pageSize), (client, opts) -> {
+    Pagination<PostFindOptions, Integer> errorOnFirst = new Pagination<PostFindOptions, Integer>(c,
+        getDefaultTestFindOptions(pageSize), (client, opts) -> {
           // Note that Pager automatically makes an iterator for hasNext/getNext so that is call 0
           // Call 1 is the first getAll (that will throw)
           // Call 2 should not throw
@@ -484,7 +484,7 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(2 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    Pager<Integer> pager = newPagination(c, getDefaultTestOptions(pageSize)).pager();
+    Pager<Integer> pager = newPagination(c, getDefaultTestFindOptions(pageSize)).pager();
     // Assert first page
     Assert.assertEquals(pager.getNext(), pageSupplier.pages.get(0),
       "The actual page should match the expected page.");
@@ -505,8 +505,8 @@ public class BasePageIteratorTest {
     PageSupplier<TestResult, Integer> pageSupplier =
         PaginationTestHelpers.newBasePageSupplier(2 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
-    Pager<Integer> pager = new Pagination<PostViewOptions, Integer>(c,
-    getDefaultTestOptions(pageSize), ThrowingTestPager::new).pager();
+    Pager<Integer> pager = new Pagination<PostFindOptions, Integer>(c,
+    getDefaultTestFindOptions(pageSize), ThrowingTestPager::new).pager();
     // Make sure we stop the getAll in a non-consumed state
     Assert.assertThrows(RuntimeException.class,
       () -> pager.getAll()
@@ -525,7 +525,7 @@ public class BasePageIteratorTest {
         PaginationTestHelpers.newBasePageSupplier(3 * pageSize - 1, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     Iterator<List<Integer>> expectedPages = pageSupplier.pages.iterator();
-    for (List<Integer> page : newPagination(c, getDefaultTestOptions(pageSize)).pages()) {
+    for (List<Integer> page : newPagination(c, getDefaultTestFindOptions(pageSize)).pages()) {
       Assert.assertEquals(page, expectedPages.next());
     }
   }
@@ -538,7 +538,7 @@ public class BasePageIteratorTest {
         PaginationTestHelpers.newBasePageSupplier(3 * pageSize - 1, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     Iterator<Integer> expectedRows = pageSupplier.allItems.iterator();
-    for (Integer row : newPagination(c, getDefaultTestOptions(pageSize)).rows()) {
+    for (Integer row : newPagination(c, getDefaultTestFindOptions(pageSize)).rows()) {
       Assert.assertEquals(row, expectedRows.next());
     }
   }
@@ -551,7 +551,7 @@ public class BasePageIteratorTest {
         PaginationTestHelpers.newBasePageSupplier(4 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     Iterator<List<Integer>> expectedPages = pageSupplier.pages.iterator();
-    newPagination(c, getDefaultTestOptions(pageSize)).pages()
+    newPagination(c, getDefaultTestFindOptions(pageSize)).pages()
         .forEach(i -> Assert.assertEquals(i, expectedPages.next()));
   }
 
@@ -563,7 +563,7 @@ public class BasePageIteratorTest {
         PaginationTestHelpers.newBasePageSupplier(4 * pageSize, pageSize);
     MockPagerClient c = new MockPagerClient(pageSupplier);
     Iterator<Integer> expectedRows = pageSupplier.allItems.iterator();
-    newPagination(c, getDefaultTestOptions(pageSize)).rows()
+    newPagination(c, getDefaultTestFindOptions(pageSize)).rows()
         .forEach(i -> Assert.assertEquals(i, expectedRows.next()));
   }
 
