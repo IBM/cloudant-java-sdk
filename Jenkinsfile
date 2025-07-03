@@ -311,7 +311,7 @@ void publishStaging() {
 }
 
 void publishPublic() {
-  withCredentials([usernamePassword(credentialsId: 'central-portal', passwordVariable: 'CP_PSW', usernameVariable: 'CP_USR')]) {
+  withCredentials([usernamePassword(credentialsId: 'ossrh', passwordVariable: 'OSSRH_PSW', usernameVariable: 'OSSRH_USR')]) {
     publishMaven('-P public')
   }
 }
