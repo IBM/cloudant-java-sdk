@@ -172,7 +172,7 @@ public class Pagination<O, I> {
       PostAllDocsOptions options) {
     OptionsHandler.POST_ALL_DOCS.validate(options);
     return new Pagination<PostAllDocsOptions, DocsResultRow>(client,
-        OptionsHandler.duplicate(options), AllDocsPageIterator::new);
+        OptionsHandler.copyWithPagingMutations(options), AllDocsPageIterator::new);
   }
 
   /**
@@ -187,7 +187,7 @@ public class Pagination<O, I> {
       Cloudant client, PostPartitionAllDocsOptions options) {
     OptionsHandler.POST_PARTITION_ALL_DOCS.validate(options);
     return new Pagination<PostPartitionAllDocsOptions, DocsResultRow>(client,
-        OptionsHandler.duplicate(options), AllDocsPartitionPageIterator::new);
+        OptionsHandler.copyWithPagingMutations(options), AllDocsPartitionPageIterator::new);
   }
 
   /**
@@ -202,7 +202,7 @@ public class Pagination<O, I> {
       Cloudant client, PostDesignDocsOptions options) {
     OptionsHandler.POST_DESIGN_DOCS.validate(options);
     return new Pagination<PostDesignDocsOptions, DocsResultRow>(client,
-        OptionsHandler.duplicate(options), DesignDocsPageIterator::new);
+        OptionsHandler.copyWithPagingMutations(options), DesignDocsPageIterator::new);
   }
 
   /**
@@ -216,7 +216,7 @@ public class Pagination<O, I> {
   public static Pagination<PostFindOptions, Document> newPagination(Cloudant client,
       PostFindOptions options) {
     OptionsHandler.POST_FIND.validate(options);
-    return new Pagination<PostFindOptions, Document>(client, OptionsHandler.duplicate(options),
+    return new Pagination<PostFindOptions, Document>(client, OptionsHandler.copyWithPagingMutations(options),
         FindPager::new);
   }
 
@@ -231,7 +231,7 @@ public class Pagination<O, I> {
       PostPartitionFindOptions options) {
     OptionsHandler.POST_PARTITION_FIND.validate(options);
     return new Pagination<PostPartitionFindOptions, Document>(client,
-        OptionsHandler.duplicate(options), FindPartitionPager::new);
+        OptionsHandler.copyWithPagingMutations(options), FindPartitionPager::new);
   }
 
   /**
@@ -246,7 +246,7 @@ public class Pagination<O, I> {
       PostSearchOptions options) {
     OptionsHandler.POST_SEARCH.validate(options);
     return new Pagination<PostSearchOptions, SearchResultRow>(client,
-        OptionsHandler.duplicate(options), SearchPageIterator::new);
+        OptionsHandler.copyWithPagingMutations(options), SearchPageIterator::new);
   }
 
   /**
@@ -261,7 +261,7 @@ public class Pagination<O, I> {
       Cloudant client, PostPartitionSearchOptions options) {
     OptionsHandler.POST_PARTITION_SEARCH.validate(options);
     return new Pagination<PostPartitionSearchOptions, SearchResultRow>(client,
-        OptionsHandler.duplicate(options), SearchPartitionPageIterator::new);
+        OptionsHandler.copyWithPagingMutations(options), SearchPartitionPageIterator::new);
   }
 
   /**
@@ -275,7 +275,7 @@ public class Pagination<O, I> {
   public static Pagination<PostViewOptions, ViewResultRow> newPagination(Cloudant client,
       PostViewOptions options) {
     OptionsHandler.POST_VIEW.validate(options);
-    return new Pagination<PostViewOptions, ViewResultRow>(client, OptionsHandler.duplicate(options),
+    return new Pagination<PostViewOptions, ViewResultRow>(client, OptionsHandler.copyWithPagingMutations(options),
         ViewPageIterator::new);
   }
 
@@ -291,7 +291,7 @@ public class Pagination<O, I> {
       PostPartitionViewOptions options) {
     OptionsHandler.POST_PARTITION_VIEW.validate(options);
     return new Pagination<PostPartitionViewOptions, ViewResultRow>(client,
-        OptionsHandler.duplicate(options), ViewPartitionPageIterator::new);
+        OptionsHandler.copyWithPagingMutations(options), ViewPartitionPageIterator::new);
   }
 
 }
