@@ -431,7 +431,7 @@ public class PaginationTestHelpers {
 
   @DataProvider(name = "viewOptions")
   public Iterator<Object[]> viewOptions() {
-    return getIteratorFor(viewLikeOptions);
+    return getIteratorFor(viewOptions);
   }
 
   static class TestDesignDocsResultRow extends DocsResultRow {
