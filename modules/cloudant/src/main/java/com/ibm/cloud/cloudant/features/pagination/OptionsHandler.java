@@ -15,11 +15,11 @@ package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
@@ -57,10 +57,15 @@ abstract class OptionsHandler<B, O> {
 
   private final Function<B, O> builderToOptions;
   private final Function<O, B> optionsToBuilder;
+  private final Function<O, Long> limitGetter;
+  private final BiFunction<B, Long, B> limitSetter;
 
-  private OptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder) {
+  private OptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+      Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter) {
     this.builderToOptions = builderToOptions;
     this.optionsToBuilder = optionsToBuilder;
+    this.limitGetter = limitGetter;
+    this.limitSetter = limitSetter;
   }
 
   B builderFromOptions(O options) {
@@ -71,65 +76,63 @@ abstract class OptionsHandler<B, O> {
     return this.builderToOptions.apply(builder);
   }
 
-  abstract void validate(O options);
+  protected void validate(O options) {
+    validateLimit(options);
+  }
 
-  private O clone(O options) {
+  private O copy(O options) {
     return this.optionsFromBuilder(this.builderFromOptions(options));
   }
 
   B applyLimit(B builder, Long newLimit) {
-    return this.limitSetter().apply(builder, newLimit);
+    return this.limitSetter.apply(builder, newLimit);
   }
 
-  abstract BiFunction<B, Long, B> limitSetter();
-
-  abstract Function<O, Long> limitGetter();
-
   Long getPageSizeFromOptionsLimit(O opts) {
-    return Optional.ofNullable(limitGetter().apply(opts)).orElse(MAX_LIMIT);
+    return Optional.ofNullable(this.limitGetter.apply(opts)).orElse(MAX_LIMIT);
   }
 
   static final PostAllDocsOptions duplicate(PostAllDocsOptions opts) {
-    return POST_ALL_DOCS.clone(opts);
+    return POST_ALL_DOCS.copy(opts);
   }
 
   static final PostDesignDocsOptions duplicate(PostDesignDocsOptions opts) {
-    return POST_DESIGN_DOCS.clone(opts);
+    return POST_DESIGN_DOCS.copy(opts);
   }
 
   static final PostFindOptions duplicate(PostFindOptions opts) {
-    return POST_FIND.clone(opts);
+    return POST_FIND.copy(opts);
   }
 
   static final PostPartitionAllDocsOptions duplicate(PostPartitionAllDocsOptions opts) {
-    return POST_PARTITION_ALL_DOCS.clone(opts);
+    return POST_PARTITION_ALL_DOCS.copy(opts);
   }
 
   static final PostPartitionFindOptions duplicate(PostPartitionFindOptions opts) {
-    return POST_PARTITION_FIND.clone(opts);
+    return POST_PARTITION_FIND.copy(opts);
   }
 
   static final PostPartitionSearchOptions duplicate(PostPartitionSearchOptions opts) {
-    return POST_PARTITION_SEARCH.clone(opts);
+    return POST_PARTITION_SEARCH.copy(opts);
   }
 
   static final PostPartitionViewOptions duplicate(PostPartitionViewOptions opts) {
-    return POST_PARTITION_VIEW.clone(opts);
+    return POST_PARTITION_VIEW.copy(opts);
   }
 
   static final PostSearchOptions duplicate(PostSearchOptions opts) {
-    return POST_SEARCH.clone(opts);
+    return POST_SEARCH.copy(opts);
   }
 
   static final PostViewOptions duplicate(PostViewOptions opts) {
-    return POST_VIEW.clone(opts);
+    return POST_VIEW.copy(opts);
   }
 
-  private static void validateLimit(Supplier<Long> limitSupplier) {
+  protected void validateLimit(O opts) {
     // If limit is set check it is within range
     // Else it is unset and we will set the valid default value later
-    if (optionIsPresent(limitSupplier)) {
-      Long limit = limitSupplier.get();
+    if (optionIsPresent(opts, this.limitGetter)) {
+      Long limit = this.limitGetter.apply(opts);
       if (limit > MAX_LIMIT) {
         throw new IllegalArgumentException(String.format(
             "The provided limit %d exceeds the maximum page size value of %d.", limit, MAX_LIMIT));
@@ -142,24 +145,48 @@ abstract class OptionsHandler<B, O> {
     }
   }
 
-  private static <V> boolean optionIsPresent(final Supplier<V> optionSupplier) {
-    return Optional.ofNullable(optionSupplier.get()).isPresent();
+  protected <V> Optional<V> getOptionalOption(final O opts, final Function<O, V> optionGetter) {
+    return Optional.ofNullable(optionGetter.apply(opts));
   }
 
-  private static void validateOptionsAbsent(final Map<String, Supplier<?>> options) {
-    for (Map.Entry<String, Supplier<?>> option : options.entrySet()) {
-      if (optionIsPresent(option.getValue())) {
+  protected <V> boolean optionIsPresent(final O opts, final Function<O, V> optionGetter) {
+    return getOptionalOption(opts, optionGetter).isPresent();
+  }
+
+  protected void validateOptionsAbsent(final O opts,
+      final Map<String, Function<O, ?>> optionGetters, final String messageReason) {
+    for (Map.Entry<String, Function<O, ?>> optionGetter : optionGetters.entrySet()) {
+      if (optionIsPresent(opts, optionGetter.getValue())) {
         throw new IllegalArgumentException(
-            String.format("The option '%s' is invalid when using pagination.", option.getKey()));
+            String.format("The option '%s' is invalid %s", optionGetter.getKey(), messageReason));
       }
     }
   }
 
-  private abstract static class KeyOptionsHandler<B, O>
-      extends OptionsHandler<B, O> {
+  protected void validateOptionsAbsent(final O options,
+      final Map<String, Function<O, ?>> optionGetters) {
+    validateOptionsAbsent(options, optionGetters, "when using pagination.");
+  }
 
-    KeyOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder) {
-      super(builderToOptions, optionsToBuilder);
+  private abstract static class KeyOptionsHandler<B, O, K> extends OptionsHandler<B, O> {
+
+    protected final Function<O, K> keyGetter;
+    private final Function<O, List<K>> keysGetter;
+    private final String keyErrorMsg =
+        keyErrorMessage(new StringBuilder("when using pagination. "));
+
+    protected KeyOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+        Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter, Function<O, K> keyGetter,
+        Function<O, List<K>> keysGetter) {
+      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter);
+      this.keyGetter = keyGetter;
+      this.keysGetter = keysGetter;
+    }
+
+    protected String keyErrorMessage(StringBuilder baseMessage) {
+      // Default for all docs style, override for views
+      return baseMessage.append("No need to paginate as 'key' returns a single result for an ID.")
+          .toString();
     }
 
     @Override
@@ -167,63 +194,57 @@ abstract class OptionsHandler<B, O> {
       return super.getPageSizeFromOptionsLimit(opts) + 1;
     }
 
+    @Override
+    protected void validate(O options) {
+      validateOptionsAbsent(options, Collections.singletonMap("keys", this.keysGetter));
+      validateOptionsAbsent(options, Collections.singletonMap("key", this.keyGetter),
+          this.keyErrorMsg);
+      super.validate(options);
+    }
   }
 
-  private abstract static class BookmarkOptionsHandler<B, O>
-      extends OptionsHandler<B, O> {
+  private abstract static class ViewsOptionsHandler<B, O> extends KeyOptionsHandler<B, O, Object> {
 
-    BookmarkOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder) {
-      super(builderToOptions, optionsToBuilder);
+    protected ViewsOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+        Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter,
+        Function<O, Object> keyGetter, Function<O, List<Object>> keysGetter) {
+      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter, keyGetter, keysGetter);
+    }
+
+    @Override
+    protected String keyErrorMessage(StringBuilder baseMessage) {
+      return baseMessage.append("Use startKey and endKey instead.").toString();
+    }
+
+  }
+
+  private abstract static class BookmarkOptionsHandler<B, O> extends OptionsHandler<B, O> {
+
+    BookmarkOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+        Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter) {
+      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter);
     }
 
   }
 
   private static final class AllDocsOptionsHandler
-      extends KeyOptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> {
+      extends KeyOptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions, String> {
 
     private AllDocsOptionsHandler() {
-      super(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostAllDocsOptions, Long> limitGetter() {
-      return PostAllDocsOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostAllDocsOptions.Builder, Long, PostAllDocsOptions.Builder> limitSetter() {
-      return PostAllDocsOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostAllDocsOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+      super(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder,
+          PostAllDocsOptions::limit, PostAllDocsOptions.Builder::limit, PostAllDocsOptions::key,
+          PostAllDocsOptions::keys);
     }
 
   }
 
   private static final class DesignDocsOptionsHandler
-      extends KeyOptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> {
+      extends KeyOptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions, String> {
 
     private DesignDocsOptionsHandler() {
-      super(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostDesignDocsOptions, Long> limitGetter() {
-      return PostDesignDocsOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostDesignDocsOptions.Builder, Long, PostDesignDocsOptions.Builder> limitSetter() {
-      return PostDesignDocsOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostDesignDocsOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+      super(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder,
+          PostDesignDocsOptions::limit, PostDesignDocsOptions.Builder::limit,
+          PostDesignDocsOptions::key, PostDesignDocsOptions::keys);
     }
 
   }
@@ -232,47 +253,19 @@ abstract class OptionsHandler<B, O> {
       extends BookmarkOptionsHandler<PostFindOptions.Builder, PostFindOptions> {
 
     private FindOptionsHandler() {
-      super(PostFindOptions.Builder::build, PostFindOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostFindOptions, Long> limitGetter() {
-      return PostFindOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostFindOptions.Builder, Long, PostFindOptions.Builder> limitSetter() {
-      return PostFindOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostFindOptions options) {
-      validateLimit(options::limit);
+      super(PostFindOptions.Builder::build, PostFindOptions::newBuilder, PostFindOptions::limit,
+          PostFindOptions.Builder::limit);
     }
 
   }
 
-  private static final class PartitionAllDocsOptionsHandler
-      extends KeyOptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
+  private static final class PartitionAllDocsOptionsHandler extends
+      KeyOptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions, String> {
 
     private PartitionAllDocsOptionsHandler() {
-      super(PostPartitionAllDocsOptions.Builder::build, PostPartitionAllDocsOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostPartitionAllDocsOptions, Long> limitGetter() {
-      return PostPartitionAllDocsOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostPartitionAllDocsOptions.Builder, Long, PostPartitionAllDocsOptions.Builder> limitSetter() {
-      return PostPartitionAllDocsOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostPartitionAllDocsOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+      super(PostPartitionAllDocsOptions.Builder::build, PostPartitionAllDocsOptions::newBuilder,
+          PostPartitionAllDocsOptions::limit, PostPartitionAllDocsOptions.Builder::limit,
+          PostPartitionAllDocsOptions::key, PostPartitionAllDocsOptions::keys);
     }
 
   }
@@ -281,71 +274,29 @@ abstract class OptionsHandler<B, O> {
       extends BookmarkOptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
 
     private PartitionFindOptionsHandler() {
-      super(PostPartitionFindOptions.Builder::build, PostPartitionFindOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostPartitionFindOptions, Long> limitGetter() {
-      return PostPartitionFindOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostPartitionFindOptions.Builder, Long, PostPartitionFindOptions.Builder> limitSetter() {
-      return PostPartitionFindOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostPartitionFindOptions options) {
-      validateLimit(options::limit);
+      super(PostPartitionFindOptions.Builder::build, PostPartitionFindOptions::newBuilder,
+          PostPartitionFindOptions::limit, PostPartitionFindOptions.Builder::limit);
     }
 
   }
 
-  private static final class PartitionSearchOptionsHandler
-      extends BookmarkOptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
+  private static final class PartitionSearchOptionsHandler extends
+      BookmarkOptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
 
     private PartitionSearchOptionsHandler() {
-      super(PostPartitionSearchOptions.Builder::build, PostPartitionSearchOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostPartitionSearchOptions, Long> limitGetter() {
-      return PostPartitionSearchOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostPartitionSearchOptions.Builder, Long, PostPartitionSearchOptions.Builder> limitSetter() {
-      return PostPartitionSearchOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostPartitionSearchOptions options) {
-      validateLimit(options::limit);
+      super(PostPartitionSearchOptions.Builder::build, PostPartitionSearchOptions::newBuilder,
+          PostPartitionSearchOptions::limit, PostPartitionSearchOptions.Builder::limit);
     }
 
   }
 
   private static final class PartitionViewOptionsHandler
-      extends KeyOptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
+      extends ViewsOptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
 
     private PartitionViewOptionsHandler() {
-      super(PostPartitionViewOptions.Builder::build, PostPartitionViewOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostPartitionViewOptions, Long> limitGetter() {
-      return PostPartitionViewOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostPartitionViewOptions.Builder, Long, PostPartitionViewOptions.Builder> limitSetter() {
-      return PostPartitionViewOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostPartitionViewOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+      super(PostPartitionViewOptions.Builder::build, PostPartitionViewOptions::newBuilder,
+          PostPartitionViewOptions::limit, PostPartitionViewOptions.Builder::limit,
+          PostPartitionViewOptions::key, PostPartitionViewOptions::keys);
     }
 
   }
@@ -354,54 +305,30 @@ abstract class OptionsHandler<B, O> {
       extends BookmarkOptionsHandler<PostSearchOptions.Builder, PostSearchOptions> {
 
     private SearchOptionsHandler() {
-      super(PostSearchOptions.Builder::build, PostSearchOptions::newBuilder);
+      super(PostSearchOptions.Builder::build, PostSearchOptions::newBuilder,
+          PostSearchOptions::limit, PostSearchOptions.Builder::limit);
     }
 
     @Override
-    Function<PostSearchOptions, Long> limitGetter() {
-      return PostSearchOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostSearchOptions.Builder, Long, PostSearchOptions.Builder> limitSetter() {
-      return PostSearchOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostSearchOptions options) {
-      validateLimit(options::limit);
-      Map<String, Supplier<?>> invalidOptions = new HashMap<>(5);
-      invalidOptions.put("counts", options::counts);
-      invalidOptions.put("groupField", options::groupField);
-      invalidOptions.put("groupLimit", options::groupLimit);
-      invalidOptions.put("groupSort", options::groupSort);
-      invalidOptions.put("ranges", options::ranges);
-      validateOptionsAbsent(invalidOptions);
+    protected void validate(PostSearchOptions options) {
+      Map<String, Function<PostSearchOptions, ?>> invalidOptions = new HashMap<>(5, 1);
+      invalidOptions.put("counts", PostSearchOptions::counts);
+      invalidOptions.put("groupField", PostSearchOptions::groupField);
+      invalidOptions.put("groupLimit", PostSearchOptions::groupLimit);
+      invalidOptions.put("groupSort", PostSearchOptions::groupSort);
+      invalidOptions.put("ranges", PostSearchOptions::ranges);
+      validateOptionsAbsent(options, invalidOptions);
+      super.validate(options);
     }
 
   }
 
   private static final class ViewOptionsHandler
-      extends KeyOptionsHandler<PostViewOptions.Builder, PostViewOptions> {
+      extends ViewsOptionsHandler<PostViewOptions.Builder, PostViewOptions> {
 
     private ViewOptionsHandler() {
-      super(PostViewOptions.Builder::build, PostViewOptions::newBuilder);
-    }
-
-    @Override
-    Function<PostViewOptions, Long> limitGetter() {
-      return PostViewOptions::limit;
-    }
-
-    @Override
-    BiFunction<PostViewOptions.Builder, Long, PostViewOptions.Builder> limitSetter() {
-      return PostViewOptions.Builder::limit;
-    }
-
-    @Override
-    void validate(PostViewOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+      super(PostViewOptions.Builder::build, PostViewOptions::newBuilder, PostViewOptions::limit,
+          PostViewOptions.Builder::limit, PostViewOptions::key, PostViewOptions::keys);
     }
 
   }

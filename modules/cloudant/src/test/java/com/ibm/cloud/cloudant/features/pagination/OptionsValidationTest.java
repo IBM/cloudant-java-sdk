@@ -115,4 +115,37 @@ public class OptionsValidationTest {
         });
   }
 
+  @Test(dataProvider = "allDocsOptions", dataProviderClass = PaginationTestHelpers.class)
+  public void testValidationExceptionForAllDocsKey(OptionsProvider<Object, Object> provider)
+      throws Exception {
+    provider.setRequiredOpts();
+    provider.set("key", "foo");
+    Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
+        () -> {
+          try {
+            provider.handler.validate(provider.build());
+          } catch (IllegalArgumentException e) {
+            Assert.assertTrue(e.getMessage().endsWith(
+                "The option 'key' is invalid when using pagination. No need to paginate as 'key' returns a single result for an ID."));
+            throw e;
+          }
+        });
+  }
+
+  @Test(dataProvider = "viewOptions", dataProviderClass = PaginationTestHelpers.class)
+  public void testValidationExceptionForViewsKey(OptionsProvider<Object, Object> provider)
+      throws Exception {
+    provider.setRequiredOpts();
+    provider.set("key", new Object());
+    Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
+        () -> {
+          try {
+            provider.handler.validate(provider.build());
+          } catch (IllegalArgumentException e) {
+            Assert.assertTrue(e.getMessage().endsWith(
+                "The option 'key' is invalid when using pagination. Use startKey and endKey instead."));
+            throw e;
+          }
+        });
+  }
 }
