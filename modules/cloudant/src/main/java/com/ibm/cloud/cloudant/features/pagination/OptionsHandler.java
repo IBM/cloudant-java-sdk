@@ -88,6 +88,11 @@ abstract class OptionsHandler<B, O> {
     return this.limitSetter.apply(builder, newLimit);
   }
 
+  B removeOptsForSubsequentPage(O options, B builder) {
+    // Default is a no-op
+    return builder;
+  }
+
   Long getPageSizeFromOptionsLimit(O opts) {
     return Optional.ofNullable(this.limitGetter.apply(opts)).orElse(MAX_LIMIT);
   }
@@ -172,15 +177,17 @@ abstract class OptionsHandler<B, O> {
 
     protected final Function<O, K> keyGetter;
     private final Function<O, List<K>> keysGetter;
+    protected final Function<O, Long> skipGetter;
     private final String keyErrorMsg =
         keyErrorMessage(new StringBuilder("when using pagination. "));
 
     protected KeyOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
         Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter, Function<O, K> keyGetter,
-        Function<O, List<K>> keysGetter) {
+        Function<O, List<K>> keysGetter, Function<O, Long> skipGetter) {
       super(builderToOptions, optionsToBuilder, limitGetter, limitSetter);
       this.keyGetter = keyGetter;
       this.keysGetter = keysGetter;
+      this.skipGetter = skipGetter;
     }
 
     protected String keyErrorMessage(StringBuilder baseMessage) {
@@ -201,14 +208,27 @@ abstract class OptionsHandler<B, O> {
           this.keyErrorMsg);
       super.validate(options);
     }
+
+    @Override
+    B removeOptsForSubsequentPage(O options, B builder) {
+      // Unset the skip option if necessary
+      if (optionIsPresent(options, this.skipGetter)) {
+        builder = this.builderFromOptions(replaceOpts(builder));
+      }
+      return super.removeOptsForSubsequentPage(options, builder);
+    }
+
+    protected abstract O replaceOpts(B builder);
   }
 
   private abstract static class ViewsOptionsHandler<B, O> extends KeyOptionsHandler<B, O, Object> {
 
     protected ViewsOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
         Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter,
-        Function<O, Object> keyGetter, Function<O, List<Object>> keysGetter) {
-      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter, keyGetter, keysGetter);
+        Function<O, Object> keyGetter, Function<O, List<Object>> keysGetter,
+        Function<O, Long> skipGetter) {
+      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter, keyGetter, keysGetter,
+          skipGetter);
     }
 
     @Override
@@ -233,7 +253,17 @@ abstract class OptionsHandler<B, O> {
     private AllDocsOptionsHandler() {
       super(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder,
           PostAllDocsOptions::limit, PostAllDocsOptions.Builder::limit, PostAllDocsOptions::key,
-          PostAllDocsOptions::keys);
+          PostAllDocsOptions::keys, PostAllDocsOptions::skip);
+    }
+
+    @Override
+    protected PostAllDocsOptions replaceOpts(PostAllDocsOptions.Builder builder) {
+      return new PostAllDocsOptions(builder) {
+        PostAllDocsOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
@@ -244,7 +274,17 @@ abstract class OptionsHandler<B, O> {
     private DesignDocsOptionsHandler() {
       super(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder,
           PostDesignDocsOptions::limit, PostDesignDocsOptions.Builder::limit,
-          PostDesignDocsOptions::key, PostDesignDocsOptions::keys);
+          PostDesignDocsOptions::key, PostDesignDocsOptions::keys, PostDesignDocsOptions::skip);
+    }
+
+    @Override
+    protected PostDesignDocsOptions replaceOpts(PostDesignDocsOptions.Builder builder) {
+      return new PostDesignDocsOptions(builder) {
+        PostDesignDocsOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
@@ -252,9 +292,25 @@ abstract class OptionsHandler<B, O> {
   private static final class FindOptionsHandler
       extends BookmarkOptionsHandler<PostFindOptions.Builder, PostFindOptions> {
 
+    private final Function<PostFindOptions, Long> skipGetter = PostFindOptions::skip;
+
     private FindOptionsHandler() {
       super(PostFindOptions.Builder::build, PostFindOptions::newBuilder, PostFindOptions::limit,
           PostFindOptions.Builder::limit);
+    }
+
+    @Override
+    PostFindOptions.Builder removeOptsForSubsequentPage(PostFindOptions options,
+        PostFindOptions.Builder builder) {
+      if (optionIsPresent(options, this.skipGetter)) {
+        return new PostFindOptions(builder) {
+          PostFindOptions unsetOpts() {
+            this.skip = null;
+            return this;
+          }
+        }.unsetOpts().newBuilder();
+      }
+      return builder;
     }
 
   }
@@ -265,7 +321,18 @@ abstract class OptionsHandler<B, O> {
     private PartitionAllDocsOptionsHandler() {
       super(PostPartitionAllDocsOptions.Builder::build, PostPartitionAllDocsOptions::newBuilder,
           PostPartitionAllDocsOptions::limit, PostPartitionAllDocsOptions.Builder::limit,
-          PostPartitionAllDocsOptions::key, PostPartitionAllDocsOptions::keys);
+          PostPartitionAllDocsOptions::key, PostPartitionAllDocsOptions::keys,
+          PostPartitionAllDocsOptions::skip);
+    }
+
+    @Override
+    protected PostPartitionAllDocsOptions replaceOpts(PostPartitionAllDocsOptions.Builder builder) {
+      return new PostPartitionAllDocsOptions(builder) {
+        PostPartitionAllDocsOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
@@ -273,9 +340,26 @@ abstract class OptionsHandler<B, O> {
   private static final class PartitionFindOptionsHandler
       extends BookmarkOptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
 
+    private final Function<PostPartitionFindOptions, Long> skipGetter =
+        PostPartitionFindOptions::skip;
+
     private PartitionFindOptionsHandler() {
       super(PostPartitionFindOptions.Builder::build, PostPartitionFindOptions::newBuilder,
           PostPartitionFindOptions::limit, PostPartitionFindOptions.Builder::limit);
+    }
+
+    @Override
+    PostPartitionFindOptions.Builder removeOptsForSubsequentPage(PostPartitionFindOptions options,
+        PostPartitionFindOptions.Builder builder) {
+      if (optionIsPresent(options, this.skipGetter)) {
+        return new PostPartitionFindOptions(builder) {
+          PostPartitionFindOptions unsetOpts() {
+            this.skip = null;
+            return this;
+          }
+        }.unsetOpts().newBuilder();
+      }
+      return builder;
     }
 
   }
@@ -296,7 +380,18 @@ abstract class OptionsHandler<B, O> {
     private PartitionViewOptionsHandler() {
       super(PostPartitionViewOptions.Builder::build, PostPartitionViewOptions::newBuilder,
           PostPartitionViewOptions::limit, PostPartitionViewOptions.Builder::limit,
-          PostPartitionViewOptions::key, PostPartitionViewOptions::keys);
+          PostPartitionViewOptions::key, PostPartitionViewOptions::keys,
+          PostPartitionViewOptions::skip);
+    }
+
+    @Override
+    protected PostPartitionViewOptions replaceOpts(PostPartitionViewOptions.Builder builder) {
+      return new PostPartitionViewOptions(builder) {
+        PostPartitionViewOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
@@ -328,7 +423,18 @@ abstract class OptionsHandler<B, O> {
 
     private ViewOptionsHandler() {
       super(PostViewOptions.Builder::build, PostViewOptions::newBuilder, PostViewOptions::limit,
-          PostViewOptions.Builder::limit, PostViewOptions::key, PostViewOptions::keys);
+          PostViewOptions.Builder::limit, PostViewOptions::key, PostViewOptions::keys,
+          PostViewOptions::skip);
+    }
+
+    @Override
+    protected PostViewOptions replaceOpts(PostViewOptions.Builder builder) {
+      return new PostViewOptions(builder) {
+        PostViewOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
