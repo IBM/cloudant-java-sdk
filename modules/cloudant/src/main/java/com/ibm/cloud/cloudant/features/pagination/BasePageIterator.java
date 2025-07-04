@@ -63,8 +63,11 @@ abstract class BasePageIterator<B, O, R, I> implements Iterator<List<I>> {
     if (items.size() < this.pageSize) {
       this.hasNext = false;
     } else {
+      O options = this.nextPageOptionsRef.get();
       B optionsBuilder = optsHandler.builderFromOptions(this.nextPageOptionsRef.get());
       setNextPageOptions(optionsBuilder, result);
+      // Remove any options valid on the user request, but invalid during paging
+      optionsBuilder = this.optsHandler.removeOptsForSubsequentPage(options, optionsBuilder);
       buildAndSetOptions(optionsBuilder);
     }
     return items;
