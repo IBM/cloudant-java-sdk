@@ -13,12 +13,15 @@
 
 package com.ibm.cloud.cloudant.features.pagination;
 
+import static org.junit.Assert.fail;
 import java.util.List;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.OptionsProvider;
 import com.ibm.cloud.cloudant.features.pagination.PaginationTestHelpers.OptionsWrapper;
+import com.ibm.cloud.cloudant.v1.model.PostPartitionViewOptions;
 import com.ibm.cloud.cloudant.v1.model.PostSearchOptions;
+import com.ibm.cloud.cloudant.v1.model.PostViewOptions;
 
 public class OptionsValidationTest {
 
@@ -115,4 +118,42 @@ public class OptionsValidationTest {
         });
   }
 
+  @Test(dataProvider = "allDocsOptions", dataProviderClass = PaginationTestHelpers.class)
+  public void testValidationExceptionForKey(OptionsProvider<Object, Object> provider)
+      throws Exception {
+    provider.setRequiredOpts();
+    provider.set("key", "foo");
+    Assert.assertThrows("There should be a validation exception", IllegalArgumentException.class,
+        () -> {
+          provider.handler.validate(provider.build());
+        });
+  }
+
+  @Test(dataProvider = "viewOptions", dataProviderClass = PaginationTestHelpers.class)
+  public void testKeyMutation(OptionsProvider<Object, Object> provider)
+      throws Exception {
+    provider.setRequiredOpts();
+    Object key = new Object();
+    provider.set("key", key);
+    Object options = provider.build();
+    Object copiedKey = null;
+    Object copiedStartKey = null;
+    Object copiedEndKey = null;
+    if (options instanceof PostViewOptions) {
+      PostViewOptions copied = OptionsHandler.copyWithPagingMutations((PostViewOptions) provider.build());
+      copiedKey = copied.key();
+      copiedStartKey = copied.startKey();
+      copiedEndKey = copied.endKey();
+    } else if (options instanceof PostPartitionViewOptions) {
+      PostPartitionViewOptions copied = OptionsHandler.copyWithPagingMutations((PostPartitionViewOptions) provider.build());
+      copiedKey = copied.key();
+      copiedStartKey = copied.startKey();
+      copiedEndKey = copied.endKey();
+    } else {
+      fail("Not a view options type.");
+    }
+    Assert.assertEquals(copiedStartKey, key, "The startKey should have been set to the key.");
+    Assert.assertEquals(copiedEndKey, key, "The endKey should have been set to the key.");
+    Assert.assertNull(copiedKey, "The key should have been unset.");
+  }
 }

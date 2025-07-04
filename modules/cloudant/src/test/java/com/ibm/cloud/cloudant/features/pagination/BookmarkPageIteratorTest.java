@@ -38,7 +38,8 @@ public class BookmarkPageIteratorTest {
    * This test sub-class of BookmarkPager implicitly tests that various abstract methods are
    * correctly called.
    */
-  class TestBookmarkPager extends BookmarkPageIterator<Builder, PostFindOptions, TestResult, Integer> {
+  class TestBookmarkPager
+      extends BookmarkPageIterator<Builder, PostFindOptions, TestResult, Integer> {
 
     protected TestBookmarkPager(Cloudant client, PostFindOptions options) {
       super(client, options, OptionsHandler.POST_FIND);
@@ -57,21 +58,6 @@ public class BookmarkPageIteratorTest {
       return (c, o) -> {
         return ((MockPagerClient) c).testCall();
       };
-    }
-
-    @Override
-    protected Function<PostFindOptions, Long> limitGetter() {
-      return PostFindOptions::limit;
-    }
-
-    @Override
-    protected Function<PostFindOptions, Builder> optionsToBuilderFunction() {
-      return PostFindOptions::newBuilder;
-    }
-
-    @Override
-    protected Function<Builder, PostFindOptions> builderToOptionsFunction() {
-      return Builder::build;
     }
 
     @Override
@@ -202,4 +188,24 @@ public class BookmarkPageIteratorTest {
     Assert.assertEquals(actualItems, pageSupplier.allItems,
         "The results should match all the pages.");
   }
+
+  @Test
+  void testSkipRemovedForSubsequentPages() {
+    int pageSize = 3;
+    long expectedSkip = 17;
+    PageSupplier<TestResult, Integer> pageSupplier = newBasePageSupplier(pageSize * 3, pageSize);
+    MockPagerClient c = new MockPagerClient(pageSupplier);
+    PostFindOptions opts =
+        getRequiredTestFindOptionsBuilder().limit(pageSize).skip(expectedSkip).build();
+    TestBookmarkPager pager = new TestBookmarkPager(c, opts);
+    // Assert skip set for first request
+    Assert.assertEquals(pager.nextPageOptionsRef.get().skip(), expectedSkip,
+        "The skip should equal the user provided skip.");
+    pager.next();
+    // Assert skip not set for next page
+    Assert.assertNull(pager.nextPageOptionsRef.get().skip(),
+        "Skip should not be set for the next page.");
+    pager.next();
+  }
+
 }

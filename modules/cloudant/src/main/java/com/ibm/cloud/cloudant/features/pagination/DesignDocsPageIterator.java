@@ -14,7 +14,6 @@
 package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.AllDocsResult;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
@@ -33,23 +32,8 @@ public class DesignDocsPageIterator extends AllDocsBasePageIterator<Builder, Pos
   }
 
   @Override
-  Function<PostDesignDocsOptions, Builder> optionsToBuilderFunction() {
-    return PostDesignDocsOptions::newBuilder;
-  }
-
-  @Override
-  Function<Builder, PostDesignDocsOptions> builderToOptionsFunction() {
-    return Builder::build;
-  }
-
-  @Override
   BiFunction<Cloudant, PostDesignDocsOptions, ServiceCall<AllDocsResult>> nextRequestFunction() {
     return Cloudant::postDesignDocs;
-  }
-
-  @Override
-  Function<PostDesignDocsOptions, Long> limitGetter() {
-    return PostDesignDocsOptions::limit;
   }
 
 }

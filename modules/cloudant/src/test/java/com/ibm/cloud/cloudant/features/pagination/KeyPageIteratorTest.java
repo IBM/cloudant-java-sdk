@@ -41,7 +41,8 @@ public class KeyPageIteratorTest {
    * This test sub-class of KeyPager implicitly tests that various abstract methods are correctly
    * called.
    */
-  class TestKeyPager extends KeyPageIterator<Integer, Builder, PostViewOptions, TestResult, Integer> {
+  class TestKeyPager
+      extends KeyPageIterator<Integer, Builder, PostViewOptions, TestResult, Integer> {
 
     protected TestKeyPager(Cloudant client, PostViewOptions options) {
       super(client, options, OptionsHandler.POST_VIEW);
@@ -60,11 +61,6 @@ public class KeyPageIteratorTest {
       return (c, o) -> {
         return ((MockPagerClient) c).testCall();
       };
-    }
-
-    @Override
-    protected Function<PostViewOptions, Long> limitGetter() {
-      return PostViewOptions::limit;
     }
 
     @Override
@@ -88,16 +84,6 @@ public class KeyPageIteratorTest {
     }
 
     @Override
-    protected Function<PostViewOptions, Builder> optionsToBuilderFunction() {
-      return PostViewOptions::newBuilder;
-    }
-
-    @Override
-    protected Function<Builder, PostViewOptions> builderToOptionsFunction() {
-      return Builder::build;
-    }
-
-    @Override
     protected Function<TestResult, List<Integer>> itemsGetter() {
       return TestResult::getRows;
     }
@@ -113,18 +99,25 @@ public class KeyPageIteratorTest {
   @Test
   void testDefaultPageSize() {
     TestKeyPager pager = new TestKeyPager(mockClient, getRequiredTestOptionsBuilder().build());
+    int expectedPageSize = Math.toIntExact(OptionsHandler.MAX_LIMIT + 1);
     // Assert the default limit as page size
-    Assert.assertEquals(pager.pageSize, 201,
+    Assert.assertEquals(pager.pageSize, expectedPageSize,
         "The page size should be one more than the default limit.");
+    Assert.assertEquals(pager.nextPageOptionsRef.get().limit(), expectedPageSize,
+        "The request limit should equal the page size.");
   }
 
   // Test page size limit (+1)
   @Test
   void testLimitPageSize() {
-    TestKeyPager pager = new TestKeyPager(mockClient, getDefaultTestOptions(42));
+    int testPageSize = 42;
+    TestKeyPager pager = new TestKeyPager(mockClient, getDefaultTestOptions(testPageSize));
+    int expectedPageSize = testPageSize + 1;
     // Assert the limit provided as page size
     Assert.assertEquals(pager.pageSize, 43,
         "The page size should be one more than the supplied limit.");
+    Assert.assertEquals(pager.nextPageOptionsRef.get().limit(), expectedPageSize,
+        "The request limit should equal the page size.");
   }
 
   // Test all items on page when no more pages
@@ -295,6 +288,25 @@ public class KeyPageIteratorTest {
         "The actual page should match the expected page.");
     // Assert hasNext false
     Assert.assertFalse(pager.hasNext(), "hasNext() should return false.");
+  }
+
+  @Test
+  void testSkipRemovedForSubsequentPages() {
+    int pageSize = 3;
+    long expectedSkip = 17;
+    PageSupplier<TestResult, Integer> pageSupplier = newKeyPageSupplier(pageSize * 3, pageSize);
+    MockPagerClient c = new MockPagerClient(pageSupplier);
+    PostViewOptions opts =
+        getRequiredTestOptionsBuilder().limit(pageSize).skip(expectedSkip).build();
+    TestKeyPager pager = new TestKeyPager(c, opts);
+    // Assert skip set for first request
+    Assert.assertEquals(pager.nextPageOptionsRef.get().skip(), expectedSkip,
+        "The skip should equal the user provided skip.");
+    pager.next();
+    // Assert skip not set for next page
+    Assert.assertNull(pager.nextPageOptionsRef.get().skip(),
+        "Skip should not be set for the next page.");
+    pager.next();
   }
 
 }

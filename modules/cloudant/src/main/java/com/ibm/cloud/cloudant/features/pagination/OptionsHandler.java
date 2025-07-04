@@ -15,10 +15,11 @@ package com.ibm.cloud.cloudant.features.pagination;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import com.ibm.cloud.cloudant.v1.model.PostAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
@@ -56,10 +57,15 @@ abstract class OptionsHandler<B, O> {
 
   private final Function<B, O> builderToOptions;
   private final Function<O, B> optionsToBuilder;
+  private final Function<O, Long> limitGetter;
+  private final BiFunction<B, Long, B> limitSetter;
 
-  private OptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder) {
+  private OptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+      Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter) {
     this.builderToOptions = builderToOptions;
     this.optionsToBuilder = optionsToBuilder;
+    this.limitGetter = limitGetter;
+    this.limitSetter = limitSetter;
   }
 
   B builderFromOptions(O options) {
@@ -70,53 +76,75 @@ abstract class OptionsHandler<B, O> {
     return this.builderToOptions.apply(builder);
   }
 
-  abstract void validate(O options);
-
-  O clone(O options) {
-    return this.optionsFromBuilder(this.builderFromOptions(options));
+  protected void validate(O options) {
+    validateLimit(options);
   }
 
-  static final PostAllDocsOptions duplicate(PostAllDocsOptions opts) {
-    return POST_ALL_DOCS.clone(opts);
+  private O copyWithMutations(O options) {
+    B builder = this.builderFromOptions(options);
+    return this.optionsFromBuilder(applyPaginationMutations(options, builder));
   }
 
-  static final PostDesignDocsOptions duplicate(PostDesignDocsOptions opts) {
-    return POST_DESIGN_DOCS.clone(opts);
+  protected B applyPaginationMutations(O options, B builder) {
+    // Default is a no-op
+    return builder;
   }
 
-  static final PostFindOptions duplicate(PostFindOptions opts) {
-    return POST_FIND.clone(opts);
+  B applyLimit(B builder, Long newLimit) {
+    return this.limitSetter.apply(builder, newLimit);
   }
 
-  static final PostPartitionAllDocsOptions duplicate(PostPartitionAllDocsOptions opts) {
-    return POST_PARTITION_ALL_DOCS.clone(opts);
+  B removeOptsForSubsequentPage(O options, B builder) {
+    // Default is a no-op
+    return builder;
   }
 
-  static final PostPartitionFindOptions duplicate(PostPartitionFindOptions opts) {
-    return POST_PARTITION_FIND.clone(opts);
+  Long getPageSizeFromOptionsLimit(O opts) {
+    return Optional.ofNullable(this.limitGetter.apply(opts)).orElse(MAX_LIMIT);
   }
 
-  static final PostPartitionSearchOptions duplicate(PostPartitionSearchOptions opts) {
-    return POST_PARTITION_SEARCH.clone(opts);
+  static final PostAllDocsOptions copyWithPagingMutations(PostAllDocsOptions opts) {
+    return POST_ALL_DOCS.copyWithMutations(opts);
   }
 
-  static final PostPartitionViewOptions duplicate(PostPartitionViewOptions opts) {
-    return POST_PARTITION_VIEW.clone(opts);
+  static final PostDesignDocsOptions copyWithPagingMutations(PostDesignDocsOptions opts) {
+    return POST_DESIGN_DOCS.copyWithMutations(opts);
   }
 
-  static final PostSearchOptions duplicate(PostSearchOptions opts) {
-    return POST_SEARCH.clone(opts);
+  static final PostFindOptions copyWithPagingMutations(PostFindOptions opts) {
+    return POST_FIND.copyWithMutations(opts);
   }
 
-  static final PostViewOptions duplicate(PostViewOptions opts) {
-    return POST_VIEW.clone(opts);
+  static final PostPartitionAllDocsOptions copyWithPagingMutations(
+      PostPartitionAllDocsOptions opts) {
+    return POST_PARTITION_ALL_DOCS.copyWithMutations(opts);
   }
 
-  private static void validateLimit(Supplier<Long> limitSupplier) {
+  static final PostPartitionFindOptions copyWithPagingMutations(PostPartitionFindOptions opts) {
+    return POST_PARTITION_FIND.copyWithMutations(opts);
+  }
+
+  static final PostPartitionSearchOptions copyWithPagingMutations(PostPartitionSearchOptions opts) {
+    return POST_PARTITION_SEARCH.copyWithMutations(opts);
+  }
+
+  static final PostPartitionViewOptions copyWithPagingMutations(PostPartitionViewOptions opts) {
+    return POST_PARTITION_VIEW.copyWithMutations(opts);
+  }
+
+  static final PostSearchOptions copyWithPagingMutations(PostSearchOptions opts) {
+    return POST_SEARCH.copyWithMutations(opts);
+  }
+
+  static final PostViewOptions copyWithPagingMutations(PostViewOptions opts) {
+    return POST_VIEW.copyWithMutations(opts);
+  }
+
+  protected void validateLimit(O opts) {
     // If limit is set check it is within range
     // Else it is unset and we will set the valid default value later
-    if (optionIsPresent(limitSupplier)) {
-      Long limit = limitSupplier.get();
+    if (optionIsPresent(opts, this.limitGetter)) {
+      Long limit = this.limitGetter.apply(opts);
       if (limit > MAX_LIMIT) {
         throw new IllegalArgumentException(String.format(
             "The provided limit %d exceeds the maximum page size value of %d.", limit, MAX_LIMIT));
@@ -129,153 +157,341 @@ abstract class OptionsHandler<B, O> {
     }
   }
 
-  private static <V> boolean optionIsPresent(final Supplier<V> optionSupplier) {
-    return Optional.ofNullable(optionSupplier.get()).isPresent();
+  protected <V> Optional<V> getOptionalOption(final O opts, final Function<O, V> optionGetter) {
+    return Optional.ofNullable(optionGetter.apply(opts));
   }
 
-  private static void validateOptionsAbsent(final Map<String, Supplier<?>> options) {
-    for (Map.Entry<String, Supplier<?>> option : options.entrySet()) {
-      if (optionIsPresent(option.getValue())) {
+  protected <V> boolean optionIsPresent(final O opts, final Function<O, V> optionGetter) {
+    return getOptionalOption(opts, optionGetter).isPresent();
+  }
+
+  protected void validateOptionsAbsent(final O opts,
+      final Map<String, Function<O, ?>> optionGetters, final String messageReason) {
+    for (Map.Entry<String, Function<O, ?>> optionGetter : optionGetters.entrySet()) {
+      if (optionIsPresent(opts, optionGetter.getValue())) {
         throw new IllegalArgumentException(
-            String.format("The option '%s' is invalid when using pagination.", option.getKey()));
+            String.format("The option '%s' is invalid %s.", optionGetter.getKey(), messageReason));
       }
     }
   }
 
-  private static final class AllDocsOptionsHandler
-      extends OptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions> {
+  protected void validateOptionsAbsent(final O options,
+      final Map<String, Function<O, ?>> optionGetters) {
+    validateOptionsAbsent(options, optionGetters, "when using pagination.");
+  }
 
-    private AllDocsOptionsHandler() {
-      super(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder);
+  private abstract static class KeyOptionsHandler<B, O, K> extends OptionsHandler<B, O> {
+
+    protected final Function<O, K> keyGetter;
+    private final Function<O, List<K>> keysGetter;
+    protected final Function<O, Long> skipGetter;
+
+    protected KeyOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+        Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter, Function<O, K> keyGetter,
+        Function<O, List<K>> keysGetter, Function<O, Long> skipGetter) {
+      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter);
+      this.keyGetter = keyGetter;
+      this.keysGetter = keysGetter;
+      this.skipGetter = skipGetter;
     }
 
     @Override
-    void validate(PostAllDocsOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+    Long getPageSizeFromOptionsLimit(O opts) {
+      return super.getPageSizeFromOptionsLimit(opts) + 1;
+    }
+
+    @Override
+    protected void validate(O options) {
+      validateOptionsAbsent(options, Collections.singletonMap("keys", this.keysGetter));
+      super.validate(options);
+    }
+
+    @Override
+    B removeOptsForSubsequentPage(O options, B builder) {
+      // Unset the skip option if necessary
+      if (optionIsPresent(options, this.skipGetter)) {
+        builder = this.builderFromOptions(replaceOpts(builder));
+      }
+      return super.removeOptsForSubsequentPage(options, builder);
+    }
+
+    protected abstract O replaceOpts(B builder);
+  }
+
+  private abstract static class ViewsOptionsHandler<B, O> extends KeyOptionsHandler<B, O, Object> {
+
+    private final Function<O, Object> startKeyGetter;
+    private final Function<O, Object> endKeyGetter;
+    private final BiFunction<B, Object, B> keySetter;
+    private final BiFunction<B, Object, B> startKeySetter;
+    private final BiFunction<B, Object, B> endKeySetter;
+    private final Map<String, Function<O, ?>> invalidOptsForKey;
+
+    protected ViewsOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+        Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter,
+        Function<O, Object> keyGetter, Function<O, Object> startKeyGetter,
+        Function<O, Object> endKeyGetter, BiFunction<B, Object, B> keySetter,
+        BiFunction<B, Object, B> startKeySetter, BiFunction<B, Object, B> endKeySetter,
+        Function<O, List<Object>> keysGetter, Function<O, Long> skipGetter) {
+      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter, keyGetter, keysGetter,
+          skipGetter);
+      this.startKeyGetter = startKeyGetter;
+      this.endKeyGetter = endKeyGetter;
+      this.keySetter = keySetter;
+      this.startKeySetter = startKeySetter;
+      this.endKeySetter = endKeySetter;
+      this.invalidOptsForKey = new HashMap<>(3, 1);
+      this.invalidOptsForKey.put("startKey", this.startKeyGetter);
+      this.invalidOptsForKey.put("endKey", this.endKeyGetter);
+    }
+
+    @Override
+    protected B applyPaginationMutations(O options, B builder) {
+      Optional<Object> keyOption = getOptionalOption(options, this.keyGetter);
+      if (keyOption.isPresent()) {
+        Object key = keyOption.get();
+        // Convert key into startKey/endKey for pagination compatibility
+        this.startKeySetter.apply(builder, key);
+        this.endKeySetter.apply(builder, key);
+        // Unset the key
+        this.keySetter.apply(builder, null);
+      }
+      return builder;
+    }
+
+    @Override
+    protected void validate(O options) {
+      if (optionIsPresent(options, this.keyGetter)) {
+        validateOptionsAbsent(options, invalidOptsForKey, "when using the option 'key'.");
+      }
+      super.validate(options);
+    }
+  }
+
+  private abstract static class BookmarkOptionsHandler<B, O> extends OptionsHandler<B, O> {
+
+    BookmarkOptionsHandler(Function<B, O> builderToOptions, Function<O, B> optionsToBuilder,
+        Function<O, Long> limitGetter, BiFunction<B, Long, B> limitSetter) {
+      super(builderToOptions, optionsToBuilder, limitGetter, limitSetter);
+    }
+
+  }
+
+  private static final class AllDocsOptionsHandler
+      extends KeyOptionsHandler<PostAllDocsOptions.Builder, PostAllDocsOptions, String> {
+
+    private AllDocsOptionsHandler() {
+      super(PostAllDocsOptions.Builder::build, PostAllDocsOptions::newBuilder,
+          PostAllDocsOptions::limit, PostAllDocsOptions.Builder::limit, PostAllDocsOptions::key,
+          PostAllDocsOptions::keys, PostAllDocsOptions::skip);
+    }
+
+    @Override
+    protected void validate(PostAllDocsOptions options) {
+      // Disallow key on all docs because there will only be a single result
+      validateOptionsAbsent(options, Collections.singletonMap("key", this.keyGetter),
+          "for pagination with all documents because it returns only a single result.");
+      super.validate(options);
+    }
+
+    @Override
+    protected PostAllDocsOptions replaceOpts(PostAllDocsOptions.Builder builder) {
+      return new PostAllDocsOptions(builder) {
+        PostAllDocsOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
 
   private static final class DesignDocsOptionsHandler
-      extends OptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions> {
+      extends KeyOptionsHandler<PostDesignDocsOptions.Builder, PostDesignDocsOptions, String> {
 
     private DesignDocsOptionsHandler() {
-      super(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder);
+      super(PostDesignDocsOptions.Builder::build, PostDesignDocsOptions::newBuilder,
+          PostDesignDocsOptions::limit, PostDesignDocsOptions.Builder::limit,
+          PostDesignDocsOptions::key, PostDesignDocsOptions::keys, PostDesignDocsOptions::skip);
     }
 
     @Override
-    void validate(PostDesignDocsOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+    protected void validate(PostDesignDocsOptions options) {
+      // Disallow key on design docs because there will only be a single result
+      validateOptionsAbsent(options, Collections.singletonMap("key", this.keyGetter),
+          "for pagination with design documents because it returns only a single result.");
+      super.validate(options);
+    }
+
+    @Override
+    protected PostDesignDocsOptions replaceOpts(PostDesignDocsOptions.Builder builder) {
+      return new PostDesignDocsOptions(builder) {
+        PostDesignDocsOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
 
   private static final class FindOptionsHandler
-      extends OptionsHandler<PostFindOptions.Builder, PostFindOptions> {
+      extends BookmarkOptionsHandler<PostFindOptions.Builder, PostFindOptions> {
+
+    private final Function<PostFindOptions, Long> skipGetter = PostFindOptions::skip;
 
     private FindOptionsHandler() {
-      super(PostFindOptions.Builder::build, PostFindOptions::newBuilder);
+      super(PostFindOptions.Builder::build, PostFindOptions::newBuilder, PostFindOptions::limit,
+          PostFindOptions.Builder::limit);
     }
 
     @Override
-    void validate(PostFindOptions options) {
-      validateLimit(options::limit);
+    PostFindOptions.Builder removeOptsForSubsequentPage(PostFindOptions options,
+        PostFindOptions.Builder builder) {
+      if (optionIsPresent(options, this.skipGetter)) {
+        return new PostFindOptions(builder) {
+          PostFindOptions unsetOpts() {
+            this.skip = null;
+            return this;
+          }
+        }.unsetOpts().newBuilder();
+      }
+      return builder;
     }
 
   }
 
-  private static final class PartitionAllDocsOptionsHandler
-      extends OptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions> {
+  private static final class PartitionAllDocsOptionsHandler extends
+      KeyOptionsHandler<PostPartitionAllDocsOptions.Builder, PostPartitionAllDocsOptions, String> {
 
     private PartitionAllDocsOptionsHandler() {
-      super(PostPartitionAllDocsOptions.Builder::build, PostPartitionAllDocsOptions::newBuilder);
+      super(PostPartitionAllDocsOptions.Builder::build, PostPartitionAllDocsOptions::newBuilder,
+          PostPartitionAllDocsOptions::limit, PostPartitionAllDocsOptions.Builder::limit,
+          PostPartitionAllDocsOptions::key, PostPartitionAllDocsOptions::keys,
+          PostPartitionAllDocsOptions::skip);
     }
 
     @Override
-    void validate(PostPartitionAllDocsOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+    protected void validate(PostPartitionAllDocsOptions options) {
+      // Disallow key on all docs because there will only be a single result
+      validateOptionsAbsent(options, Collections.singletonMap("key", this.keyGetter),
+          "for pagination with all documents because it returns only a single result.");
+      super.validate(options);
+    }
+
+    @Override
+    protected PostPartitionAllDocsOptions replaceOpts(PostPartitionAllDocsOptions.Builder builder) {
+      return new PostPartitionAllDocsOptions(builder) {
+        PostPartitionAllDocsOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
 
   private static final class PartitionFindOptionsHandler
-      extends OptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
+      extends BookmarkOptionsHandler<PostPartitionFindOptions.Builder, PostPartitionFindOptions> {
+
+    private final Function<PostPartitionFindOptions, Long> skipGetter =
+        PostPartitionFindOptions::skip;
 
     private PartitionFindOptionsHandler() {
-      super(PostPartitionFindOptions.Builder::build, PostPartitionFindOptions::newBuilder);
+      super(PostPartitionFindOptions.Builder::build, PostPartitionFindOptions::newBuilder,
+          PostPartitionFindOptions::limit, PostPartitionFindOptions.Builder::limit);
     }
 
     @Override
-    void validate(PostPartitionFindOptions options) {
-      validateLimit(options::limit);
+    PostPartitionFindOptions.Builder removeOptsForSubsequentPage(PostPartitionFindOptions options,
+        PostPartitionFindOptions.Builder builder) {
+      if (optionIsPresent(options, this.skipGetter)) {
+        return new PostPartitionFindOptions(builder) {
+          PostPartitionFindOptions unsetOpts() {
+            this.skip = null;
+            return this;
+          }
+        }.unsetOpts().newBuilder();
+      }
+      return builder;
     }
 
   }
 
-  private static final class PartitionSearchOptionsHandler
-      extends OptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
+  private static final class PartitionSearchOptionsHandler extends
+      BookmarkOptionsHandler<PostPartitionSearchOptions.Builder, PostPartitionSearchOptions> {
 
     private PartitionSearchOptionsHandler() {
-      super(PostPartitionSearchOptions.Builder::build, PostPartitionSearchOptions::newBuilder);
-    }
-
-    @Override
-    void validate(PostPartitionSearchOptions options) {
-      validateLimit(options::limit);
+      super(PostPartitionSearchOptions.Builder::build, PostPartitionSearchOptions::newBuilder,
+          PostPartitionSearchOptions::limit, PostPartitionSearchOptions.Builder::limit);
     }
 
   }
 
   private static final class PartitionViewOptionsHandler
-      extends OptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
+      extends ViewsOptionsHandler<PostPartitionViewOptions.Builder, PostPartitionViewOptions> {
 
     private PartitionViewOptionsHandler() {
-      super(PostPartitionViewOptions.Builder::build, PostPartitionViewOptions::newBuilder);
+      super(PostPartitionViewOptions.Builder::build, PostPartitionViewOptions::newBuilder,
+          PostPartitionViewOptions::limit, PostPartitionViewOptions.Builder::limit,
+          PostPartitionViewOptions::key, PostPartitionViewOptions::startKey,
+          PostPartitionViewOptions::endKey, PostPartitionViewOptions.Builder::key,
+          PostPartitionViewOptions.Builder::startKey, PostPartitionViewOptions.Builder::endKey,
+          PostPartitionViewOptions::keys, PostPartitionViewOptions::skip);
     }
 
     @Override
-    void validate(PostPartitionViewOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+    protected PostPartitionViewOptions replaceOpts(PostPartitionViewOptions.Builder builder) {
+      return new PostPartitionViewOptions(builder) {
+        PostPartitionViewOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
 
   private static final class SearchOptionsHandler
-      extends OptionsHandler<PostSearchOptions.Builder, PostSearchOptions> {
+      extends BookmarkOptionsHandler<PostSearchOptions.Builder, PostSearchOptions> {
 
     private SearchOptionsHandler() {
-      super(PostSearchOptions.Builder::build, PostSearchOptions::newBuilder);
+      super(PostSearchOptions.Builder::build, PostSearchOptions::newBuilder,
+          PostSearchOptions::limit, PostSearchOptions.Builder::limit);
     }
 
     @Override
-    void validate(PostSearchOptions options) {
-      validateLimit(options::limit);
-      Map<String, Supplier<?>> invalidOptions = new HashMap<>(5);
-      invalidOptions.put("counts", options::counts);
-      invalidOptions.put("groupField", options::groupField);
-      invalidOptions.put("groupLimit", options::groupLimit);
-      invalidOptions.put("groupSort", options::groupSort);
-      invalidOptions.put("ranges", options::ranges);
-      validateOptionsAbsent(invalidOptions);
+    protected void validate(PostSearchOptions options) {
+      Map<String, Function<PostSearchOptions, ?>> invalidOptions = new HashMap<>(5, 1);
+      invalidOptions.put("counts", PostSearchOptions::counts);
+      invalidOptions.put("groupField", PostSearchOptions::groupField);
+      invalidOptions.put("groupLimit", PostSearchOptions::groupLimit);
+      invalidOptions.put("groupSort", PostSearchOptions::groupSort);
+      invalidOptions.put("ranges", PostSearchOptions::ranges);
+      validateOptionsAbsent(options, invalidOptions);
+      super.validate(options);
     }
 
   }
 
   private static final class ViewOptionsHandler
-      extends OptionsHandler<PostViewOptions.Builder, PostViewOptions> {
+      extends ViewsOptionsHandler<PostViewOptions.Builder, PostViewOptions> {
 
     private ViewOptionsHandler() {
-      super(PostViewOptions.Builder::build, PostViewOptions::newBuilder);
+      super(PostViewOptions.Builder::build, PostViewOptions::newBuilder, PostViewOptions::limit,
+          PostViewOptions.Builder::limit, PostViewOptions::key, PostViewOptions::startKey,
+          PostViewOptions::endKey, PostViewOptions.Builder::key, PostViewOptions.Builder::startKey,
+          PostViewOptions.Builder::endKey, PostViewOptions::keys, PostViewOptions::skip);
     }
 
     @Override
-    void validate(PostViewOptions options) {
-      validateLimit(options::limit);
-      validateOptionsAbsent(Collections.singletonMap("keys", options::keys));
+    protected PostViewOptions replaceOpts(PostViewOptions.Builder builder) {
+      return new PostViewOptions(builder) {
+        PostViewOptions unsetOpts() {
+          this.skip = null;
+          return this;
+        }
+      }.unsetOpts();
     }
 
   }
