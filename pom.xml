@@ -197,6 +197,13 @@
                 <version>${sdk-core-version}</version>
             </dependency>
 
+            <!-- Temporarily make a direct dependency to get a newer version -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.18.0</version>
+            </dependency>
+
             <!-- Each module (except "common") should depend on this artifact -->
             <dependency>
                 <artifactId>cloudant.sdk.common</artifactId>
