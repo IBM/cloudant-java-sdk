@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-java-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-java-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Javadoc&message=latest&color=blue)](https://ibm.github.io/cloudant-java-sdk/)
 
-# IBM Cloudant Java SDK Version 0.10.5
+# IBM Cloudant Java SDK Version 0.10.6
 
 IBM Cloudant Java SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=java).
@@ -131,7 +131,7 @@ project:
 
 ## Installation
 
-The current version of this SDK is: 0.10.5
+The current version of this SDK is: 0.10.6
 
 The project artifacts are published on the
 [Maven Central](https://repo1.maven.org/maven2/com/ibm/cloud/cloudant/).
@@ -158,7 +158,7 @@ Extend *Maven dependencies* in your `pom.xml` file with the `cloudant` library.
   <dependency>
     <groupId>com.ibm.cloud</groupId>
       <artifactId>cloudant</artifactId>
-        <version>0.10.5</version>
+        <version>0.10.6</version>
   </dependency>
 </dependencies>
 ```
@@ -170,7 +170,7 @@ Add the `cloudant` library to the *dependencies* in your `build.gradle` file:
 ```groovy
 dependencies {
     // other dependencies...
-    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.10.5"
+    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.10.6"
 }
 ```
 
@@ -733,7 +733,7 @@ You have deleted the document.
 
 #### Further code examples
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/examples#examples-for-java).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/examples#examples-for-java).
 
 ### Error handling
 
@@ -829,7 +829,7 @@ The changes follower requires the client to have HTTP timeouts of at least 1 min
 instantiation if it is insufficient. The default client configuration has sufficiently long timeouts.
 
 For use-cases where these configuration limitations are too restrictive then write code to use the SDK's
-[POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/examples#postchanges) instead of the follower.
+[POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/examples#postchanges) instead of the follower.
 
 #### Error suppression
 
@@ -863,7 +863,7 @@ The follower is not optimized for some use cases and it is not recommended to us
 * Setting `include_docs` and larger document sizes (for example > 10 kiB).
 * The volume of changes is very high (if the rate of changes in the database exceeds the follower's rate of pulling them it can never catch-up).
 
-In these use-cases use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/examples#postchanges)
+In these use-cases use the SDK's [POST `_changes` API](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/examples#postchanges)
 for  specific control over the number of change requests made and the content size of the responses.
 
 #### Checkpoints
@@ -1139,22 +1139,22 @@ then a `429 Too Many Requests` error occurs.
 Pagination is available for these operations:
 * Query all documents [global](https://cloud.ibm.com/apidocs/cloudant?code=java#postalldocs)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=java#postpartitionalldocs)
-  * [Global all documents examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/AllDocsPagination.java)
-  * [Partitioned all documents examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/PartitionAllDocsPagination.java)
+  * [Global all documents examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/AllDocsPagination.java)
+  * [Partitioned all documents examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/PartitionAllDocsPagination.java)
 * Query all [design documents](https://cloud.ibm.com/apidocs/cloudant?code=java#postdesigndocs)
-  * [Design documents examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/DesignDocsPagination.java)
+  * [Design documents examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/DesignDocsPagination.java)
 * Query with selector syntax [global](https://cloud.ibm.com/apidocs/cloudant?code=java#postfind)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=java#postpartitionfind)
-  * [Global find selector query examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/FindPagination.java)
-  * [Partitioned find selector query examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/PartitionFindPagination.java)
+  * [Global find selector query examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/FindPagination.java)
+  * [Partitioned find selector query examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/PartitionFindPagination.java)
 * Query a search index [global](https://cloud.ibm.com/apidocs/cloudant?code=java#postsearch)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=java#postpartitionsearch)
-  * [Global search examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/SearchPagination.java)
-  * [Partitioned search examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/PartitionSearchPagination.java)
+  * [Global search examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/SearchPagination.java)
+  * [Partitioned search examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/PartitionSearchPagination.java)
 * Query a MapReduce view [global](https://cloud.ibm.com/apidocs/cloudant?code=java#postview)
   and [partitioned](https://cloud.ibm.com/apidocs/cloudant?code=java#postpartitionview)
-  * [Global view examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/ViewPagination.java)
-  * [Partitioned view examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/modules/examples/src/main/java/features/pagination/PartitionViewPagination.java)
+  * [Global view examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/ViewPagination.java)
+  * [Partitioned view examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/modules/examples/src/main/java/features/pagination/PartitionViewPagination.java)
 
 The examples presented in this `README` are for all documents in a partition.
 The links in the list are to equivalent examples for each of the other available operations.
@@ -1396,7 +1396,7 @@ If you encounter an issue with the project, you are welcome to submit a
 
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-java-sdk/issues?q=is%3Aissue) and review the
-[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-java-sdk/security/policy) before opening security related issues.
 
@@ -1426,8 +1426,8 @@ Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
-For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.5/LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/LICENSE).
