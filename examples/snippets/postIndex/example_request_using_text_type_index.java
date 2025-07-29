@@ -9,8 +9,8 @@ Cloudant service = Cloudant.newInstance();
 
 // Type "text" index fields require an object with a name and type properties for the field.
 IndexField field = new IndexField.Builder()
-    .add("name", "address")
-    .add("type", "string")
+    .name("address")
+    .type(IndexField.Type.STRING)
     .build();
 
 IndexDefinition indexDefinition = new IndexDefinition.Builder()
