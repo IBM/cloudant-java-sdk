@@ -165,11 +165,11 @@
                 <skip.unit.tests>${skipTests}</skip.unit.tests>
             </properties>
         </profile>
-        <!-- Checkstyle 10+ requires Java 11+ -->
+        <!-- Checkstyle 11+ requires Java 17+ -->
         <profile>
-            <id>checkstyle-jdk11+</id>
+            <id>checkstyle-jdk17+</id>
             <activation>
-                <jdk>(,11)</jdk>
+                <jdk>(,17)</jdk>
             </activation>
             <build>
                 <plugins>
