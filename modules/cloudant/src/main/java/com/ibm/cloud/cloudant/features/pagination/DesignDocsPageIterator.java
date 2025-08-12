@@ -26,9 +26,9 @@ public class DesignDocsPageIterator extends AllDocsBasePageIterator<Builder, Pos
       super(client, options, OptionsHandler.POST_DESIGN_DOCS);
     }
 
-    @Override
+  @Override
   BiFunction<Builder, String, Builder> nextKeySetter() {
-    return Builder::key;
+    return Builder::startKey;
   }
 
   @Override
