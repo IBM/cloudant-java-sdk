@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-java-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-java-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Javadoc&message=latest&color=blue)](https://ibm.github.io/cloudant-java-sdk/)
 
-# IBM Cloudant Java SDK Version 0.10.6
+# IBM Cloudant Java SDK Version 0.10.7
 
 IBM Cloudant Java SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=java).
@@ -85,7 +85,7 @@ project:
 
 ## Installation
 
-The current version of this SDK is: 0.10.6
+The current version of this SDK is: 0.10.7
 
 The project artifacts are published on the
 [Maven Central](https://repo1.maven.org/maven2/com/ibm/cloud/cloudant/).
@@ -112,7 +112,7 @@ Extend *Maven dependencies* in your `pom.xml` file with the `cloudant` library.
   <dependency>
     <groupId>com.ibm.cloud</groupId>
       <artifactId>cloudant</artifactId>
-        <version>0.10.6</version>
+        <version>0.10.7</version>
   </dependency>
 </dependencies>
 ```
@@ -124,7 +124,7 @@ Add the `cloudant` library to the *dependencies* in your `build.gradle` file:
 ```groovy
 dependencies {
     // other dependencies...
-    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.10.6"
+    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.10.7"
 }
 ```
 
@@ -199,7 +199,7 @@ System.out.println(response);
 [More tutorial examples](./docs/Examples.md) for creating a database
 and document create, read, update and delete operations.
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/examples#examples-for-java).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/examples#examples-for-java).
 
 ### Error handling
 
@@ -261,7 +261,7 @@ If you encounter an issue with the project, you are welcome to submit a
 
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-java-sdk/issues?q=is%3Aissue) and review the
-[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-java-sdk/security/policy) before opening security related issues.
 
@@ -291,8 +291,8 @@ Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
-For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.6/LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/LICENSE).
