@@ -67,8 +67,8 @@ project:
 - Handles the authentication.
 - Familiar user experience with IBM Cloud SDKs.
 - Flexibility to use either built-in models or byte-based requests and responses for documents.
-- Built-in [Changes feed follower](./docs/Changes_Follower.md)
-- Built-in [Pagination](./docs/Pagination.md) (beta)
+- Built-in [Changes feed follower](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Changes_Follower.md)
+- Built-in [Pagination](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Pagination.md) (beta)
 - HTTP2 support for higher performance connections to IBM Cloudant.
 - Perform requests either synchronously or asynchronously.
 - Instances of the client are unconditionally thread-safe.
@@ -138,16 +138,16 @@ account.
 
 There are several ways to **set** these authentication properties:
 
-1. As [environment variables](./docs/Authentication.md#authentication-with-environment-variables)
-2. The [programmatic approach](./docs/Authentication.md#programmatic-authentication)
-3. With an [external credentials file](./docs/Authentication.md#authentication-with-external-configuration)
+1. As [environment variables](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md#authentication-with-environment-variables)
+2. The [programmatic approach](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md#programmatic-authentication)
+3. With an [external credentials file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md#authentication-with-external-configuration)
 
 The following section describes the different authentication types and provides environment variable examples.
 Examples for other configuration methods are available by following the provided links.
 
 ### Authentication
 
-Consult the [authentication document](./docs/Authentication.md)
+Consult the [authentication document](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md)
 for comprehensive details of all the available authentication methods and how to configure them with environment settings
 or programmatically.
 
@@ -196,7 +196,7 @@ List<String> response =
 System.out.println(response);
 ```
 
-[More tutorial examples](./docs/Examples.md) for creating a database
+[More tutorial examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Examples.md) for creating a database
 and document create, read, update and delete operations.
 
 For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/examples#examples-for-java).
@@ -222,7 +222,7 @@ Response byte stream is supported in functions with the suffix of `AsStream`.
 The returned byte stream allows the response body to be consumed
 without triggering JSON unmarshalling that is typically performed by the SDK.
 
-The [update document](./docs/Examples.md#3-update-your-previously-created-document) section
+The [update document](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Examples.md#3-update-your-previously-created-document) section
 contains examples for both request and response byte stream cases.
 
 The API reference contains further examples of using byte streams.
@@ -238,7 +238,7 @@ Expand them to see examples of:
 
 ### Further resources
 
-- [Cloudant Java SDK feature docs](./docs)
+- [Cloudant Java SDK feature docs](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs)
 - [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=java):
   API reference including usage examples for Cloudant Java SDK API.
 - [Javadoc](https://ibm.github.io/cloudant-java-sdk/):
