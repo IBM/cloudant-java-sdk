@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/v/release/IBM/cloudant-java-sdk?include_prereleases&sort=semver)](https://github.com/IBM/cloudant-java-sdk/releases/latest)
 [![Docs](https://img.shields.io/static/v1?label=Javadoc&message=latest&color=blue)](https://ibm.github.io/cloudant-java-sdk/)
 
-# IBM Cloudant Java SDK Version 0.10.7
+# IBM Cloudant Java SDK Version 0.10.8
 
 IBM Cloudant Java SDK is a client library that interacts with the
 [IBM Cloudant APIs](https://cloud.ibm.com/apidocs/cloudant?code=java).
@@ -67,8 +67,8 @@ project:
 - Handles the authentication.
 - Familiar user experience with IBM Cloud SDKs.
 - Flexibility to use either built-in models or byte-based requests and responses for documents.
-- Built-in [Changes feed follower](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Changes_Follower.md)
-- Built-in [Pagination](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Pagination.md) (beta)
+- Built-in [Changes feed follower](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Changes_Follower.md)
+- Built-in [Pagination](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Pagination.md) (beta)
 - HTTP2 support for higher performance connections to IBM Cloudant.
 - Perform requests either synchronously or asynchronously.
 - Instances of the client are unconditionally thread-safe.
@@ -85,7 +85,7 @@ project:
 
 ## Installation
 
-The current version of this SDK is: 0.10.7
+The current version of this SDK is: 0.10.8
 
 The project artifacts are published on the
 [Maven Central](https://repo1.maven.org/maven2/com/ibm/cloud/cloudant/).
@@ -112,7 +112,7 @@ Extend *Maven dependencies* in your `pom.xml` file with the `cloudant` library.
   <dependency>
     <groupId>com.ibm.cloud</groupId>
       <artifactId>cloudant</artifactId>
-        <version>0.10.7</version>
+        <version>0.10.8</version>
   </dependency>
 </dependencies>
 ```
@@ -124,7 +124,7 @@ Add the `cloudant` library to the *dependencies* in your `build.gradle` file:
 ```groovy
 dependencies {
     // other dependencies...
-    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.10.7"
+    implementation group: "com.ibm.cloud", name: "cloudant", version: "0.10.8"
 }
 ```
 
@@ -138,16 +138,16 @@ account.
 
 There are several ways to **set** these authentication properties:
 
-1. As [environment variables](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md#authentication-with-environment-variables)
-2. The [programmatic approach](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md#programmatic-authentication)
-3. With an [external credentials file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md#authentication-with-external-configuration)
+1. As [environment variables](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Authentication.md#authentication-with-environment-variables)
+2. The [programmatic approach](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Authentication.md#programmatic-authentication)
+3. With an [external credentials file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Authentication.md#authentication-with-external-configuration)
 
 The following section describes the different authentication types and provides environment variable examples.
 Examples for other configuration methods are available by following the provided links.
 
 ### Authentication
 
-Consult the [authentication document](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Authentication.md)
+Consult the [authentication document](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Authentication.md)
 for comprehensive details of all the available authentication methods and how to configure them with environment settings
 or programmatically.
 
@@ -196,10 +196,10 @@ List<String> response =
 System.out.println(response);
 ```
 
-[More tutorial examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Examples.md) for creating a database
+[More tutorial examples](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Examples.md) for creating a database
 and document create, read, update and delete operations.
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/examples#examples-for-java).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/examples#examples-for-java).
 
 ### Error handling
 
@@ -222,7 +222,7 @@ Response byte stream is supported in functions with the suffix of `AsStream`.
 The returned byte stream allows the response body to be consumed
 without triggering JSON unmarshalling that is typically performed by the SDK.
 
-The [update document](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs/Examples.md#3-update-your-previously-created-document) section
+The [update document](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs/Examples.md#3-update-your-previously-created-document) section
 contains examples for both request and response byte stream cases.
 
 The API reference contains further examples of using byte streams.
@@ -238,7 +238,7 @@ Expand them to see examples of:
 
 ### Further resources
 
-- [Cloudant Java SDK feature docs](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/docs)
+- [Cloudant Java SDK feature docs](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/docs)
 - [Cloudant API docs](https://cloud.ibm.com/apidocs/cloudant?code=java):
   API reference including usage examples for Cloudant Java SDK API.
 - [Javadoc](https://ibm.github.io/cloudant-java-sdk/):
@@ -261,7 +261,7 @@ If you encounter an issue with the project, you are welcome to submit a
 
 Before you submit a bug report, search for
 [similar issues](https://github.com/IBM/cloudant-java-sdk/issues?q=is%3Aissue) and review the
-[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
+[KNOWN_ISSUES file](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/KNOWN_ISSUES.md) to verify that your issue hasn't been reported yet.
 
 Please consult the [security policy](https://github.com/IBM/cloudant-java-sdk/security/policy) before opening security related issues.
 
@@ -291,8 +291,8 @@ Find more open source projects on the [IBM GitHub](http://ibm.github.io/) page.
 
 ## Contributing
 
-For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/CONTRIBUTING.md).
+For more information, see [CONTRIBUTING](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/CONTRIBUTING.md).
 
 ## License
 
-This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.7/LICENSE).
+This SDK is released under the Apache 2.0 license. To read the full text of the license, see [LICENSE](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.8/LICENSE).

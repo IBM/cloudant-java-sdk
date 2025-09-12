@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.ibm.cloud</groupId>
         <artifactId>cloudant-parent</artifactId>
-        <version>0.10.7</version>
+        <version>0.10.8</version>
         <relativePath>../..</relativePath>
     </parent>
 
@@ -16,12 +16,12 @@
         <dependency>
             <groupId>com.ibm.cloud</groupId>
             <artifactId>cloudant-common</artifactId>
-            <version>0.10.7</version>
+            <version>0.10.8</version>
         </dependency>
         <dependency>
             <groupId>com.ibm.cloud</groupId>
             <artifactId>cloudant-common</artifactId>
-            <version>0.10.7</version>
+            <version>0.10.8</version>
             <type>test-jar</type>
             <classifier>tests</classifier>
             <scope>test</scope>
