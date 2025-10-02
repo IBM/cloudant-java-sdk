@@ -7,7 +7,7 @@ Cloudant service = Cloudant.newInstance();
 
 DeleteDatabaseOptions databaseOptions =
     new DeleteDatabaseOptions.Builder()
-        .db("<db-name>")
+        .db("products")
         .build();
 
 Ok response =
