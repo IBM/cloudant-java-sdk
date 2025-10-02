@@ -15,12 +15,12 @@ List<BulkGetQueryDocument> bulkGetDocs = new ArrayList<>();
 bulkGetDocs.add(
     new BulkGetQueryDocument.Builder()
         .id(docId)
-        .rev("3-917fa2381192822767f010b95b45325b")
+        .rev("3-22222222222222222222222222222222")
         .build());
 bulkGetDocs.add(
     new BulkGetQueryDocument.Builder()
         .id(docId)
-        .rev("4-a5be949eeb7296747cc271766e9a498b")
+        .rev("4-33333333333333333333333333333333")
         .build());
 
 PostBulkGetOptions bulkGetOptions = new PostBulkGetOptions.Builder()

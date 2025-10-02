@@ -9,7 +9,7 @@ DeleteDesignDocumentOptions designDocumentOptions =
     new DeleteDesignDocumentOptions.Builder()
         .db("products")
         .ddoc("appliances")
-        .rev("1-98e6a25b3b45df62e7d47095ac15b16a")
+        .rev("1-00000000000000000000000000000000")
         .build();
 
 DocumentResult response =

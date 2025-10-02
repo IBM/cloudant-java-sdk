@@ -12,12 +12,12 @@ Cloudant service = Cloudant.newInstance();
 
 Document eventDoc1 = new Document();
 eventDoc1.setId("ns1HJS13AMkK:0007241142412418284");
-eventDoc1.setRev("1-5005d65514fe9e90f8eccf174af5dd64");
+eventDoc1.setRev("1-00000000000000000000000000000000");
 eventDoc1.setDeleted(true);
 
 Document eventDoc2 = new Document();
 eventDoc2.setId("H8tDIwfadxp9:0007241142412418285");
-eventDoc1.setRev("1-2d7810b054babeda4812b3924428d6d6");
+eventDoc1.setRev("1-00000000000000000000000000000000");
 eventDoc1.setDeleted(true);
 
 BulkDocs bulkDocs = new BulkDocs.Builder()

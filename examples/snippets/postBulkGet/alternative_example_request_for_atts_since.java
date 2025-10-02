@@ -11,7 +11,7 @@ Cloudant service = Cloudant.newInstance();
 BulkGetQueryDocument bulkGetQueryDocument =
     new BulkGetQueryDocument.Builder()
         .id("order00058")
-        .addAttsSince("1-99b02e08da151943c2dcb40090160bb8")
+        .addAttsSince("1-00000000000000000000000000000000")
         .build();
 
 PostBulkGetOptions postBulkGetOptions =

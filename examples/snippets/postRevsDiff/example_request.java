@@ -10,9 +10,12 @@ import java.util.Arrays;
 // section: code
 Cloudant service = Cloudant.newInstance();
 
-Map<String, List<String>> docRevisions = 
-    Collections.singletonMap("order00077", Arrays.asList("<1-missing-revision>",
-        "<2-missing-revision>", "<3-possible-ancestor-revision>"));
+Map<String, List<String>> docRevisions =
+    Collections.singletonMap("order00077", Arrays.asList(
+        "1-00000000000000000000000000000000", // missing revision
+        "2-11111111111111111111111111111111", // missing revision
+        "3-22222222222222222222222222222222"  // possible ancestor revision
+    ));
 
 PostRevsDiffOptions revsDiffOptions =
     new PostRevsDiffOptions.Builder()

@@ -380,7 +380,7 @@ Cloudant service = Cloudant.newInstance();
 DeleteReplicationDocumentOptions replicationDocOptions =
     new DeleteReplicationDocumentOptions.Builder()
         .docId("repldoc-example")
-        .rev("3-a0ccbdc6fe95b4184f9031d086034d85")
+        .rev("1-00000000000000000000000000000000")
         .build();
 
 DocumentResult response =
@@ -468,12 +468,12 @@ import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 Cloudant service = Cloudant.newInstance();
 
 ReplicationDatabase sourceDb = new ReplicationDatabase.Builder()
-    .url("<your-source-service-url>/animaldb")
+    .url("https://~replace-with-source-host~.cloudantnosqldb.appdomain.cloud/animaldb")
     .build();
 
 ReplicationDatabaseAuthIam targetAuthIam =
     new ReplicationDatabaseAuthIam.Builder()
-        .apiKey("<your-iam-api-key>")
+        .apiKey("a1b2c3d4e5f6f1g4h7j3k6l9m2p5q8s1t4v7x0z3") //use your own IAM API key
         .build();
 
 ReplicationDatabaseAuth targetAuth = new ReplicationDatabaseAuth.Builder()
@@ -482,7 +482,7 @@ ReplicationDatabaseAuth targetAuth = new ReplicationDatabaseAuth.Builder()
 
 ReplicationDatabase targetDb = new ReplicationDatabase.Builder()
     .auth(targetAuth)
-    .url("<your-target-service-url>/animaldb-target")
+    .url("https://~replace-with-target-host~.cloudantnosqldb.appdomain.cloud/animaldb-target")
     .build();
 
 ReplicationDocument replDocument = new ReplicationDocument();
@@ -752,7 +752,7 @@ Cloudant service = Cloudant.newInstance();
 
 DeleteDatabaseOptions databaseOptions =
     new DeleteDatabaseOptions.Builder()
-        .db("<db-name>")
+        .db("products")
         .build();
 
 Ok response =
@@ -1056,12 +1056,12 @@ Cloudant service = Cloudant.newInstance();
 
 Document eventDoc1 = new Document();
 eventDoc1.setId("ns1HJS13AMkK:0007241142412418284");
-eventDoc1.setRev("1-5005d65514fe9e90f8eccf174af5dd64");
+eventDoc1.setRev("1-00000000000000000000000000000000");
 eventDoc1.setDeleted(true);
 
 Document eventDoc2 = new Document();
 eventDoc2.setId("H8tDIwfadxp9:0007241142412418285");
-eventDoc1.setRev("1-2d7810b054babeda4812b3924428d6d6");
+eventDoc1.setRev("1-00000000000000000000000000000000");
 eventDoc1.setDeleted(true);
 
 BulkDocs bulkDocs = new BulkDocs.Builder()
@@ -1158,12 +1158,12 @@ List<BulkGetQueryDocument> bulkGetDocs = new ArrayList<>();
 bulkGetDocs.add(
     new BulkGetQueryDocument.Builder()
         .id(docId)
-        .rev("3-917fa2381192822767f010b95b45325b")
+        .rev("3-22222222222222222222222222222222")
         .build());
 bulkGetDocs.add(
     new BulkGetQueryDocument.Builder()
         .id(docId)
-        .rev("4-a5be949eeb7296747cc271766e9a498b")
+        .rev("4-33333333333333333333333333333333")
         .build());
 
 PostBulkGetOptions bulkGetOptions = new PostBulkGetOptions.Builder()
@@ -1227,7 +1227,7 @@ Cloudant service = Cloudant.newInstance();
 BulkGetQueryDocument bulkGetQueryDocument =
     new BulkGetQueryDocument.Builder()
         .id("order00058")
-        .addAttsSince("1-99b02e08da151943c2dcb40090160bb8")
+        .addAttsSince("1-00000000000000000000000000000000")
         .build();
 
 PostBulkGetOptions postBulkGetOptions =
@@ -1317,7 +1317,7 @@ DeleteDesignDocumentOptions designDocumentOptions =
     new DeleteDesignDocumentOptions.Builder()
         .db("products")
         .ddoc("appliances")
-        .rev("1-98e6a25b3b45df62e7d47095ac15b16a")
+        .rev("1-00000000000000000000000000000000")
         .build();
 
 DocumentResult response =
@@ -2246,9 +2246,12 @@ import java.util.Arrays;
 // section: code
 Cloudant service = Cloudant.newInstance();
 
-Map<String, List<String>> docRevisions = 
-    Collections.singletonMap("order00077", Arrays.asList("<1-missing-revision>",
-        "<2-missing-revision>", "<3-possible-ancestor-revision>"));
+Map<String, List<String>> docRevisions =
+    Collections.singletonMap("order00077", Arrays.asList(
+        "1-00000000000000000000000000000000", // missing revision
+        "2-11111111111111111111111111111111", // missing revision
+        "3-22222222222222222222222222222222"  // possible ancestor revision
+    ));
 
 PostRevsDiffOptions revsDiffOptions =
     new PostRevsDiffOptions.Builder()
@@ -2406,7 +2409,7 @@ DeleteDocumentOptions documentOptions =
     new DeleteDocumentOptions.Builder()
         .db("orders")
         .docId("order00058")
-        .rev("1-99b02e08da151943c2dcb40090160bb8")
+        .rev("1-00000000000000000000000000000000")
         .build();
 
 DocumentResult response =
@@ -2533,7 +2536,7 @@ DeleteAttachmentOptions attachmentOptions =
         .db("products")
         .docId("1000042")
         .attachmentName("product_details.txt")
-        .rev("4-1a0d1cd6f40472509e9aac646183736a")
+        .rev("4-33333333333333333333333333333333")
         .build();
 
 DocumentResult response =
