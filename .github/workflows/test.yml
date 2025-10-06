@@ -16,7 +16,7 @@ jobs:
   test:
     strategy:
       matrix:
-        java: ['11', '17', '21']
+        java: ['11', '17', '21', '25']
     runs-on: ubuntu-latest
     services:
       couchdb:
@@ -40,7 +40,7 @@ jobs:
     - name: Setup java ${{ matrix.java }}
       uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
       with:
-        distribution: 'temurin'
+        distribution: 'semeru'
         java-version: ${{ matrix.java }}
         cache: 'maven'
         check-latest: false
@@ -52,4 +52,3 @@ jobs:
       run: ${GITHUB_WORKSPACE}/scripts/setup_wiremock.sh
     - name: Run tests
       run: mvn --batch-mode verify
-
