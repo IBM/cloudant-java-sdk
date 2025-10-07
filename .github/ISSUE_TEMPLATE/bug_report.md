@@ -21,7 +21,7 @@ assignees: ''
 
 **Must gather (please complete the following information):**
  - SDK Version [e.g. 1.2.1]
- - Java Version [e.g. openjdk 1.8.0_252]
+ - Java Version [e.g. IBM Semeru Runtime Open Edition 25.0.0.0 (build 25+36-LTS)]
  - Name of service that you're trying to use (if applicable)
  - Name of operation that you're trying to invoke (if applicable)
 
