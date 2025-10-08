@@ -20,7 +20,7 @@ import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDesignDocsOptions.Builder;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
 
-public class DesignDocsPageIterator extends AllDocsBasePageIterator<Builder, PostDesignDocsOptions> {
+final class DesignDocsPageIterator extends AllDocsBasePageIterator<Builder, PostDesignDocsOptions> {
 
   DesignDocsPageIterator(Cloudant client, PostDesignDocsOptions options) {
       super(client, options, OptionsHandler.POST_DESIGN_DOCS);
