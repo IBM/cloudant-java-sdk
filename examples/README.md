@@ -301,7 +301,6 @@ Cloudant service = Cloudant.newInstance();
 
 GetDbUpdatesOptions dbUpdatesOptions = new GetDbUpdatesOptions.Builder()
     .feed("normal")
-    .heartbeat(10000)
     .since("now")
     .build();
 
@@ -1347,7 +1346,6 @@ Cloudant service = Cloudant.newInstance();
 GetDesignDocumentOptions designDocumentOptions = new GetDesignDocumentOptions.Builder()
     .db("products")
     .ddoc("appliances")
-    .latest(true)
     .build();
 
 DesignDocument response =
@@ -1656,7 +1654,7 @@ Cloudant service = Cloudant.newInstance();
 
 PostDesignDocsOptions docsOptions =
     new PostDesignDocsOptions.Builder()
-        .attachments(true)
+        .descending(true)
         .db("users")
         .build();
 
@@ -1692,7 +1690,7 @@ AllDocsQuery query1 = new AllDocsQuery.Builder()
     .build();
 AllDocsQuery query2 = new AllDocsQuery.Builder()
     .inclusiveEnd(true)
-    .key("_design/allusers")
+    .startKey("_design/allusers")
     .skip(1)
     .build();
 
@@ -1805,7 +1803,7 @@ Cloudant service = Cloudant.newInstance();
 
 Map<String, Object> selector = Collections.singletonMap(
     "address",
-    Collections.singletonMap("$regex", "Street"));
+    Collections.singletonMap("$exists", true));
 
 PostFindOptions findOptions = new PostFindOptions.Builder()
     .db("users")

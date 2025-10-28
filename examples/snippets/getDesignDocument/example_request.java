@@ -8,7 +8,6 @@ Cloudant service = Cloudant.newInstance();
 GetDesignDocumentOptions designDocumentOptions = new GetDesignDocumentOptions.Builder()
     .db("products")
     .ddoc("appliances")
-    .latest(true)
     .build();
 
 DesignDocument response =

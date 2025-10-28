@@ -7,7 +7,7 @@ Cloudant service = Cloudant.newInstance();
 
 PostDesignDocsOptions docsOptions =
     new PostDesignDocsOptions.Builder()
-        .attachments(true)
+        .descending(true)
         .db("users")
         .build();
 
