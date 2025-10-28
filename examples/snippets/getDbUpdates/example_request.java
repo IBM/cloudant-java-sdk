@@ -7,7 +7,6 @@ Cloudant service = Cloudant.newInstance();
 
 GetDbUpdatesOptions dbUpdatesOptions = new GetDbUpdatesOptions.Builder()
     .feed("normal")
-    .heartbeat(10000)
     .since("now")
     .build();
 

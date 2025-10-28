@@ -15,7 +15,7 @@ AllDocsQuery query1 = new AllDocsQuery.Builder()
     .build();
 AllDocsQuery query2 = new AllDocsQuery.Builder()
     .inclusiveEnd(true)
-    .key("_design/allusers")
+    .startKey("_design/allusers")
     .skip(1)
     .build();
 

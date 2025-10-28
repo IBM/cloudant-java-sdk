@@ -11,7 +11,7 @@ Cloudant service = Cloudant.newInstance();
 
 Map<String, Object> selector = Collections.singletonMap(
     "address",
-    Collections.singletonMap("$regex", "Street"));
+    Collections.singletonMap("$exists", true));
 
 PostFindOptions findOptions = new PostFindOptions.Builder()
     .db("users")
