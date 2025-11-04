@@ -667,7 +667,7 @@ public class PostSearchOptions extends GenericModel {
    * Gets the sort.
    *
    * Specifies the sort order of the results. In a grouped search (when group_field is used), this parameter specifies
-   * the sort order within a group. The default sort order is relevance.  A JSON string of the form
+   * the sort order within a group. The default sort order is relevance. A JSON string of the form
    * "fieldname&amp;lt;type&amp;gt;" or "-fieldname&amp;lt;type&amp;gt;" for descending order, where fieldname is the
    * name of a string or number field, and type is either a number, a string, or a JSON array of strings. The type part
    * is optional, and defaults to number. Some examples are "foo", "-foo", "bar&amp;lt;string&amp;gt;",

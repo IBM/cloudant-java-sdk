@@ -34,10 +34,22 @@ public class UpInformation extends GenericModel {
     String OK = "ok";
   }
 
+  protected String cluster;
   protected Map<String, Object> seeds;
   protected String status;
 
   protected UpInformation() { }
+
+  /**
+   * Gets the cluster.
+   *
+   * cluster.
+   *
+   * @return the cluster
+   */
+  public String getCluster() {
+    return cluster;
+  }
 
   /**
    * Gets the seeds.

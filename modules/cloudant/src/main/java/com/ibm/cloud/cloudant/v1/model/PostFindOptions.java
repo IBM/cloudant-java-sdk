@@ -393,8 +393,8 @@ public class PostFindOptions extends GenericModel {
    * argument.
    *
    * It is important for query performance to use appropriate selectors:
-   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
-   * of a query. You should include at least one of these in a selector.
+   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+   * `$lte` (but not `$ne`) can be used as the basis of a query. You should include at least one of these in a selector.
    * * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered from an index. For query selectors
    * use these operators in conjunction with equality operators or create and use a partial index to reduce the number
    * of documents that will need to be scanned.
@@ -413,7 +413,7 @@ public class PostFindOptions extends GenericModel {
   /**
    * Gets the allowFallback.
    *
-   * Whether to allow fallback to other indexes.  Default is true.
+   * Whether to allow fallback to other indexes. Default is true.
    *
    * @return the allowFallback
    */
@@ -497,7 +497,8 @@ public class PostFindOptions extends GenericModel {
    * field name and direction pair is the topmost level of sort. The second pair, if provided, is the next level of
    * sort. The field can be any field, using dotted notation if desired for sub-document fields.
    *
-   * For example in JSON: `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
+   * For example in JSON:
+   * `[{"fieldName1": "desc"}, {"fieldName2.subFieldName1": "desc"}]`
    *
    * When sorting with multiple fields, ensure that there is an index already defined with all the sort fields in the
    * same order and each object in the sort array has a single key or at least one of the sort fields is included in the

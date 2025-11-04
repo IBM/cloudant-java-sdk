@@ -26,7 +26,8 @@ public class IndexAnalysisExclusionReason extends GenericModel {
    * The full list of possible reason codes is following:
    *
    * * alphabetically_comes_after: json
-   *   There is another suitable index whose name comes before that of this index.
+   *   There is another suitable index whose name comes before that of
+   *   this index.
    * * empty_selector: text
    * "text" indexes do not support queries with empty selectors.
    * * excluded_by_user: any use_index was used to manually specify the index.
@@ -77,7 +78,8 @@ public class IndexAnalysisExclusionReason extends GenericModel {
    * The full list of possible reason codes is following:
    *
    * * alphabetically_comes_after: json
-   *   There is another suitable index whose name comes before that of this index.
+   *   There is another suitable index whose name comes before that of
+   *   this index.
    * * empty_selector: text
    * "text" indexes do not support queries with empty selectors.
    * * excluded_by_user: any use_index was used to manually specify the index.

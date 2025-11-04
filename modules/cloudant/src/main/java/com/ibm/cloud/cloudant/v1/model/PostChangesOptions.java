@@ -484,8 +484,8 @@ public class PostChangesOptions extends GenericModel {
    * argument.
    *
    * It is important for query performance to use appropriate selectors:
-   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
-   * of a query. You should include at least one of these in a selector.
+   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+   * `$lte` (but not `$ne`) can be used as the basis of a query. You should include at least one of these in a selector.
    * * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered from an index. For query selectors
    * use these operators in conjunction with equality operators or create and use a partial index to reduce the number
    * of documents that will need to be scanned.
@@ -577,11 +577,11 @@ public class PostChangesOptions extends GenericModel {
    *
    * The built-in filter types are:
    *   * `_design` - Returns only changes to design documents.
-   *   * `_doc_ids` - Returns changes for documents with an ID matching one specified in
-   *       `doc_ids` request body parameter. (`POST` only)
-   *   * `_selector` - Returns changes for documents that match the `selector`
-   *       request body parameter. The selector syntax is the same as used for
-   *       `_find`. (`POST` only)
+   *   * `_doc_ids` - Returns changes for documents with an ID matching one
+   *       specified in `doc_ids` request body parameter. (`POST` only)
+   *   * `_selector` - Returns changes for documents that match the
+   *       `selector` request body parameter. The selector syntax is the same
+   *       as used for `_find`. (`POST` only)
    *   * `_view` - Returns changes for documents that match an existing map
    *       function in the view specified by the query parameter `view`.
    *
@@ -589,8 +589,8 @@ public class PostChangesOptions extends GenericModel {
    * `design_doc/filtername`.
    *
    * **Note:** For better performance use the built-in `_selector`, `_design` or `_doc_ids` filters rather than JS based
-   * `_view` or design document filters. If you need to pass values to change the filtered content use the `_selector`
-   * filter type.
+   * `_view` or design document filters. If you need to pass values to change the filtered content use the
+   * `_selector` filter type.
    *
    * @return the filter
    */
@@ -602,16 +602,16 @@ public class PostChangesOptions extends GenericModel {
    * Gets the heartbeat.
    *
    * Query parameter to specify the period in milliseconds after which an empty line is sent in the results. Off by
-   * default and only applicable for
-   * `continuous` and `eventsource` feeds. Overrides any timeout to keep the feed alive indefinitely. May also be `true`
-   * to use a value of `60000`.
+   * default and only applicable for `continuous` and `eventsource` feeds. Overrides any timeout to keep the feed alive
+   * indefinitely. May also be `true` to use a value of `60000`.
    *
    * **Note:** Delivery of heartbeats cannot be relied on at specific intervals. If your application runs in an
    * environment where idle network connections may break, `heartbeat` is not suitable as a keepalive mechanism.
    * Instead, consider one of the following options:
-   *   * Use the `timeout` parameter with a value that is compatible with your network environment.
-   *   * Switch to scheduled usage of one of the non-continuous changes feed types
-   *     (`normal` or `longpoll`).
+   *   * Use the `timeout` parameter with a value that is compatible with
+   *     your network environment.
+   *   * Switch to scheduled usage of one of the non-continuous changes feed
+   *     types (`normal` or `longpoll`).
    *   * Use TCP keepalive.
    *
    * @return the heartbeat
@@ -659,8 +659,12 @@ public class PostChangesOptions extends GenericModel {
   /**
    * Gets the since.
    *
-   * Query parameter to specify to start the results from the change immediately after the given update sequence. Can be
-   * a valid update sequence or `now` value. Default is `0` i.e. all changes.
+   * Query parameter to specify to start the results from the change immediately after the given update sequence.
+   * Possible values are:
+   *   * `0` for all available changes (default).
+   *   * `now` for future changes.
+   *   * A valid update sequence, for example, from the `seq` value of a
+   *     change received before.
    *
    * @return the since
    */

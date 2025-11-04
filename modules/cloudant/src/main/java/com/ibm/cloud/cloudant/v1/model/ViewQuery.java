@@ -526,7 +526,7 @@ public class ViewQuery extends GenericModel {
   /**
    * Gets the endKeyDocId.
    *
-   * Schema for a document ID.
+   * Stop returning rows at the specified document ID. No effect if using `group` or not providing end key.
    *
    * @return the endKeyDocId
    */
@@ -563,7 +563,8 @@ public class ViewQuery extends GenericModel {
   /**
    * Gets the key.
    *
-   * Schema for any JSON type.
+   * Parameter to specify to return only rows that match the specified key. String representation of any JSON type that
+   * matches the key type emitted by the view function.
    *
    * @return the key
    */
@@ -574,8 +575,8 @@ public class ViewQuery extends GenericModel {
   /**
    * Gets the keys.
    *
-   * Parameter to specify returning only documents that match any of the specified keys. A JSON array of keys that match
-   * the key type emitted by the view function.
+   * Parameter to specify returning only rows that match any of the specified keys. A JSON array of keys that match the
+   * key type emitted by the view function.
    *
    * @return the keys
    */
@@ -589,9 +590,10 @@ public class ViewQuery extends GenericModel {
    * Parameter to specify whether to use the reduce function in a map-reduce view. Default is true when a reduce
    * function is defined.
    *
-   * A default `reduce` view type can be disabled to behave like a `map` by setting `reduce=false` explicitly.
+   * A default `reduce` view type can be disabled to behave like a
+   * `map` by setting `reduce=false` explicitly.
    *
-   * Be aware that `include_docs=true` can only be used with `map` views.
+   * Be aware that `include_docs=true` is only for `map` views. Reduced views do not include document IDs in view rows.
    *
    * @return the reduce
    */
@@ -602,10 +604,11 @@ public class ViewQuery extends GenericModel {
   /**
    * Gets the stable.
    *
-   * Query parameter to specify whether use the same replica of  the index on each request. The default value `false`
-   * contacts all  replicas and returns the result from the first, fastest, responder. Setting it to `true` when used in
-   * conjunction with `update=false`  may improve consistency at the expense of increased latency and decreased
-   * throughput if the selected replica is not the fastest of the available  replicas.
+   * Query parameter to specify whether use the same replica of the index on each request. The default value `false`
+   * contacts all replicas and returns the result from the first, fastest, responder. Setting it to `true` when used in
+   * conjunction with
+   * `update=false` may improve consistency at the expense of increased latency and decreased throughput if the selected
+   * replica is not the fastest of the available replicas.
    *
    * **Note:** In general setting `true` is discouraged and is strictly not recommended when using `update=true`.
    *
@@ -629,7 +632,7 @@ public class ViewQuery extends GenericModel {
   /**
    * Gets the startKeyDocId.
    *
-   * Schema for a document ID.
+   * Start returning rows at the specified document ID. No effect if using `group` or not providing start key.
    *
    * @return the startKeyDocId
    */

@@ -123,21 +123,23 @@ public class SearchIndexDefinition extends GenericModel {
    * document as a parameter, extracts some data from it, and then calls the `index` function to index that data. The
    * index function takes 2, or optionally 3, parameters.
    *
-   * * The first parameter is the name of the field you intend to use when
-   *   querying the index. If the special value `"default"` is used when you
-   *   define the name, you do not have to specify a field name at query time.
-   * * The second parameter is the data to be indexed. This data must be only a
-   *   string, number, or boolean. Other types will cause an error to be thrown
-   *   by the index function call.
+   * * The first parameter is the name of the field you intend to use
+   *   when querying the index. If the special value `"default"` is used
+   *   when you define the name, you do not have to specify a field name
+   *   at query time.
+   * * The second parameter is the data to be indexed. This data must be
+   *   only a string, number, or boolean. Other types will cause an error
+   *   to be thrown by the index function call.
    * * The optional third parameter is a JavaScript object with these
    *   properties:
    *
    *     * `facet` - boolean, default `false` - Creates a faceted index.
-   *     * `index` - boolean, default `true` - If set to `false`, the data
-   *       cannot be used for searches, but can still be retrieved from the
-   *       index if `store` is set to `true`.
-   *     * `store` - boolean, default `true` - If true, the value is returned
-   *       in the search result; otherwise, the value is not returned.
+   *     * `index` - boolean, default `true` - If set to `false`, the
+   *       data cannot be used for searches, but can still be retrieved
+   *       from the index if `store` is set to `true`.
+   *     * `store` - boolean, default `true` - If true, the value is
+   *       returned in the search result; otherwise, the value is not
+   *       returned.
    *
    * @return the index
    */

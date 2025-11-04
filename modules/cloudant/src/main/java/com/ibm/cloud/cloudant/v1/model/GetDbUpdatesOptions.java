@@ -194,16 +194,16 @@ public class GetDbUpdatesOptions extends GenericModel {
    * Gets the heartbeat.
    *
    * Query parameter to specify the period in milliseconds after which an empty line is sent in the results. Off by
-   * default and only applicable for
-   * `continuous` and `eventsource` feeds. Overrides any timeout to keep the feed alive indefinitely. May also be `true`
-   * to use a value of `60000`.
+   * default and only applicable for `continuous` and `eventsource` feeds. Overrides any timeout to keep the feed alive
+   * indefinitely. May also be `true` to use a value of `60000`.
    *
    * **Note:** Delivery of heartbeats cannot be relied on at specific intervals. If your application runs in an
    * environment where idle network connections may break, `heartbeat` is not suitable as a keepalive mechanism.
    * Instead, consider one of the following options:
-   *   * Use the `timeout` parameter with a value that is compatible with your network environment.
-   *   * Switch to scheduled usage of one of the non-continuous changes feed types
-   *     (`normal` or `longpoll`).
+   *   * Use the `timeout` parameter with a value that is compatible with
+   *     your network environment.
+   *   * Switch to scheduled usage of one of the non-continuous changes feed
+   *     types (`normal` or `longpoll`).
    *   * Use TCP keepalive.
    *
    * @return the heartbeat
@@ -240,8 +240,12 @@ public class GetDbUpdatesOptions extends GenericModel {
   /**
    * Gets the since.
    *
-   * Query parameter to specify to start the results from the change immediately after the given update sequence. Can be
-   * a valid update sequence or `now` value. Default is `0` i.e. all changes.
+   * Query parameter to specify to start the results from the change immediately after the given update sequence.
+   * Possible values are:
+   *   * `0` for all available changes (default).
+   *   * `now` for future changes.
+   *   * A valid update sequence, for example, from the `seq` value of a
+   *     change received before.
    *
    * @return the since
    */
