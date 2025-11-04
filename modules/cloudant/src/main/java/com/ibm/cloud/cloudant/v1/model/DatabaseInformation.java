@@ -152,7 +152,7 @@ public class DatabaseInformation extends GenericModel {
    * Gets the instanceStartTime.
    *
    * An opaque string to detect whether a database has been recreated. The field name is for compatibility with old
-   * replicator versions. Do not use the value to infer timing infromation. Typically only used by replicators.
+   * replicator versions. Do not use the value to infer timing information. Typically only used by replicators.
    *
    * @return the instanceStartTime
    */

@@ -625,7 +625,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
         .add("name", "Digital Kitchen Scales")
         .add("price", "14.99")
-        .add("productid", "1000042")
+        .add("productId", "1000042")
         .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
         .add("type", "product")
         .build();
@@ -1185,7 +1185,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
         .add("name", "Digital Kitchen Scales")
         .add("price", "14.99")
-        .add("productid", "1000042")
+        .add("productId", "1000042")
         .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
         .add("type", "product")
         .build();
@@ -1316,7 +1316,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .build();
 
       DesignDocumentViewsMapReduce designDocumentViewsMapReduceModel = new DesignDocumentViewsMapReduce.Builder()
-        .map("function(doc) { \n  emit(doc.productid, [doc.brand, doc.name, doc.description]) \n}")
+        .map("function(doc) {\n  emit(doc.productId, [doc.brand, doc.name, doc.description])\n}")
         .reduce("testString")
         .build();
 
@@ -1920,7 +1920,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .bookmark("testString")
         .conflicts(true)
         .executionStats(true)
-        .fields(java.util.Arrays.asList("productid", "name", "description"))
+        .fields(java.util.Arrays.asList("productId", "name", "description"))
         .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
         .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
@@ -1955,7 +1955,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .bookmark("testString")
         .conflicts(true)
         .executionStats(true)
-        .fields(java.util.Arrays.asList("productid", "name", "description"))
+        .fields(java.util.Arrays.asList("productId", "name", "description"))
         .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
         .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
@@ -1990,7 +1990,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .bookmark("testString")
         .conflicts(true)
         .executionStats(true)
-        .fields(java.util.Arrays.asList("productid", "name", "description"))
+        .fields(java.util.Arrays.asList("productId", "name", "description"))
         .limit(Long.valueOf("25"))
         .skip(Long.valueOf("0"))
         .sort(java.util.Arrays.asList(java.util.Collections.singletonMap("key1", "asc")))
@@ -3102,7 +3102,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .add("keywords", "[\"Foo\",\"Scales\",\"Weight\",\"Digital\",\"Kitchen\"]")
         .add("name", "Digital Kitchen Scales")
         .add("price", "14.99")
-        .add("productid", "1000042")
+        .add("productId", "1000042")
         .add("taxonomy", "[\"Home\",\"Kitchen\",\"Small Appliances\"]")
         .add("type", "product")
         .build();

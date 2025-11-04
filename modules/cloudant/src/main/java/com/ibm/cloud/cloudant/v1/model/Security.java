@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for a security document.
+ * Schema for a Cloudant security document.
  */
 public class Security extends GenericModel {
 

@@ -32,6 +32,7 @@ public class UpInformationTest {
   @Test
   public void testUpInformation() throws Throwable {
     UpInformation upInformationModel = new UpInformation();
+    assertNull(upInformationModel.getCluster());
     assertNull(upInformationModel.getSeeds());
     assertNull(upInformationModel.getStatus());
   }

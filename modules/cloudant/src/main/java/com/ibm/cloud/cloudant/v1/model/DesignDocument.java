@@ -745,11 +745,13 @@ public class DesignDocument extends DynamicModel<Object> {
    *
    *   * `newDoc` - New version of document that will be stored
    *     from the update request.
-   *   * `oldDoc` - Previous version of document that is already stored.
-   *   * `userCtx` - User Context Object, containing information about the
-   *     user writing the document (if present), see the `UserContext`.
-   *   * `secObj` - Security Object, with lists of database security roles,
-   *     see the `SecurityObject`.
+   *   * `oldDoc` - Previous version of document that is already
+   *     stored.
+   *   * `userCtx` - User Context Object, containing information
+   *     about the user writing the document (if present), see the
+   *     `UserContext`.
+   *   * `secObj` - Security Object, with lists of database security
+   *     roles, see the `SecurityObject`.
    *
    * @return the validateDocUpdate
    */

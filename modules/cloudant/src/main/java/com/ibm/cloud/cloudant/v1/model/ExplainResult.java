@@ -167,8 +167,8 @@ public class ExplainResult extends GenericModel {
    * argument.
    *
    * It is important for query performance to use appropriate selectors:
-   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and `$lte` (but not `$ne`) can be used as the basis
-   * of a query. You should include at least one of these in a selector.
+   * * Only equality operators such as `$eq`, `$gt`, `$gte`, `$lt`, and
+   * `$lte` (but not `$ne`) can be used as the basis of a query. You should include at least one of these in a selector.
    * * Some operators such as `$not`, `$or`, `$in`, and `$regex` cannot be answered from an index. For query selectors
    * use these operators in conjunction with equality operators or create and use a partial index to reduce the number
    * of documents that will need to be scanned.

@@ -1511,7 +1511,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    *
    * For creation, you must specify the document ID but you should not specify the revision.
    *
-   * For modification, you must specify the document ID and a revision  identifier.
+   * For modification, you must specify the document ID and a revision identifier.
    *
    * @param putDocumentOptions the {@link PutDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link DocumentResult}
@@ -4557,8 +4557,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve information about whether the server is up.
    *
-   * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
-   * `nolb`, the endpoint returns a 404 response.
+   * Confirms that the server is up, running, and ready to respond to requests. If the cluster is unavailable the
+   * endpoint returns a `503` response code.
    *
    * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
    *
@@ -4580,8 +4580,8 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
   /**
    * Retrieve information about whether the server is up.
    *
-   * Confirms that the server is up, running, and ready to respond to requests. If `maintenance_mode` is `true` or
-   * `nolb`, the endpoint returns a 404 response.
+   * Confirms that the server is up, running, and ready to respond to requests. If the cluster is unavailable the
+   * endpoint returns a `503` response code.
    *
    * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
    *
