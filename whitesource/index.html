@@ -1,0 +1,1410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>WhiteSource - Policy Check Summary</title>
+    <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+
+    <script>
+        function toggleDetails(anchor, detailsId) {
+            var details = document.getElementById(detailsId);
+            if (details.style.display == 'block') {
+                details.style.display = 'none';
+                anchor.innerHTML = 'show details';
+            } else {
+                details.style.display = 'block';
+                anchor.innerHTML = 'hide details';
+            }
+            return details;
+        }
+    </script>
+
+    <style>
+        .wssBody {
+            font-family: verdana;
+            font-size: 14px;
+        }
+
+        .wssContainer {
+            width: 750px;
+            padding-bottom: 10px;
+            border: 5px solid #3E68C6;
+        }
+
+        .wssTextColor {
+            color: #4B4A4A;
+        }
+
+        .wssHeader {
+            color: #3E68C6;
+            font-weight: bold;
+        }
+
+        .wssFont {
+            font-family: verdana;
+        }
+
+        .wssTableHeader {
+            font-weight: bold;
+            color: #3E68C6;
+            text-align: left;
+        }
+        .wssTable {
+            border: 1px solid #d1d1d1;
+            background-color: white;
+            padding: 5px;
+            vertical-align: top;
+            border-spacing: 0px 2px;
+        }
+
+        .wssAnchor {
+            color: #3E68C6;
+            text-decoration: underline;
+        }
+
+        .wssAnchor:link {
+            color: #3E68C6;
+        }
+
+        .wssAnchor:visited {
+            color: #3E68C6;
+        }
+
+        .policy {
+            width: 65px;
+            padding: 2px 5px 2px 5px;
+            border-radius: 1px;
+            text-align: center;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .policyApprove {
+            background: #7fb611;
+            border: 1px solid #6f9f0f;
+            color: white;
+        }
+
+        .policyReject {
+            background: #d1260f;
+            color: white;
+            border: 1px solid darkRed;
+        }
+
+        .policyReassign {
+            background: #ffe438;
+            border: 1px solid #ebcb00;
+            color: #252b35;
+        }
+
+        .policyConditions {
+            background: #ff8138;
+            border: 1px solid #df752b;
+            color: white;
+        }
+
+        .policyIssue {
+            background: #243a77;
+            border: 1px solid #243a77;
+            color: white;
+        }
+
+        .wssRed {
+            color: #D1260F;
+        }
+
+        .wssGreen {
+            color: #76A321;
+        }
+
+        .wssBorder {
+            border: 1px solid #d1d1d1;
+        }
+
+        .wssDetailsBackground {
+            background: #FAFAFA;
+        }
+
+        .wssProjectCaptionBackground {
+            background: white;
+        }
+
+        .wssTextAlign {
+            text-align: left;
+        }
+
+        .wssProjectHeader {
+            margin: 5px 0 0 4px;
+            font-size: 120%;
+            color: #727272;
+            font-weight: bold;
+            position: relative;
+            top: -4px;
+        }
+
+        .wssProjectTitle {
+            font-weight: bold;
+            margin: 10px 0 10px 0px;
+        }
+
+        .wssProjectStats {
+            position: relative;
+            top: -4px;
+        }
+
+        .wssProjectEntry {
+            margin: -1px 10px 0px 10px;
+        }
+
+        .wssLineSeparator {
+            height: 1px;
+            background: lightGrey;
+        }
+
+        .wssLineSeparaterContainer {
+            margin: 0px 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .wssLicenseBar {
+            border-spacing: 0px 0px;
+            background: #3E68C6;
+            width: 20px;
+            border-radius: 2px 2px 0px 0px;
+        }
+
+        .wssLicenses {
+            border-spacing: 0px 0px;
+            width:100%;
+            height: 115px;
+            border-bottom: 1px solid #ccc;
+            font-size: 12px;
+            background: #FAFAFA;
+        }
+
+        .wssDependencyNode {
+            padding-bottom: 4px;
+            padding-top: 4px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body class='wssBody'>
+<div align="center" style="width: 100%;">
+<div class='wssContainer'>
+    <a class='wssAnchor' href="https://whitesourcesoftware.com" target="_blank">
+        <img align="center" src="https://saas.whitesourcesoftware.com/Wss/background/mend_logo_dark_ws.png" width="315px" height="91px" style="padding-top: 10px;"/>
+    </a>
+
+<div align="center">
+    <h2 class='wssHeader'>Policy Check Summary</h2>
+<h3>
+                         <span class='wssGreen'>No Policy Violations</span>                             </h3>
+</div>
+
+<div align='left'>
+<div class='wssTextAlign' style="width: 500px; padding-left: 10px;">
+<table style="width: 100%;" class='wssTextColor'>
+<tbody>
+	                                            <div class='wssTextColor' style="padding-left: 5px;">
+    Report creation time - 2025-11-05 14:07:36
+</div>
+    </tbody>
+    </table>
+</div>
+</div>
+
+ <div class='wssLineSeparaterContainer'><div class='wssLineSeparator'></div></div> <div class='wssTextAlign'>
+                    <div class='wssTextColor wssProjectStats' style="padding-left: 15px; padding-top: 5px;">No new projects found</div>
+ <div class='wssLineSeparaterContainer'><div class='wssLineSeparator'></div></div>                     <div style='padding-bottom: 5px; padding-left: 10px;'>
+    <div class='wssProjectHeader' style="display: inline-block;">Existing Projects</div>
+    <span class='wssTextColor wssProjectStats'>(found 1 existing projects)</span>
+</div>
+      
+<div class='wssProjectEntry'>
+            <div style="width: 100%;" class='wssBorder wssProjectCaptionBackground'>
+    <div style="display: inline-block;">
+        <table style="width: 100%;">
+            <tr>
+                <td>
+                    <div style="padding: 5px;">cloudant-java-sdk</div>
+                </td>
+            </tr>
+        </table>
+    </div><div style="display: inline-block; float: right;">
+<table style="width: 100%;">
+<tr>
+<td>
+<div style="display: inline-block;">
+                                             <span class='wssGreen'>No Policy Violations</span>                                                                     </div>
+    </td><td align="right">
+        <a class='wssAnchor' href="#" onclick="toggleDetails(this, 'existing-project-details-1')" style="float: right; padding: 5px;">show details</a>
+    </td>
+    </tr>
+    </table>
+</div>
+</div>
+
+            <div id="existing-project-details-1" style="width: 100%; display: none;" class='wssBorder wssDetailsBackground'>
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f1fe24fa-df30-4c2d-b28c-bf59cf629c8b" target="_blank">sdk-core-9.24.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af91326-7e24-4570-8c42-3bf4fbc69b8c" target="_blank">okhttp-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f94fe2c7-f22c-4694-b79c-677358acbd42" target="_blank">okio-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=b61add4d-2cb0-453f-a3bb-cc05d9c6f693" target="_blank">okio-jvm-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=4899aef5-62d2-4778-ab6b-1d4f34202725" target="_blank">kotlin-stdlib-jdk8-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=d3afea16-cbdb-4b78-ac8d-6d47ab345318" target="_blank">kotlin-stdlib-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=e7c1fc86-5dc9-408b-a912-65e7b9ea34ef" target="_blank">annotations-13.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=52692c35-88ea-4792-abf5-8e344580a5f8" target="_blank">kotlin-stdlib-jdk7-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=aa3fc623-4286-4965-8448-c44143909696" target="_blank">kotlin-stdlib-common-1.9.10.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=5dbb4982-a93c-469a-9b47-f3743665ec28" target="_blank">logging-interceptor-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=34103b14-866e-4f45-87c4-bd6d05feba17" target="_blank">okhttp-urlconnection-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=cd1ee589-a637-41fd-b26a-da99d12bbd14" target="_blank">commons-codec-1.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=9783240f-4fc0-4c65-92f8-cf3eb65374c5" target="_blank">commons-io-2.19.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=112272a2-40d4-49f7-9ffc-5766b9ec9261" target="_blank">commons-lang3-3.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=787fe0be-a7f3-46dd-b3ac-9934eb6b0ee0" target="_blank">gson-2.13.1.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=d9bc6a49-eef4-4316-b55f-d940d4e68874" target="_blank">error_prone_annotations-2.38.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af8902b-5ab3-4827-94a8-73f16c845276" target="_blank">rxjava-2.2.21.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=bd17901f-ebb2-4651-8f9c-f66fbf789cd6" target="_blank">reactive-streams-1.0.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    CC0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=7a3edd53-7d9e-4724-888a-9242d663bc09" target="_blank">cloudant-common-0.10.9.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f1fe24fa-df30-4c2d-b28c-bf59cf629c8b" target="_blank">sdk-core-9.24.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af91326-7e24-4570-8c42-3bf4fbc69b8c" target="_blank">okhttp-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f94fe2c7-f22c-4694-b79c-677358acbd42" target="_blank">okio-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=b61add4d-2cb0-453f-a3bb-cc05d9c6f693" target="_blank">okio-jvm-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=121dd260-1001-4130-968b-77e9aa207ab7" target="_blank">kotlin-stdlib-jdk8-1.8.21.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=d3afea16-cbdb-4b78-ac8d-6d47ab345318" target="_blank">kotlin-stdlib-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=e7c1fc86-5dc9-408b-a912-65e7b9ea34ef" target="_blank">annotations-13.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=7b7d031a-13a5-4f91-b73b-516e23c2760f" target="_blank">kotlin-stdlib-jdk7-1.8.21.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=aa3fc623-4286-4965-8448-c44143909696" target="_blank">kotlin-stdlib-common-1.9.10.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=5dbb4982-a93c-469a-9b47-f3743665ec28" target="_blank">logging-interceptor-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=34103b14-866e-4f45-87c4-bd6d05feba17" target="_blank">okhttp-urlconnection-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=cd1ee589-a637-41fd-b26a-da99d12bbd14" target="_blank">commons-codec-1.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=9783240f-4fc0-4c65-92f8-cf3eb65374c5" target="_blank">commons-io-2.19.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=112272a2-40d4-49f7-9ffc-5766b9ec9261" target="_blank">commons-lang3-3.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=a3e6b623-f12f-4919-96be-511453aaa73e" target="_blank">gson-2.13.2.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=283e1b99-b290-4516-b4d4-83ea4b50d5c9" target="_blank">error_prone_annotations-2.41.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af8902b-5ab3-4827-94a8-73f16c845276" target="_blank">rxjava-2.2.21.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=bd17901f-ebb2-4651-8f9c-f66fbf789cd6" target="_blank">reactive-streams-1.0.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    CC0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=7a3edd53-7d9e-4724-888a-9242d663bc09" target="_blank">cloudant-common-0.10.9.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f1fe24fa-df30-4c2d-b28c-bf59cf629c8b" target="_blank">sdk-core-9.24.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af91326-7e24-4570-8c42-3bf4fbc69b8c" target="_blank">okhttp-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f94fe2c7-f22c-4694-b79c-677358acbd42" target="_blank">okio-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=b61add4d-2cb0-453f-a3bb-cc05d9c6f693" target="_blank">okio-jvm-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=4899aef5-62d2-4778-ab6b-1d4f34202725" target="_blank">kotlin-stdlib-jdk8-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=d3afea16-cbdb-4b78-ac8d-6d47ab345318" target="_blank">kotlin-stdlib-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=e7c1fc86-5dc9-408b-a912-65e7b9ea34ef" target="_blank">annotations-13.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=52692c35-88ea-4792-abf5-8e344580a5f8" target="_blank">kotlin-stdlib-jdk7-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=aa3fc623-4286-4965-8448-c44143909696" target="_blank">kotlin-stdlib-common-1.9.10.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=5dbb4982-a93c-469a-9b47-f3743665ec28" target="_blank">logging-interceptor-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=34103b14-866e-4f45-87c4-bd6d05feba17" target="_blank">okhttp-urlconnection-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=cd1ee589-a637-41fd-b26a-da99d12bbd14" target="_blank">commons-codec-1.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=9783240f-4fc0-4c65-92f8-cf3eb65374c5" target="_blank">commons-io-2.19.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=112272a2-40d4-49f7-9ffc-5766b9ec9261" target="_blank">commons-lang3-3.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=a3e6b623-f12f-4919-96be-511453aaa73e" target="_blank">gson-2.13.2.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=283e1b99-b290-4516-b4d4-83ea4b50d5c9" target="_blank">error_prone_annotations-2.41.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af8902b-5ab3-4827-94a8-73f16c845276" target="_blank">rxjava-2.2.21.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=bd17901f-ebb2-4651-8f9c-f66fbf789cd6" target="_blank">reactive-streams-1.0.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    CC0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8fd9ab85-5207-40b2-beb0-51e6570b179c" target="_blank">cloudant-0.10.9.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8fd9ab85-5207-40b2-beb0-51e6570b179c" target="_blank">cloudant-0.10.9.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=7a3edd53-7d9e-4724-888a-9242d663bc09" target="_blank">cloudant-common-0.10.9.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f1fe24fa-df30-4c2d-b28c-bf59cf629c8b" target="_blank">sdk-core-9.24.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af91326-7e24-4570-8c42-3bf4fbc69b8c" target="_blank">okhttp-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=f94fe2c7-f22c-4694-b79c-677358acbd42" target="_blank">okio-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=b61add4d-2cb0-453f-a3bb-cc05d9c6f693" target="_blank">okio-jvm-3.6.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=4899aef5-62d2-4778-ab6b-1d4f34202725" target="_blank">kotlin-stdlib-jdk8-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=d3afea16-cbdb-4b78-ac8d-6d47ab345318" target="_blank">kotlin-stdlib-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=e7c1fc86-5dc9-408b-a912-65e7b9ea34ef" target="_blank">annotations-13.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=52692c35-88ea-4792-abf5-8e344580a5f8" target="_blank">kotlin-stdlib-jdk7-1.9.25.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=aa3fc623-4286-4965-8448-c44143909696" target="_blank">kotlin-stdlib-common-1.9.10.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=5dbb4982-a93c-469a-9b47-f3743665ec28" target="_blank">logging-interceptor-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=34103b14-866e-4f45-87c4-bd6d05feba17" target="_blank">okhttp-urlconnection-4.12.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=cd1ee589-a637-41fd-b26a-da99d12bbd14" target="_blank">commons-codec-1.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=9783240f-4fc0-4c65-92f8-cf3eb65374c5" target="_blank">commons-io-2.19.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=112272a2-40d4-49f7-9ffc-5766b9ec9261" target="_blank">commons-lang3-3.18.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=a3e6b623-f12f-4919-96be-511453aaa73e" target="_blank">gson-2.13.2.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=283e1b99-b290-4516-b4d4-83ea4b50d5c9" target="_blank">error_prone_annotations-2.41.0.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8af8902b-5ab3-4827-94a8-73f16c845276" target="_blank">rxjava-2.2.21.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=bd17901f-ebb2-4651-8f9c-f66fbf789cd6" target="_blank">reactive-streams-1.0.3.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    CC0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=b2fce785-e0dc-4174-8b5b-7e4bbb21e62a" target="_blank">slf4j-jdk14-2.0.17.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    MIT &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                        <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=8fe9a90d-f740-4335-9ffb-106de293de5e" target="_blank">slf4j-api-2.0.17.jar</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    MIT &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+            </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=68d0d263-9ea5-483a-b991-a909ded12378" target="_blank">cloudant-java-sdk Unmatched Source Files</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+    			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+                    <li>
+<div class="wssDependencyNode">
+    <a class='wssAnchor' href="https://ibmets.whitesourcesoftware.com/Wss/WSS.html#!libraryDetails;project=10304597;uuid=6e6ecf0b-a566-4825-8385-0bda3e40b71e" target="_blank">cloudant-java-sdk-v0.10.9</a>
+<div class="wssTextColor" style="display: inline; padding-left: 20px;">
+                    Apache 2.0 &nbsp;
+			</div>
+
+            </div>
+
+            <ul>
+                </ul>
+    </li>
+
+        </ul>
+</div>
+</div>
+
+                    </div>
+
+
+ <div class='wssLineSeparaterContainer'><div class='wssLineSeparator'></div></div> <div class='wssTextAlign' style="margin: 0px 10px;">
+    <div>
+        <div class='wssProjectHeader' style="display: inline-block">License Distribution</div>
+    </div>
+<table class="wssLicenses wssTextColor">
+<tr>
+    		      		<td style='width: 100px; padding: 0px; vertical-align: bottom;'>
+    <table style="border-spacing: 0px 0px; width: 100px; text-align: center">
+        <tr>
+            <td style=' font-size:12px;'>
+                24
+            <td>
+        </tr>
+        <tr>
+            <td style="padding-bottom: 0px; padding-right: 40px; padding-left: 40px">
+                <table height="50px" class="wssLicenseBar" title="Apache 2.0: 24">
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</td>
+		      		<td style='width: 100px; padding: 0px; vertical-align: bottom;'>
+    <table style="border-spacing: 0px 0px; width: 100px; text-align: center">
+        <tr>
+            <td style=' font-size:12px;'>
+                2
+            <td>
+        </tr>
+        <tr>
+            <td style="padding-bottom: 0px; padding-right: 40px; padding-left: 40px">
+                <table height="4px" class="wssLicenseBar" title="MIT: 2">
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</td>
+		      		<td style='width: 100px; padding: 0px; vertical-align: bottom;'>
+    <table style="border-spacing: 0px 0px; width: 100px; text-align: center">
+        <tr>
+            <td style=' font-size:12px;'>
+                1
+            <td>
+        </tr>
+        <tr>
+            <td style="padding-bottom: 0px; padding-right: 40px; padding-left: 40px">
+                <table height="2px" class="wssLicenseBar" title="CC0: 1">
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</td>
+		  		</tr>
+</table>
+<table style='width: 100%;'>
+<tr>
+    		    		<td>
+    <table style='width: 100px;'>
+        <tr>
+            <td class="wssTextColor" style='font-size: 80%; text-align: center;' title="Apache 2.0">
+                Apache 2.0
+            </td>
+        </tr>
+    </table>
+</td>
+		    		<td>
+    <table style='width: 100px;'>
+        <tr>
+            <td class="wssTextColor" style='font-size: 80%; text-align: center;' title="MIT">
+                MIT
+            </td>
+        </tr>
+    </table>
+</td>
+		    		<td>
+    <table style='width: 100px;'>
+        <tr>
+            <td class="wssTextColor" style='font-size: 80%; text-align: center;' title="CC0">
+                CC0
+            </td>
+        </tr>
+    </table>
+</td>
+				</tr>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>
