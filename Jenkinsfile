@@ -167,6 +167,9 @@ pipeline {
       }
       steps {
         mendScan()
+        catchError {
+          sh 'ls ./whitesource'
+        }
       }
     }
 
@@ -370,4 +373,3 @@ void publishMaven(mvnArgs='') {
 void publishDocs() {
   sh './scripts/javadoc/publish-doc.sh'
 }
-
