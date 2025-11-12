@@ -1,6 +1,5 @@
 // section: code imports
 import com.ibm.cloud.cloudant.v1.Cloudant;
-import com.ibm.cloud.cloudant.v1.model.UpInformation;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.service.exception.ServiceResponseException;
 import com.ibm.cloud.sdk.core.service.exception.ServiceUnavailableException;
@@ -9,10 +8,9 @@ Cloudant service = Cloudant.newInstance();
 
 try {
     // Execute the health check
-    Response<UpInformation> response = service.getUpInformation().execute();
+    Response<Void> response = service.headUpInformation().execute();
     // Check the status code to determine service health
     System.out.println("Service is up and healthy");
-    System.out.println(response.getResult());
 } catch (ServiceUnavailableException e) {
     System.out.println("Service unavailable:" + " \"" + e.getMessage() + "\" " + "Status code: "
             + e.getStatusCode());
