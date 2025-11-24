@@ -142,7 +142,7 @@ public class GetAllDbsOptions extends GenericModel {
   /**
    * Gets the descending.
    *
-   * Query parameter to specify whether to return the documents in descending by key order.
+   * Query parameter to specify whether to return rows in descending by key order.
    *
    * @return the descending
    */

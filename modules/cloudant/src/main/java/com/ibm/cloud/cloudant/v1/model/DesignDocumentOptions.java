@@ -82,7 +82,13 @@ public class DesignDocumentOptions extends GenericModel {
   /**
    * Gets the partitioned.
    *
-   * Whether this design document describes partitioned or global indexes.
+   * Whether this design document describes partitioned or global indexes. Set this option to `false` for a design
+   * document that describes global indexes in a partitioned database. A design document describes either global or
+   * partitioned indexes, but not both. By default, for a partitioned database this option is `true` and the design
+   * document describes partitioned indexes for queries on a single partition at a time. When set to `false` this option
+   * allows creating global indexes in this design document for queries spanning many partitions. For non-partitioned
+   * databases, the default is `false` and design documents default to global. Only partitioned databases can have
+   * partitioned indexes.
    *
    * @return the partitioned
    */

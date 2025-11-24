@@ -280,7 +280,8 @@ public class GetReplicationDocumentOptions extends GenericModel {
   /**
    * Gets the attachments.
    *
-   * Query parameter to specify whether to include attachments bodies in a response.
+   * Query parameter to specify whether to include attachment content in the response. Note that when used with a
+   * view-style query or changes feed this only applies when requesting documents in the response.
    *
    * @return the attachments
    */
@@ -291,8 +292,8 @@ public class GetReplicationDocumentOptions extends GenericModel {
   /**
    * Gets the attEncodingInfo.
    *
-   * Query parameter to specify whether to include the encoding information in attachment stubs if the particular
-   * attachment is compressed.
+   * Query parameter to specify whether to include the encoding information for compressed attachments. Note that when
+   * used with a view-style query or changes feed this only applies when requesting documents in the response.
    *
    * @return the attEncodingInfo
    */
@@ -303,8 +304,8 @@ public class GetReplicationDocumentOptions extends GenericModel {
   /**
    * Gets the conflicts.
    *
-   * Query parameter to specify whether to include a list of conflicted revisions in each returned document. Active only
-   * when `include_docs` is `true`.
+   * Query parameter to specify whether to include a list of conflicted revisions in each returned document. Note that
+   * when used with a view-style query or changes feed this only applies when requesting documents in the response.
    *
    * @return the conflicts
    */
