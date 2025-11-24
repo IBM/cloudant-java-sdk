@@ -319,8 +319,8 @@ public class PostDesignDocsOptions extends GenericModel {
   /**
    * Gets the attEncodingInfo.
    *
-   * Parameter to specify whether to include the encoding information in attachment stubs if the particular attachment
-   * is compressed.
+   * Parameter to specify whether to include the encoding information for compressed attachments. This only applies when
+   * requesting documents in the response.
    *
    * @return the attEncodingInfo
    */
@@ -331,7 +331,8 @@ public class PostDesignDocsOptions extends GenericModel {
   /**
    * Gets the attachments.
    *
-   * Parameter to specify whether to include attachments bodies in a response.
+   * Parameter to specify whether to include attachment content in included document content or only the attachment
+   * metadata. This only applies when requesting documents in the response.
    *
    * @return the attachments
    */
@@ -342,8 +343,8 @@ public class PostDesignDocsOptions extends GenericModel {
   /**
    * Gets the conflicts.
    *
-   * Parameter to specify whether to include a list of conflicted revisions in each returned document. Active only when
-   * `include_docs` is `true`.
+   * Parameter to specify whether to include a list of conflicted revisions in each returned document. This only applies
+   * when requesting documents in the response.
    *
    * @return the conflicts
    */
@@ -376,7 +377,7 @@ public class PostDesignDocsOptions extends GenericModel {
   /**
    * Gets the inclusiveEnd.
    *
-   * Parameter to specify whether the specified end key should be included in the result.
+   * Parameter to specify whether to include the specified end key in the result.
    *
    * @return the inclusiveEnd
    */

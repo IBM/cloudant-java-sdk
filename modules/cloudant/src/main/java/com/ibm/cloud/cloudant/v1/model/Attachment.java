@@ -216,9 +216,12 @@ public class Attachment extends GenericModel {
   /**
    * Gets the data.
    *
-   * Base64-encoded content. Available if attachment content is requested by using the query parameters
-   * `attachments=true` or `atts_since`. Note that when used with a view or changes feed `include_docs` must also be
-   * `true`.
+   * Base64-encoded content. Available when requested with `attachments=true` or `atts_since`. When retrieving
+   * attachments for a single document this field is only avialable when accepting an application/json response. For
+   * multipart responses each attachment is instead included in a separate part of the response (see `follows`).
+   *
+   * Note that SDK deserialization of documents with included attachments automatically decodes the Base64 encoded
+   * attachment content string to bytes.
    *
    * @return the data
    */
@@ -229,8 +232,8 @@ public class Attachment extends GenericModel {
   /**
    * Gets the digest.
    *
-   * Content hash digest. It starts with prefix which announce hash type (e.g. `md5-`) and continues with Base64-encoded
-   * hash digest.
+   * Content hash digest. It starts with prefix declaring the hash type, `md5-` for example, and continues with the
+   * Base64-encoded hash digest.
    *
    * @return the digest
    */
@@ -241,9 +244,8 @@ public class Attachment extends GenericModel {
   /**
    * Gets the encodedLength.
    *
-   * Compressed attachment size in bytes. Available if content_type was in list of compressible types when the
-   * attachment was added and the query parameter `att_encoding_info` is `true`. Note that when used with a view or
-   * changes feed `include_docs` must also be `true`.
+   * Compressed attachment size in bytes. Available for compressed attachments when requested with `att_encoding_info`.
+   * The database compresses attachments if the content_type is in the list of compressible types when added.
    *
    * @return the encodedLength
    */
@@ -254,9 +256,8 @@ public class Attachment extends GenericModel {
   /**
    * Gets the encoding.
    *
-   * Compression codec. Available if content_type was in list of compressible types when the attachment was added and
-   * the and the query parameter `att_encoding_info` is `true`. Note that when used with a view or changes feed
-   * `include_docs` must also be `true`.
+   * Compression codec. Available for compressed attachments when requested with `att_encoding_info`. The database
+   * compresses attachments if the content_type is in the list of compressible types when added.
    *
    * @return the encoding
    */
@@ -289,7 +290,7 @@ public class Attachment extends GenericModel {
   /**
    * Gets the revpos.
    *
-   * Revision number when attachment was added.
+   * Revision number at attachment addition.
    *
    * @return the revpos
    */
@@ -300,7 +301,7 @@ public class Attachment extends GenericModel {
   /**
    * Gets the stub.
    *
-   * Has `true` value if object contains stub info and no content. Otherwise omitted in response.
+   * Has `true` value if object has stub attachment metadata, but not attachment content. Otherwise omitted in response.
    *
    * @return the stub
    */

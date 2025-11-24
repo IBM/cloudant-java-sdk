@@ -42,6 +42,8 @@ public class ContentInformationSizes extends GenericModel {
    *
    * The total uncompressed size of the content, in bytes.
    *
+   * This is the value used for IBM Cloudant storage billing.
+   *
    * @return the external
    */
   public Long getExternal() {
