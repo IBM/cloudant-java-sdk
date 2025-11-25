@@ -334,7 +334,7 @@ void applyCustomizations() {
 
   scanCode = {
     withSonarQubeEnv(installationName: 'SonarQubeServer') {
-      sh "mvn sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.exclusions=examples/** --settings build/jenkins.settings.xml"
+      sh "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.qualitygate.wait=true -Dsonar.exclusions=examples/** --settings build/jenkins.settings.xml"
     }
   }
 }
@@ -370,4 +370,3 @@ void publishMaven(mvnArgs='') {
 void publishDocs() {
   sh './scripts/javadoc/publish-doc.sh'
 }
-
