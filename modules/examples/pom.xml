@@ -33,6 +33,11 @@
             <artifactId>slf4j-jdk14</artifactId>
             <version>${slf4j-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -43,6 +48,16 @@
                 <version>${maven-javadoc-plugin-version}</version>
                 <configuration>
                     <doclint>all,-missing</doclint>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire-version}</version>
+                <configuration>
+                    <environmentVariables>
+                        <IBM_CREDENTIALS_FILE>${project.parent.basedir}/cloudant_v1.env</IBM_CREDENTIALS_FILE>
+                    </environmentVariables>
                 </configuration>
             </plugin>
         </plugins>

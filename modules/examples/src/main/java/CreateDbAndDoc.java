@@ -91,10 +91,7 @@ public class CreateDbAndDoc {
         */
         // ====================================================================
 
-        // Keeping track of the revision number of the document object
-        // is necessary for further UPDATE/DELETE operations:
-        exampleDocument.setRev(createDocumentResponse.getRev());
-        System.out.println("You have created the document:\n" +
-            exampleDocument);
+        System.out.println("You have created the document. Response body:\n" +
+            createDocumentResponse);
     }
 }
