@@ -113,11 +113,8 @@ public class CreateDbAndDoc {
         */
         // ====================================================================
 
-        // Keeping track of the revision number of the document object
-        // is necessary for further UPDATE/DELETE operations:
-        exampleDocument.setRev(createDocumentResponse.getRev());
-        System.out.println("You have created the document:\n" +
-            exampleDocument);
+        System.out.println("You have created the document. Response body:\n" +
+            createDocumentResponse);
     }
 }
 ```
@@ -126,12 +123,11 @@ When you run the code, you see a result similar to the following output.
 
 ```text
 "orders" database created.
-You have created the document:
+You have created the document. Response body:
 {
-  "_id": "example",
-  "_rev": "1-1b403633540686aa32d013fda9041a5d",
-  "joined": "2019-01-24T10:42:99.000Z",
-  "name": "Bob Smith"
+  "id": "example",
+  "rev": "1-1b403633540686aa32d013fda9041a5d",
+  "ok": true
 }
 ```
 
@@ -208,14 +204,14 @@ public class GetInfoFromExistingDatabase {
 When you run the code, you see a result similar to the following output.
 
 ```text
-Server Version: 2.1.1
+Server Version: 3.2.1
 Document count in "orders" database is 1.
 Document retrieved from database:
 {
   "_id": "example",
   "_rev": "1-1b403633540686aa32d013fda9041a5d",
-  "name": "Bob Smith",
-  "joined": "2019-01-24T10:42:99.000Z"
+  "joined": "2019-01-24T10:42:59.000Z",
+  "name": "Bob Smith"
 }
 ```
 
