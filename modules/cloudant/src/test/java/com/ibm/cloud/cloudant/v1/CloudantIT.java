@@ -1303,6 +1303,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
       AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
         .name("standard")
         .stopwords(java.util.Arrays.asList("testString"))
+        .xDefault(analyzerModel)
         .fields(java.util.Collections.singletonMap("key1", analyzerModel))
         .build();
 

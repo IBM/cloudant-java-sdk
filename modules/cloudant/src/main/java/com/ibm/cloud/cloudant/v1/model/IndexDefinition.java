@@ -23,8 +23,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * Schema for a `json` or `text` query index definition. Indexes of type `text` have additional configuration properties
  * that do not apply to `json` indexes, these are:
- * * `default_analyzer` - the default text analyzer to use * `default_field` - whether to index the text in all document
- * fields and what analyzer to use for that purpose.
+ * * `default_analyzer` - the default text analyzer to use
+ * * `default_field` - whether to index the text in all document fields and what analyzer to use for that purpose.
  */
 public class IndexDefinition extends GenericModel {
 
@@ -223,9 +223,10 @@ public class IndexDefinition extends GenericModel {
    *
    * Whether to scan every document for arrays and store the length for each array found. Set the index_array_lengths
    * field to false if:
-   * * You do not need to know the length of an array. * You do not use the `$size` operator. * The documents in your
-   * database are complex, or not completely under your control. As a result, it is difficult to estimate the impact of
-   * the extra processing that is needed to determine and store the arrays lengths.
+   * * You do not need to know the length of an array.
+   * * You do not use the `$size` operator.
+   * * The documents in your database are complex, or not completely under your control. As a result, it is difficult to
+   * estimate the impact of the extra processing that is needed to determine and store the arrays lengths.
    *
    * @return the indexArrayLengths
    */

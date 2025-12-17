@@ -2328,7 +2328,7 @@ public class CloudantTest {
   @Test
   public void testGetDesignDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"autoupdate\": true, \"filters\": {\"mapKey\": \"inner\"}, \"indexes\": {\"mapKey\": {\"analyzer\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"], \"default\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}, \"fields\": {\"mapKey\": {\"name\": \"classic\", \"stopwords\": [\"stopwords\"]}}}, \"index\": \"index\"}}, \"language\": \"javascript\", \"options\": {\"partitioned\": false}, \"validate_doc_update\": \"validateDocUpdate\", \"views\": {\"mapKey\": {\"map\": \"map\", \"reduce\": \"reduce\"}}}";
     String getDesignDocumentPath = "/testString/_design/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2443,6 +2443,7 @@ public class CloudantTest {
     AnalyzerConfiguration analyzerConfigurationModel = new AnalyzerConfiguration.Builder()
       .name("standard")
       .stopwords(java.util.Arrays.asList("testString"))
+      .xDefault(analyzerModel)
       .fields(java.util.Collections.singletonMap("key1", analyzerModel))
       .build();
 

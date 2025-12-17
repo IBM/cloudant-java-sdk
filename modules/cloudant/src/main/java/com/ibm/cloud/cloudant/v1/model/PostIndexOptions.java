@@ -197,8 +197,8 @@ public class PostIndexOptions extends GenericModel {
    *
    * Schema for a `json` or `text` query index definition. Indexes of type `text` have additional configuration
    * properties that do not apply to `json` indexes, these are:
-   * * `default_analyzer` - the default text analyzer to use * `default_field` - whether to index the text in all
-   * document fields and what analyzer to use for that purpose.
+   * * `default_analyzer` - the default text analyzer to use
+   * * `default_field` - whether to index the text in all document fields and what analyzer to use for that purpose.
    *
    * @return the index
    */
