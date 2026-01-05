@@ -168,11 +168,11 @@
                 <skip.unit.tests>${skipTests}</skip.unit.tests>
             </properties>
         </profile>
-        <!-- Checkstyle 11+ requires Java 17+ -->
+        <!-- Checkstyle 13+ requires Java 21+ -->
         <profile>
-            <id>checkstyle-jdk17+</id>
+            <id>checkstyle-jdk21+</id>
             <activation>
-                <jdk>(,17)</jdk>
+                <jdk>(,21)</jdk>
             </activation>
             <build>
                 <plugins>
@@ -182,7 +182,7 @@
                         <executions>
                             <execution>
                                 <id>verify-style</id>
-                                <phase>none</phase>
+                                <phase>none</phase> <!-- do not run -->
                             </execution>
                         </executions>
                 </plugin>
