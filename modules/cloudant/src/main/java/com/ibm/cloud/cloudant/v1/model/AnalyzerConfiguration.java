@@ -17,18 +17,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for a search analyzer configuration.
+ * Analyzer configuration for search indexes. The default and fields properties are only applicable for the `perfield`
+ * analyzer name.
  */
 public class AnalyzerConfiguration extends GenericModel {
 
   /**
    * Schema for the name of the Apache Lucene analyzer to use for text indexing. The default value varies depending on
    * the analyzer usage:
-   * * For search indexes the default is `standard` * For query text indexes the default is `keyword` * For a query text
-   * index default_field the default is `standard`.
+   * * For search indexes the default is `standard`
+   * * For query text indexes the default is `keyword`
+   * * For a query text index default_field the default is `standard`.
    */
   public interface Name {
     /** classic. */
@@ -119,6 +122,8 @@ public class AnalyzerConfiguration extends GenericModel {
 
   protected String name;
   protected List<String> stopwords;
+  @SerializedName("default")
+  protected Analyzer xDefault;
   protected Map<String, Analyzer> fields;
 
   /**
@@ -127,6 +132,7 @@ public class AnalyzerConfiguration extends GenericModel {
   public static class Builder {
     private String name;
     private List<String> stopwords;
+    private Analyzer xDefault;
     private Map<String, Analyzer> fields;
 
     /**
@@ -137,6 +143,7 @@ public class AnalyzerConfiguration extends GenericModel {
     private Builder(AnalyzerConfiguration analyzerConfiguration) {
       this.name = analyzerConfiguration.name;
       this.stopwords = analyzerConfiguration.stopwords;
+      this.xDefault = analyzerConfiguration.xDefault;
       this.fields = analyzerConfiguration.fields;
     }
 
@@ -204,6 +211,17 @@ public class AnalyzerConfiguration extends GenericModel {
     }
 
     /**
+     * Set the xDefault.
+     *
+     * @param xDefault the xDefault
+     * @return the AnalyzerConfiguration builder
+     */
+    public Builder xDefault(Analyzer xDefault) {
+      this.xDefault = xDefault;
+      return this;
+    }
+
+    /**
      * Set the fields.
      *
      * @param fields the fields
@@ -222,6 +240,7 @@ public class AnalyzerConfiguration extends GenericModel {
       "name cannot be null");
     name = builder.name;
     stopwords = builder.stopwords;
+    xDefault = builder.xDefault;
     fields = builder.fields;
   }
 
@@ -239,8 +258,9 @@ public class AnalyzerConfiguration extends GenericModel {
    *
    * Schema for the name of the Apache Lucene analyzer to use for text indexing. The default value varies depending on
    * the analyzer usage:
-   * * For search indexes the default is `standard` * For query text indexes the default is `keyword` * For a query text
-   * index default_field the default is `standard`.
+   * * For search indexes the default is `standard`
+   * * For query text indexes the default is `keyword`
+   * * For a query text index default_field the default is `standard`.
    *
    * @return the name
    */
@@ -257,6 +277,17 @@ public class AnalyzerConfiguration extends GenericModel {
    */
   public List<String> stopwords() {
     return stopwords;
+  }
+
+  /**
+   * Gets the xDefault.
+   *
+   * Schema for a full text search analyzer.
+   *
+   * @return the xDefault
+   */
+  public Analyzer xDefault() {
+    return xDefault;
   }
 
   /**
