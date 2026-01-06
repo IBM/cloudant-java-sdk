@@ -108,7 +108,8 @@ public class SearchIndexDefinition extends GenericModel {
   /**
    * Gets the analyzer.
    *
-   * Schema for a search analyzer configuration.
+   * Analyzer configuration for search indexes. The default and fields properties are only applicable for the `perfield`
+   * analyzer name.
    *
    * @return the analyzer
    */

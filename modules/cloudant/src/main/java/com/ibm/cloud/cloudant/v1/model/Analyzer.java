@@ -26,8 +26,9 @@ public class Analyzer extends GenericModel {
   /**
    * Schema for the name of the Apache Lucene analyzer to use for text indexing. The default value varies depending on
    * the analyzer usage:
-   * * For search indexes the default is `standard` * For query text indexes the default is `keyword` * For a query text
-   * index default_field the default is `standard`.
+   * * For search indexes the default is `standard`
+   * * For query text indexes the default is `keyword`
+   * * For a query text index default_field the default is `standard`.
    */
   public interface Name {
     /** classic. */
@@ -223,8 +224,9 @@ public class Analyzer extends GenericModel {
    *
    * Schema for the name of the Apache Lucene analyzer to use for text indexing. The default value varies depending on
    * the analyzer usage:
-   * * For search indexes the default is `standard` * For query text indexes the default is `keyword` * For a query text
-   * index default_field the default is `standard`.
+   * * For search indexes the default is `standard`
+   * * For query text indexes the default is `keyword`
+   * * For a query text index default_field the default is `standard`.
    *
    * @return the name
    */
