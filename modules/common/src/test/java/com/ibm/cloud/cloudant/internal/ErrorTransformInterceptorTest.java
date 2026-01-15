@@ -37,7 +37,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
-import static org.junit.Assert.assertNull;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -340,7 +339,7 @@ public class ErrorTransformInterceptorTest {
         } else {
           // If we aren't asserting a specific part of augment check the body is unchanged
           if ("HEAD" == r.request().method()) {
-            assertNull(r.body());
+            assertEquals(r.body(), ResponseBody.EMPTY);
           } else {
             assertEquals(r.body().string(), responseBody); 
           }
