@@ -32,7 +32,7 @@ public class ErrorTransformInterceptor implements Interceptor {
         // Don't modify the request, but get the response
         Response response = chain.proceed(chain.request());
         if (!response.isSuccessful() // skip successful responses
-            && response.body() != null // skip cases with no body
+            && response.body() != null && !ResponseBody.EMPTY.equals(response.body()) // skip cases with no body
             && response.body().contentType() != null // skip cases with no content type
             && "application".equals(response.body().contentType().type())
             && "json".equals(response.body().contentType().subtype()) // we only want to work with application/json
