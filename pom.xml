@@ -35,7 +35,7 @@
         <maven-checkstyle-plugin-version>3.6.0</maven-checkstyle-plugin-version>
         <maven-reports-plugin-version>3.9.0</maven-reports-plugin-version>
         <maven-failsafe-plugin-version>3.5.4</maven-failsafe-plugin-version>
-        <maven-buildnumber-plugin-version>3.2.1</maven-buildnumber-plugin-version>
+        <maven-buildnumber-plugin-version>3.3.0</maven-buildnumber-plugin-version>
         <mockito-version>5.21.0</mockito-version>
         <slf4j-version>2.0.17</slf4j-version>
         <sonar-scanner-version>5.5.0.6356</sonar-scanner-version>
