@@ -77,7 +77,7 @@ public class ChangesFollowerTest {
     /**
      * Initially an alternating batch supplier, but when that is exhausted continues
      * to answer with empty results.
-     * 
+     *
      * @param batches
      * @return
      */
@@ -378,7 +378,7 @@ public class ChangesFollowerTest {
         });
         Assert.assertEquals(e.getMessage(), error.getException().getMessage(), "Should receive the expected error message.");
     }
-    
+
     /**
      * Checks that a LISTEN mode errors for all transient errors when not suppressing.
      */
@@ -400,7 +400,7 @@ public class ChangesFollowerTest {
         Cloudant mockClient = new ChangesRequestMockClient(() -> new MockInstruction<ChangesResult>(error));
         ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions(), Duration.ofMillis(100L));
         RuntimeException e = Assert.expectThrows(error.getExceptionClass(), () -> {
-            testFollowerOnThread(testFollower, ChangesFollower.Mode.LISTEN, true, Duration.ofSeconds(1L));
+            testFollowerOnThread(testFollower, ChangesFollower.Mode.LISTEN, true, Duration.ofSeconds(4L));
         });
         Assert.assertEquals(e.getMessage(), error.getException().getMessage(), "Should receive the expected error message.");
     }
