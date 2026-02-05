@@ -68,7 +68,7 @@ project:
 - Familiar user experience with IBM Cloud SDKs.
 - Flexibility to use either built-in models or byte-based requests and responses for documents.
 - Built-in [Changes feed follower](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.14/docs/Changes_Follower.md)
-- Built-in [Pagination](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.14/docs/Pagination.md) (beta)
+- Built-in [Pagination](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.14/docs/Pagination.md)
 - HTTP2 support for higher performance connections to IBM Cloudant.
 - Perform requests either synchronously or asynchronously.
 - Instances of the client are unconditionally thread-safe.
