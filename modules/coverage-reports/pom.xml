@@ -3,7 +3,7 @@
     <parent>
         <artifactId>cloudant-parent</artifactId>
         <groupId>com.ibm.cloud</groupId>
-        <version>0.10.14</version>
+        <version>0.10.15</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
