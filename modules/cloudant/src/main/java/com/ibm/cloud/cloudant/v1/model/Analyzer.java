@@ -237,7 +237,9 @@ public class Analyzer extends GenericModel {
   /**
    * Gets the stopwords.
    *
-   * Custom stopwords to use with the named analyzer.
+   * Custom stopwords to use with the named analyzer where supported. Not used for `keyword`, `simple`, `whitespace`,
+   * `simple_asciifolding` or `perfield` analyzers. Ensure stopwords match the folded case for analyzers that perform
+   * folding.
    *
    * @return the stopwords
    */
