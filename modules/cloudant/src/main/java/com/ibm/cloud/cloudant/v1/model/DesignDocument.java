@@ -735,8 +735,8 @@ public class DesignDocument extends DynamicModel<Object> {
    * The validation function can abort the pending document write by throwing one of two error objects:
    *
    * ```
-   * // user is not authorized to make the change but may re-authenticate throw({ unauthorized: 'Error message here.'
-   * });
+   * // user is not authorized to make the change but may
+   * // re-authenticate throw({ unauthorized: 'Error message here.' });
    *
    * // change is not allowed throw({ forbidden: 'Error message here.' });
    * ```
