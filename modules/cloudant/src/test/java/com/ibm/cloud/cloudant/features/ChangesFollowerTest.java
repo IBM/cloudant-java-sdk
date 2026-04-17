@@ -580,4 +580,121 @@ public class ChangesFollowerTest {
         });
         Assert.assertEquals(lee.getRequestLimit(), 1000L, "The changes request should have the expected limit.");
     }
+
+    /**
+     * Tests for getLastSeqNewerThan method
+     */
+
+    /**
+     * Verify that getLastSeqNewerThan throws IllegalArgumentException when passed null.
+     */
+    @Test
+    void testGetLastSeqNewerThanWithNull() {
+        Cloudant mockClient = new ChangesRequestMockClient(new PerpetualSupplier(true));
+        ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
+        IllegalArgumentException iae = Assert.expectThrows(IllegalArgumentException.class, () -> {
+            testFollower.getLastSeqNewerThan(null);
+        });
+        Assert.assertEquals(iae.getMessage(),
+            "The provided sequence ID cannot be null or empty",
+            "The error message should be correct.");
+    }
+
+    /**
+     * Verify that getLastSeqNewerThan throws IllegalArgumentException when passed an empty string.
+     */
+    @Test
+    void testGetLastSeqNewerThanWithEmptyString() {
+        Cloudant mockClient = new ChangesRequestMockClient(new PerpetualSupplier(true));
+        ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
+        IllegalArgumentException iae = Assert.expectThrows(IllegalArgumentException.class, () -> {
+            testFollower.getLastSeqNewerThan("");
+        });
+        Assert.assertEquals(iae.getMessage(),
+            "The provided sequence ID cannot be null or empty",
+            "The error message should be correct.");
+    }
+
+    /**
+     * Verify that getLastSeqNewerThan returns the input sequence unchanged when called before the feed starts.
+     */
+    @Test
+    void testGetLastSeqNewerThanBeforeStart() {
+        Cloudant mockClient = new ChangesRequestMockClient(new PerpetualSupplier(true));
+        ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
+        String inputSeq = "100-abc";
+        String result = testFollower.getLastSeqNewerThan(inputSeq);
+        Assert.assertEquals(result, inputSeq,
+            "Should return the input sequence unchanged when feed hasn't started.");
+    }
+
+    /**
+     * Verify that getLastSeqNewerThan returns the input sequence when no newer sequence is available.
+     */
+    @Test
+    void testGetLastSeqNewerThanAfterStartNoNewerSeq() {
+        // Create a mock client with a single batch
+        Cloudant mockClient = new ChangesRequestMockClient(ChangesRequestMockClient.makeBatchSupplier(1));
+        ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
+        
+        // Start the feed and consume some changes
+        Stream<ChangesResultItem> stream = testFollower.startOneOff();
+        stream.limit(5).forEach(item -> {
+            // Just consume the items
+        });
+        
+        // Query with a sequence that's not in seqMarkers
+        String unknownSeq = "999-unknown";
+        String result = testFollower.getLastSeqNewerThan(unknownSeq);
+        Assert.assertEquals(result, unknownSeq,
+            "Should return the input sequence when it's not found in seqMarkers.");
+    }
+
+    /**
+     * Verify that getLastSeqNewerThan returns the associated last_seq when querying
+     * with a user-facing sequence. The method returns the last_seq value associated
+     * with the user sequence, not necessarily advancing through empty pages.
+     */
+    @Test
+    void testGetLastSeqNewerThanAfterStartWithNewerSeq() {
+        // Create a mock client with a single batch
+        Cloudant mockClient = new ChangesRequestMockClient(ChangesRequestMockClient.makeBatchSupplier(1));
+        ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
+        
+        // Start the feed and consume some changes
+        Stream<ChangesResultItem> stream = testFollower.startOneOff();
+        long count = stream.limit(5).count();
+        Assert.assertEquals(count, 5L, "Should have consumed 5 changes.");
+        
+        // Query with a user-facing sequence that exists in seqMarkers
+        // The last item in the batch has seq "10000-g" which maps to last_seq "10000-g"
+        String result = testFollower.getLastSeqNewerThan("10000-g");
+        Assert.assertEquals(result, "10000-g",
+            "Should return the last_seq associated with the user sequence.");
+    }
+
+    /**
+     * Verify that getLastSeqNewerThan returns the input sequence unchanged when
+     * the sequence is not found in seqMarkers (e.g., querying with a sequence
+     * from the middle of a batch that wasn't the last item).
+     */
+    @Test
+    void testGetLastSeqNewerThanAfterStartWithEmptyPages() {
+        // Create a mock client with a single batch
+        Cloudant mockClient = new ChangesRequestMockClient(ChangesRequestMockClient.makeBatchSupplier(1));
+        ChangesFollower testFollower = new ChangesFollower(mockClient, TestOptions.MINIMUM.getOptions());
+        
+        // Start the feed and consume all changes
+        Stream<ChangesResultItem> stream = testFollower.startOneOff();
+        stream.forEach(item -> {
+            // Just consume the items
+        });
+        
+        // Query with a sequence that's not in seqMarkers (e.g., from middle of batch)
+        // Only the LAST item's sequence is stored in seqMarkers
+        String unknownSeq = "5000-g";
+        String result = testFollower.getLastSeqNewerThan(unknownSeq);
+        Assert.assertEquals(result, unknownSeq,
+            "Should return the input sequence unchanged when not found in seqMarkers.");
+    }
 }

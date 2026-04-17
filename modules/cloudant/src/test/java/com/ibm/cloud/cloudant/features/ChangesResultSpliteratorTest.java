@@ -16,6 +16,7 @@ package com.ibm.cloud.cloudant.features;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -630,5 +631,294 @@ public class ChangesResultSpliteratorTest {
             Assert.fail("The consumer should not be called.");
         }
 
+    }
+
+    // ========================================================================
+    // Tests for lastSeqSince method
+    // ========================================================================
+
+    /** Varargs convenience to build the pages list for data-provider rows. */
+    @SafeVarargs
+    private static List<ChangesResult> pages(ChangesResult... results) {
+        return Arrays.asList(results);
+    }
+
+    /**
+     * Helper method to create a spliterator and populate seqMarkers with specific test data.
+     *
+     * @param mockResults List of mock results to process
+     * @return A spliterator with populated seqMarkers
+     */
+    WrappedTestSpliterator createSpliteratorWithSeqMarkers(List<ChangesResult> mockResults) {
+        List<MockInstruction<ChangesResult>> instructions = new ArrayList<>();
+        for (ChangesResult result : mockResults) {
+            instructions.add(new MockInstruction<ChangesResult>(result));
+        }
+        WrappedTestSpliterator spliterator = this.makeSpliterator(
+            new QueuedSupplier<ChangesResult>(instructions),
+            ChangesFollower.Mode.FINITE,
+            Duration.ZERO
+        );
+        // Process all results to populate seqMarkers
+        for (int i = 0; i < mockResults.size(); i++) {
+            spliterator.next();
+        }
+        return spliterator;
+    }
+
+    // ------------------------------------------------------------------------
+    // Page type factory
+    //
+    // pageType(type, base) constructs a MockChangesResult for the given type
+    // number (1–9) from last_sequence.md, using 2-row pages so the last-row seq
+    // is distinguishable from earlier rows.  base seeds the seq IDs ("<n>-aa").
+    //
+    // Row layout and lastSeq by type:
+    //   Type 1: rows=[b, b+1],    lastSeq=b+1  (last row == last_seq, no nulls)
+    //   Type 2: rows=[b, b+1],    lastSeq=b+2  (last row != last_seq, no nulls)
+    //   Type 3: rows=[null, b+1], lastSeq=b+1  (leading null, last row == last_seq)
+    //   Type 4: rows=[null, b+1], lastSeq=b+2  (leading null, last row != last_seq)
+    //   Type 5: rows=[b, null],   lastSeq=b+1  (trailing null, last_seq == last server seq)
+    //   Type 6: rows=[b, null],   lastSeq=b+2  (trailing null, last_seq beyond all rows)
+    //   Type 7: rows=[null,null], lastSeq=b+1  (all nulls, last_seq == last server seq)
+    //   Type 8: rows=[null,null], lastSeq=b+2  (all nulls, last_seq beyond all rows)
+    //   Type 9: rows=[],          lastSeq=b    (empty page)
+    //
+    // What seqMarkers.put() stores per type:
+    //   Types 1, 3 : ROW("b+1-aa"), LAST("b+1-aa") — last row == last_seq
+    //   Types 2, 4 : ROW("b+1-aa"), LAST("b+2-aa") — last row != last_seq
+    //   Types 5, 7 : ROW(null),     LAST("b+1-aa") — null last row
+    //   Types 6, 8 : ROW(null),     LAST("b+2-aa") — null last row, last_seq beyond rows
+    //   Type  9    : (no ROW),      LAST("b-aa")    — empty page
+    //
+    // Bases should be spaced at least 3 apart; multiples of 10 are idiomatic.
+    // ------------------------------------------------------------------------
+
+    private static String seq(int n) {
+        return n + "-aa";
+    }
+
+    private static MockChangesResult pageType(int type, int base) {
+        List<String> rows;
+        String lastSeq;
+        switch (type) {
+            case 1:
+                rows = Arrays.asList(seq(base), seq(base + 1));
+                lastSeq = seq(base + 1);
+                break;
+            case 2:
+                rows = Arrays.asList(seq(base), seq(base + 1));
+                lastSeq = seq(base + 2);
+                break;
+            case 3:
+                rows = Arrays.asList(null, seq(base + 1));
+                lastSeq = seq(base + 1);
+                break;
+            case 4:
+                rows = Arrays.asList(null, seq(base + 1));
+                lastSeq = seq(base + 2);
+                break;
+            case 5:
+                rows = Arrays.asList(seq(base), null);
+                lastSeq = seq(base + 1);
+                break;
+            case 6:
+                rows = Arrays.asList(seq(base), null);
+                lastSeq = seq(base + 2);
+                break;
+            case 7:
+                rows = Arrays.asList(null, null);
+                lastSeq = seq(base + 1);
+                break;
+            case 8:
+                rows = Arrays.asList(null, null);
+                lastSeq = seq(base + 2);
+                break;
+            case 9:
+                rows = Collections.emptyList();
+                lastSeq = seq(base);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown page type: " + type);
+        }
+        return new MockChangesResult(rows, lastSeq, 0L);
+    }
+
+    // ------------------------------------------------------------------------
+    // Null / not-found edge cases
+    // ------------------------------------------------------------------------
+
+    @Test
+    void testLastSeqSinceNotFound() {
+        List<ChangesResult> pages = new ArrayList<>();
+        pages.add(pageType(1, 10));
+        WrappedTestSpliterator spliterator = createSpliteratorWithSeqMarkers(pages);
+        String notFound = "999-ff";
+        Assert.assertEquals(spliterator.lastSeqSince(notFound), notFound,
+            "Should return input unchanged when sequence is not in seqMarkers");
+    }
+
+    @Test
+    void testLastSeqSinceEmptySeqMarkers() {
+        WrappedTestSpliterator spliterator = createSpliteratorWithSeqMarkers(new ArrayList<>());
+        String testSeq = "1-aa";
+        Assert.assertEquals(spliterator.lastSeqSince(testSeq), testSeq,
+            "Should return input unchanged when seqMarkers is empty");
+    }
+
+    // ------------------------------------------------------------------------
+    // Per-page-type: page alone, followed by non-empty, followed by empty
+    //
+    // Each data provider row: { name, pages[], querySeq, expectedSeq }
+    //
+    // "Alone"          — single page; verifies terminal behaviour for each key.
+    // "FollowedByNonEmpty" — page 1 followed by pageType(1, 20); a ROW entry in
+    //                    page 2 blocks advancement, so the result is the
+    //                    last_seq of page 1.
+    // "FollowedByEmpty"   — page 1 followed by pageType(9, 20); only a LAST entry
+    //                    in page 2, so advancement continues to "20-aa".
+    //
+    // Types with two queryable keys (2, 4, 5, 6) produce two rows each.
+    // ------------------------------------------------------------------------
+
+    @DataProvider(name = "lastSeqSinceAlone")
+    Object[][] getLastSeqSinceAlone() {
+        // Types 1, 3: ROW("11-aa"), LAST("11-aa") — last row == last_seq → "11-aa"
+        // Types 2, 4: ROW("11-aa"), LAST("12-aa") — row key → last_seq; last_seq key → itself
+        // Type  5:    ROW(null),    LAST("11-aa") — non-stored row key unchanged; last_seq → itself
+        // Type  6:    ROW(null),    LAST("12-aa") — non-stored row key unchanged; last_seq → itself
+        // Types 7, 8: ROW(null),    LAST("11-aa"/"12-aa") — only last_seq key is stored
+        // Type  9:    LAST("10-aa") — last_seq key → itself
+        return new Object[][] {
+            {"Type 1: last row seq (== last_seq)",   pages(pageType(1, 10)), "11-aa", "11-aa"},
+            {"Type 2: last row seq → last_seq",      pages(pageType(2, 10)), "11-aa", "12-aa"},
+            {"Type 2: last_seq key → itself",        pages(pageType(2, 10)), "12-aa", "12-aa"},
+            {"Type 3: last row seq (== last_seq)",   pages(pageType(3, 10)), "11-aa", "11-aa"},
+            {"Type 4: last row seq → last_seq",      pages(pageType(4, 10)), "11-aa", "12-aa"},
+            {"Type 4: last_seq key → itself",        pages(pageType(4, 10)), "12-aa", "12-aa"},
+            {"Type 5: non-stored row seq unchanged", pages(pageType(5, 10)), "10-aa", "10-aa"},
+            {"Type 5: last_seq key → itself",        pages(pageType(5, 10)), "11-aa", "11-aa"},
+            {"Type 6: non-stored row seq unchanged", pages(pageType(6, 10)), "10-aa", "10-aa"},
+            {"Type 6: last_seq key → itself",        pages(pageType(6, 10)), "12-aa", "12-aa"},
+            {"Type 7: last_seq key → itself",        pages(pageType(7, 10)), "11-aa", "11-aa"},
+            {"Type 8: last_seq key → itself",        pages(pageType(8, 10)), "12-aa", "12-aa"},
+            {"Type 9: last_seq key → itself",        pages(pageType(9, 10)), "10-aa", "10-aa"},
+        };
+    }
+
+    @Test(dataProvider = "lastSeqSinceAlone")
+    void testLastSeqSinceAlone(String name, List<ChangesResult> pages, String querySeq, String expectedSeq) {
+        WrappedTestSpliterator spliterator = createSpliteratorWithSeqMarkers(pages);
+        Assert.assertEquals(spliterator.lastSeqSince(querySeq), expectedSeq, name);
+    }
+
+    @DataProvider(name = "lastSeqSinceFollowedByNonEmpty")
+    Object[][] getLastSeqSinceFollowedByNonEmpty() {
+        // Page 2 is pageType(1, 20), which inserts ROW("21-aa") blocking advancement.
+        // All queries therefore return the last_seq of page 1.
+        return new Object[][] {
+            {"Type 1 + non-empty: blocked by page 2 ROW",           pages(pageType(1, 10), pageType(1, 20)), "11-aa", "11-aa"},
+            {"Type 2 + non-empty: last row seq → last_seq of p1",   pages(pageType(2, 10), pageType(1, 20)), "11-aa", "12-aa"},
+            {"Type 2 + non-empty: last_seq key → last_seq of p1",   pages(pageType(2, 10), pageType(1, 20)), "12-aa", "12-aa"},
+            {"Type 3 + non-empty: blocked by page 2 ROW",           pages(pageType(3, 10), pageType(1, 20)), "11-aa", "11-aa"},
+            {"Type 4 + non-empty: last row seq → last_seq of p1",   pages(pageType(4, 10), pageType(1, 20)), "11-aa", "12-aa"},
+            {"Type 4 + non-empty: last_seq key → last_seq of p1",   pages(pageType(4, 10), pageType(1, 20)), "12-aa", "12-aa"},
+            {"Type 5 + non-empty: blocked by page 2 ROW",           pages(pageType(5, 10), pageType(1, 20)), "11-aa", "11-aa"},
+            {"Type 6 + non-empty: blocked by page 2 ROW",           pages(pageType(6, 10), pageType(1, 20)), "12-aa", "12-aa"},
+            {"Type 7 + non-empty: blocked by page 2 ROW",           pages(pageType(7, 10), pageType(1, 20)), "11-aa", "11-aa"},
+            {"Type 8 + non-empty: blocked by page 2 ROW",           pages(pageType(8, 10), pageType(1, 20)), "12-aa", "12-aa"},
+            {"Type 9 + non-empty: blocked by page 2 ROW",           pages(pageType(9, 10), pageType(1, 20)), "10-aa", "10-aa"},
+        };
+    }
+
+    @Test(dataProvider = "lastSeqSinceFollowedByNonEmpty")
+    void testLastSeqSinceFollowedByNonEmpty(String name, List<ChangesResult> pages, String querySeq, String expectedSeq) {
+        WrappedTestSpliterator spliterator = createSpliteratorWithSeqMarkers(pages);
+        Assert.assertEquals(spliterator.lastSeqSince(querySeq), expectedSeq, name);
+    }
+
+    @DataProvider(name = "lastSeqSinceFollowedByEmpty")
+    Object[][] getLastSeqSinceFollowedByEmpty() {
+        // Page 2 is pageType(9, 20), which inserts only LAST("20-aa") — no ROW to block.
+        // All queries therefore advance to "20-aa".
+        return new Object[][] {
+            {"Type 1 + empty: advances to p2 last_seq",           pages(pageType(1, 10), pageType(9, 20)), "11-aa", "20-aa"},
+            {"Type 2 + empty: last row seq advances to p2",       pages(pageType(2, 10), pageType(9, 20)), "11-aa", "20-aa"},
+            {"Type 2 + empty: last_seq key advances to p2",       pages(pageType(2, 10), pageType(9, 20)), "12-aa", "20-aa"},
+            {"Type 3 + empty: advances to p2 last_seq",           pages(pageType(3, 10), pageType(9, 20)), "11-aa", "20-aa"},
+            {"Type 4 + empty: last row seq advances to p2",       pages(pageType(4, 10), pageType(9, 20)), "11-aa", "20-aa"},
+            {"Type 4 + empty: last_seq key advances to p2",       pages(pageType(4, 10), pageType(9, 20)), "12-aa", "20-aa"},
+            {"Type 5 + empty: last_seq advances to p2",           pages(pageType(5, 10), pageType(9, 20)), "11-aa", "20-aa"},
+            {"Type 6 + empty: last_seq advances to p2",           pages(pageType(6, 10), pageType(9, 20)), "12-aa", "20-aa"},
+            {"Type 7 + empty: last_seq advances to p2",           pages(pageType(7, 10), pageType(9, 20)), "11-aa", "20-aa"},
+            {"Type 8 + empty: last_seq advances to p2",           pages(pageType(8, 10), pageType(9, 20)), "12-aa", "20-aa"},
+            {"Type 9 + empty: advances to p2 last_seq",           pages(pageType(9, 10), pageType(9, 20)), "10-aa", "20-aa"},
+        };
+    }
+
+    @Test(dataProvider = "lastSeqSinceFollowedByEmpty")
+    void testLastSeqSinceFollowedByEmpty(String name, List<ChangesResult> pages, String querySeq, String expectedSeq) {
+        WrappedTestSpliterator spliterator = createSpliteratorWithSeqMarkers(pages);
+        Assert.assertEquals(spliterator.lastSeqSince(querySeq), expectedSeq, name);
+    }
+
+    // ------------------------------------------------------------------------
+    // All 8 three-page sequences of empty (E=type 9) and non-empty (N=type 1)
+    //
+    // For each sequence we query from the last_seq of page 1 (base 10).
+    // E adds only LAST; N adds ROW+LAST. The result is the furthest LAST
+    // reachable from the page 1 key before hitting any ROW entry.
+    // ------------------------------------------------------------------------
+
+    @DataProvider(name = "lastSeqSince3PageSequences")
+    Object[][] getLastSeqSince3PageSequences() {
+        // N pages use pageType(1, ...) (ROW+LAST); E pages use pageType(9, ...) (LAST only).
+        // p1 base=10, p2 base=20, p3 base=30. Query key from p1 last_seq.
+        return new Object[][] {
+            // name,  pages,                                                              querySeq,  expectedSeq
+            {"NNN: blocked by p2 ROW → p1 last_seq",       pages(pageType(1, 10), pageType(1, 20), pageType(1, 30)), "11-aa", "11-aa"},
+            {"NNE: blocked by p2 ROW → p1 last_seq",       pages(pageType(1, 10), pageType(1, 20), pageType(9, 30)), "11-aa", "11-aa"},
+            {"NEE: advances through both empty pages",      pages(pageType(1, 10), pageType(9, 20), pageType(9, 30)), "11-aa", "30-aa"},
+            {"NEN: advances through p2 empty, stops at p3", pages(pageType(1, 10), pageType(9, 20), pageType(1, 30)), "11-aa", "20-aa"},
+            {"ENN: blocked by p2 ROW → p1 last_seq",       pages(pageType(9, 10), pageType(1, 20), pageType(1, 30)), "10-aa", "10-aa"},
+            {"ENE: blocked by p2 ROW → p1 last_seq",       pages(pageType(9, 10), pageType(1, 20), pageType(9, 30)), "10-aa", "10-aa"},
+            {"EEN: advances through p2 empty, stops at p3", pages(pageType(9, 10), pageType(9, 20), pageType(1, 30)), "10-aa", "20-aa"},
+            {"EEE: advances through all three empty pages", pages(pageType(9, 10), pageType(9, 20), pageType(9, 30)), "10-aa", "30-aa"},
+        };
+    }
+
+    @Test(dataProvider = "lastSeqSince3PageSequences")
+    void testLastSeqSince3PageSequence(String name, List<ChangesResult> pages, String querySeq, String expectedSeq) {
+        WrappedTestSpliterator spliterator = createSpliteratorWithSeqMarkers(pages);
+        Assert.assertEquals(spliterator.lastSeqSince(querySeq), expectedSeq, name);
+    }
+
+    // ------------------------------------------------------------------------
+    // Eviction
+    // ------------------------------------------------------------------------
+
+    @Test
+    void testLastSeqSinceEviction() {
+        // Each non-empty page adds 2 entries (ROW + LAST). With CAPACITY=200 and
+        // EVICTION_COUNT=20, adding 101 pages (202 entries) triggers one eviction
+        // of the oldest 20 entries, removing the first 10 pages' entries.
+        List<ChangesResult> pages = new ArrayList<>();
+        for (int i = 0; i < 101; i++) {
+            pages.add(pageType(2, i * 10));
+        }
+        WrappedTestSpliterator spliterator = createSpliteratorWithSeqMarkers(pages);
+
+        // Entries for page 0 (base 0: row="1-aa", last="2-aa") should have been evicted
+        Assert.assertEquals(spliterator.lastSeqSince("1-aa"), "1-aa",
+            "Evicted row seq should be returned unchanged");
+        Assert.assertEquals(spliterator.lastSeqSince("2-aa"), "2-aa",
+            "Evicted last_seq should be returned unchanged");
+
+        // Entries for the most recent page (base 1000: row="1001-aa", last="1002-aa")
+        // should still be present
+        Assert.assertEquals(spliterator.lastSeqSince("1001-aa"), "1002-aa",
+            "Recent row seq should advance to its last_seq");
+        Assert.assertEquals(spliterator.lastSeqSince("1002-aa"), "1002-aa",
+            "Recent last_seq should return itself");
     }
 }

@@ -274,4 +274,31 @@ public class ChangesFollower {
         return changesStream;
     }
 
+    /**
+     * In the case of highly filtered changes feeds it is possible that multiple
+     * pages may pass in the follower without any changes being returned on the
+     * stream. To avoid long rewinds, call this method with your last persisted
+     * sequence ID to obtain the most recent sequence ID that is safe to use as
+     * a checkpoint. Call this after fully processing a {@link ChangesResultItem}
+     * to obtain a safe value to persist as the {@code since} parameter for the
+     * next run.
+     *
+     * @param lastPersistedSequenceId the last sequence ID that was persisted —
+     *     either the {@code seq} of the last {@link ChangesResultItem} fully
+     *     processed, or a value previously returned by this method
+     * @return the most recent safe sequence ID to use as a checkpoint, or the
+     *     supplied value if no newer sequence is available
+     * @throws IllegalArgumentException if the lastPersistedSequenceId is null or empty
+     */
+    public String getLastSeqNewerThan(String lastPersistedSequenceId) {
+        if (lastPersistedSequenceId == null || lastPersistedSequenceId.isEmpty()) {
+            throw new IllegalArgumentException("The provided sequence ID cannot be null or empty");
+        }
+        // If we have a spliterator, ask it for the last sequence ID (if any
+        ChangesResultSpliterator spliterator = this.changesResultSpliterator.get();
+        if (spliterator != null) {
+            return spliterator.lastSeqSince(lastPersistedSequenceId);
+        }
+        return lastPersistedSequenceId;
+    }
 }
