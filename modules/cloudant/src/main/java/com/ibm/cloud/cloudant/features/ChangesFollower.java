@@ -274,4 +274,25 @@ public class ChangesFollower {
         return changesStream;
     }
 
+    /**
+     * In the case of highly filtered changes feeds it is possible that multiple pages
+     * may pass in the follower without any changes being returned on the stream.
+     * To avoid long rewinds it is possible to call this function to get a sequence value
+     * newer than the last sequence persisted by the caller if one is available.
+     *
+     * @param lastPersistedSequenceId the last sequence ID the user persisted
+     * @return a newer sequence ID if available or the existing passed value if there were none newer
+     * @throws IllegalArgumentException if the lastPersistedSequenceId is null or empty
+     */
+    public String getLastSeqNewerThan(String lastPersistedSequenceId) {
+        if (lastPersistedSequenceId == null || lastPersistedSequenceId.isEmpty()) {
+            throw new IllegalArgumentException("The provided sequence ID cannot be null or empty");
+        }
+        // If we have a spliterator, ask it for the last sequence ID (if any
+        ChangesResultSpliterator spliterator = this.changesResultSpliterator.get();
+        if (spliterator != null) {
+            return spliterator.lastSeqSince(lastPersistedSequenceId);
+        }
+        return lastPersistedSequenceId;
+    }
 }

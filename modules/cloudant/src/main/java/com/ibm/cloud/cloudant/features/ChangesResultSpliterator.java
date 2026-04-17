@@ -16,7 +16,9 @@ package com.ibm.cloud.cloudant.features;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Spliterator;
 import java.util.Spliterators.AbstractSpliterator;
@@ -28,6 +30,7 @@ import java.util.logging.Logger;
 import com.ibm.cloud.cloudant.features.ChangesFollower.Mode;
 import com.ibm.cloud.cloudant.v1.Cloudant;
 import com.ibm.cloud.cloudant.v1.model.ChangesResult;
+import com.ibm.cloud.cloudant.v1.model.ChangesResultItem;
 import com.ibm.cloud.cloudant.v1.model.PostChangesOptions;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCall;
@@ -68,6 +71,7 @@ class ChangesResultSpliterator extends AbstractSpliterator<ChangesResult> {
     private final Duration errorTolerance;
     private final TransientErrorSuppression transientSuppression;
     private final Object requestLock = new Object();
+    private final SeqMarkers seqMarkers = new SeqMarkers();
     private volatile String since;
     // Default to "infinite"
     private volatile Long pending = Long.MAX_VALUE;
@@ -152,8 +156,11 @@ class ChangesResultSpliterator extends AbstractSpliterator<ChangesResult> {
             if (this.transientSuppression == TransientErrorSuppression.TIMER) {
                 this.successTimestamp = Instant.now();
             }
+
             this.since = result.getLastSeq();
             this.pending = result.getPending();
+            this.seqMarkers.put(result);
+
             if (this.mode == Mode.FINITE && this.pending == 0L) {
                 this.hasNext = false;
             }
@@ -244,6 +251,87 @@ class ChangesResultSpliterator extends AbstractSpliterator<ChangesResult> {
             if (request != null) {
                 request.cancel();
             }
+        }
+    }
+
+    String lastSeqSince(String lastPersistedSeq) {
+        return this.seqMarkers.get(lastPersistedSeq);
+    }
+
+    private static final class SeqMarkers extends ArrayList<SeqMarkerEntry> {
+        private static final int CAPACITY = 200;
+        private static final int EVICTION_COUNT = CAPACITY / 10;
+
+        @Override
+        public synchronized boolean add(SeqMarkerEntry entry) {
+            if (size() >= CAPACITY) {
+                // Bulk-evict oldest 10% to amortise the cost of array shifting
+                subList(0, EVICTION_COUNT).clear();
+            }
+            return super.add(entry);
+        }
+
+        synchronized void put(ChangesResult pageResult) {
+            // Get the last_seq from the page
+            String lastSeq = pageResult.getLastSeq();
+            // Find the last row seq from these results
+            List<ChangesResultItem> changes = pageResult.getResults();
+            if (changes.size() > 0) {
+                add(new SeqMarkerEntry(changes.get(changes.size() - 1).getSeq(), SeqMarkerType.ROW));
+            }
+            add(new SeqMarkerEntry(lastSeq, SeqMarkerType.LAST));
+        }
+
+        synchronized String get(String lastPersistedSeq) {
+            // List of last_seq values that the caller could checkpoint
+            // The most recent sequence ID that is safe to checkpoint beyond the user-provided one
+            //  (i.e. the last_seq of the last page after the user page or row for which there are no other rows inbetween
+            String returnSeq = null;
+
+            // Note entries are in insertion order
+            // Find the index of the caller's sequence entry
+            int startIdx = indexOf(lastPersistedSeq);
+            if (startIdx >= 0) {
+                // Always collect the matched entry
+                returnSeq = get(startIdx).seq;
+                // Then continue while subsequent entries are LAST type,
+                // stopping when a ROW entry is encountered
+                for (SeqMarkerEntry entry : subList(startIdx + 1, size())) {
+                    if (entry.seqMarkerType == SeqMarkerType.LAST) {
+                        returnSeq = entry.seq;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            // Return a suitable lastSeq if there is one, otherwise return the user's seq
+            return (returnSeq == null) ? lastPersistedSeq : returnSeq;
+        }
+
+        // Find the index of the entry whose seq matches the given seqId
+        private int indexOf(String seqId) {
+            for (int i = 0; i < size(); i++) {
+                if (seqId.equals(get(i).seq)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+
+    private enum SeqMarkerType {
+        LAST,
+        ROW
+    }
+
+    private static final class SeqMarkerEntry {
+
+        private final String seq;
+        private final SeqMarkerType seqMarkerType;
+
+        SeqMarkerEntry(String seq, SeqMarkerType seqMarkerType) {
+            this.seq = seq;
+            this.seqMarkerType = seqMarkerType;
         }
     }
 }
