@@ -171,9 +171,26 @@ public class ChangesRequestMockClient extends MockCloudant<ChangesResult> {
         MockChangesResult(List<ChangesResultItem> items, long pending) {
             this.pending = pending;
             this.results = items;
-            this.lastSeq = this.results.isEmpty() 
+            this.lastSeq = this.results.isEmpty()
                 ? generateSeqLikeString(77777, 512) // generate a fake seq for the empty result
                 : this.results.get(this.results.size()-1).getSeq();
+        }
+
+        /**
+         * Constructor for test scenarios requiring explicit sequence control.
+         * Allows testing of seq_interval gaps and specific sequence patterns.
+         *
+         * @param userSeqs List of user-facing sequences (can contain nulls for gaps)
+         * @param lastSeq The last_seq value for this page
+         * @param pending Number of pending changes
+         */
+        MockChangesResult(List<String> userSeqs, String lastSeq, long pending) {
+            this.pending = pending;
+            this.results = new ArrayList<>();
+            for (String seq : userSeqs) {
+                this.results.add(new MockChangesResultItem(seq));
+            }
+            this.lastSeq = lastSeq;
         }
     }
 
@@ -184,6 +201,19 @@ public class ChangesRequestMockClient extends MockCloudant<ChangesResult> {
             this.doc = null;
             this.id = generateAlphanumString(10);
             this.seq = generateSeqLikeString(counter, 512);
+        }
+
+        /**
+         * Constructor for test scenarios requiring explicit sequence control.
+         *
+         * @param seq The sequence string (can be null for seq_interval gaps)
+         */
+        MockChangesResultItem(String seq) {
+            this.changes = Collections.singletonList(new MockChange());
+            this.deleted = false;
+            this.doc = null;
+            this.id = generateAlphanumString(10);
+            this.seq = seq;
         }
     }
 
