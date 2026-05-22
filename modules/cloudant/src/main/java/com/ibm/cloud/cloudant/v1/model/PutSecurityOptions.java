@@ -192,7 +192,7 @@ public class PutSecurityOptions extends GenericModel {
   /**
    * Gets the cloudant.
    *
-   * Database permissions for Cloudant users and/or API keys.
+   * Database permissions for Cloudant users, API keys or both.
    *
    * @return the cloudant
    */
