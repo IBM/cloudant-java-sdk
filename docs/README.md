@@ -1,4 +1,4 @@
-# IBM Cloudant Java SDK Version 0.10.17 Detailed Documentation
+# IBM Cloudant Java SDK Version 0.10.18 Detailed Documentation
 
 ## Table of Contents
 
