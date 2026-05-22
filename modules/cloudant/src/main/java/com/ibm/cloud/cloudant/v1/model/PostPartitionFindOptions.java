@@ -414,7 +414,7 @@ public class PostPartitionFindOptions extends GenericModel {
    * use these operators in conjunction with equality operators or create and use a partial index to reduce the number
    * of documents that will need to be scanned.
    *
-   * See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators)for a list of all available
+   * See [the Cloudant Docs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-operators) for a list of all available
    * combination and conditional operators.
    *
    * For further reference see [selector syntax](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-selector-syntax).

@@ -161,7 +161,7 @@ import java.util.logging.Logger;
 /**
  * NoSQL database based on Apache CouchDB.
  *
- * See: https://cloud.ibm.com/docs/services/Cloudant/
+ * See: https://cloud.ibm.com/docs/Cloudant
  */
 public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseService {
   private static final Logger LOGGER = Logger.getLogger(Cloudant.class.getName());
@@ -2250,6 +2250,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Lucene Query Parser Syntax. Search indexes are defined by an index function, similar to a map function in MapReduce
    * views. The index function decides what data to index and store in the index.
    *
+   *
    * Before using read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
    * the limitations and appropriate use cases.
@@ -2319,6 +2320,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * Lucene Query Parser Syntax. Search indexes are defined by an index function, similar to a map function in MapReduce
    * views. The index function decides what data to index and store in the index.
    *
+   *
    * Before using read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
    * the limitations and appropriate use cases.
@@ -2387,6 +2389,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * for accessing views, the POST method supports the specification of explicit keys to be retrieved from the view
    * results. The remainder of the POST view functionality is identical to the `GET /{db}/_design/{ddoc}/_view/{view}`
    * API.
+   *
    *
    * Before using read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
@@ -2480,6 +2483,7 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
    * for accessing views, the POST method supports the specification of explicit keys to be retrieved from the view
    * results. The remainder of the POST view functionality is identical to the `GET /{db}/_design/{ddoc}/_view/{view}`
    * API.
+   *
    *
    * Before using read the
    * [FAQs](https://cloud.ibm.com/docs/Cloudant?topic=Cloudant-database-partitioning#partition-querying) to understand
