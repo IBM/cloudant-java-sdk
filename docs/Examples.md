@@ -417,4 +417,4 @@ You have deleted the document.
 
 ## Further code examples
 
-For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.18/examples#examples-for-java).
+For a complete list of code examples, see the [examples directory](https://github.com/IBM/cloudant-java-sdk/tree/v0.10.19/examples#examples-for-java).
