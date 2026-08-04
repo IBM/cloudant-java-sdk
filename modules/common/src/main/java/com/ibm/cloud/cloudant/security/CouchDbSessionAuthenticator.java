@@ -99,6 +99,8 @@ public class CouchDbSessionAuthenticator
     }
 
     /**
+     * Sets the HTTP headers to use with session requests.
+     *
      * @param headers
      */
     @Override

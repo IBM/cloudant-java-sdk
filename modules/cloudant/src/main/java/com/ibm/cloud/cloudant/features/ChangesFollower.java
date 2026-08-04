@@ -220,6 +220,7 @@ public class ChangesFollower {
     }
 
     /**
+     * Starts the changes follower in the given mode.
      *
      * @param mode the mode in which to run the ChangesFollower
      * @return
