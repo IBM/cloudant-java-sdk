@@ -476,6 +476,7 @@
                 <version>${surefire-version}</version>
                 <configuration>
                     <skipTests>${skip.unit.tests}</skipTests>
+                    <reportsDirectory>${project.build.directory}/junitreports</reportsDirectory>
                 </configuration>
             </plugin>
             <plugin>
