@@ -274,4 +274,34 @@ public class ChangesFollower {
         return changesStream;
     }
 
+    /**
+     * Returns the most recent sequence ID that is safe to use as a checkpoint,
+     * advancing beyond the supplied checkpoint sequence ID where possible.
+     * <p>
+     * With highly filtered changes feeds, multiple pages can pass through the
+     * follower without returning any changes. Using only the
+     * {@code seq} of the last processed {@link ChangesResultItem} in those cases
+     * causes a long changes feed rewind on the next run. To avoid this, call this
+     * method after fully processing each {@link ChangesResultItem} with a
+     * non-null {@code seq} and persist the returned value to use as the
+     * {@code since} parameter for the next run.
+     *
+     * @param checkpointSequenceId the last checkpoint sequence ID — either the
+     *     non-null {@code seq} of the last {@link ChangesResultItem} fully
+     *     processed, or a value previously returned by this method.
+     * @return the most recent safe sequence ID to use as a checkpoint, or the
+     *     supplied value if no newer sequence is available
+     * @throws IllegalArgumentException if {@code checkpointSequenceId} is null or empty
+     */
+    public String latestSequenceFrom(String checkpointSequenceId) {
+        if (checkpointSequenceId == null || checkpointSequenceId.isEmpty()) {
+            throw new IllegalArgumentException("Provided sequence ID must be a non-empty string.");
+        }
+        // If we have a spliterator, ask it for the last sequence ID (if any
+        ChangesResultSpliterator spliterator = this.changesResultSpliterator.get();
+        if (spliterator != null) {
+            return spliterator.lastSeqSince(checkpointSequenceId);
+        }
+        return checkpointSequenceId;
+    }
 }
