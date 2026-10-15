@@ -1,0 +1,1331 @@
+[
+	{
+		"name": "cloudant-common-0.10.22.jar",
+		"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/pom.xml",
+		"sha1": "26ed8cbe9b3cd56f494e72040119382949a09c7a",
+		"children": [
+			{
+				"name": "sdk-core-9.29.0.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+				"sha1": "3161dee679942a0d14dc57a29641f6611ce12a79",
+				"children": [
+					{
+						"name": "gson-2.13.1.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "853ce06c11316b33a8eae5e9095da096a9528b8f",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "error_prone_annotations-2.38.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "fc0ae991433e8590ba51cd558421478318a74c8c",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "logging-interceptor-5.3.2.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "c3e383f1e11079b94509f025628959ebf7742d92",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "okhttp-jvm-5.5.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "cefe1eb26408176d30511420b7e36b065e38bca0",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "kotlin-stdlib-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "okhttp-urlconnection-5.3.2.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "20f1754fee993f33fc91e25cfdb11b1e06c413f0",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "okhttp-java-net-cookiejar-5.3.2.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "eda9683e218b7444e0ebfea9f074521e7dbfd14b",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okhttp-jvm-5.5.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+										"sha1": "cefe1eb26408176d30511420b7e36b065e38bca0",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "okhttp-jvm-5.5.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "cefe1eb26408176d30511420b7e36b065e38bca0",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okio-jvm-3.18.1.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+										"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "okhttp-5.5.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "eb39f0d8a8bb9d0ad292551b830d662fea547d90",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "okio-3.18.1.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "7ec22ddfb3b3178d882f0b71e49d924f8233afa3",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okio-jvm-3.18.1.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+										"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "kotlin-stdlib-1.9.25.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+												"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "commons-codec-1.18.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "commons-io-2.19.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "commons-lang3-3.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "commons-io-2.19.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "commons-codec-1.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "commons-lang3-3.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "rxjava-2.2.21.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "6f13f24c44567fc660aab94d639cda9f0fe95628",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "reactive-streams-1.0.3.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "d9fb7a7926ffa635b3dcaa5049fb2bfa25b3e7d0",
+								"licenses": [
+									"CC0"
+								]
+							}
+						]
+					},
+					{
+						"name": "commons-lang3-3.18.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+						"licenses": [
+							"Apache 2.0"
+						]
+					},
+					{
+						"name": "kotlin-stdlib-jdk8-1.9.25.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "20d44e880a284f7b5cd99dd69450b403073f49b2",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "kotlin-stdlib-jdk7-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "1c166692314a2639e5edfed0d23ed7eee4a5c7a5",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "kotlin-stdlib-1.9.25.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+						"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "annotations-13.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/common/pom.xml",
+								"sha1": "919f0dfe192fb4e063e7dacadee7f8bb9a2672a9",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "cloudant-coverage-reports-0.10.22.jar",
+		"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/pom.xml",
+		"sha1": "b918f3026fe772fe19f4eecb2e5acb9c93854754",
+		"children": [
+			{
+				"name": "cloudant-common-0.10.22.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+				"sha1": "26ed8cbe9b3cd56f494e72040119382949a09c7a",
+				"children": [
+					{
+						"name": "sdk-core-9.29.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+						"sha1": "3161dee679942a0d14dc57a29641f6611ce12a79"
+					}
+				]
+			},
+			{
+				"name": "cloudant-0.10.22.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+				"sha1": "83a04e0ec5c345bbe32341edde0b4f04d78e00f8",
+				"children": [
+					{
+						"name": "gson-2.14.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+						"sha1": "efc0e34ede4e3204eaefb84a00e55e8c86634382",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "error_prone_annotations-2.48.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "bbe30942a31d1778c74cb272321267eca82dc708",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "cloudant-common-0.10.22.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+						"sha1": "26ed8cbe9b3cd56f494e72040119382949a09c7a"
+					},
+					{
+						"name": "sdk-core-9.29.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+						"sha1": "3161dee679942a0d14dc57a29641f6611ce12a79",
+						"children": [
+							{
+								"name": "gson-2.14.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "efc0e34ede4e3204eaefb84a00e55e8c86634382",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "logging-interceptor-5.3.2.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "c3e383f1e11079b94509f025628959ebf7742d92",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okhttp-jvm-5.3.2.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "f31e8de27feebe1e56d6c9d354a0986b65be0e1d",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "okhttp-urlconnection-5.3.2.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "20f1754fee993f33fc91e25cfdb11b1e06c413f0",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okhttp-java-net-cookiejar-5.3.2.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "eda9683e218b7444e0ebfea9f074521e7dbfd14b",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "okhttp-jvm-5.3.2.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+												"sha1": "f31e8de27feebe1e56d6c9d354a0986b65be0e1d",
+												"licenses": [
+													"Apache 2.0"
+												]
+											},
+											{
+												"name": "kotlin-stdlib-1.9.25.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+												"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									},
+									{
+										"name": "okhttp-jvm-5.3.2.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "f31e8de27feebe1e56d6c9d354a0986b65be0e1d",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "okio-jvm-3.18.1.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+												"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+												"licenses": [
+													"Apache 2.0"
+												]
+											},
+											{
+												"name": "kotlin-stdlib-1.9.25.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+												"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "okhttp-5.5.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "eb39f0d8a8bb9d0ad292551b830d662fea547d90",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okio-3.18.1.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "7ec22ddfb3b3178d882f0b71e49d924f8233afa3",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "okio-jvm-3.18.1.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+												"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+												"licenses": [
+													"Apache 2.0"
+												],
+												"children": [
+													{
+														"name": "kotlin-stdlib-1.9.25.jar",
+														"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+														"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+														"licenses": [
+															"Apache 2.0"
+														]
+													}
+												]
+											}
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "commons-codec-1.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "commons-io-2.19.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "commons-lang3-3.18.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "commons-io-2.19.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "commons-codec-1.18.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "commons-lang3-3.18.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "rxjava-2.2.21.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "6f13f24c44567fc660aab94d639cda9f0fe95628",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "reactive-streams-1.0.3.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "d9fb7a7926ffa635b3dcaa5049fb2bfa25b3e7d0",
+										"licenses": [
+											"CC0"
+										]
+									}
+								]
+							},
+							{
+								"name": "commons-lang3-3.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "kotlin-stdlib-jdk8-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "20d44e880a284f7b5cd99dd69450b403073f49b2",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "kotlin-stdlib-jdk7-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "1c166692314a2639e5edfed0d23ed7eee4a5c7a5",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "kotlin-stdlib-1.9.25.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+												"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+								"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "annotations-13.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/coverage-reports/pom.xml",
+										"sha1": "919f0dfe192fb4e063e7dacadee7f8bb9a2672a9",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "cloudant-examples-0.10.22.jar",
+		"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/pom.xml",
+		"sha1": "b9ce8315d63d9641ed549fdfee1b3c4e7bd62ce9",
+		"children": [
+			{
+				"name": "cloudant-0.10.22.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+				"sha1": "83a04e0ec5c345bbe32341edde0b4f04d78e00f8",
+				"children": [
+					{
+						"name": "gson-2.14.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+						"sha1": "efc0e34ede4e3204eaefb84a00e55e8c86634382",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "error_prone_annotations-2.48.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "bbe30942a31d1778c74cb272321267eca82dc708",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "cloudant-common-0.10.22.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+						"sha1": "26ed8cbe9b3cd56f494e72040119382949a09c7a",
+						"children": [
+							{
+								"name": "sdk-core-9.29.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "3161dee679942a0d14dc57a29641f6611ce12a79"
+							}
+						]
+					},
+					{
+						"name": "sdk-core-9.29.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+						"sha1": "3161dee679942a0d14dc57a29641f6611ce12a79",
+						"children": [
+							{
+								"name": "gson-2.14.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "efc0e34ede4e3204eaefb84a00e55e8c86634382",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "logging-interceptor-5.3.2.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "c3e383f1e11079b94509f025628959ebf7742d92",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okhttp-jvm-5.3.2.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "f31e8de27feebe1e56d6c9d354a0986b65be0e1d",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "okio-jvm-3.18.1.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+												"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+												"licenses": [
+													"Apache 2.0"
+												],
+												"children": [
+													{
+														"name": "kotlin-stdlib-1.9.25.jar",
+														"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+														"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+														"licenses": [
+															"Apache 2.0"
+														]
+													}
+												]
+											},
+											{
+												"name": "kotlin-stdlib-1.9.25.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+												"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "okhttp-urlconnection-5.3.2.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "20f1754fee993f33fc91e25cfdb11b1e06c413f0",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okhttp-java-net-cookiejar-5.3.2.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "eda9683e218b7444e0ebfea9f074521e7dbfd14b",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "okhttp-jvm-5.3.2.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+												"sha1": "f31e8de27feebe1e56d6c9d354a0986b65be0e1d",
+												"licenses": [
+													"Apache 2.0"
+												]
+											},
+											{
+												"name": "kotlin-stdlib-1.9.25.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+												"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									},
+									{
+										"name": "okhttp-jvm-5.3.2.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "f31e8de27feebe1e56d6c9d354a0986b65be0e1d",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "okhttp-5.5.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "eb39f0d8a8bb9d0ad292551b830d662fea547d90",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okio-3.18.1.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "7ec22ddfb3b3178d882f0b71e49d924f8233afa3",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "okio-jvm-3.18.1.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+												"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "commons-codec-1.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "commons-io-2.19.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "commons-lang3-3.18.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "commons-io-2.19.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "commons-codec-1.18.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "commons-lang3-3.18.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "rxjava-2.2.21.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "6f13f24c44567fc660aab94d639cda9f0fe95628",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "reactive-streams-1.0.3.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "d9fb7a7926ffa635b3dcaa5049fb2bfa25b3e7d0",
+										"licenses": [
+											"CC0"
+										]
+									}
+								]
+							},
+							{
+								"name": "commons-lang3-3.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "kotlin-stdlib-jdk8-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "20d44e880a284f7b5cd99dd69450b403073f49b2",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "kotlin-stdlib-jdk7-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "1c166692314a2639e5edfed0d23ed7eee4a5c7a5",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "kotlin-stdlib-1.9.25.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+												"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									},
+									{
+										"name": "kotlin-stdlib-1.9.25.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "f700a2f2b8f0d6d0fde48f56d894dc722fb029d7",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "annotations-13.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+										"sha1": "919f0dfe192fb4e063e7dacadee7f8bb9a2672a9",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "slf4j-api-2.0.20.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+								"sha1": "7fea9d92ba67e9b3c8f03515fb202b86a1fe44f6",
+								"licenses": [
+									"MIT"
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"name": "slf4j-jdk14-2.0.20.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+				"sha1": "150dcc58e55add4dd43a7249f20f79a6c58492dc",
+				"licenses": [
+					"MIT"
+				],
+				"children": [
+					{
+						"name": "slf4j-api-2.0.20.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/examples/pom.xml",
+						"sha1": "7fea9d92ba67e9b3c8f03515fb202b86a1fe44f6",
+						"licenses": [
+							"MIT"
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "cloudant-0.10.22.jar",
+		"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/pom.xml",
+		"sha1": "83a04e0ec5c345bbe32341edde0b4f04d78e00f8",
+		"children": [
+			{
+				"name": "gson-2.14.0.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+				"sha1": "efc0e34ede4e3204eaefb84a00e55e8c86634382",
+				"licenses": [
+					"Apache 2.0"
+				],
+				"children": [
+					{
+						"name": "error_prone_annotations-2.48.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "bbe30942a31d1778c74cb272321267eca82dc708",
+						"licenses": [
+							"Apache 2.0"
+						]
+					}
+				]
+			},
+			{
+				"name": "cloudant-common-0.10.22.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+				"sha1": "26ed8cbe9b3cd56f494e72040119382949a09c7a",
+				"children": [
+					{
+						"name": "sdk-core-9.29.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "3161dee679942a0d14dc57a29641f6611ce12a79"
+					}
+				]
+			},
+			{
+				"name": "sdk-core-9.29.0.jar",
+				"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+				"sha1": "3161dee679942a0d14dc57a29641f6611ce12a79",
+				"children": [
+					{
+						"name": "gson-2.14.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "efc0e34ede4e3204eaefb84a00e55e8c86634382",
+						"licenses": [
+							"Apache 2.0"
+						]
+					},
+					{
+						"name": "logging-interceptor-5.3.2.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "c3e383f1e11079b94509f025628959ebf7742d92",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "okhttp-jvm-5.5.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "cefe1eb26408176d30511420b7e36b065e38bca0",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "kotlin-stdlib-2.1.21.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "okhttp-urlconnection-5.3.2.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "20f1754fee993f33fc91e25cfdb11b1e06c413f0",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "okhttp-java-net-cookiejar-5.3.2.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "eda9683e218b7444e0ebfea9f074521e7dbfd14b",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okhttp-jvm-5.5.0.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+										"sha1": "cefe1eb26408176d30511420b7e36b065e38bca0",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "kotlin-stdlib-2.1.21.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+										"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "okhttp-jvm-5.5.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "cefe1eb26408176d30511420b7e36b065e38bca0",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okio-jvm-3.18.1.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+										"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+										"licenses": [
+											"Apache 2.0"
+										]
+									},
+									{
+										"name": "kotlin-stdlib-2.1.21.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+										"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-2.1.21.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "okhttp-5.5.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "eb39f0d8a8bb9d0ad292551b830d662fea547d90",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "okio-3.18.1.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "7ec22ddfb3b3178d882f0b71e49d924f8233afa3",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "okio-jvm-3.18.1.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+										"sha1": "a3a8128bb3a0157d23ecc18c17e8330d9c0ac96c",
+										"licenses": [
+											"Apache 2.0"
+										],
+										"children": [
+											{
+												"name": "kotlin-stdlib-2.1.21.jar",
+												"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+												"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+												"licenses": [
+													"Apache 2.0"
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-2.1.21.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "commons-codec-1.18.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "commons-io-2.19.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "commons-lang3-3.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "commons-io-2.19.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "1f8d4a99ba72b77aa69101175efc79b0c7dcdd7e",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "commons-codec-1.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "ee45d1cf6ec2cc2b809ff04b4dc7aec858e0df8f",
+								"licenses": [
+									"Apache 2.0"
+								]
+							},
+							{
+								"name": "commons-lang3-3.18.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "rxjava-2.2.21.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "6f13f24c44567fc660aab94d639cda9f0fe95628",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "reactive-streams-1.0.3.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "d9fb7a7926ffa635b3dcaa5049fb2bfa25b3e7d0",
+								"licenses": [
+									"CC0"
+								]
+							}
+						]
+					},
+					{
+						"name": "commons-lang3-3.18.0.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "fb14946f0e39748a6571de0635acbe44e7885491",
+						"licenses": [
+							"Apache 2.0"
+						]
+					},
+					{
+						"name": "kotlin-stdlib-jdk8-1.9.25.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "20d44e880a284f7b5cd99dd69450b403073f49b2",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "kotlin-stdlib-jdk7-1.9.25.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "1c166692314a2639e5edfed0d23ed7eee4a5c7a5",
+								"licenses": [
+									"Apache 2.0"
+								],
+								"children": [
+									{
+										"name": "kotlin-stdlib-2.1.21.jar",
+										"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+										"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+										"licenses": [
+											"Apache 2.0"
+										]
+									}
+								]
+							},
+							{
+								"name": "kotlin-stdlib-2.1.21.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					},
+					{
+						"name": "kotlin-stdlib-2.1.21.jar",
+						"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+						"sha1": "97a0975aa19d925e109537af60eb46902920015c",
+						"licenses": [
+							"Apache 2.0"
+						],
+						"children": [
+							{
+								"name": "annotations-13.0.jar",
+								"dependencyFile": "/home/jenkins/agent/workspace/dant-sdks_cloudant-java-sdk_main/modules/cloudant/pom.xml",
+								"sha1": "919f0dfe192fb4e063e7dacadee7f8bb9a2672a9",
+								"licenses": [
+									"Apache 2.0"
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
