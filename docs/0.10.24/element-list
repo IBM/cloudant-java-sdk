@@ -1,0 +1,7 @@
+com.ibm.cloud.cloudant.common
+com.ibm.cloud.cloudant.features
+com.ibm.cloud.cloudant.features.pagination
+com.ibm.cloud.cloudant.internal
+com.ibm.cloud.cloudant.security
+com.ibm.cloud.cloudant.v1
+com.ibm.cloud.cloudant.v1.model
