@@ -14,6 +14,7 @@
 package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.SearchIndexInfo;
+import com.ibm.cloud.cloudant.v1.model.UpdatesPending;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import java.io.InputStream;
@@ -38,5 +39,6 @@ public class SearchIndexInfoTest {
     assertNull(searchIndexInfoModel.getDocDelCount());
     assertNull(searchIndexInfoModel.getPendingSeq());
     assertNull(searchIndexInfoModel.getSignature());
+    assertNull(searchIndexInfoModel.getUpdatesPending());
   }
 }

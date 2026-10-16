@@ -85,6 +85,7 @@ import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetDocumentShardsInfoOptions;
+import com.ibm.cloud.cloudant.v1.model.GetIndexInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.GetIndexesInformationOptions;
 import com.ibm.cloud.cloudant.v1.model.GetLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.GetMembershipInformationOptions;
@@ -106,6 +107,7 @@ import com.ibm.cloud.cloudant.v1.model.HeadAttachmentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDatabaseOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDesignDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadDocumentOptions;
+import com.ibm.cloud.cloudant.v1.model.HeadIndexInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadLocalDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadReplicationDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadSchedulerDocumentOptions;
@@ -116,6 +118,7 @@ import com.ibm.cloud.cloudant.v1.model.IndexAnalysisExclusionReason;
 import com.ibm.cloud.cloudant.v1.model.IndexCandidate;
 import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.IndexField;
+import com.ibm.cloud.cloudant.v1.model.IndexInfoResult;
 import com.ibm.cloud.cloudant.v1.model.IndexInformation;
 import com.ibm.cloud.cloudant.v1.model.IndexResult;
 import com.ibm.cloud.cloudant.v1.model.IndexTextOperatorDefaultField;
@@ -141,6 +144,7 @@ import com.ibm.cloud.cloudant.v1.model.PostDesignDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
+import com.ibm.cloud.cloudant.v1.model.PostIndexInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
@@ -167,6 +171,8 @@ import com.ibm.cloud.cloudant.v1.model.ReplicationCreateTargetParameters;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBM;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBMIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
@@ -182,6 +188,7 @@ import com.ibm.cloud.cloudant.v1.model.SearchDiskSizeInformation;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexDiskSize;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexInfo;
+import com.ibm.cloud.cloudant.v1.model.SearchIndexInformation;
 import com.ibm.cloud.cloudant.v1.model.SearchInfoResult;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
 import com.ibm.cloud.cloudant.v1.model.SearchResultProperties;
@@ -199,6 +206,7 @@ import com.ibm.cloud.cloudant.v1.model.UpInformation;
 import com.ibm.cloud.cloudant.v1.model.UpdatesPending;
 import com.ibm.cloud.cloudant.v1.model.UserContext;
 import com.ibm.cloud.cloudant.v1.model.UuidsResult;
+import com.ibm.cloud.cloudant.v1.model.ViewIndexInformation;
 import com.ibm.cloud.cloudant.v1.model.ViewQueriesResult;
 import com.ibm.cloud.cloudant.v1.model.ViewQuery;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
@@ -1465,6 +1473,268 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testPostDesignDocsQueries" })
+  public void testHeadIndexInfo() throws Exception {
+    try {
+      HeadIndexInfoOptions headIndexInfoOptions = new HeadIndexInfoOptions.Builder()
+        .db("testString")
+        .build();
+
+      // Invoke operation
+      Response<Void> response = service.headIndexInfo(headIndexInfoOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testHeadIndexInfo" })
+  public void testHeadUpInformation() throws Exception {
+    try {
+      HeadUpInformationOptions headUpInformationOptions = new HeadUpInformationOptions();
+
+      // Invoke operation
+      Response<Void> response = service.headUpInformation(headUpInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testHeadUpInformation" })
+  public void testGetActiveTasks() throws Exception {
+    try {
+      GetActiveTasksOptions getActiveTasksOptions = new GetActiveTasksOptions();
+
+      // Invoke operation
+      Response<List<ActiveTask>> response = service.getActiveTasks(getActiveTasksOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      List<ActiveTask> listActiveTaskResult = response.getResult();
+      assertNotNull(listActiveTaskResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetActiveTasks" })
+  public void testGetActivityTrackerEvents() throws Exception {
+    try {
+      GetActivityTrackerEventsOptions getActivityTrackerEventsOptions = new GetActivityTrackerEventsOptions();
+
+      // Invoke operation
+      Response<ActivityTrackerEvents> response = service.getActivityTrackerEvents(getActivityTrackerEventsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      ActivityTrackerEvents activityTrackerEventsResult = response.getResult();
+      assertNotNull(activityTrackerEventsResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetActivityTrackerEvents" })
+  public void testPostActivityTrackerEvents() throws Exception {
+    try {
+      PostActivityTrackerEventsOptions postActivityTrackerEventsOptions = new PostActivityTrackerEventsOptions.Builder()
+        .types(java.util.Arrays.asList("management", "data"))
+        .build();
+
+      // Invoke operation
+      Response<Ok> response = service.postActivityTrackerEvents(postActivityTrackerEventsOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      Ok okResult = response.getResult();
+      assertNotNull(okResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testPostActivityTrackerEvents" })
+  public void testGetCapacityDatabasesInformation() throws Exception {
+    try {
+      GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptions = new GetCapacityDatabasesInformationOptions();
+
+      // Invoke operation
+      Response<CapacityDatabasesInformation> response = service.getCapacityDatabasesInformation(getCapacityDatabasesInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      CapacityDatabasesInformation capacityDatabasesInformationResult = response.getResult();
+      assertNotNull(capacityDatabasesInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetCapacityDatabasesInformation" })
+  public void testGetCurrentDatabasesInformation() throws Exception {
+    try {
+      GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptions = new GetCurrentDatabasesInformationOptions();
+
+      // Invoke operation
+      Response<CurrentDatabasesInformation> response = service.getCurrentDatabasesInformation(getCurrentDatabasesInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      CurrentDatabasesInformation currentDatabasesInformationResult = response.getResult();
+      assertNotNull(currentDatabasesInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetCurrentDatabasesInformation" })
+  public void testGetCurrentThroughputInformation() throws Exception {
+    try {
+      GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptions = new GetCurrentThroughputInformationOptions();
+
+      // Invoke operation
+      Response<CurrentThroughputInformation> response = service.getCurrentThroughputInformation(getCurrentThroughputInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      CurrentThroughputInformation currentThroughputInformationResult = response.getResult();
+      assertNotNull(currentThroughputInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetCurrentThroughputInformation" })
+  public void testGetMembershipInformation() throws Exception {
+    try {
+      GetMembershipInformationOptions getMembershipInformationOptions = new GetMembershipInformationOptions();
+
+      // Invoke operation
+      Response<MembershipInformation> response = service.getMembershipInformation(getMembershipInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      MembershipInformation membershipInformationResult = response.getResult();
+      assertNotNull(membershipInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetMembershipInformation" })
+  public void testGetUpInformation() throws Exception {
+    try {
+      GetUpInformationOptions getUpInformationOptions = new GetUpInformationOptions();
+
+      // Invoke operation
+      Response<UpInformation> response = service.getUpInformation(getUpInformationOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      UpInformation upInformationResult = response.getResult();
+      assertNotNull(upInformationResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetUpInformation" })
+  public void testGetIndexInfo() throws Exception {
+    try {
+      GetIndexInfoOptions getIndexInfoOptions = new GetIndexInfoOptions.Builder()
+        .db("testString")
+        .descending(false)
+        .endKey("testString")
+        .inclusiveEnd(true)
+        .keys("testString")
+        .limit(Long.valueOf("0"))
+        .skip(Long.valueOf("0"))
+        .startKey("testString")
+        .type(java.util.Arrays.asList("search"))
+        .build();
+
+      // Invoke operation
+      Response<IndexInfoResult> response = service.getIndexInfo(getIndexInfoOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      IndexInfoResult indexInfoResultResult = response.getResult();
+      assertNotNull(indexInfoResultResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testGetIndexInfo" })
+  public void testPostIndexInfo() throws Exception {
+    try {
+      PostIndexInfoOptions postIndexInfoOptions = new PostIndexInfoOptions.Builder()
+        .db("testString")
+        .attEncodingInfo(false)
+        .attachments(false)
+        .conflicts(false)
+        .descending(false)
+        .includeDocs(false)
+        .inclusiveEnd(true)
+        .limit(Long.valueOf("0"))
+        .skip(Long.valueOf("0"))
+        .updateSeq(false)
+        .endKey("testString")
+        .key("testString")
+        .keys(java.util.Arrays.asList("_design/cookbook"))
+        .startKey("testString")
+        .type(java.util.Arrays.asList("search"))
+        .build();
+
+      // Invoke operation
+      Response<IndexInfoResult> response = service.postIndexInfo(postIndexInfoOptions).execute();
+      // Validate response
+      assertNotNull(response);
+      assertEquals(response.getStatusCode(), 200);
+
+      IndexInfoResult indexInfoResultResult = response.getResult();
+      assertNotNull(indexInfoResultResult);
+
+    } catch (ServiceResponseException e) {
+        fail(String.format("Service returned status code %d: %s%nError details: %s",
+          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
+    }
+  }
+
+  @Test(dependsOnMethods = { "testPostIndexInfo" })
   public void testPostView() throws Exception {
     try {
       PostViewOptions postViewOptions = new PostViewOptions.Builder()
@@ -2446,9 +2716,18 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .apiKey("testString")
         .build();
 
+      ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+        .apiKey("testString")
+        .build();
+
+      ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+        .iam(replicationDatabaseAuthIbmIamModel)
+        .build();
+
       ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
         .basic(replicationDatabaseAuthBasicModel)
         .iam(replicationDatabaseAuthIamModel)
+        .ibm(replicationDatabaseAuthIbmModel)
         .build();
 
       ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
@@ -2594,9 +2873,18 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .apiKey("testString")
         .build();
 
+      ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+        .apiKey("testString")
+        .build();
+
+      ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+        .iam(replicationDatabaseAuthIbmIamModel)
+        .build();
+
       ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
         .basic(replicationDatabaseAuthBasicModel)
         .iam(replicationDatabaseAuthIamModel)
+        .ibm(replicationDatabaseAuthIbmModel)
         .build();
 
       ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
@@ -3200,184 +3488,6 @@ public class CloudantIT extends SdkIntegrationTestBase {
   }
 
   @Test(dependsOnMethods = { "testGetDocumentShardsInfo" })
-  public void testHeadUpInformation() throws Exception {
-    try {
-      HeadUpInformationOptions headUpInformationOptions = new HeadUpInformationOptions();
-
-      // Invoke operation
-      Response<Void> response = service.headUpInformation(headUpInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testHeadUpInformation" })
-  public void testGetActiveTasks() throws Exception {
-    try {
-      GetActiveTasksOptions getActiveTasksOptions = new GetActiveTasksOptions();
-
-      // Invoke operation
-      Response<List<ActiveTask>> response = service.getActiveTasks(getActiveTasksOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      List<ActiveTask> listActiveTaskResult = response.getResult();
-      assertNotNull(listActiveTaskResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetActiveTasks" })
-  public void testGetActivityTrackerEvents() throws Exception {
-    try {
-      GetActivityTrackerEventsOptions getActivityTrackerEventsOptions = new GetActivityTrackerEventsOptions();
-
-      // Invoke operation
-      Response<ActivityTrackerEvents> response = service.getActivityTrackerEvents(getActivityTrackerEventsOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      ActivityTrackerEvents activityTrackerEventsResult = response.getResult();
-      assertNotNull(activityTrackerEventsResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetActivityTrackerEvents" })
-  public void testPostActivityTrackerEvents() throws Exception {
-    try {
-      PostActivityTrackerEventsOptions postActivityTrackerEventsOptions = new PostActivityTrackerEventsOptions.Builder()
-        .types(java.util.Arrays.asList("management", "data"))
-        .build();
-
-      // Invoke operation
-      Response<Ok> response = service.postActivityTrackerEvents(postActivityTrackerEventsOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      Ok okResult = response.getResult();
-      assertNotNull(okResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testPostActivityTrackerEvents" })
-  public void testGetCapacityDatabasesInformation() throws Exception {
-    try {
-      GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptions = new GetCapacityDatabasesInformationOptions();
-
-      // Invoke operation
-      Response<CapacityDatabasesInformation> response = service.getCapacityDatabasesInformation(getCapacityDatabasesInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      CapacityDatabasesInformation capacityDatabasesInformationResult = response.getResult();
-      assertNotNull(capacityDatabasesInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetCapacityDatabasesInformation" })
-  public void testGetCurrentDatabasesInformation() throws Exception {
-    try {
-      GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptions = new GetCurrentDatabasesInformationOptions();
-
-      // Invoke operation
-      Response<CurrentDatabasesInformation> response = service.getCurrentDatabasesInformation(getCurrentDatabasesInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      CurrentDatabasesInformation currentDatabasesInformationResult = response.getResult();
-      assertNotNull(currentDatabasesInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetCurrentDatabasesInformation" })
-  public void testGetCurrentThroughputInformation() throws Exception {
-    try {
-      GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptions = new GetCurrentThroughputInformationOptions();
-
-      // Invoke operation
-      Response<CurrentThroughputInformation> response = service.getCurrentThroughputInformation(getCurrentThroughputInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      CurrentThroughputInformation currentThroughputInformationResult = response.getResult();
-      assertNotNull(currentThroughputInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetCurrentThroughputInformation" })
-  public void testGetMembershipInformation() throws Exception {
-    try {
-      GetMembershipInformationOptions getMembershipInformationOptions = new GetMembershipInformationOptions();
-
-      // Invoke operation
-      Response<MembershipInformation> response = service.getMembershipInformation(getMembershipInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      MembershipInformation membershipInformationResult = response.getResult();
-      assertNotNull(membershipInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetMembershipInformation" })
-  public void testGetUpInformation() throws Exception {
-    try {
-      GetUpInformationOptions getUpInformationOptions = new GetUpInformationOptions();
-
-      // Invoke operation
-      Response<UpInformation> response = service.getUpInformation(getUpInformationOptions).execute();
-      // Validate response
-      assertNotNull(response);
-      assertEquals(response.getStatusCode(), 200);
-
-      UpInformation upInformationResult = response.getResult();
-      assertNotNull(upInformationResult);
-
-    } catch (ServiceResponseException e) {
-        fail(String.format("Service returned status code %d: %s%nError details: %s",
-          e.getStatusCode(), e.getMessage(), e.getDebuggingInfo()));
-    }
-  }
-
-  @Test(dependsOnMethods = { "testGetUpInformation" })
   public void testDeleteDatabase() throws Exception {
     try {
       DeleteDatabaseOptions deleteDatabaseOptions = new DeleteDatabaseOptions.Builder()

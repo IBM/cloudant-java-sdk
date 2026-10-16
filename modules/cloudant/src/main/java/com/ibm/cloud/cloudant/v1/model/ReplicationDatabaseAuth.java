@@ -22,6 +22,7 @@ public class ReplicationDatabaseAuth extends GenericModel {
 
   protected ReplicationDatabaseAuthBasic basic;
   protected ReplicationDatabaseAuthIam iam;
+  protected ReplicationDatabaseAuthIBM ibm;
 
   /**
    * Builder.
@@ -29,6 +30,7 @@ public class ReplicationDatabaseAuth extends GenericModel {
   public static class Builder {
     private ReplicationDatabaseAuthBasic basic;
     private ReplicationDatabaseAuthIam iam;
+    private ReplicationDatabaseAuthIBM ibm;
 
     /**
      * Instantiates a new Builder from an existing ReplicationDatabaseAuth instance.
@@ -38,6 +40,7 @@ public class ReplicationDatabaseAuth extends GenericModel {
     private Builder(ReplicationDatabaseAuth replicationDatabaseAuth) {
       this.basic = replicationDatabaseAuth.basic;
       this.iam = replicationDatabaseAuth.iam;
+      this.ibm = replicationDatabaseAuth.ibm;
     }
 
     /**
@@ -76,6 +79,17 @@ public class ReplicationDatabaseAuth extends GenericModel {
       this.iam = iam;
       return this;
     }
+
+    /**
+     * Set the ibm.
+     *
+     * @param ibm the ibm
+     * @return the ReplicationDatabaseAuth builder
+     */
+    public Builder ibm(ReplicationDatabaseAuthIBM ibm) {
+      this.ibm = ibm;
+      return this;
+    }
   }
 
   protected ReplicationDatabaseAuth() { }
@@ -83,6 +97,7 @@ public class ReplicationDatabaseAuth extends GenericModel {
   protected ReplicationDatabaseAuth(Builder builder) {
     basic = builder.basic;
     iam = builder.iam;
+    ibm = builder.ibm;
   }
 
   /**
@@ -108,12 +123,23 @@ public class ReplicationDatabaseAuth extends GenericModel {
   /**
    * Gets the iam.
    *
-   * Schema for an IAM API key for replication database authentication.
+   * Deprecated: use the `ibm` property instead to configure IAM for replication database authentication.
    *
    * @return the iam
    */
   public ReplicationDatabaseAuthIam iam() {
     return iam;
+  }
+
+  /**
+   * Gets the ibm.
+   *
+   * IBM IAM replication auth for CouchDB or Cloudant.
+   *
+   * @return the ibm
+   */
+  public ReplicationDatabaseAuthIBM ibm() {
+    return ibm;
   }
 }
 
