@@ -167,6 +167,8 @@ import com.ibm.cloud.cloudant.v1.model.ReplicationCreateTargetParameters;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBM;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBMIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
@@ -2446,9 +2448,18 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .apiKey("testString")
         .build();
 
+      ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+        .apiKey("testString")
+        .build();
+
+      ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+        .iam(replicationDatabaseAuthIbmIamModel)
+        .build();
+
       ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
         .basic(replicationDatabaseAuthBasicModel)
         .iam(replicationDatabaseAuthIamModel)
+        .ibm(replicationDatabaseAuthIbmModel)
         .build();
 
       ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
@@ -2484,6 +2495,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .httpConnections(Long.valueOf("10"))
         .owner("testString")
         .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+        .requestCompression("gzip")
         .retriesPerRequest(Long.valueOf("3"))
         .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
         .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
@@ -2594,9 +2606,18 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .apiKey("testString")
         .build();
 
+      ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+        .apiKey("testString")
+        .build();
+
+      ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+        .iam(replicationDatabaseAuthIbmIamModel)
+        .build();
+
       ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
         .basic(replicationDatabaseAuthBasicModel)
         .iam(replicationDatabaseAuthIamModel)
+        .ibm(replicationDatabaseAuthIbmModel)
         .build();
 
       ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
@@ -2632,6 +2653,7 @@ public class CloudantIT extends SdkIntegrationTestBase {
         .httpConnections(Long.valueOf("10"))
         .owner("testString")
         .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+        .requestCompression("gzip")
         .retriesPerRequest(Long.valueOf("3"))
         .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
         .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")

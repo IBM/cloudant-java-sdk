@@ -20,6 +20,8 @@ import com.ibm.cloud.cloudant.v1.model.ReplicationCreateTargetParameters;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBM;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBMIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
@@ -97,12 +99,24 @@ public class PutReplicationDocumentOptionsTest {
       .build();
     assertEquals(replicationDatabaseAuthIamModel.apiKey(), "testString");
 
+    ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+      .apiKey("testString")
+      .build();
+    assertEquals(replicationDatabaseAuthIbmIamModel.apiKey(), "testString");
+
+    ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+      .iam(replicationDatabaseAuthIbmIamModel)
+      .build();
+    assertEquals(replicationDatabaseAuthIbmModel.iam(), replicationDatabaseAuthIbmIamModel);
+
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
       .basic(replicationDatabaseAuthBasicModel)
       .iam(replicationDatabaseAuthIamModel)
+      .ibm(replicationDatabaseAuthIbmModel)
       .build();
     assertEquals(replicationDatabaseAuthModel.basic(), replicationDatabaseAuthBasicModel);
     assertEquals(replicationDatabaseAuthModel.iam(), replicationDatabaseAuthIamModel);
+    assertEquals(replicationDatabaseAuthModel.ibm(), replicationDatabaseAuthIbmModel);
 
     ReplicationDatabase replicationDatabaseModel = new ReplicationDatabase.Builder()
       .auth(replicationDatabaseAuthModel)
@@ -143,6 +157,7 @@ public class PutReplicationDocumentOptionsTest {
       .httpConnections(Long.valueOf("20"))
       .owner("testString")
       .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+      .requestCompression("none")
       .retriesPerRequest(Long.valueOf("5"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .sinceSeq("testString")
@@ -179,6 +194,7 @@ public class PutReplicationDocumentOptionsTest {
     assertEquals(replicationDocumentModel.getHttpConnections(), Long.valueOf("20"));
     assertEquals(replicationDocumentModel.getOwner(), "testString");
     assertEquals(replicationDocumentModel.getQueryParams(), java.util.Collections.singletonMap("key1", "testString"));
+    assertEquals(replicationDocumentModel.getRequestCompression(), "none");
     assertEquals(replicationDocumentModel.getRetriesPerRequest(), Long.valueOf("5"));
     assertEquals(replicationDocumentModel.getSelector(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(replicationDocumentModel.getSinceSeq(), "testString");

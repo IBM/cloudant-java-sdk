@@ -15,6 +15,8 @@ package com.ibm.cloud.cloudant.v1.model;
 
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBM;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBMIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.utils.TestUtilities;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
@@ -45,12 +47,24 @@ public class ReplicationDatabaseAuthTest {
       .build();
     assertEquals(replicationDatabaseAuthIamModel.apiKey(), "testString");
 
+    ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+      .apiKey("testString")
+      .build();
+    assertEquals(replicationDatabaseAuthIbmIamModel.apiKey(), "testString");
+
+    ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+      .iam(replicationDatabaseAuthIbmIamModel)
+      .build();
+    assertEquals(replicationDatabaseAuthIbmModel.iam(), replicationDatabaseAuthIbmIamModel);
+
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
       .basic(replicationDatabaseAuthBasicModel)
       .iam(replicationDatabaseAuthIamModel)
+      .ibm(replicationDatabaseAuthIbmModel)
       .build();
     assertEquals(replicationDatabaseAuthModel.basic(), replicationDatabaseAuthBasicModel);
     assertEquals(replicationDatabaseAuthModel.iam(), replicationDatabaseAuthIamModel);
+    assertEquals(replicationDatabaseAuthModel.ibm(), replicationDatabaseAuthIbmModel);
 
     String json = TestUtilities.serialize(replicationDatabaseAuthModel);
 
@@ -58,5 +72,6 @@ public class ReplicationDatabaseAuthTest {
     assertTrue(replicationDatabaseAuthModelNew instanceof ReplicationDatabaseAuth);
     assertEquals(replicationDatabaseAuthModelNew.basic().toString(), replicationDatabaseAuthBasicModel.toString());
     assertEquals(replicationDatabaseAuthModelNew.iam().toString(), replicationDatabaseAuthIamModel.toString());
+    assertEquals(replicationDatabaseAuthModelNew.ibm().toString(), replicationDatabaseAuthIbmModel.toString());
   }
 }

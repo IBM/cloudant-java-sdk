@@ -29,6 +29,18 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
  */
 public class ReplicationDocument extends DynamicModel<Object> {
 
+  /**
+   * Specify whether to compress HTTP request bodies during replication. Set to `gzip` to compress request bodies or
+   * `none` to disable compression. Only use `gzip` if the remote server accepts compressed requests. If unset, the
+   * default is determined by the server administrator.
+   */
+  public interface RequestCompression {
+    /** none. */
+    String NONE = "none";
+    /** gzip. */
+    String GZIP = "gzip";
+  }
+
   @SerializedName("_attachments")
   protected Map<String, Attachment> attachments;
   @SerializedName("_conflicts")
@@ -69,6 +81,8 @@ public class ReplicationDocument extends DynamicModel<Object> {
   protected String owner;
   @SerializedName("query_params")
   protected Map<String, String> queryParams;
+  @SerializedName("request_compression")
+  protected String requestCompression;
   @SerializedName("retries_per_request")
   protected Long retriesPerRequest;
   @SerializedName("selector")
@@ -126,6 +140,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
     private Long httpConnections;
     private String owner;
     private Map<String, String> queryParams;
+    private String requestCompression;
     private Long retriesPerRequest;
     private Map<String, Object> selector;
     private String sinceSeq;
@@ -168,6 +183,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
       this.httpConnections = replicationDocument.httpConnections;
       this.owner = replicationDocument.owner;
       this.queryParams = replicationDocument.queryParams;
+      this.requestCompression = replicationDocument.requestCompression;
       this.retriesPerRequest = replicationDocument.retriesPerRequest;
       this.selector = replicationDocument.selector;
       this.sinceSeq = replicationDocument.sinceSeq;
@@ -500,6 +516,17 @@ public class ReplicationDocument extends DynamicModel<Object> {
     }
 
     /**
+     * Set the requestCompression.
+     *
+     * @param requestCompression the requestCompression
+     * @return the ReplicationDocument builder
+     */
+    public Builder requestCompression(String requestCompression) {
+      this.requestCompression = requestCompression;
+      return this;
+    }
+
+    /**
      * Set the retriesPerRequest.
      *
      * @param retriesPerRequest the retriesPerRequest
@@ -700,6 +727,7 @@ public class ReplicationDocument extends DynamicModel<Object> {
     httpConnections = builder.httpConnections;
     owner = builder.owner;
     queryParams = builder.queryParams;
+    requestCompression = builder.requestCompression;
     retriesPerRequest = builder.retriesPerRequest;
     selector = builder.selector;
     sinceSeq = builder.sinceSeq;
@@ -1128,6 +1156,28 @@ public class ReplicationDocument extends DynamicModel<Object> {
    */
   public void setQueryParams(final Map<String, String> queryParams) {
     this.queryParams = queryParams;
+  }
+
+  /**
+   * Gets the requestCompression.
+   *
+   * Specify whether to compress HTTP request bodies during replication. Set to `gzip` to compress request bodies or
+   * `none` to disable compression. Only use `gzip` if the remote server accepts compressed requests. If unset, the
+   * default is determined by the server administrator.
+   *
+   * @return the requestCompression
+   */
+  public String getRequestCompression() {
+    return this.requestCompression;
+  }
+
+  /**
+   * Sets the requestCompression.
+   *
+   * @param requestCompression the new requestCompression
+   */
+  public void setRequestCompression(final String requestCompression) {
+    this.requestCompression = requestCompression;
   }
 
   /**
