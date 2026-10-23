@@ -34,6 +34,13 @@ pipeline {
         }
       }
     }
+
+    stage('Build') {
+      steps {
+        buildSdk()
+      }
+    }
+
     stage('QA') {
       steps {
         withEnv(['DOCKER_HOST=',
@@ -86,6 +93,12 @@ pipeline {
       }
       steps {
         scanCode()
+      }
+    }
+
+    stage('Package') {
+      steps {
+        packageArtifacts()
       }
     }
 
@@ -309,7 +322,9 @@ void defaultInit() {
 
 // Language specific implementations of the methods:
 // applyCustomizations()
+// buildSdk()
 // runTests()
+// packageArtifacts()
 // publishStaging()
 // publishPublic()
 // publishDocs()
@@ -339,9 +354,17 @@ void applyCustomizations() {
   }
 }
 
+void buildSdk() {
+  sh 'mvn install --settings build/jenkins.settings.xml -DskipTests -DskipITs -Dmaven.javadoc.skip=true'
+}
+
 void runTests() {
   // Allow tests to run classes in parallel
   sh 'mvn verify -DperCoreThreadCount=false -DthreadCount=2 -Dparallel=classes --settings build/jenkins.settings.xml'
+}
+
+void packageArtifacts() {
+  sh 'mvn install -DskipTests -DskipITs --settings build/jenkins.settings.xml'
 }
 
 void publishStaging() {
