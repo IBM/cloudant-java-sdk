@@ -32,6 +32,9 @@ public class UpdatesPendingTest {
   @Test
   public void testUpdatesPending() throws Throwable {
     UpdatesPending updatesPendingModel = new UpdatesPending();
+    assertNull(updatesPendingModel.getCopies());
+    assertNull(updatesPendingModel.getCopiesExpected());
+    assertNull(updatesPendingModel.getMaximum());
     assertNull(updatesPendingModel.getMinimum());
     assertNull(updatesPendingModel.getPreferred());
     assertNull(updatesPendingModel.getTotal());

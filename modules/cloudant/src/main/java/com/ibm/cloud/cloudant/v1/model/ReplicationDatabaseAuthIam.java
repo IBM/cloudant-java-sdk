@@ -17,7 +17,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Schema for an IAM API key for replication database authentication.
+ * Deprecated: use the `ibm` property instead to configure IAM for replication database authentication.
  */
 public class ReplicationDatabaseAuthIam extends GenericModel {
 
