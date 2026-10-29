@@ -111,7 +111,7 @@ public class DesignDocumentViewIndex extends GenericModel {
   /**
    * Gets the updatesPending.
    *
-   * Schema for an ability to tell if view is up-to-date without querying it.
+   * Schema for information about pending updates for an index, calculated across all available copies of all shards.
    *
    * @return the updatesPending
    */

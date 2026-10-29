@@ -117,6 +117,7 @@ import com.ibm.cloud.cloudant.v1.model.IndexAnalysisExclusionReason;
 import com.ibm.cloud.cloudant.v1.model.IndexCandidate;
 import com.ibm.cloud.cloudant.v1.model.IndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.IndexField;
+import com.ibm.cloud.cloudant.v1.model.IndexInfoResult;
 import com.ibm.cloud.cloudant.v1.model.IndexInformation;
 import com.ibm.cloud.cloudant.v1.model.IndexResult;
 import com.ibm.cloud.cloudant.v1.model.IndexTextOperatorDefaultField;
@@ -142,6 +143,7 @@ import com.ibm.cloud.cloudant.v1.model.PostDesignDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
+import com.ibm.cloud.cloudant.v1.model.PostIndexInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
@@ -168,6 +170,8 @@ import com.ibm.cloud.cloudant.v1.model.ReplicationCreateTargetParameters;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthBasic;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBM;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBMIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 import com.ibm.cloud.cloudant.v1.model.Revisions;
@@ -183,6 +187,7 @@ import com.ibm.cloud.cloudant.v1.model.SearchDiskSizeInformation;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexDefinition;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexDiskSize;
 import com.ibm.cloud.cloudant.v1.model.SearchIndexInfo;
+import com.ibm.cloud.cloudant.v1.model.SearchIndexInformation;
 import com.ibm.cloud.cloudant.v1.model.SearchInfoResult;
 import com.ibm.cloud.cloudant.v1.model.SearchResult;
 import com.ibm.cloud.cloudant.v1.model.SearchResultProperties;
@@ -200,6 +205,7 @@ import com.ibm.cloud.cloudant.v1.model.UpInformation;
 import com.ibm.cloud.cloudant.v1.model.UpdatesPending;
 import com.ibm.cloud.cloudant.v1.model.UserContext;
 import com.ibm.cloud.cloudant.v1.model.UuidsResult;
+import com.ibm.cloud.cloudant.v1.model.ViewIndexInformation;
 import com.ibm.cloud.cloudant.v1.model.ViewQueriesResult;
 import com.ibm.cloud.cloudant.v1.model.ViewQuery;
 import com.ibm.cloud.cloudant.v1.model.ViewResult;
@@ -2538,7 +2544,7 @@ public class CloudantTest {
   @Test
   public void testGetDesignDocumentInformationWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 0, \"external\": 0, \"file\": 0}, \"updater_running\": true, \"updates_pending\": {\"minimum\": 0, \"preferred\": 0, \"total\": 0}, \"waiting_clients\": 0, \"waiting_commit\": false}}";
+    String mockResponseBody = "{\"name\": \"name\", \"view_index\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 0, \"external\": 0, \"file\": 0}, \"updater_running\": true, \"updates_pending\": {\"copies\": 0, \"copies_expected\": 0, \"maximum\": 0, \"minimum\": 0, \"preferred\": 0, \"total\": 0}, \"waiting_clients\": 0, \"waiting_commit\": false}}";
     String getDesignDocumentInformationPath = "/testString/_design/testString/_info";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -2718,6 +2724,457 @@ public class CloudantTest {
   public void testPostDesignDocsQueriesNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     cloudantService.postDesignDocsQueries(null).execute();
+  }
+
+  // Test the headUpInformation operation with a valid options model parameter
+  @Test
+  public void testHeadUpInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "";
+    String headUpInformationPath = "/_up";
+    server.enqueue(new MockResponse()
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the HeadUpInformationOptions model
+    HeadUpInformationOptions headUpInformationOptionsModel = new HeadUpInformationOptions();
+
+    // Invoke headUpInformation() with a valid options model and verify the result
+    Response<Void> response = cloudantService.headUpInformation(headUpInformationOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    assertNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "HEAD");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, headUpInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the headUpInformation operation with and without retries enabled
+  @Test
+  public void testHeadUpInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testHeadUpInformationWOptions();
+
+    cloudantService.disableRetries();
+    testHeadUpInformationWOptions();
+  }
+
+  // Test the getActiveTasks operation with a valid options model parameter
+  @Test
+  public void testGetActiveTasksWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "[{\"bulk_get_attempts\": 0, \"bulk_get_docs\": 0, \"changes_done\": 0, \"changes_pending\": 0, \"checkpoint_interval\": 30000, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"continuous\": false, \"database\": \"database\", \"design_document\": \"designDocument\", \"doc_id\": \"docId\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"index\": \"index\", \"indexer_pid\": \"indexerPid\", \"missing_revisions_found\": 0, \"node\": \"node\", \"phase\": \"docid_sort\", \"pid\": \"pid\", \"process_status\": \"exiting\", \"progress\": 0, \"replication_id\": \"replicationId\", \"retry\": false, \"revisions_checked\": 0, \"source\": \"source\", \"source_seq\": \"sourceSeq\", \"started_on\": 0, \"target\": \"target\", \"through_seq\": \"throughSeq\", \"total_changes\": 0, \"type\": \"database_compaction\", \"updated_on\": 0, \"user\": \"user\", \"view\": 0}]";
+    String getActiveTasksPath = "/_active_tasks";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetActiveTasksOptions model
+    GetActiveTasksOptions getActiveTasksOptionsModel = new GetActiveTasksOptions();
+
+    // Invoke getActiveTasks() with a valid options model and verify the result
+    Response<List<ActiveTask>> response = cloudantService.getActiveTasks(getActiveTasksOptionsModel).execute();
+    assertNotNull(response);
+    List<ActiveTask> responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getActiveTasksPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getActiveTasks operation with and without retries enabled
+  @Test
+  public void testGetActiveTasksWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetActiveTasksWOptions();
+
+    cloudantService.disableRetries();
+    testGetActiveTasksWOptions();
+  }
+
+  // Test the getActivityTrackerEvents operation with a valid options model parameter
+  @Test
+  public void testGetActivityTrackerEventsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"types\": [\"management\"]}";
+    String getActivityTrackerEventsPath = "/_api/v2/user/activity_tracker/events";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetActivityTrackerEventsOptions model
+    GetActivityTrackerEventsOptions getActivityTrackerEventsOptionsModel = new GetActivityTrackerEventsOptions();
+
+    // Invoke getActivityTrackerEvents() with a valid options model and verify the result
+    Response<ActivityTrackerEvents> response = cloudantService.getActivityTrackerEvents(getActivityTrackerEventsOptionsModel).execute();
+    assertNotNull(response);
+    ActivityTrackerEvents responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getActivityTrackerEventsPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getActivityTrackerEvents operation with and without retries enabled
+  @Test
+  public void testGetActivityTrackerEventsWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetActivityTrackerEventsWOptions();
+
+    cloudantService.disableRetries();
+    testGetActivityTrackerEventsWOptions();
+  }
+
+  // Test the postActivityTrackerEvents operation with a valid options model parameter
+  @Test
+  public void testPostActivityTrackerEventsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"ok\": true}";
+    String postActivityTrackerEventsPath = "/_api/v2/user/activity_tracker/events";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the PostActivityTrackerEventsOptions model
+    PostActivityTrackerEventsOptions postActivityTrackerEventsOptionsModel = new PostActivityTrackerEventsOptions.Builder()
+      .types(java.util.Arrays.asList("management", "data"))
+      .build();
+
+    // Invoke postActivityTrackerEvents() with a valid options model and verify the result
+    Response<Ok> response = cloudantService.postActivityTrackerEvents(postActivityTrackerEventsOptionsModel).execute();
+    assertNotNull(response);
+    Ok responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postActivityTrackerEventsPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the postActivityTrackerEvents operation with and without retries enabled
+  @Test
+  public void testPostActivityTrackerEventsWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testPostActivityTrackerEventsWOptions();
+
+    cloudantService.disableRetries();
+    testPostActivityTrackerEventsWOptions();
+  }
+
+  // Test the postActivityTrackerEvents operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostActivityTrackerEventsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    cloudantService.postActivityTrackerEvents(null).execute();
+  }
+
+  // Test the getCapacityDatabasesInformation operation with a valid options model parameter
+  @Test
+  public void testGetCapacityDatabasesInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"current\": {\"databases\": {\"total\": 0}}}";
+    String getCapacityDatabasesInformationPath = "/_api/v2/user/capacity/databases";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetCapacityDatabasesInformationOptions model
+    GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptionsModel = new GetCapacityDatabasesInformationOptions();
+
+    // Invoke getCapacityDatabasesInformation() with a valid options model and verify the result
+    Response<CapacityDatabasesInformation> response = cloudantService.getCapacityDatabasesInformation(getCapacityDatabasesInformationOptionsModel).execute();
+    assertNotNull(response);
+    CapacityDatabasesInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCapacityDatabasesInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getCapacityDatabasesInformation operation with and without retries enabled
+  @Test
+  public void testGetCapacityDatabasesInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetCapacityDatabasesInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetCapacityDatabasesInformationWOptions();
+  }
+
+  // Test the getCurrentDatabasesInformation operation with a valid options model parameter
+  @Test
+  public void testGetCurrentDatabasesInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"databases\": {\"total\": 0}}";
+    String getCurrentDatabasesInformationPath = "/_api/v2/user/current/databases";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetCurrentDatabasesInformationOptions model
+    GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptionsModel = new GetCurrentDatabasesInformationOptions();
+
+    // Invoke getCurrentDatabasesInformation() with a valid options model and verify the result
+    Response<CurrentDatabasesInformation> response = cloudantService.getCurrentDatabasesInformation(getCurrentDatabasesInformationOptionsModel).execute();
+    assertNotNull(response);
+    CurrentDatabasesInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCurrentDatabasesInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getCurrentDatabasesInformation operation with and without retries enabled
+  @Test
+  public void testGetCurrentDatabasesInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetCurrentDatabasesInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetCurrentDatabasesInformationWOptions();
+  }
+
+  // Test the getCurrentThroughputInformation operation with a valid options model parameter
+  @Test
+  public void testGetCurrentThroughputInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"throughput\": {\"query\": 0, \"read\": 0, \"write\": 0}}";
+    String getCurrentThroughputInformationPath = "/_api/v2/user/current/throughput";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetCurrentThroughputInformationOptions model
+    GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptionsModel = new GetCurrentThroughputInformationOptions();
+
+    // Invoke getCurrentThroughputInformation() with a valid options model and verify the result
+    Response<CurrentThroughputInformation> response = cloudantService.getCurrentThroughputInformation(getCurrentThroughputInformationOptionsModel).execute();
+    assertNotNull(response);
+    CurrentThroughputInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCurrentThroughputInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getCurrentThroughputInformation operation with and without retries enabled
+  @Test
+  public void testGetCurrentThroughputInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetCurrentThroughputInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetCurrentThroughputInformationWOptions();
+  }
+
+  // Test the getMembershipInformation operation with a valid options model parameter
+  @Test
+  public void testGetMembershipInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"all_nodes\": [\"allNodes\"], \"cluster_nodes\": [\"clusterNodes\"]}";
+    String getMembershipInformationPath = "/_membership";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetMembershipInformationOptions model
+    GetMembershipInformationOptions getMembershipInformationOptionsModel = new GetMembershipInformationOptions();
+
+    // Invoke getMembershipInformation() with a valid options model and verify the result
+    Response<MembershipInformation> response = cloudantService.getMembershipInformation(getMembershipInformationOptionsModel).execute();
+    assertNotNull(response);
+    MembershipInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getMembershipInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getMembershipInformation operation with and without retries enabled
+  @Test
+  public void testGetMembershipInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetMembershipInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetMembershipInformationWOptions();
+  }
+
+  // Test the getUpInformation operation with a valid options model parameter
+  @Test
+  public void testGetUpInformationWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"cluster\": \"cluster\", \"seeds\": {\"anyKey\": \"anyValue\"}, \"status\": \"maintenance_mode\"}";
+    String getUpInformationPath = "/_up";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the GetUpInformationOptions model
+    GetUpInformationOptions getUpInformationOptionsModel = new GetUpInformationOptions();
+
+    // Invoke getUpInformation() with a valid options model and verify the result
+    Response<UpInformation> response = cloudantService.getUpInformation(getUpInformationOptionsModel).execute();
+    assertNotNull(response);
+    UpInformation responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getUpInformationPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the getUpInformation operation with and without retries enabled
+  @Test
+  public void testGetUpInformationWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testGetUpInformationWOptions();
+
+    cloudantService.disableRetries();
+    testGetUpInformationWOptions();
+  }
+
+  // Test the postIndexInfo operation with a valid options model parameter
+  @Test
+  public void testPostIndexInfoWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"bookmark\": \"bookmark\", \"search_indexes\": [{\"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"ddoc\": \"ddoc\", \"info\": {\"committed_seq\": 0, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 0, \"signature\": \"signature\", \"updates_pending\": {\"copies\": 0, \"copies_expected\": 0, \"maximum\": 0, \"minimum\": 0, \"preferred\": 0, \"total\": 0}}, \"name\": \"name\"}], \"total_rows\": 0, \"view_indexes\": [{\"ok\": true, \"caused_by\": \"causedBy\", \"error\": \"error\", \"reason\": \"reason\", \"ref\": 0, \"ddoc\": \"ddoc\", \"info\": {\"collator_versions\": [\"collatorVersions\"], \"compact_running\": true, \"language\": \"language\", \"signature\": \"signature\", \"sizes\": {\"active\": 0, \"external\": 0, \"file\": 0}, \"updater_running\": true, \"updates_pending\": {\"copies\": 0, \"copies_expected\": 0, \"maximum\": 0, \"minimum\": 0, \"preferred\": 0, \"total\": 0}, \"waiting_clients\": 0, \"waiting_commit\": false}, \"views\": [\"views\"]}]}";
+    String postIndexInfoPath = "/testString/_index_info";
+    server.enqueue(new MockResponse()
+      .setHeader("Content-type", "application/json")
+      .setResponseCode(200)
+      .setBody(mockResponseBody));
+
+    // Construct an instance of the PostIndexInfoOptions model
+    PostIndexInfoOptions postIndexInfoOptionsModel = new PostIndexInfoOptions.Builder()
+      .db("testString")
+      .attEncodingInfo(false)
+      .attachments(false)
+      .conflicts(false)
+      .descending(false)
+      .includeDocs(false)
+      .inclusiveEnd(true)
+      .limit(Long.valueOf("0"))
+      .skip(Long.valueOf("0"))
+      .updateSeq(false)
+      .endKey("testString")
+      .key("testString")
+      .keys(java.util.Arrays.asList("_design/cookbook"))
+      .startKey("testString")
+      .type(java.util.Arrays.asList("search"))
+      .build();
+
+    // Invoke postIndexInfo() with a valid options model and verify the result
+    Response<IndexInfoResult> response = cloudantService.postIndexInfo(postIndexInfoOptionsModel).execute();
+    assertNotNull(response);
+    IndexInfoResult responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, postIndexInfoPath);
+    // Verify that there is no query string
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+  }
+
+  // Test the postIndexInfo operation with and without retries enabled
+  @Test
+  public void testPostIndexInfoWRetries() throws Throwable {
+    cloudantService.enableRetries(4, 30);
+    testPostIndexInfoWOptions();
+
+    cloudantService.disableRetries();
+    testPostIndexInfoWOptions();
+  }
+
+  // Test the postIndexInfo operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPostIndexInfoNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    cloudantService.postIndexInfo(null).execute();
   }
 
   // Test the postView operation with a valid options model parameter
@@ -4314,7 +4771,7 @@ public class CloudantTest {
   @Test
   public void testGetSearchInfoWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"committed_seq\": 0, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 0, \"signature\": \"signature\"}}";
+    String mockResponseBody = "{\"name\": \"name\", \"search_index\": {\"committed_seq\": 0, \"disk_size\": 0, \"doc_count\": 0, \"doc_del_count\": 0, \"pending_seq\": 0, \"signature\": \"signature\", \"updates_pending\": {\"copies\": 0, \"copies_expected\": 0, \"maximum\": 0, \"minimum\": 0, \"preferred\": 0, \"total\": 0}}}";
     String getSearchInfoPath = "/testString/_design/testString/_search_info/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4568,10 +5025,21 @@ public class CloudantTest {
       .apiKey("testString")
       .build();
 
+    // Construct an instance of the ReplicationDatabaseAuthIBMIam model
+    ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+      .apiKey("testString")
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuthIBM model
+    ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+      .iam(replicationDatabaseAuthIbmIamModel)
+      .build();
+
     // Construct an instance of the ReplicationDatabaseAuth model
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
       .basic(replicationDatabaseAuthBasicModel)
       .iam(replicationDatabaseAuthIamModel)
+      .ibm(replicationDatabaseAuthIbmModel)
       .build();
 
     // Construct an instance of the ReplicationDatabase model
@@ -4610,6 +5078,7 @@ public class CloudantTest {
       .httpConnections(Long.valueOf("10"))
       .owner("testString")
       .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+      .requestCompression("gzip")
       .retriesPerRequest(Long.valueOf("3"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
@@ -4729,7 +5198,7 @@ public class CloudantTest {
   @Test
   public void testGetReplicationDocumentWOptions() throws Throwable {
     // Register a mock response
-    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 30000, \"connection_timeout\": 30000, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 3, \"partitioned\": false, \"q\": 16}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 20, \"owner\": \"owner\", \"query_params\": {\"mapKey\": \"inner\"}, \"retries_per_request\": 5, \"selector\": {\"anyKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_bulk_get\": true, \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 500, \"worker_processes\": 4}";
+    String mockResponseBody = "{\"_attachments\": {\"mapKey\": {\"content_type\": \"contentType\", \"data\": \"VGhpcyBpcyBhIG1vY2sgYnl0ZSBhcnJheSB2YWx1ZS4=\", \"digest\": \"digest\", \"encoded_length\": 0, \"encoding\": \"encoding\", \"follows\": false, \"length\": 0, \"revpos\": 1, \"stub\": true}}, \"_conflicts\": [\"conflicts\"], \"_deleted\": false, \"_deleted_conflicts\": [\"deletedConflicts\"], \"_id\": \"id\", \"_local_seq\": \"localSeq\", \"_rev\": \"rev\", \"_revisions\": {\"ids\": [\"ids\"], \"start\": 1}, \"_revs_info\": [{\"rev\": \"rev\", \"status\": \"available\"}], \"cancel\": true, \"checkpoint_interval\": 30000, \"connection_timeout\": 30000, \"continuous\": false, \"create_target\": false, \"create_target_params\": {\"n\": 3, \"partitioned\": false, \"q\": 16}, \"doc_ids\": [\"docIds\"], \"filter\": \"filter\", \"http_connections\": 20, \"owner\": \"owner\", \"query_params\": {\"mapKey\": \"inner\"}, \"request_compression\": \"none\", \"retries_per_request\": 5, \"selector\": {\"anyKey\": \"anyValue\"}, \"since_seq\": \"sinceSeq\", \"socket_options\": \"socketOptions\", \"source\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}, \"ibm\": {\"iam\": {\"api_key\": \"apiKey\"}}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"source_proxy\": \"sourceProxy\", \"target\": {\"auth\": {\"basic\": {\"password\": \"password\", \"username\": \"username\"}, \"iam\": {\"api_key\": \"apiKey\"}, \"ibm\": {\"iam\": {\"api_key\": \"apiKey\"}}}, \"headers\": {\"mapKey\": \"inner\"}, \"url\": \"url\"}, \"target_proxy\": \"targetProxy\", \"use_bulk_get\": true, \"use_checkpoints\": true, \"user_ctx\": {\"db\": \"db\", \"name\": \"name\", \"roles\": [\"_reader\"]}, \"winning_revs_only\": false, \"worker_batch_size\": 500, \"worker_processes\": 4}";
     String getReplicationDocumentPath = "/_replicator/testString";
     server.enqueue(new MockResponse()
       .setHeader("Content-type", "application/json")
@@ -4851,10 +5320,21 @@ public class CloudantTest {
       .apiKey("testString")
       .build();
 
+    // Construct an instance of the ReplicationDatabaseAuthIBMIam model
+    ReplicationDatabaseAuthIBMIam replicationDatabaseAuthIbmIamModel = new ReplicationDatabaseAuthIBMIam.Builder()
+      .apiKey("testString")
+      .build();
+
+    // Construct an instance of the ReplicationDatabaseAuthIBM model
+    ReplicationDatabaseAuthIBM replicationDatabaseAuthIbmModel = new ReplicationDatabaseAuthIBM.Builder()
+      .iam(replicationDatabaseAuthIbmIamModel)
+      .build();
+
     // Construct an instance of the ReplicationDatabaseAuth model
     ReplicationDatabaseAuth replicationDatabaseAuthModel = new ReplicationDatabaseAuth.Builder()
       .basic(replicationDatabaseAuthBasicModel)
       .iam(replicationDatabaseAuthIamModel)
+      .ibm(replicationDatabaseAuthIbmModel)
       .build();
 
     // Construct an instance of the ReplicationDatabase model
@@ -4893,6 +5373,7 @@ public class CloudantTest {
       .httpConnections(Long.valueOf("10"))
       .owner("testString")
       .queryParams(java.util.Collections.singletonMap("key1", "testString"))
+      .requestCompression("gzip")
       .retriesPerRequest(Long.valueOf("3"))
       .selector(java.util.Collections.singletonMap("anyKey", "anyValue"))
       .sinceSeq("34-g1AAAAGjeJzLYWBgYMlgTmGQT0lKzi9KdU")
@@ -6165,392 +6646,6 @@ public class CloudantTest {
   public void testGetDocumentShardsInfoNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     cloudantService.getDocumentShardsInfo(null).execute();
-  }
-
-  // Test the headUpInformation operation with a valid options model parameter
-  @Test
-  public void testHeadUpInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "";
-    String headUpInformationPath = "/_up";
-    server.enqueue(new MockResponse()
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the HeadUpInformationOptions model
-    HeadUpInformationOptions headUpInformationOptionsModel = new HeadUpInformationOptions();
-
-    // Invoke headUpInformation() with a valid options model and verify the result
-    Response<Void> response = cloudantService.headUpInformation(headUpInformationOptionsModel).execute();
-    assertNotNull(response);
-    Void responseObj = response.getResult();
-    assertNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "HEAD");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, headUpInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the headUpInformation operation with and without retries enabled
-  @Test
-  public void testHeadUpInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testHeadUpInformationWOptions();
-
-    cloudantService.disableRetries();
-    testHeadUpInformationWOptions();
-  }
-
-  // Test the getActiveTasks operation with a valid options model parameter
-  @Test
-  public void testGetActiveTasksWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "[{\"bulk_get_attempts\": 0, \"bulk_get_docs\": 0, \"changes_done\": 0, \"changes_pending\": 0, \"checkpoint_interval\": 30000, \"checkpointed_source_seq\": \"checkpointedSourceSeq\", \"continuous\": false, \"database\": \"database\", \"design_document\": \"designDocument\", \"doc_id\": \"docId\", \"doc_write_failures\": 0, \"docs_read\": 0, \"docs_written\": 0, \"index\": \"index\", \"indexer_pid\": \"indexerPid\", \"missing_revisions_found\": 0, \"node\": \"node\", \"phase\": \"docid_sort\", \"pid\": \"pid\", \"process_status\": \"exiting\", \"progress\": 0, \"replication_id\": \"replicationId\", \"retry\": false, \"revisions_checked\": 0, \"source\": \"source\", \"source_seq\": \"sourceSeq\", \"started_on\": 0, \"target\": \"target\", \"through_seq\": \"throughSeq\", \"total_changes\": 0, \"type\": \"database_compaction\", \"updated_on\": 0, \"user\": \"user\", \"view\": 0}]";
-    String getActiveTasksPath = "/_active_tasks";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetActiveTasksOptions model
-    GetActiveTasksOptions getActiveTasksOptionsModel = new GetActiveTasksOptions();
-
-    // Invoke getActiveTasks() with a valid options model and verify the result
-    Response<List<ActiveTask>> response = cloudantService.getActiveTasks(getActiveTasksOptionsModel).execute();
-    assertNotNull(response);
-    List<ActiveTask> responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getActiveTasksPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getActiveTasks operation with and without retries enabled
-  @Test
-  public void testGetActiveTasksWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetActiveTasksWOptions();
-
-    cloudantService.disableRetries();
-    testGetActiveTasksWOptions();
-  }
-
-  // Test the getActivityTrackerEvents operation with a valid options model parameter
-  @Test
-  public void testGetActivityTrackerEventsWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"types\": [\"management\"]}";
-    String getActivityTrackerEventsPath = "/_api/v2/user/activity_tracker/events";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetActivityTrackerEventsOptions model
-    GetActivityTrackerEventsOptions getActivityTrackerEventsOptionsModel = new GetActivityTrackerEventsOptions();
-
-    // Invoke getActivityTrackerEvents() with a valid options model and verify the result
-    Response<ActivityTrackerEvents> response = cloudantService.getActivityTrackerEvents(getActivityTrackerEventsOptionsModel).execute();
-    assertNotNull(response);
-    ActivityTrackerEvents responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getActivityTrackerEventsPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getActivityTrackerEvents operation with and without retries enabled
-  @Test
-  public void testGetActivityTrackerEventsWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetActivityTrackerEventsWOptions();
-
-    cloudantService.disableRetries();
-    testGetActivityTrackerEventsWOptions();
-  }
-
-  // Test the postActivityTrackerEvents operation with a valid options model parameter
-  @Test
-  public void testPostActivityTrackerEventsWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"ok\": true}";
-    String postActivityTrackerEventsPath = "/_api/v2/user/activity_tracker/events";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the PostActivityTrackerEventsOptions model
-    PostActivityTrackerEventsOptions postActivityTrackerEventsOptionsModel = new PostActivityTrackerEventsOptions.Builder()
-      .types(java.util.Arrays.asList("management", "data"))
-      .build();
-
-    // Invoke postActivityTrackerEvents() with a valid options model and verify the result
-    Response<Ok> response = cloudantService.postActivityTrackerEvents(postActivityTrackerEventsOptionsModel).execute();
-    assertNotNull(response);
-    Ok responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, postActivityTrackerEventsPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the postActivityTrackerEvents operation with and without retries enabled
-  @Test
-  public void testPostActivityTrackerEventsWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testPostActivityTrackerEventsWOptions();
-
-    cloudantService.disableRetries();
-    testPostActivityTrackerEventsWOptions();
-  }
-
-  // Test the postActivityTrackerEvents operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testPostActivityTrackerEventsNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    cloudantService.postActivityTrackerEvents(null).execute();
-  }
-
-  // Test the getCapacityDatabasesInformation operation with a valid options model parameter
-  @Test
-  public void testGetCapacityDatabasesInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"current\": {\"databases\": {\"total\": 0}}}";
-    String getCapacityDatabasesInformationPath = "/_api/v2/user/capacity/databases";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetCapacityDatabasesInformationOptions model
-    GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptionsModel = new GetCapacityDatabasesInformationOptions();
-
-    // Invoke getCapacityDatabasesInformation() with a valid options model and verify the result
-    Response<CapacityDatabasesInformation> response = cloudantService.getCapacityDatabasesInformation(getCapacityDatabasesInformationOptionsModel).execute();
-    assertNotNull(response);
-    CapacityDatabasesInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getCapacityDatabasesInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getCapacityDatabasesInformation operation with and without retries enabled
-  @Test
-  public void testGetCapacityDatabasesInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetCapacityDatabasesInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetCapacityDatabasesInformationWOptions();
-  }
-
-  // Test the getCurrentDatabasesInformation operation with a valid options model parameter
-  @Test
-  public void testGetCurrentDatabasesInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"databases\": {\"total\": 0}}";
-    String getCurrentDatabasesInformationPath = "/_api/v2/user/current/databases";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetCurrentDatabasesInformationOptions model
-    GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptionsModel = new GetCurrentDatabasesInformationOptions();
-
-    // Invoke getCurrentDatabasesInformation() with a valid options model and verify the result
-    Response<CurrentDatabasesInformation> response = cloudantService.getCurrentDatabasesInformation(getCurrentDatabasesInformationOptionsModel).execute();
-    assertNotNull(response);
-    CurrentDatabasesInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getCurrentDatabasesInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getCurrentDatabasesInformation operation with and without retries enabled
-  @Test
-  public void testGetCurrentDatabasesInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetCurrentDatabasesInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetCurrentDatabasesInformationWOptions();
-  }
-
-  // Test the getCurrentThroughputInformation operation with a valid options model parameter
-  @Test
-  public void testGetCurrentThroughputInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"throughput\": {\"query\": 0, \"read\": 0, \"write\": 0}}";
-    String getCurrentThroughputInformationPath = "/_api/v2/user/current/throughput";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetCurrentThroughputInformationOptions model
-    GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptionsModel = new GetCurrentThroughputInformationOptions();
-
-    // Invoke getCurrentThroughputInformation() with a valid options model and verify the result
-    Response<CurrentThroughputInformation> response = cloudantService.getCurrentThroughputInformation(getCurrentThroughputInformationOptionsModel).execute();
-    assertNotNull(response);
-    CurrentThroughputInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getCurrentThroughputInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getCurrentThroughputInformation operation with and without retries enabled
-  @Test
-  public void testGetCurrentThroughputInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetCurrentThroughputInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetCurrentThroughputInformationWOptions();
-  }
-
-  // Test the getMembershipInformation operation with a valid options model parameter
-  @Test
-  public void testGetMembershipInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"all_nodes\": [\"allNodes\"], \"cluster_nodes\": [\"clusterNodes\"]}";
-    String getMembershipInformationPath = "/_membership";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetMembershipInformationOptions model
-    GetMembershipInformationOptions getMembershipInformationOptionsModel = new GetMembershipInformationOptions();
-
-    // Invoke getMembershipInformation() with a valid options model and verify the result
-    Response<MembershipInformation> response = cloudantService.getMembershipInformation(getMembershipInformationOptionsModel).execute();
-    assertNotNull(response);
-    MembershipInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getMembershipInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getMembershipInformation operation with and without retries enabled
-  @Test
-  public void testGetMembershipInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetMembershipInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetMembershipInformationWOptions();
-  }
-
-  // Test the getUpInformation operation with a valid options model parameter
-  @Test
-  public void testGetUpInformationWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"cluster\": \"cluster\", \"seeds\": {\"anyKey\": \"anyValue\"}, \"status\": \"maintenance_mode\"}";
-    String getUpInformationPath = "/_up";
-    server.enqueue(new MockResponse()
-      .setHeader("Content-type", "application/json")
-      .setResponseCode(200)
-      .setBody(mockResponseBody));
-
-    // Construct an instance of the GetUpInformationOptions model
-    GetUpInformationOptions getUpInformationOptionsModel = new GetUpInformationOptions();
-
-    // Invoke getUpInformation() with a valid options model and verify the result
-    Response<UpInformation> response = cloudantService.getUpInformation(getUpInformationOptionsModel).execute();
-    assertNotNull(response);
-    UpInformation responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getUpInformationPath);
-    // Verify that there is no query string
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNull(query);
-  }
-
-  // Test the getUpInformation operation with and without retries enabled
-  @Test
-  public void testGetUpInformationWRetries() throws Throwable {
-    cloudantService.enableRetries(4, 30);
-    testGetUpInformationWOptions();
-
-    cloudantService.disableRetries();
-    testGetUpInformationWOptions();
   }
 
   // Perform setup needed before each test method

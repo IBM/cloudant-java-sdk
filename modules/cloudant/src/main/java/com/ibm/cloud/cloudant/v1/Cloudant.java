@@ -84,6 +84,7 @@ import com.ibm.cloud.cloudant.v1.model.HeadReplicationDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadSchedulerDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadSchedulerJobOptions;
 import com.ibm.cloud.cloudant.v1.model.HeadUpInformationOptions;
+import com.ibm.cloud.cloudant.v1.model.IndexInfoResult;
 import com.ibm.cloud.cloudant.v1.model.IndexResult;
 import com.ibm.cloud.cloudant.v1.model.IndexesInformation;
 import com.ibm.cloud.cloudant.v1.model.MembershipInformation;
@@ -102,6 +103,7 @@ import com.ibm.cloud.cloudant.v1.model.PostDesignDocsQueriesOptions;
 import com.ibm.cloud.cloudant.v1.model.PostDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.PostExplainOptions;
 import com.ibm.cloud.cloudant.v1.model.PostFindOptions;
+import com.ibm.cloud.cloudant.v1.model.PostIndexInfoOptions;
 import com.ibm.cloud.cloudant.v1.model.PostIndexOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionAllDocsOptions;
 import com.ibm.cloud.cloudant.v1.model.PostPartitionExplainOptions;
@@ -1840,6 +1842,367 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     builder.bodyJson(contentJson);
     ResponseConverter<AllDocsQueriesResult> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<AllDocsQueriesResult>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve HTTP headers about whether the server is up.
+   *
+   * Retrieves the HTTP headers about whether the server is up.
+   *
+   * @param headUpInformationOptions the {@link HeadUpInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> headUpInformation(HeadUpInformationOptions headUpInformationOptions) {
+    RequestBuilder builder = RequestBuilder.head(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_up"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "headUpInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve HTTP headers about whether the server is up.
+   *
+   * Retrieves the HTTP headers about whether the server is up.
+   *
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> headUpInformation() {
+    return headUpInformation(null);
+  }
+
+  /**
+   * Retrieve list of running tasks.
+   *
+   * Lists running tasks, including the task type, name, status, and process ID. The result includes a JSON array of the
+   * currently running tasks, with each task described as a single object. Depending on the operation type, the set of
+   * response object fields might be different.
+   *
+   * @param getActiveTasksOptions the {@link GetActiveTasksOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link List}
+   */
+  public ServiceCall<List<ActiveTask>> getActiveTasks(GetActiveTasksOptions getActiveTasksOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_active_tasks"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getActiveTasks");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<List<ActiveTask>> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<List<ActiveTask>>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve list of running tasks.
+   *
+   * Lists running tasks, including the task type, name, status, and process ID. The result includes a JSON array of the
+   * currently running tasks, with each task described as a single object. Depending on the operation type, the set of
+   * response object fields might be different.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link List}
+   */
+  public ServiceCall<List<ActiveTask>> getActiveTasks() {
+    return getActiveTasks(null);
+  }
+
+  /**
+   * Retrieve activity tracking events information.
+   *
+   * Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
+   *
+   * @param getActivityTrackerEventsOptions the {@link GetActivityTrackerEventsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
+   */
+  public ServiceCall<ActivityTrackerEvents> getActivityTrackerEvents(GetActivityTrackerEventsOptions getActivityTrackerEventsOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getActivityTrackerEvents");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<ActivityTrackerEvents> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ActivityTrackerEvents>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve activity tracking events information.
+   *
+   * Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
+   */
+  public ServiceCall<ActivityTrackerEvents> getActivityTrackerEvents() {
+    return getActivityTrackerEvents(null);
+  }
+
+  /**
+   * Modify activity tracking events configuration.
+   *
+   * Configure event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
+   *
+   * @param postActivityTrackerEventsOptions the {@link PostActivityTrackerEventsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Ok}
+   */
+  public ServiceCall<Ok> postActivityTrackerEvents(PostActivityTrackerEventsOptions postActivityTrackerEventsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postActivityTrackerEventsOptions,
+      "postActivityTrackerEventsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postActivityTrackerEvents");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("types", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postActivityTrackerEventsOptions.types()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<Ok> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve maximum allowed database count.
+   *
+   * Retrieves the maximum number of databases currently allowed in the instance.
+   *
+   * @param getCapacityDatabasesInformationOptions the {@link GetCapacityDatabasesInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CapacityDatabasesInformation}
+   */
+  public ServiceCall<CapacityDatabasesInformation> getCapacityDatabasesInformation(GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/capacity/databases"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCapacityDatabasesInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<CapacityDatabasesInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CapacityDatabasesInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve maximum allowed database count.
+   *
+   * Retrieves the maximum number of databases currently allowed in the instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link CapacityDatabasesInformation}
+   */
+  public ServiceCall<CapacityDatabasesInformation> getCapacityDatabasesInformation() {
+    return getCapacityDatabasesInformation(null);
+  }
+
+  /**
+   * Retrieve current database count.
+   *
+   * Retrieves the current number of databases that exist in the instance.
+   *
+   * @param getCurrentDatabasesInformationOptions the {@link GetCurrentDatabasesInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CurrentDatabasesInformation}
+   */
+  public ServiceCall<CurrentDatabasesInformation> getCurrentDatabasesInformation(GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/current/databases"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCurrentDatabasesInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<CurrentDatabasesInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CurrentDatabasesInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve current database count.
+   *
+   * Retrieves the current number of databases that exist in the instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link CurrentDatabasesInformation}
+   */
+  public ServiceCall<CurrentDatabasesInformation> getCurrentDatabasesInformation() {
+    return getCurrentDatabasesInformation(null);
+  }
+
+  /**
+   * Retrieve the current provisioned throughput capacity consumption.
+   *
+   * View the current consumption of provisioned throughput capacity for an IBM Cloudant instance. The current
+   * consumption shows the quantities of reads, writes, and global queries conducted against the instance for a given
+   * second.
+   *
+   * @param getCurrentThroughputInformationOptions the {@link GetCurrentThroughputInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CurrentThroughputInformation}
+   */
+  public ServiceCall<CurrentThroughputInformation> getCurrentThroughputInformation(GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/current/throughput"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCurrentThroughputInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<CurrentThroughputInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CurrentThroughputInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve the current provisioned throughput capacity consumption.
+   *
+   * View the current consumption of provisioned throughput capacity for an IBM Cloudant instance. The current
+   * consumption shows the quantities of reads, writes, and global queries conducted against the instance for a given
+   * second.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link CurrentThroughputInformation}
+   */
+  public ServiceCall<CurrentThroughputInformation> getCurrentThroughputInformation() {
+    return getCurrentThroughputInformation(null);
+  }
+
+  /**
+   * Retrieve cluster membership information.
+   *
+   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
+   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
+   * cluster.
+   *
+   * @param getMembershipInformationOptions the {@link GetMembershipInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
+   */
+  public ServiceCall<MembershipInformation> getMembershipInformation(GetMembershipInformationOptions getMembershipInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_membership"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getMembershipInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<MembershipInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MembershipInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve cluster membership information.
+   *
+   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
+   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
+   * cluster.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
+   */
+  public ServiceCall<MembershipInformation> getMembershipInformation() {
+    return getMembershipInformation(null);
+  }
+
+  /**
+   * Retrieve information about whether the server is up.
+   *
+   * Confirms that the server is up, running, and ready to respond to requests. If the cluster is unavailable the
+   * endpoint returns a `503` response code.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
+   * @param getUpInformationOptions the {@link GetUpInformationOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
+   */
+  public ServiceCall<UpInformation> getUpInformation(GetUpInformationOptions getUpInformationOptions) {
+    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_up"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getUpInformation");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    ResponseConverter<UpInformation> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<UpInformation>() { }.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Retrieve information about whether the server is up.
+   *
+   * Confirms that the server is up, running, and ready to respond to requests. If the cluster is unavailable the
+   * endpoint returns a `503` response code.
+   *
+   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
+   */
+  public ServiceCall<UpInformation> getUpInformation() {
+    return getUpInformation(null);
+  }
+
+  /**
+   * Retrieve index status for all design documents.
+   *
+   * **EXPERIMENTAL** Returns index status grouped by type for all design documents in the database or a filtered
+   * subset. Results are grouped into `view_indexes` and `search_indexes`. Each entry identifies the index by its design
+   * document and, for search indexes, its `name`. Use a `keys` array in the request body to select design documents by
+   * ID. Use this endpoint to verify whether a database's indexes are fully built, for example before switching traffic
+   * to a replica.
+   *
+   * @param postIndexInfoOptions the {@link PostIndexInfoOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link IndexInfoResult}
+   */
+  public ServiceCall<IndexInfoResult> postIndexInfo(PostIndexInfoOptions postIndexInfoOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(postIndexInfoOptions,
+      "postIndexInfoOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("db", postIndexInfoOptions.db());
+    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/{db}/_index_info", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postIndexInfo");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    final JsonObject contentJson = new JsonObject();
+    if (postIndexInfoOptions.attEncodingInfo() != null) {
+      contentJson.addProperty("att_encoding_info", postIndexInfoOptions.attEncodingInfo());
+    }
+    if (postIndexInfoOptions.attachments() != null) {
+      contentJson.addProperty("attachments", postIndexInfoOptions.attachments());
+    }
+    if (postIndexInfoOptions.conflicts() != null) {
+      contentJson.addProperty("conflicts", postIndexInfoOptions.conflicts());
+    }
+    if (postIndexInfoOptions.descending() != null) {
+      contentJson.addProperty("descending", postIndexInfoOptions.descending());
+    }
+    if (postIndexInfoOptions.includeDocs() != null) {
+      contentJson.addProperty("include_docs", postIndexInfoOptions.includeDocs());
+    }
+    if (postIndexInfoOptions.inclusiveEnd() != null) {
+      contentJson.addProperty("inclusive_end", postIndexInfoOptions.inclusiveEnd());
+    }
+    if (postIndexInfoOptions.limit() != null) {
+      contentJson.addProperty("limit", postIndexInfoOptions.limit());
+    }
+    if (postIndexInfoOptions.skip() != null) {
+      contentJson.addProperty("skip", postIndexInfoOptions.skip());
+    }
+    if (postIndexInfoOptions.updateSeq() != null) {
+      contentJson.addProperty("update_seq", postIndexInfoOptions.updateSeq());
+    }
+    if (postIndexInfoOptions.endKey() != null) {
+      contentJson.addProperty("end_key", postIndexInfoOptions.endKey());
+    }
+    if (postIndexInfoOptions.key() != null) {
+      contentJson.addProperty("key", postIndexInfoOptions.key());
+    }
+    if (postIndexInfoOptions.keys() != null) {
+      contentJson.add("keys", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postIndexInfoOptions.keys()));
+    }
+    if (postIndexInfoOptions.startKey() != null) {
+      contentJson.addProperty("start_key", postIndexInfoOptions.startKey());
+    }
+    if (postIndexInfoOptions.type() != null) {
+      contentJson.add("type", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postIndexInfoOptions.type()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<IndexInfoResult> responseConverter =
+      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<IndexInfoResult>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -4304,295 +4667,6 @@ public class Cloudant extends com.ibm.cloud.cloudant.internal.CloudantBaseServic
     ResponseConverter<DocumentShardInfo> responseConverter =
       ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<DocumentShardInfo>() { }.getType());
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve HTTP headers about whether the server is up.
-   *
-   * Retrieves the HTTP headers about whether the server is up.
-   *
-   * @param headUpInformationOptions the {@link HeadUpInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> headUpInformation(HeadUpInformationOptions headUpInformationOptions) {
-    RequestBuilder builder = RequestBuilder.head(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_up"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "headUpInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve HTTP headers about whether the server is up.
-   *
-   * Retrieves the HTTP headers about whether the server is up.
-   *
-   * @return a {@link ServiceCall} with a void result
-   */
-  public ServiceCall<Void> headUpInformation() {
-    return headUpInformation(null);
-  }
-
-  /**
-   * Retrieve list of running tasks.
-   *
-   * Lists running tasks, including the task type, name, status, and process ID. The result includes a JSON array of the
-   * currently running tasks, with each task described as a single object. Depending on the operation type, the set of
-   * response object fields might be different.
-   *
-   * @param getActiveTasksOptions the {@link GetActiveTasksOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link List}
-   */
-  public ServiceCall<List<ActiveTask>> getActiveTasks(GetActiveTasksOptions getActiveTasksOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_active_tasks"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getActiveTasks");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<List<ActiveTask>> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<List<ActiveTask>>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve list of running tasks.
-   *
-   * Lists running tasks, including the task type, name, status, and process ID. The result includes a JSON array of the
-   * currently running tasks, with each task described as a single object. Depending on the operation type, the set of
-   * response object fields might be different.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link List}
-   */
-  public ServiceCall<List<ActiveTask>> getActiveTasks() {
-    return getActiveTasks(null);
-  }
-
-  /**
-   * Retrieve activity tracking events information.
-   *
-   * Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
-   *
-   * @param getActivityTrackerEventsOptions the {@link GetActivityTrackerEventsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
-   */
-  public ServiceCall<ActivityTrackerEvents> getActivityTrackerEvents(GetActivityTrackerEventsOptions getActivityTrackerEventsOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getActivityTrackerEvents");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<ActivityTrackerEvents> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<ActivityTrackerEvents>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve activity tracking events information.
-   *
-   * Check event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link ActivityTrackerEvents}
-   */
-  public ServiceCall<ActivityTrackerEvents> getActivityTrackerEvents() {
-    return getActivityTrackerEvents(null);
-  }
-
-  /**
-   * Modify activity tracking events configuration.
-   *
-   * Configure event types sent to IBM Cloud Activity Tracker Event Routing for the IBM Cloudant instance.
-   *
-   * @param postActivityTrackerEventsOptions the {@link PostActivityTrackerEventsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link Ok}
-   */
-  public ServiceCall<Ok> postActivityTrackerEvents(PostActivityTrackerEventsOptions postActivityTrackerEventsOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(postActivityTrackerEventsOptions,
-      "postActivityTrackerEventsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/activity_tracker/events"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "postActivityTrackerEvents");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    final JsonObject contentJson = new JsonObject();
-    contentJson.add("types", com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(postActivityTrackerEventsOptions.types()));
-    builder.bodyJson(contentJson);
-    ResponseConverter<Ok> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Ok>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve maximum allowed database count.
-   *
-   * Retrieves the maximum number of databases currently allowed in the instance.
-   *
-   * @param getCapacityDatabasesInformationOptions the {@link GetCapacityDatabasesInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link CapacityDatabasesInformation}
-   */
-  public ServiceCall<CapacityDatabasesInformation> getCapacityDatabasesInformation(GetCapacityDatabasesInformationOptions getCapacityDatabasesInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/capacity/databases"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCapacityDatabasesInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<CapacityDatabasesInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CapacityDatabasesInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve maximum allowed database count.
-   *
-   * Retrieves the maximum number of databases currently allowed in the instance.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link CapacityDatabasesInformation}
-   */
-  public ServiceCall<CapacityDatabasesInformation> getCapacityDatabasesInformation() {
-    return getCapacityDatabasesInformation(null);
-  }
-
-  /**
-   * Retrieve current database count.
-   *
-   * Retrieves the current number of databases that exist in the instance.
-   *
-   * @param getCurrentDatabasesInformationOptions the {@link GetCurrentDatabasesInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link CurrentDatabasesInformation}
-   */
-  public ServiceCall<CurrentDatabasesInformation> getCurrentDatabasesInformation(GetCurrentDatabasesInformationOptions getCurrentDatabasesInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/current/databases"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCurrentDatabasesInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<CurrentDatabasesInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CurrentDatabasesInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve current database count.
-   *
-   * Retrieves the current number of databases that exist in the instance.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link CurrentDatabasesInformation}
-   */
-  public ServiceCall<CurrentDatabasesInformation> getCurrentDatabasesInformation() {
-    return getCurrentDatabasesInformation(null);
-  }
-
-  /**
-   * Retrieve the current provisioned throughput capacity consumption.
-   *
-   * View the current consumption of provisioned throughput capacity for an IBM Cloudant instance. The current
-   * consumption shows the quantities of reads, writes, and global queries conducted against the instance for a given
-   * second.
-   *
-   * @param getCurrentThroughputInformationOptions the {@link GetCurrentThroughputInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link CurrentThroughputInformation}
-   */
-  public ServiceCall<CurrentThroughputInformation> getCurrentThroughputInformation(GetCurrentThroughputInformationOptions getCurrentThroughputInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_api/v2/user/current/throughput"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getCurrentThroughputInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<CurrentThroughputInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<CurrentThroughputInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve the current provisioned throughput capacity consumption.
-   *
-   * View the current consumption of provisioned throughput capacity for an IBM Cloudant instance. The current
-   * consumption shows the quantities of reads, writes, and global queries conducted against the instance for a given
-   * second.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link CurrentThroughputInformation}
-   */
-  public ServiceCall<CurrentThroughputInformation> getCurrentThroughputInformation() {
-    return getCurrentThroughputInformation(null);
-  }
-
-  /**
-   * Retrieve cluster membership information.
-   *
-   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
-   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
-   * cluster.
-   *
-   * @param getMembershipInformationOptions the {@link GetMembershipInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
-   */
-  public ServiceCall<MembershipInformation> getMembershipInformation(GetMembershipInformationOptions getMembershipInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_membership"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getMembershipInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<MembershipInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<MembershipInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve cluster membership information.
-   *
-   * Displays the nodes that are part of the cluster as `cluster_nodes`. The field, `all_nodes`, displays all nodes this
-   * node knows about, including the ones that are part of the cluster. This endpoint is useful when you set up a
-   * cluster.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link MembershipInformation}
-   */
-  public ServiceCall<MembershipInformation> getMembershipInformation() {
-    return getMembershipInformation(null);
-  }
-
-  /**
-   * Retrieve information about whether the server is up.
-   *
-   * Confirms that the server is up, running, and ready to respond to requests. If the cluster is unavailable the
-   * endpoint returns a `503` response code.
-   *
-   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-   *
-   * @param getUpInformationOptions the {@link GetUpInformationOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
-   */
-  public ServiceCall<UpInformation> getUpInformation(GetUpInformationOptions getUpInformationOptions) {
-    RequestBuilder builder = RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/_up"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getUpInformation");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    ResponseConverter<UpInformation> responseConverter =
-      ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<UpInformation>() { }.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Retrieve information about whether the server is up.
-   *
-   * Confirms that the server is up, running, and ready to respond to requests. If the cluster is unavailable the
-   * endpoint returns a `503` response code.
-   *
-   * **Tip:**  The authentication for this endpoint is only enforced when using IAM.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link UpInformation}
-   */
-  public ServiceCall<UpInformation> getUpInformation() {
-    return getUpInformation(null);
   }
 
 }

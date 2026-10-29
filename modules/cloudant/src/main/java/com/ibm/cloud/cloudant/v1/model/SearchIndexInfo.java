@@ -32,6 +32,8 @@ public class SearchIndexInfo extends GenericModel {
   @SerializedName("pending_seq")
   protected Long pendingSeq;
   protected String signature;
+  @SerializedName("updates_pending")
+  protected UpdatesPending updatesPending;
 
   protected SearchIndexInfo() { }
 
@@ -99,6 +101,17 @@ public class SearchIndexInfo extends GenericModel {
    */
   public String getSignature() {
     return signature;
+  }
+
+  /**
+   * Gets the updatesPending.
+   *
+   * Schema for information about pending updates for an index, calculated across all available copies of all shards.
+   *
+   * @return the updatesPending
+   */
+  public UpdatesPending getUpdatesPending() {
+    return updatesPending;
   }
 }
 
