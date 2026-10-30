@@ -209,9 +209,7 @@ pipeline {
         beforeAgent true
         allOf {
           buildingTag()
-          anyOf {
-            tag pattern: /${env.SVRE_PRE_RELEASE_TAG}/, comparator: "REGEXP"
-          }
+          tag pattern: /${env.SVRE_PRE_RELEASE_TAG}/, comparator: "REGEXP"
         }
       }
       steps {
@@ -219,6 +217,10 @@ pipeline {
         gitsh('github.com') {
           publishDocs()
         }
+        publishGitHubRelease(
+          tag: env.TAG_NAME,
+          assets: getReleaseAssets(env.TAG_NAME.replaceFirst(/^v(?=${env.SVRE_RELEASE})/,''))
+        )
       }
     }
   }
@@ -238,6 +240,7 @@ def artifactUrl
 def moduleId
 def buildType
 def scanCode
+def getReleaseAssets
 
 void defaultInit() {
   // Default to using bump-my-version
@@ -317,6 +320,10 @@ void defaultInit() {
     withSonarQubeEnv(installationName: 'SonarQubeServer') {
       sh "${scannerHome}/bin/sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=cloudant-${libName}-sdk -Dsonar.exclusions=examples/**"
     }
+  }
+
+  getReleaseAssets = { tagVersion ->
+    return []
   }
 }
 
