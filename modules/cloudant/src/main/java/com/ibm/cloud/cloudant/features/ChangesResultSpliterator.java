@@ -54,7 +54,7 @@ class ChangesResultSpliterator extends AbstractSpliterator<ChangesResult> {
     private static final ChangesResult EMPTY_CHANGES_RESULT = new ChangesResult() {
         public java.util.List<com.ibm.cloud.cloudant.v1.model.ChangesResultItem> getResults() {
             return Collections.emptyList();
-        };
+        }
     };
 
     // Retry backoff constants
