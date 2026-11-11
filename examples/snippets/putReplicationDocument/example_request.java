@@ -4,7 +4,8 @@ import com.ibm.cloud.cloudant.v1.model.DocumentResult;
 import com.ibm.cloud.cloudant.v1.model.PutReplicationDocumentOptions;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabase;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuth;
-import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIam;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBM;
+import com.ibm.cloud.cloudant.v1.model.ReplicationDatabaseAuthIBMIam;
 import com.ibm.cloud.cloudant.v1.model.ReplicationDocument;
 // section: code
 Cloudant service = Cloudant.newInstance();
@@ -13,13 +14,18 @@ ReplicationDatabase sourceDb = new ReplicationDatabase.Builder()
     .url("https://~replace-with-source-host~.cloudantnosqldb.appdomain.cloud/animaldb")
     .build();
 
-ReplicationDatabaseAuthIam targetAuthIam =
-    new ReplicationDatabaseAuthIam.Builder()
+ReplicationDatabaseAuthIBMIam targetAuthIbmIam =
+    new ReplicationDatabaseAuthIBMIam.Builder()
         .apiKey("a1b2c3d4e5f6f1g4h7j3k6l9m2p5q8s1t4v7x0z3") //use your own IAM API key
         .build();
 
+ReplicationDatabaseAuthIBM targetAuthIbm =
+    new ReplicationDatabaseAuthIBM.Builder()
+        .iam(targetAuthIbmIam)
+        .build();
+
 ReplicationDatabaseAuth targetAuth = new ReplicationDatabaseAuth.Builder()
-    .iam(targetAuthIam)
+    .ibm(targetAuthIbm)
     .build();
 
 ReplicationDatabase targetDb = new ReplicationDatabase.Builder()
