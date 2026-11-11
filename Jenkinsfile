@@ -346,7 +346,7 @@ void applyCustomizations() {
   // Customize doVersionBump with maven version updates
   doVersionBump = { isDevRelease, newVersion ->
     // Bump the poms first
-    sh "mvn versions:set -DnewVersion=${newVersion} -DgenerateBackupPoms=false"
+    sh "mvn --settings build/jenkins.settings.xml versions:set -DnewVersion=${newVersion} -DgenerateBackupPoms=false"
     sh 'git add -u'
     // Then bump everything else and commit (note we need to allow dirty because of the updated poms)
     originalDoVersionBump(isDevRelease, newVersion, true)
