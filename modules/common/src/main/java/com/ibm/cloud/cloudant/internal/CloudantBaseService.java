@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2020, 2024. All Rights Reserved.
+ * © Copyright IBM Corporation 2020, 2026. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 /**
  * This class provides customizations to the generated Cloudant class.
@@ -39,6 +40,12 @@ import java.util.function.Consumer;
  * class to the SDK core BaseService.
  */
 public abstract class CloudantBaseService extends BaseService {
+
+    private static final Logger LOGGER = Logger.getLogger(CloudantBaseService.class.getName());
+    private static final String GEN2_KNOWN_ISSUES_URL =
+            "https://github.com/IBM/cloudant-java-sdk/blob/main/KNOWN_ISSUES.md#cloudant-gen-2-compatibility";
+    static final String CLOUDANT_SDK_GEN1_ERRORS_PROP = "com.ibm.cloud.cloudant.sdk.gen1.errors";
+    static final String CLOUDANT_SDK_GEN1_ERRORS_ENV = "CLOUDANT_SDK_GEN1_ERRORS";
 
     private static Interceptor errorInterceptor = new ErrorTransformInterceptor();
 
@@ -146,6 +153,23 @@ public abstract class CloudantBaseService extends BaseService {
                 "headAttachment",
                 "putAttachment"
             )
+        ),
+        GEN1_ONLY(
+            0,
+            "",
+            Arrays.asList(
+                "getActivityTrackerEvents",
+                "getCapacityDatabasesInformation",
+                "getCapacityThroughputInformation",
+                "getCorsInformation",
+                "getCurrentDatabasesInformation",
+                "getCurrentThroughputInformation",
+                "postActivityTrackerEvents",
+                "postApiKeys",
+                "putCapacityThroughputConfiguration",
+                "putCloudantSecurityConfiguration",
+                "putCorsConfiguration"
+            )
         );
 
         private static final EnumSet<ValidationRule> NONE = EnumSet.noneOf(ValidationRule.class);
@@ -159,6 +183,12 @@ public abstract class CloudantBaseService extends BaseService {
             this.operationIds = operationIds;
         }
     }
+
+    private static boolean isGen1ErrorEnabled() {
+        return Boolean.parseBoolean(System.getProperty(CLOUDANT_SDK_GEN1_ERRORS_PROP,
+                System.getenv(CLOUDANT_SDK_GEN1_ERRORS_ENV)));
+    }
+
     static final Map<String, EnumSet<ValidationRule>> rulesByOperation = new TreeMap<>();
     static {
         for (ValidationRule rule : ValidationRule.values()) {
@@ -193,13 +223,27 @@ public abstract class CloudantBaseService extends BaseService {
             }
             // Check each validation rule that applies to the operation.
             for (ValidationRule rule : rulesByOperation.getOrDefault(operationId, ValidationRule.NONE)) {
-                // Allow for any path segments that might exist in e.g. the URL of a proxy by offseting from the service URL index.
-                int pathSegmentIndex = serviceUrlPathSegmentSize + rule.pathSegmentIndex;
-                if (requestUrlPathSegments.size() > pathSegmentIndex) {
-                    String segmentToValidate = requestUrlPathSegments.get(pathSegmentIndex);
-                    if (segmentToValidate.startsWith("_")) {
-                        throw new IllegalArgumentException(String.format("%s %s starts with the invalid _ character.", rule.errorParameterName, segmentToValidate));
-                    }
+                switch (rule) {
+                    case GEN1_ONLY:
+                        String message = String.format(
+                                "The operation %s is unavailable for Gen 2 Cloudant plans. See %s for more information.",
+                                operationId,
+                                GEN2_KNOWN_ISSUES_URL);
+                        LOGGER.warning(message);
+                        if (isGen1ErrorEnabled()) {
+                            throw new UnsupportedOperationException(message);
+                        }
+                        break;
+                    default:
+                        // Allow for any path segments that might exist in e.g. the URL of a proxy by offseting from the service URL index.
+                        int pathSegmentIndex = serviceUrlPathSegmentSize + rule.pathSegmentIndex;
+                        if (requestUrlPathSegments.size() > pathSegmentIndex) {
+                            String segmentToValidate = requestUrlPathSegments.get(pathSegmentIndex);
+                            if (segmentToValidate.startsWith("_")) {
+                                throw new IllegalArgumentException(String.format("%s %s starts with the invalid _ character.", rule.errorParameterName, segmentToValidate));
+                            }
+                        }
+                        break;
                 }
             }
         }
