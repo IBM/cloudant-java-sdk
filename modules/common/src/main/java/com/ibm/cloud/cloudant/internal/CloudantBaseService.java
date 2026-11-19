@@ -32,6 +32,8 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * This class provides customizations to the generated Cloudant class.
@@ -39,6 +41,11 @@ import java.util.function.Consumer;
  * class to the SDK core BaseService.
  */
 public abstract class CloudantBaseService extends BaseService {
+
+    private static final Logger LOGGER = Logger.getLogger(CloudantBaseService.class.getName());
+    private static final Pattern GEN1_ONLY_PATH = Pattern.compile("/_api/v2(/|$)");
+    private static final String GEN2_KNOWN_ISSUES_URL =
+            "https://github.com/IBM/cloudant-java-sdk/blob/main/KNOWN_ISSUES.md#cloudant-gen-2-compatibility";
 
     private static Interceptor errorInterceptor = new ErrorTransformInterceptor();
 
@@ -185,6 +192,14 @@ public abstract class CloudantBaseService extends BaseService {
                     break;
                 }
             }
+        }
+        String path = request.url().encodedPath();
+        if (GEN1_ONLY_PATH.matcher(path).find()) {
+            String target = (operationId != null && !operationId.isEmpty()) ? operationId : path;
+            LOGGER.warning(String.format(
+                    "The operation %s is unavailable for Gen 2 Cloudant plans. See %s for more information.",
+                    target,
+                    GEN2_KNOWN_ISSUES_URL));
         }
         if (operationId != null) {
             List<String> requestUrlPathSegments = request.url().pathSegments();
