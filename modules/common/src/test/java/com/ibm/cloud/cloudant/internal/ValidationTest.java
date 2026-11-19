@@ -1,5 +1,5 @@
 /**
- * © Copyright IBM Corporation 2021, 2022. All Rights Reserved.
+ * © Copyright IBM Corporation 2021, 2026. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import com.ibm.cloud.cloudant.common.SdkCommon;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -93,5 +94,71 @@ public class ValidationTest {
         };
         cloudantBaseService.setServiceUrl("https://cloudant.example/");
         assertEquals(cloudantBaseService.getServiceUrl(), "https://cloudant.example");
+    }
+
+    @DataProvider(name = "gen1Operations")
+    public Object[][] gen1Operations() {
+        return new Object[][] {
+            {"getActivityTrackerEvents"},
+            {"getCapacityDatabasesInformation"},
+            {"getCapacityThroughputInformation"},
+            {"getCorsInformation"},
+            {"getCurrentDatabasesInformation"},
+            {"getCurrentThroughputInformation"},
+            {"postActivityTrackerEvents"},
+            {"postApiKeys"},
+            {"putCapacityThroughputConfiguration"},
+            {"putCloudantSecurityConfiguration"},
+            {"putCorsConfiguration"}
+        };
+    }
+
+    @Test(dataProvider = "gen1Operations", expectedExceptions = UnsupportedOperationException.class, expectedExceptionsMessageRegExp = "The operation .+ is unavailable for Gen 2 Cloudant plans\\..+")
+    void validatesGen1Operation(String operationId) {
+        System.setProperty(CloudantBaseService.CLOUDANT_SDK_GEN1_ERRORS_PROP, "true");
+        try {
+            CloudantBaseService cloudantBaseService = new CloudantBaseService(null, new NoAuthAuthenticator()) {
+            };
+            cloudantBaseService.setServiceUrl("https://cloudant.example");
+            Request.Builder rb = new Request.Builder().url(cloudantBaseService.getServiceUrl() + "/test").get();
+            Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", operationId);
+            for (Entry<String, String> header : sdkHeaders.entrySet()) {
+                rb.header(header.getKey(), header.getValue());
+            }
+            cloudantBaseService.createServiceCall(rb.build(), null);
+        } finally {
+            System.clearProperty(CloudantBaseService.CLOUDANT_SDK_GEN1_ERRORS_PROP);
+        }
+    }
+
+    @Test(dataProvider = "gen1Operations")
+    void validatesGen1OperationNoErrorByDefault(String operationId) {
+        CloudantBaseService cloudantBaseService = new CloudantBaseService(null, new NoAuthAuthenticator()) {
+        };
+        cloudantBaseService.setServiceUrl("https://cloudant.example");
+        Request.Builder rb = new Request.Builder().url(cloudantBaseService.getServiceUrl() + "/test").get();
+        Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", operationId);
+        for (Entry<String, String> header : sdkHeaders.entrySet()) {
+            rb.header(header.getKey(), header.getValue());
+        }
+        cloudantBaseService.createServiceCall(rb.build(), null);
+    }
+
+    @Test
+    void validatesGen2OperationNoErrorWhenGen1ErrorsEnabled() {
+        System.setProperty(CloudantBaseService.CLOUDANT_SDK_GEN1_ERRORS_PROP, "true");
+        try {
+            CloudantBaseService cloudantBaseService = new CloudantBaseService(null, new NoAuthAuthenticator()) {
+            };
+            cloudantBaseService.setServiceUrl("https://cloudant.example");
+            Request.Builder rb = new Request.Builder().url(cloudantBaseService.getServiceUrl() + "/test").get();
+            Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("cloudant", "v1", "getSessionInformation");
+            for (Entry<String, String> header : sdkHeaders.entrySet()) {
+                rb.header(header.getKey(), header.getValue());
+            }
+            cloudantBaseService.createServiceCall(rb.build(), null);
+        } finally {
+            System.clearProperty(CloudantBaseService.CLOUDANT_SDK_GEN1_ERRORS_PROP);
+        }
     }
 }
