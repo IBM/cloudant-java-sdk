@@ -38,7 +38,7 @@
         <maven-buildnumber-plugin-version>3.4.0</maven-buildnumber-plugin-version>
         <mockito-version>5.24.0</mockito-version>
         <slf4j-version>2.0.20</slf4j-version>
-        <sonar-scanner-version>5.8.0.7211</sonar-scanner-version>
+        <sonar-scanner-version>5.9.0.7382</sonar-scanner-version>
 
         <!-- Set UTF-8 encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
