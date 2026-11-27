@@ -2006,6 +2006,62 @@ System.out.println(response);
 // This example will fail if `getUserByName` index doesn't exist. To create the index, see [Create a new index on a database.](#postindex)
 ```
 
+## postIndexInfo
+
+_POST `/{db}/_index_info`_
+
+### [Example request](snippets/postIndexInfo/example_request.java)
+
+[embedmd]:# (snippets/postIndexInfo/example_request.java)
+```java
+// section: code imports
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.IndexInfoResult;
+import com.ibm.cloud.cloudant.v1.model.PostIndexInfoOptions;
+// section: code
+Cloudant service = Cloudant.newInstance();
+
+PostIndexInfoOptions indexInfoOptions =
+    new PostIndexInfoOptions.Builder()
+        .db("recipes")
+        .build();
+
+IndexInfoResult response =
+    service.postIndexInfo(indexInfoOptions).execute()
+        .getResult();
+
+System.out.println(response);
+```
+
+### [Example request with type and keys](snippets/postIndexInfo/example_request_with_type_and_keys.java)
+
+[embedmd]:# (snippets/postIndexInfo/example_request_with_type_and_keys.java)
+```java
+// section: code imports
+import com.ibm.cloud.cloudant.v1.Cloudant;
+import com.ibm.cloud.cloudant.v1.model.IndexInfoResult;
+import com.ibm.cloud.cloudant.v1.model.PostIndexInfoOptions;
+
+import java.util.Arrays;
+// section: code
+Cloudant service = Cloudant.newInstance();
+
+PostIndexInfoOptions indexInfoOptions =
+    new PostIndexInfoOptions.Builder()
+        .db("recipes")
+        .keys(Arrays.asList("_design/cookbook"))
+        .type(Arrays.asList("search"))
+        .build();
+
+IndexInfoResult response =
+    service.postIndexInfo(indexInfoOptions).execute()
+        .getResult();
+
+System.out.println(response);
+// section: markdown
+// This example requires the `cookbook` design document to exist with a Cloudant Search index. To create the design document, see [Create or modify a design document.](#putdesigndocument)
+```
+
 ## deleteLocalDocument
 
 _DELETE `/{db}/_local/{doc_id}`_
